@@ -1,7 +1,4 @@
-import "./main.scss"
-import "./phaser.js"
-import "./game.js"
 
 
-
-
+import './main.scss';
+import './game.js';
