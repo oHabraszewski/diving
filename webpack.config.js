@@ -94,7 +94,7 @@ const cssLoader = {
   ],
 };
 
-const rules = [babelLoader, fileLoader, cssLoader];
+const rules = [/*babelLoader,*/ fileLoader, cssLoader];
 
 // =========================================================================
 // PLUGINS

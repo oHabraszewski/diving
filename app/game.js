@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-var config = {
+let config = {
   type: Phaser.AUTO,
   width: 1920,
   height: 1080,
@@ -26,6 +26,7 @@ var atmosfera;
 function preload() {
   this.load.image('nurek', './assets/nurek.png');
 }
+
 
 function create() {
   var woda = this.add.rectangle(0, 101, 800, 600, 0x2020c0);

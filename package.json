@@ -33,7 +33,6 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "phaser": "^3.24.1",
-    "yarn": "^1.22.10"
+    "phaser": "^3.24.1"
   }
 }
