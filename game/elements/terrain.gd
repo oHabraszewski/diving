@@ -202,7 +202,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	# TODO drawing points according to segments
 	while(current_segment != end_segment):
 		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(current_segment.y*segment_size.y+(segment_size.y / 2))),Vector2(0,0),Vector2(0,0))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(current_segment.y*segment_size.y+(segment_size.y / 2))),  Vector2(current_segment.x*segment_size.x+segment_size.x,-(current_segment.y*segment_size.y+(segment_size.y / 2))) - Vector2(0, current_segment.y * segment_size.y + segment_size.y),Vector2(0,0))
 			current_segment.x += 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
 			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x, -(current_segment.y*segment_size.y + (segment_size.y / 2))),Vector2(0,0),Vector2(0,0))
