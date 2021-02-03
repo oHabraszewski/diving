@@ -20,7 +20,7 @@ wypakować zipa gdziekolwiek i odpalić nw co bo nie mam mac'a XD
 [Link do dokumetacji](https://docs.godotengine.org/en/stable/)
 
 
-###żeby otworzyć projekt:
+### Żeby otworzyć projekt:
 1. pobrać repozytorium z githuba'a (używając parametru "-b godot_version")
 1. pobrać godot'a z liku powyżej
 1. odpalić go
