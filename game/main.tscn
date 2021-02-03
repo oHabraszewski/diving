@@ -204,4 +204,7 @@ __meta__ = {
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain2" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
+<<<<<<< HEAD
+>>>>>>> parent of 0e99cbc... porządki
+=======
 >>>>>>> parent of 0e99cbc... porządki
