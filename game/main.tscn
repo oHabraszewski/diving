@@ -56,7 +56,6 @@ texture = SubResource( 2 )
 
 [node name="RigidBody2D" parent="Gra" instance=ExtResource( 3 )]
 mode = 2
-gravity_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Gra/RigidBody2D"]
 current = true
@@ -162,8 +161,47 @@ text = "tesselate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+<<<<<<< HEAD
 [connection signal="value_changed" from="Interface/Control/HSlider4" to="Gra/terrain" method="_on_HSlider4_value_changed"]
 [connection signal="value_changed" from="Interface/Control/HSlider3" to="Gra/terrain" method="_on_HSlider3_value_changed"]
 [connection signal="value_changed" from="Interface/Control/HSlider2" to="Gra/terrain" method="_on_HSlider2_value_changed"]
 [connection signal="value_changed" from="Interface/Control/HSlider" to="Gra/terrain" method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="Interface/Control/Button" to="Gra/terrain" method="_on_Button_pressed"]
+=======
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer3/Control"]
+visible = false
+anchor_left = -7.825
+anchor_top = -6.725
+anchor_right = 12.503
+anchor_bottom = 6.721
+margin_right = 0.000366211
+margin_bottom = -1.52588e-05
+theme = ExtResource( 4 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider2" type="HSlider" parent="CanvasLayer3/Control/PanelContainer"]
+margin_left = 371.0
+margin_right = 813.12
+margin_bottom = 16.0
+theme = ExtResource( 4 )
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer3/Control/PanelContainer"]
+margin_left = 371.0
+margin_right = 813.12
+margin_bottom = 16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="value_changed" from="CanvasLayer/Control/HSlider4" to="CanvasLayer2/terrain" method="_on_HSlider4_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/HSlider3" to="CanvasLayer2/terrain" method="_on_HSlider3_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/HSlider2" to="CanvasLayer2/terrain" method="_on_HSlider2_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="CanvasLayer2/terrain" method="_on_HSlider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain2" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
+>>>>>>> parent of 0e99cbc... porządki
