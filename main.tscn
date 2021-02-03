@@ -5,12 +5,12 @@
 [ext_resource path="res://elements/nurek.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=4]
 
-[sub_resource type="OpenSimplexNoise" id=3]
+[sub_resource type="OpenSimplexNoise" id=1]
 
 [sub_resource type="NoiseTexture" id=2]
-noise = SubResource( 3 )
+noise = SubResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.0862745, 0.32549, 0.607843, 1 )
 border_width_left = 371
 border_color = Color( 0.0901961, 0.2, 0.705882, 1 )
@@ -75,7 +75,6 @@ smoothing_enabled = true
 layer = 3
 
 [node name="Control" type="Control" parent="CanvasLayer"]
-visible = false
 margin_left = 506.428
 margin_top = 293.668
 margin_right = 546.428
@@ -176,6 +175,7 @@ __meta__ = {
 layer = 4
 
 [node name="Control" type="Control" parent="CanvasLayer3"]
+visible = false
 margin_left = 506.428
 margin_top = 293.668
 margin_right = 546.428
@@ -203,7 +203,7 @@ anchor_bottom = 6.721
 margin_right = 0.000366211
 margin_bottom = -1.52588e-05
 theme = ExtResource( 4 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

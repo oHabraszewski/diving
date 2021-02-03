@@ -89,7 +89,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 #			print(direction_stucture_organizer[x][y].m_direction)
 #
 
-	var current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)))
+	var current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
 	print(current_segment)
 	
 	var end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
@@ -192,12 +192,13 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				printraw("[     ]")
 		print()
-	current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)))
+	current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
 	print(current_segment)
 	
 	end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
 	print(end_segment)
-	
+	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(start_height)),Vector2(0,0),Vector2(0,0))
+	current_segment.x += 1
 	# TODO drawing points according to segments
 	while(current_segment != end_segment):
 		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
@@ -212,6 +213,8 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
 			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), -(current_segment.y * segment_size.y)),Vector2(0,0),Vector2(0,0))
 			current_segment.y += 1
+		if current_segment == end_segment:
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(end_height)),Vector2(0,0),Vector2(0,0))
 		pass
 	#points added (fucking finally :-)
 	
@@ -240,7 +243,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 
 
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 230, 32, 12, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 32, 12, Vector2(100,100))
 	pass # Replace with function body.
 
 
