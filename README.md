@@ -2,7 +2,7 @@
 [Strona Główna slinika](https://godotengine.org/)
 
 ## do pobrania:
-#Windows
+# Windows
 [kilknij any pobrać](https://downloads.tuxfamily.org/godotengine/3.2.3/Godot_v3.2.3-stable_win64.exe.zip)
 wypakować zipa gdziekolwiek i odpalić .exe 
 
