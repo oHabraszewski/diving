@@ -20,3 +20,11 @@ wypakować zipa gdziekolwiek i odpalić nw co bo nie mam mac'a XD
 [Link do dokumetacji](https://docs.godotengine.org/en/stable/)
 
 
+###żeby otworzyć projekt:
+1. pobrać repozytorium z githuba'a (używając parametru "-b godot_version")
+1. pobrać godot'a z liku powyżej
+1. odpalić go
+1. po uruchomienu godot'a wybrać opcję importuj (po prawej stronie) i wybrać plik "project.godot", lub jeśli ma się pobranego zip'a z githuba po prostu wybrać zip'a 
+1. po wybraniu odpowiedniego pliku pokaże się zielony ✅, co oznacza, że pik jest poprawny. Należy kilknąć "Importuj i edytuj"
+1. projekt otworzy się w edytorze.
+1. można go przetestować naciskając na klawiaturze F5
