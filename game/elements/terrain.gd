@@ -15,7 +15,7 @@ class GeneratorSegment:
 # var a = 2
 # var b = "text"
 export(float) var length = 0.0
-
+export var points_to_draw = []
 
 var terrain_size = Vector2(1000,800)
 var test_seed = 1
@@ -197,24 +197,32 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
 	print(end_segment)
-	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(start_height)),Vector2(0,0),Vector2(0,0))
+	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, start_height),Vector2(0,0),Vector2(0,0))
 	current_segment.x += 1
 	# TODO drawing points according to segments
 	while(current_segment != end_segment):
 		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(current_segment.y*segment_size.y+(segment_size.y / 2))),  Vector2(current_segment.x*segment_size.x+segment_size.x,-(current_segment.y*segment_size.y+(segment_size.y / 2))) - Vector2(0, current_segment.y * segment_size.y + segment_size.y),Vector2(0,0))
+			var ctrl_point = Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)), ctrl_point,  -ctrl_point)
+			points_to_draw.append(Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)))
 			current_segment.x += 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x, -(current_segment.y*segment_size.y + (segment_size.y / 2))),Vector2(0,0),Vector2(0,0))
+			var ctrl_point = Vector2(current_segment.x*segment_size.x, current_segment.y*segment_size.y + (segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x, current_segment.y*segment_size.y + (segment_size.y / 2)), ctrl_point, -ctrl_point)
+			points_to_draw.append(Vector2(current_segment.x*segment_size.x, current_segment.y*segment_size.y + (segment_size.y / 2)))
 			current_segment.x -= 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), -(current_segment.y * segment_size.y+segment_size.y)),Vector2(0,0),Vector2(0,0))
+			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y+segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y+segment_size.y), ctrl_point, -ctrl_point)
+			points_to_draw.append(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y+segment_size.y))
 			current_segment.y -= 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), -(current_segment.y * segment_size.y)),Vector2(0,0),Vector2(0,0))
+			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y), ctrl_point, -ctrl_point)
+			points_to_draw.append(Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y))
 			current_segment.y += 1
 		if current_segment == end_segment:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,-(end_height)),Vector2(0,0),Vector2(0,0))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, end_height),Vector2(0,0),Vector2(0,0))
 		pass
 	#points added (fucking finally :-)
 	
@@ -240,10 +248,10 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 # Vector2(1200, 1350), Vector2(1250, 1400), 
 #Vector2(1300, 1250), Vector2(1400, 1250), Vector2(1450, 1300), Vector2(1500, 1150), Vector2(1550, 1100), Vector2(1550, 1200), Vector2(1500, 0)]
 
-
-
+	
+	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 32, 12, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 10, 10, Vector2(100,100))
 	pass # Replace with function body.
 
 

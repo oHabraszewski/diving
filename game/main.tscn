@@ -26,7 +26,7 @@ layer = 2
 follow_viewport_enable = true
 
 [node name="terrain" parent="CanvasLayer2" instance=ExtResource( 1 )]
-position = Vector2( 179.962, 103.344 )
+position = Vector2( 179.962, 300 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer2/terrain"]
 scale = Vector2( 0.0187842, 0.0148012 )
@@ -45,7 +45,8 @@ scale = Vector2( 0.019, 0.5 )
 texture = SubResource( 2 )
 
 [node name="terrain2" parent="CanvasLayer2" instance=ExtResource( 1 )]
-position = Vector2( 921.586, 111.82 )
+visible = false
+position = Vector2( 921.586, 300 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer2/terrain2"]
 scale = Vector2( 0.0187842, 0.0148012 )
@@ -226,6 +227,6 @@ __meta__ = {
 [connection signal="value_changed" from="CanvasLayer/Control/HSlider2" to="CanvasLayer2/terrain" method="_on_HSlider2_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="CanvasLayer2/terrain" method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
-[connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain2" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
