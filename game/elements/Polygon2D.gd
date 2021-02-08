@@ -11,13 +11,11 @@ func _draw():
 			draw_line(poly[i-1] , poly[i], OutLine , Width)
 		draw_line(poly[poly.size() - 1] , poly[0], OutLine , Width)
 		
-		
+		for i in $"..".red_p_t_d:
+			draw_circle(i, 6, Color(1,0,0))
+#			print(i)
 		for i in $"..".points_to_draw:
 			draw_circle(i, 4, Color(0,1,0))
-		
-		for i in $"..".inner_points_to_draw:
-			draw_circle(i, 4, Color(0,0,1))
-			print(i)
 
 		
 		for i in range(10):

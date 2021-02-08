@@ -21,4 +21,6 @@ func _process(delta):
 		self.linear_velocity.x = -240
 	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
 		self.linear_velocity.x = 240
+	if Input.is_action_pressed("move_stop"):
+		self.sleeping = true
 	pass

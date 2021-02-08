@@ -27,6 +27,7 @@ follow_viewport_enable = true
 
 [node name="terrain" parent="CanvasLayer2" instance=ExtResource( 1 )]
 position = Vector2( 179.962, 300 )
+scale = Vector2( 1, -1 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer2/terrain"]
 scale = Vector2( 0.0187842, 0.0148012 )
@@ -66,6 +67,7 @@ texture = SubResource( 2 )
 
 [node name="RigidBody2D" parent="CanvasLayer2" instance=ExtResource( 3 )]
 mode = 2
+sleeping = true
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer2/RigidBody2D"]
 current = true
