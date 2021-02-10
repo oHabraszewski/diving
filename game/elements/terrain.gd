@@ -21,6 +21,21 @@ export(PoolVector2Array) var red_p_t_d = []
 var terrain_size = Vector2(1000,800)
 var test_seed = 1
 var messyness = 0
+func halt(direction_stucture_organizer, size_x, size_y):
+	for y in range(size_y):
+		for x in range(size_x):
+			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
+				printraw("[  UP ]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+				printraw("[ DOWN]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+				printraw("[RIGHT]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+				printraw("[ LEFT]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+				printraw("[     ]")
+		print()
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -30,51 +45,55 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func generate_terrain_v2(generation_seed, initial_array_of_points):
-	var terrain_curve = Curve2D.new()
-	var rng = RandomNumberGenerator.new()
-	rng.set_seed(generation_seed)
-	for i in range(initial_array_of_points.size()):
-		print(rng.randf_range(-messyness, messyness))
-		#terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness),rng.randi_range(-messyness,messyness)), Vector2(rng.randi_range(-messyness,messyness),rng.randi_range(-messyness,messyness)))
-		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)))
-	$Polygon2D.set("polygon", terrain_curve.tessellate())
-	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	
-	pass
-
-func generate_terrain_v3(generation_seed, initial_array_of_points):
-	var terrain_curve = Curve2D.new()
-	var rng = RandomNumberGenerator.new()
-	rng.set_seed(generation_seed)
-	for i in range(initial_array_of_points.size()):
-		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
-		print(controll_point)
-		print(controll_point.bounce(Vector2(0,0)))
-		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , controll_point.bounce(Vector2(0, 0)))
-	$Polygon2D.set("polygon", terrain_curve.tessellate())
-	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	
-	pass
-
-func generate_terrain_v4(generation_seed, initial_array_of_points):
-	var terrain_curve = Curve2D.new()
-	var rng = RandomNumberGenerator.new()
-	rng.set_seed(generation_seed)
-	for i in range(initial_array_of_points.size()):
-		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
-		print(controll_point)
-		print(controll_point.bounce(Vector2(0,0)))
-		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , Vector2(-controll_point.x, -controll_point.y))
-	$Polygon2D.set("polygon", terrain_curve.tessellate())
-	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	
-	pass
+#func generate_terrain_v2(generation_seed, initial_array_of_points):
+#	var terrain_curve = Curve2D.new()
+#	var rng = RandomNumberGenerator.new()
+#	rng.set_seed(generation_seed)
+#	for i in range(initial_array_of_points.size()):
+#		print(rng.randf_range(-messyness, messyness))
+#		#terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness),rng.randi_range(-messyness,messyness)), Vector2(rng.randi_range(-messyness,messyness),rng.randi_range(-messyness,messyness)))
+#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)))
+#	$Polygon2D.set("polygon", terrain_curve.tessellate())
+#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
+#
+#	pass
+#
+#func generate_terrain_v3(generation_seed, initial_array_of_points):
+#	var terrain_curve = Curve2D.new()
+#	var rng = RandomNumberGenerator.new()
+#	rng.set_seed(generation_seed)
+#	for i in range(initial_array_of_points.size()):
+#		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
+#		print(controll_point)
+#		print(controll_point.bounce(Vector2(0,0)))
+#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , controll_point.bounce(Vector2(0, 0)))
+#	$Polygon2D.set("polygon", terrain_curve.tessellate())
+#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
+#
+#	pass
+#
+#func generate_terrain_v4(generation_seed, initial_array_of_points):
+#	var terrain_curve = Curve2D.new()
+#	var rng = RandomNumberGenerator.new()
+#	rng.set_seed(generation_seed)
+#	for i in range(initial_array_of_points.size()):
+#		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
+#		print(controll_point)
+#		print(controll_point.bounce(Vector2(0,0)))
+#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , Vector2(-controll_point.x, -controll_point.y))
+#	$Polygon2D.set("polygon", terrain_curve.tessellate())
+#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
+#
+#	pass
 	
 
 func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, segment_count_x = 16, segment_count_y = 16, segment_size = Vector2(100, 100)):
 	points_to_draw.resize(0)
 	red_p_t_d.resize(0)
+	
+	
+	var last_was_left = false
+	
 	var terrain_curve = Curve2D.new()
 	var rng = RandomNumberGenerator.new()
 	rng.set_seed(generation_seed)
@@ -93,25 +112,24 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 #
 
 	var current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
-	print(current_segment)
+#	print(current_segment)
 	
 	var end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
-	print(end_segment)
+#	print(end_segment)
 	
-	
+	var random
 	while(current_segment != end_segment):
-		print(end_segment)
 		print("Current segment  X:", current_segment.x, "    Y:", current_segment.y, "         ")
-		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
-			print("[  UP ]")
-		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
-			print("[ DOWN]")
-		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
-			print("[RIGHT]")
-		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
-			print("[ LEFT]")
-		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
-			print("[     ]")
+#		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
+#			print("[  UP ]")
+#		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+#			print("[ DOWN]")
+#		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+#			print("[RIGHT]")
+#		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+#			print("[ LEFT]")
+#		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+#			print("[     ]")
 			
 #		if current_segment.x == segment_count_x-1:
 #			print("BORDER X!")
@@ -120,7 +138,11 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 #			print("BORDER Y!")
 			
 		# jesli 1 kolumna od lewej, to idz w prawo
-		if current_segment.x == 0:
+		if current_segment.x == (segment_count_x - 1) and current_segment.y == (segment_count_y - 1):
+			direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
+			current_segment.y -= 1
+		elif current_segment.x == 0:
+			print("pierwsza kolumna x = 0")#DEV
 			if direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
 				current_segment.x += 1
@@ -131,8 +153,9 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 				current_segment.y -= 1
 			else:
-				print("error1")
+				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.y == 0:
+			print("najwyższy wiersz y = 0")#DEV
 			if direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
@@ -140,18 +163,26 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
 				current_segment.x += 1
 			else:
-				print("error2")
+				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.y == (segment_count_y - 1):
-			var random = rng.randi_range(1, 100)
-			if random >= 70 and direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
-				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
-				current_segment.x += 1
-			elif direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
-				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
-				current_segment.y -= 1
+			print("najniższy wiersz  y = segment_count_y - 1")#DEV
+			if current_segment.x+1 == segment_count_x:
+				#if direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
+					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
+				#else:
+				#	halt(6)
 			else:
-				print("error3")
+				random = rng.randi_range(1, 100)
+				if random >= 70 and direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
+					current_segment.x += 1
+				elif direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
+					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
+					current_segment.y -= 1
+				else:
+					halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.x == (segment_count_x-1):
+			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
 			if current_segment.y < end_segment.y:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
@@ -160,46 +191,71 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				current_segment.y -= 1
 			if current_segment == end_segment:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
-				print("end of generation")
 				
 				####end generation
 		else:#randomly choose segments
-			var random = rng.randi_range(1, 100)
+			print("element wybierany losowo: ")
+			random = rng.randi_range(1, 100)
+			if last_was_left:
+				random = rng.randi_range(1, 40)
 			if random <= 30 and direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 				current_segment.y -= 1
-			elif random > 30 and random <= 60 and direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
+				last_was_left = false
+				print("wybralem  UP")
+			elif random > 40 and random <= 70 and direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
-			elif direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+				last_was_left = false
+				print("wybralem  DOWN")
+			elif random > 70 and random <= 100 and direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
 					current_segment.x += 1
+					last_was_left = false
+					print("wybralem  RIGHT")
+			elif random > 30 and random <= 40 and direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+				var can_create_cave = true
+				print("sprawdzam LEFT...")
+				for i in range(0, current_segment.y, 1):
+					if direction_stucture_organizer[current_segment.x][i].m_direction != GeneratorSegment.avalaible_directions.NONE:
+						can_create_cave = false
+				for i in range(current_segment.x, segment_count_x, 1):
+					if direction_stucture_organizer[i][current_segment.y].m_direction != GeneratorSegment.avalaible_directions.NONE:
+						can_create_cave = false
+				if current_segment.x <= 2: 
+					can_create_cave = false
+				if can_create_cave:
+					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.LEFT
+					current_segment.x -= 1
+					last_was_left = true
+					print("wybralem  LEFT")
+				pass
 			else:
-				print("error4")
+				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 					
 		pass
 		
 		
 		
 	# segments are fully generated
-	for y in range(segment_count_y):
-		for x in range(segment_count_x):
-			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
-				printraw("[  UP ]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
-				printraw("[ DOWN]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
-				printraw("[RIGHT]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
-				printraw("[ LEFT]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
-				printraw("[     ]")
-		print()
+#	for y in range(segment_count_y):
+#		for x in range(segment_count_x):
+#			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
+#				printraw("[  UP ]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+#				printraw("[ DOWN]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+#				printraw("[RIGHT]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+#				printraw("[ LEFT]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+#				printraw("[     ]")
+#		print()
 	current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
-	print(current_segment)
+#	print(current_segment)
 	
 	end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
-	print(end_segment)
+#	print(end_segment)
 	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, start_height),Vector2(0,0),Vector2(0,0))
 	current_segment.x += 1
 	
@@ -219,7 +275,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 					ctrl_point = Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range((segment_size.x / 2), segment_size.x) + (segment_size.x/2), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 					if next_vertex_needs_to_be_limited == true:
 						next_vertex_needs_to_be_limited = false
-					print("SEGMENT: ", current_segment, " DIRECTION: ", direction_stucture_organizer[current_segment.x][current_segment.y].m_direction, "CTRL_POINT: ", ctrl_point) #DEV
+#					print("SEGMENT: ", current_segment, " DIRECTION: ", direction_stucture_organizer[current_segment.x][current_segment.y].m_direction, "CTRL_POINT: ", ctrl_point) #DEV
 					ctrl_point.x = -ctrl_point.x
 					pass
 			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)), -ctrl_point,  ctrl_point)
@@ -314,7 +370,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 10, 10, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 32, 10, Vector2(100,100))
 	pass # Replace with function body.
 
 
