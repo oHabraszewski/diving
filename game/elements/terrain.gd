@@ -204,22 +204,24 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	current_segment.x += 1
 	
 	
-	
+	var next_vertex_needs_to_be_limited = false
 	# TODO sprawdzanie rogó i rysowanie wtedy zgodnie z proporcją
 	while(current_segment != end_segment):
 		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 			if segment_count_x >= current_segment.x: #żeby nie wychodziło poza bufor 
-				if direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP or direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+				if (direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP or direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN) or next_vertex_needs_to_be_limited:
 #				[     ][  UP ][     ]
 #				[RIGHT][ {UP}][     ]
 #				[     ][     ][     ]
 #					adsasdadgaasdfassa
 #				taki róg mniej wiecej
 					ctrl_point = Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range((segment_size.x / 2), segment_size.x) + (segment_size.x/2), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
+					if next_vertex_needs_to_be_limited == true:
+						next_vertex_needs_to_be_limited = false
 					print("SEGMENT: ", current_segment, " DIRECTION: ", direction_stucture_organizer[current_segment.x][current_segment.y].m_direction, "CTRL_POINT: ", ctrl_point) #DEV
+					ctrl_point.x = -ctrl_point.x
 					pass
-				pass
 			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)), -ctrl_point,  ctrl_point)
 			points_to_draw.append(Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)))#DEV
 			red_p_t_d.append(ctrl_point + Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)))#DEV
@@ -228,7 +230,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x, current_segment.y*segment_size.y + (segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 			if current_segment.x > 0: #żeby nie wychodziło poza bufor 
-				if direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP or direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+				if (direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP or direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN) or next_vertex_needs_to_be_limited:
 #				[     ][  UP ][     ]
 #				[     ][ {UP}][LEFT ]
 #				[     ][     ][     ]
@@ -246,7 +248,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y+segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 			if current_segment.y > 0: #żeby nie wychodziło poza bufor 
-				if direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+				if (direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.RIGHT) or next_vertex_needs_to_be_limited:
 #				[     ][ DOWN][     ]
 #				[     ][ {UP}][LEFT ]
 #				[     ][     ][     ]
@@ -266,7 +268,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 			if current_segment.y > 0: #żeby nie wychodziło poza bufor 
-				if direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+				if (direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.RIGHT) or next_vertex_needs_to_be_limited:
 #				[     ][     ][     ]
 #				[     ][ {UP}][LEFT ]
 #				[     ][  UP ][     ]
@@ -312,7 +314,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 30, 10, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 100, 10, Vector2(100,100))
 	pass # Replace with function body.
 
 

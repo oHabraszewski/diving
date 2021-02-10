@@ -209,5 +209,5 @@ __meta__ = {
 [connection signal="value_changed" from="CanvasLayer/Control/HSlider2" to="CanvasLayer2/terrain" method="_on_HSlider2_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="CanvasLayer2/terrain" method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
-[connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
