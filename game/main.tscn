@@ -45,26 +45,6 @@ position = Vector2( 0, 136.874 )
 scale = Vector2( 0.019, 0.5 )
 texture = SubResource( 2 )
 
-[node name="terrain2" parent="CanvasLayer2" instance=ExtResource( 1 )]
-visible = false
-position = Vector2( 921.586, 300 )
-
-[node name="Sprite" type="Sprite" parent="CanvasLayer2/terrain2"]
-scale = Vector2( 0.0187842, 0.0148012 )
-texture = SubResource( 2 )
-
-[node name="Sprite2" type="Sprite" parent="CanvasLayer2/terrain2"]
-modulate = Color( 0.8, 0.117647, 0.117647, 1 )
-position = Vector2( 140.233, 0 )
-scale = Vector2( 0.5, 0.015 )
-texture = SubResource( 2 )
-
-[node name="Sprite3" type="Sprite" parent="CanvasLayer2/terrain2"]
-modulate = Color( 0.160784, 0.8, 0.141176, 1 )
-position = Vector2( 0, 136.874 )
-scale = Vector2( 0.019, 0.5 )
-texture = SubResource( 2 )
-
 [node name="RigidBody2D" parent="CanvasLayer2" instance=ExtResource( 3 )]
 mode = 2
 sleeping = true
@@ -230,5 +210,4 @@ __meta__ = {
 [connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="CanvasLayer2/terrain" method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain2" method="_on_Button_pressed"]
 [connection signal="pressed" from="CanvasLayer3/Control/Button" to="CanvasLayer2/terrain" method="_on_Button_pressed"]
