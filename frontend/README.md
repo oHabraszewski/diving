@@ -1,5 +1,5 @@
 ## Software of the frontend
-### Preffered
+### Preferred
 - Languages: **HTML, SCSS, JS**
 - Integrated Development Environment: **Visual Studio Code**
   - Extensions: **none**

@@ -12,7 +12,7 @@
   - Modules: **Spring Boot, Spring Web**
 - Server runtime software: **Spring Boot**
 
-## Client-Server communcation
+## Client-Server communication
 - Protocol: **HTTPS**
   - In case of problems with obtaining an SSL certificate, the **HTTP** will be used.
 - Architecture: **REST**
