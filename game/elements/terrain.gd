@@ -227,7 +227,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			red_p_t_d.append(ctrl_point + Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)))#DEV
 			red_p_t_d.append((-ctrl_point) + Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)))#DEV
 			current_segment.x += 1
-		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT: #tu jeszcze może być problem, tzrba testować
 			var ctrl_point = Vector2(current_segment.x*segment_size.x, current_segment.y*segment_size.y + (segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 			if current_segment.x > 0: #żeby nie wychodziło poza bufor 
 				if (direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP or direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN) or next_vertex_needs_to_be_limited:
@@ -314,7 +314,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 100, 10, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 10, 10, Vector2(100,100))
 	pass # Replace with function body.
 
 
