@@ -370,7 +370,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 32, 10, Vector2(100,100))
+	generate_terrain_v5(test_seed, 400, 400, 32, 20, Vector2(100,100))
 	pass # Replace with function body.
 
 
