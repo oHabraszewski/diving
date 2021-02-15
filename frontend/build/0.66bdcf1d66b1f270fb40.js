@@ -1,0 +1,1 @@
+(window.a=window.a||[]).push([[0],[function(t,n,o){"use strict";o.r(n);const c=document.getElementById("button");c.onclick=()=>{c.style="color: blue"}}],[[0,1]]]);

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tk.chaber</groupId>
 	<artifactId>sfn2021-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>sfn2021-rest</name>
 	<description>SFN2021 RESTful Server</description>
 	<properties>

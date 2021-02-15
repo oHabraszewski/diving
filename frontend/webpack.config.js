@@ -29,7 +29,7 @@ let output = {};
 {
   if (isDev) {
     output = {
-      path: path.resolve(__dirname, '../server/public/dev'),
+      path: path.resolve(__dirname, '../server/public'),
       filename: 'index.js',
     };
   } else {
