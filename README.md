@@ -8,7 +8,7 @@
 - Type: ./run dev
 - Press enter
 
-### Running project (production mode)
+### Starting project (production mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run build
