@@ -1,18 +1,20 @@
 # SFN2021 Project
 
-## Running project (development mode)
+## Project starting and stopping
+
+### Starting project (production mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run dev
 - Press enter
 
-## Running project (production mode)
+### Running project (production mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run build
 - Press enter
 
-## Stopping project
+### Stopping project
 
 - Press ctrl+c
 
