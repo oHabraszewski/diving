@@ -1,5 +1,21 @@
 # SFN2021 Project
 
+## Running project (development mode)
+
+- Open CMD/Terminal/PowerShell at root directory of the project
+- Type: ./run dev
+- Press enter
+
+## Running project (production mode)
+
+- Open CMD/Terminal/PowerShell at root directory of the project
+- Type: ./run build
+- Press enter
+
+## Stopping project
+
+- Press ctrl+c
+
 ## Languages
 - Java
 - Python (implemented as GDScript)
