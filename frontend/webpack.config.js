@@ -77,7 +77,7 @@ const cssLoader = {
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
-      options: { hmr: isDev },
+      //options: { hmr: isDev },
     },
     'css-loader',
 
@@ -213,7 +213,7 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'source-map' : undefined,
   stats: isDev ? 'minimal' : undefined,
-  //devServer: isDev ? devServer : undefined,       Using Spring
+  devServer: isDev ? devServer : undefined,
   module: { rules },
 
   entry,
