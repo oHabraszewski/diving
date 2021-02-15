@@ -29,13 +29,13 @@ let output = {};
 {
   if (isDev) {
     output = {
-      path: path.resolve(__dirname, 'dev'),
+      path: path.resolve(__dirname, '../server/public/dev'),
       filename: 'index.js',
     };
   } else {
     output = {
-      path: path.resolve(__dirname, 'dist'),
-      filename: '[contenthash].js',
+      path: path.resolve(__dirname, 'build'), //Finally, it will be ../server/public, but for safety reasons, it's build for now.
+      filename: '[contenthash].js', 
       jsonpFunction: 'a',
     };
   }
@@ -77,7 +77,7 @@ const cssLoader = {
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
-      //options: { hmr: isDev },
+      //options: { hmr: isDev }, TODO: Wiktor, check it please. It was throwing errors when i was trying to start webpack, so i disabled it.
     },
     'css-loader',
 
@@ -198,6 +198,7 @@ let optimization = {};
 const devServer = {
   contentBase: path.join(context),
   publicPath: '/',
+  port: 8081,
   index: './index.html',
   hot: true,
   writeToDisk: true,

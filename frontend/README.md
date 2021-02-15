@@ -4,7 +4,7 @@
 - Integrated Development Environment: **Visual Studio Code**
   - Extensions: **none**
 - Module bundler: **Webpack**
-  - Version: **5.11.1**
+  - Version: **4.44.2**
 - Framework: **VueJS**
   - Version: **3.0.5**
 
@@ -12,5 +12,6 @@
 - Languages: **HTML, CSS, JS**
 - Integrated Development Environment: **Visual Studio Code**
   - Extensions: **none**
-- Module bundler: **none**
+- Module bundler: **Webpack**
+  - Version: **4.44.2**
 - Framework: **none**
