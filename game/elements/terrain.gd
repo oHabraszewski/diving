@@ -40,54 +40,14 @@ func halt(direction_stucture_organizer, size_x, size_y):
 func _ready():
 	
 	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-#func generate_terrain_v2(generation_seed, initial_array_of_points):
-#	var terrain_curve = Curve2D.new()
-#	var rng = RandomNumberGenerator.new()
-#	rng.set_seed(generation_seed)
-#	for i in range(initial_array_of_points.size()):
-#		print(rng.randf_range(-messyness, messyness))
-#		#terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness),rng.randi_range(-messyness,messyness)), Vector2(rng.randi_range(-messyness,messyness),rng.randi_range(-messyness,messyness)))
-#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)), Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness)))
-#	$Polygon2D.set("polygon", terrain_curve.tessellate())
-#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-#
-#	pass
-#
-#func generate_terrain_v3(generation_seed, initial_array_of_points):
-#	var terrain_curve = Curve2D.new()
-#	var rng = RandomNumberGenerator.new()
-#	rng.set_seed(generation_seed)
-#	for i in range(initial_array_of_points.size()):
-#		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
-#		print(controll_point)
-#		print(controll_point.bounce(Vector2(0,0)))
-#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , controll_point.bounce(Vector2(0, 0)))
-#	$Polygon2D.set("polygon", terrain_curve.tessellate())
-#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-#
-#	pass
-#
-#func generate_terrain_v4(generation_seed, initial_array_of_points):
-#	var terrain_curve = Curve2D.new()
-#	var rng = RandomNumberGenerator.new()
-#	rng.set_seed(generation_seed)
-#	for i in range(initial_array_of_points.size()):
-#		var controll_point = Vector2(rng.randi_range(-messyness, messyness), rng.randi_range(-messyness, messyness))
-#		print(controll_point)
-#		print(controll_point.bounce(Vector2(0,0)))
-#		terrain_curve.add_point(Vector2(initial_array_of_points[i].x, initial_array_of_points[i].y),controll_point , Vector2(-controll_point.x, -controll_point.y))
-#	$Polygon2D.set("polygon", terrain_curve.tessellate())
-#	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-#
-#	pass
-	
-
 func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, segment_count_x = 16, segment_count_y = 16, segment_size = Vector2(100, 100)):
+	print("SH  ", start_height)
+	print("EH  ", end_height)
+#	end_height = segment_count_y * segment_size.y - end_height
+#	start_height = segment_count_y * segment_size.y - start_height
+	print("EHN ", start_height)
+	print("SHN ", end_height)
+	
 	points_to_draw.resize(0)
 	red_p_t_d.resize(0)
 	
@@ -105,21 +65,17 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 		for y in range(segment_count_y):
 			direction_stucture_organizer[x].append([])
 			direction_stucture_organizer[x][y] = GeneratorSegment.new(segment_size)
-#
-#	for x in range(segment_count_x):
-#		for y in range(segment_count_y):
-#			print(direction_stucture_organizer[x][y].m_direction)
-#
 
-	var current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
+	var current_segment = Vector2(0,  floor((start_height / segment_size.y)) -1)
 #	print(current_segment)
 	
-	var end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
+	var end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
 #	print(end_segment)
 	
 	var random
 	while(current_segment != end_segment):
-		print("Current segment  X:", current_segment.x, "    Y:", current_segment.y, "         ")
+		print("end_segment: ", end_segment)
+#		print("Current segment  X:", current_segment.x, "    Y:", current_segment.y, "         ")
 #		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
 #			print("[  UP ]")
 #		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
@@ -251,10 +207,10 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 #			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 #				printraw("[     ]")
 #		print()
-	current_segment = Vector2(0, segment_count_y - floor((start_height / segment_size.y)) -1)
+	current_segment = Vector2(0,  floor((start_height / segment_size.y)) -1)
 #	print(current_segment)
 	
-	end_segment =  Vector2(segment_count_x-1, segment_count_y - floor((end_height / segment_size.y)) - 1)
+	end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
 #	print(end_segment)
 	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, start_height),Vector2(0,0),Vector2(0,0))
 	current_segment.x += 1
@@ -342,11 +298,11 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			
 			current_segment.y -= 1
 		if current_segment == end_segment:
-			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x, end_height), Vector2(0,0), Vector2(0,0))
+			terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + segment_size.x + segment_size.x, end_height), Vector2(0,0), Vector2(0,0))
 		pass
 	#points added (fucking finally :-)
 	
-	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x+segment_size.x,0),Vector2(0,0),Vector2(0,0))
+	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + segment_size.x + segment_size.x,0),Vector2(0,0),Vector2(0,0))
 	
 	
 	
@@ -355,8 +311,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	#terrain_curve.add_point(segment_size,Vector2(0,0),Vector2(0,0))
 	$Polygon2D.set("polygon", terrain_curve.tessellate())
 	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	$Polygon2D.draw = true
-	
+	$Polygon2D.set("draw", true)
 	length = segment_count_x * segment_size.x - segment_size.x
 	pass
 	
@@ -370,7 +325,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 400, 400, 32, 20, Vector2(100,100))
+	generate_terrain_v5(test_seed, 450, 200, 20, 30, Vector2(100,100))
 	pass # Replace with function body.
 
 

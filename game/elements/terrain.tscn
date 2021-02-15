@@ -1,18 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://elements/terrain.gd" type="Script" id=1]
 [ext_resource path="res://elements/Polygon2D.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 105.881, 334.955 )
 
 [node name="terrain" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
-polygon = PoolVector2Array( 5346.69, 4894.02, 9687.39, 6232.38, 12432.4, 3775.23, 11668.5, 3832.23 )
 script = ExtResource( 2 )
 Width = 6.0
-draw = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 917.514, 279.327 )
+shape = SubResource( 1 )
