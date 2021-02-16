@@ -2,7 +2,7 @@
 
 ## Project starting and stopping
 
-### Starting project (production mode)
+### Starting project (development mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run dev
