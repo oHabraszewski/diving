@@ -2,19 +2,22 @@
 cd frontend
 if %1 == dev (
     call yarn start
-    goto :spring
+    rem goto :spring
 ) else if %1 == build (
     start yarn build
-    goto :spring
+     rem goto :godot
 ) else (
     echo Wrong mode! Possible modes: dev, build
     pause
     exit
 )
 
-rem there needs to be a godot export to HTML script
+cd ..
+cd game
 
-:spring
+godot --no-window --path ./project.godot --export HTML5 ../server/public/game.html
+
+rem :spring
 cd ..
 cd server
 mvnw spring-boot:run
