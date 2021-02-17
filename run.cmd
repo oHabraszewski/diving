@@ -1,5 +1,10 @@
 @echo off
 
+if "%JAVA_HOME%"=="" (
+echo JAVA_HOME is empty!!! Define it as your JDK/OpenJDK bin folder!
+)
+
+
 cd frontend
 
 if not exist node_modules (
@@ -32,3 +37,4 @@ godot --no-window --path ./project.godot --export HTML5 ../server/public/game.ht
 cd ..
 cd server
 mvnw spring-boot:run
+cd..
