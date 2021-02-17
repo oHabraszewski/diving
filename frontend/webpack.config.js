@@ -139,6 +139,15 @@ const plugins = [
   new WebpackBar(),
   new DefinePlugin(definePluginOptions),
   new HtmlWebpackPlugin(htmlWebpackPluginOptions),
+  new HtmlWebpackPlugin({
+    filename: "credits.html",
+    template: path.resolve(context, 'public/credits.html'),
+  }),
+  new HtmlWebpackPlugin({
+    filename: "technical.html",
+    template: path.resolve(context, 'public/technical.html'),
+  })
+  
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
 ];
 {

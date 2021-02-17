@@ -9,4 +9,12 @@ public class PagesController {
     public String game() {
         return "game.html";
     }
+    @GetMapping("/credits")
+    public String credits() {
+        return "credits.html";
+    }
+    @GetMapping("/technical")
+    public String technical() {
+        return "technical.html";
+    }
 }
