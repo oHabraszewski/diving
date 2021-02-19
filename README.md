@@ -20,7 +20,7 @@
 
 ## Languages
 - Java
-- GDScript (fork of Python)
+- GDScript (language similar to Python)
 - SQL
 - HTML, SCSS, JS
 
