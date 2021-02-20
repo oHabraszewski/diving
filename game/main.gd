@@ -6,12 +6,21 @@ extends Node2D
 # var b = "text"
 var terrain = preload("res://elements/terrain.tscn")
 onready var active_terrain = $Game/terrain
+
+
+var net_generation_seed = "some jubrish"
+var actual_seed = hash(net_generation_seed)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	active_terrain.generate_terrain_v5(actual_seed, 200, 200, 20, 30, Vector2(100,100))
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	
+	
+	$Interface/Control/Label.text = "Player position: " + String($Game/RigidBody2D.position) #DEV
 	pass
 
 
@@ -28,6 +37,9 @@ func _on_terrain_entered_body():
 	print(terrain_instance.connect("entered_body", self, "_on_terrain_entered_body"))
 	$Interface/Control/Button.connect("pressed", terrain_instance, "_on_Button_pressed")
 	active_terrain = terrain_instance
+	active_terrain.generate_terrain_v5(actual_seed, 200, 200, 20, 30, Vector2(100,100))
+	print("NEW SEED: ", actual_seed)
+	actual_seed = hash(actual_seed+1)
 	pass # Replace with function body.
 
 

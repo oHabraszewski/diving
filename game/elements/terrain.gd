@@ -24,6 +24,7 @@ signal entered_body()
 var terrain_size = Vector2(1000,800)
 var test_seed = 1
 var messyness = 0
+
 func halt(direction_stucture_organizer, size_x, size_y):
 	for y in range(size_y):
 		for x in range(size_x):
@@ -39,10 +40,8 @@ func halt(direction_stucture_organizer, size_x, size_y):
 				printraw("[     ]")
 		print()
 	pass
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	pass # Replace with function body.
+
+
 func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, segment_count_x = 16, segment_count_y = 16, segment_size = Vector2(100, 100)):
 	print("SH  ", start_height)
 	print("EH  ", end_height)
@@ -316,6 +315,9 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
 	$Polygon2D.set("draw", true)
 	length = segment_count_x * segment_size.x 
+	$Area2D/CollisionShape2D.shape.extents.y = segment_count_y * segment_size.y / 2
+	$Area2D/CollisionShape2D.position.x = (segment_count_x * segment_size.x) / 3
+	$Area2D/CollisionShape2D.position.y = -(segment_count_y * segment_size.y / 2)
 	emit_signal("generated")
 	pass
 	

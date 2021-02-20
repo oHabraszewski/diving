@@ -57,11 +57,22 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="Interface/Control"]
+visible = false
 margin_left = -427.128
 margin_top = -239.769
 margin_right = -356.128
 margin_bottom = -191.769
 text = "tesselate"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Interface/Control"]
+margin_left = -506.0
+margin_top = -294.0
+margin_right = -195.0
+margin_bottom = -244.0
+text = "Player position:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
