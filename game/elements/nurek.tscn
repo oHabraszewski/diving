@@ -8,6 +8,7 @@ radius = 23.7639
 height = 27.7678
 
 [node name="RigidBody2D" type="RigidBody2D"]
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="nurek" type="Sprite" parent="."]

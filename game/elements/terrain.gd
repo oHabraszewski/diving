@@ -18,6 +18,9 @@ export(float) var length = 0.0
 export(PoolVector2Array) var points_to_draw = []
 export(PoolVector2Array) var red_p_t_d = []
 
+signal generated()
+signal entered_body()
+
 var terrain_size = Vector2(1000,800)
 var test_seed = 1
 var messyness = 0
@@ -312,7 +315,8 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	$Polygon2D.set("polygon", terrain_curve.tessellate())
 	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
 	$Polygon2D.set("draw", true)
-	length = segment_count_x * segment_size.x - segment_size.x
+	length = segment_count_x * segment_size.x 
+	emit_signal("generated")
 	pass
 	
 #var points = [Vector2(0, 0), Vector2(100, 1450), Vector2(200, 1450), Vector2(300, 1450),
@@ -325,26 +329,18 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	
 func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 450, 200, 20, 30, Vector2(100,100))
+	generate_terrain_v5(test_seed, 200, 200, 20, 30, Vector2(100,100))
 	pass # Replace with function body.
-
-
-func _on_HSlider_value_changed(value):
-	messyness = value
-	pass # Replace with function body.
-
-
-func _on_HSlider2_value_changed(value):
-	terrain_size.y = value
-	pass # Replace with function body.
-
-
-func _on_HSlider3_value_changed(value):
-	terrain_size.x = value
-	pass # Replace with function body.
-
 
 
 func _on_HSlider4_value_changed(value):
 	test_seed = value
+	pass # Replace with function body.
+
+
+
+func _on_Area2D_body_entered(body):
+	print(body)
+	emit_signal("entered_body")
+	print(body)
 	pass # Replace with function body.

@@ -42,17 +42,6 @@ config/name="godot_sfn2021"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
-IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
-UserData="*res://addons/github-integration/scripts/user_data.gd"
-RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "github-integration" )
-
 [input]
 
 ui_right={
@@ -86,6 +75,13 @@ move_stop={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="generation_area"
+2d_physics/layer_3="shark"
+2d_physics/layer_4="chest"
 
 [rendering]
 
