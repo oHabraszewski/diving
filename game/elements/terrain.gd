@@ -313,7 +313,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	#terrain_curve.add_point(segment_size,Vector2(0,0),Vector2(0,0))
 	$Polygon2D.set("polygon", terrain_curve.tessellate())
 	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	$Polygon2D.set("draw", true)
+	$Polygon2D.set("draw", false)
 	length = segment_count_x * segment_size.x 
 	$Area2D/CollisionShape2D.shape.extents.y = segment_count_y * segment_size.y / 2
 	$Area2D/CollisionShape2D.position.x = (segment_count_x * segment_size.x) / 3

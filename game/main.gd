@@ -37,9 +37,15 @@ func _on_terrain_entered_body():
 	print(terrain_instance.connect("entered_body", self, "_on_terrain_entered_body"))
 	$Interface/Control/Button.connect("pressed", terrain_instance, "_on_Button_pressed")
 	active_terrain = terrain_instance
+	actual_seed = hash(actual_seed+1)
 	active_terrain.generate_terrain_v5(actual_seed, 200, 200, 20, 30, Vector2(100,100))
 	print("NEW SEED: ", actual_seed)
-	actual_seed = hash(actual_seed+1)
+	
+	
+	
+	## Problematic SEED = 1454487252
+	
+	
 	pass # Replace with function body.
 
 
