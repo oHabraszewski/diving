@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Calibri;
+    color: #efefef;
+    background-color: #212123;
+    font-size: 20px;
+}
+.button {
+    margin: 2px;
+    border-radius: 5px;
+    border: solid #aaa 2px;
+    background-color: #333335;
+    width: 210px;
+    height: 30px;
+}
+.button:hover {
+    cursor: pointer;
+}
+.input {
+    margin: 2px;
+    border-radius: 5px;
+    border: solid #aaa 2px;
+    width: 200px;
+    height: 30px;
+    padding: 0 3px 0 3px;
+}

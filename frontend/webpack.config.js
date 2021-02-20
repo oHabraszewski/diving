@@ -86,7 +86,7 @@ const cssLoader = {
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
-      options: { hmr: isDev },
+      //options: { hmr: isDev },
     },
     'css-loader',
 
