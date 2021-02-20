@@ -1,5 +1,5 @@
 import * as Vue from "vue"
-import Login from "./public/Login.vue"
+import Login from "./public/Vue/Login.vue"
 
 const App = {
     components: {
