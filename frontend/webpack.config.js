@@ -4,6 +4,7 @@ const path = require('path');
 const { DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -44,6 +45,11 @@ let output = {};
 // =========================================================================
 // LOADERS
 // =========================================================================
+const vueLoader = {
+  test: /\.vue$/,
+  loader: 'vue-loader'
+}
+
 const babelLoader = {
   test: /\.js$/,
   exclude: [/node_modules\/(webpack|html-webpack-plugin)/, /node_modules\/core-js.*/s],
@@ -95,7 +101,7 @@ const cssLoader = {
   ],
 };
 
-const rules = [/*babelLoader,*/ fileLoader, cssLoader];
+const rules = [/*babelLoader,*/ vueLoader, fileLoader, cssLoader];
 
 // =========================================================================
 // PLUGINS
@@ -136,8 +142,9 @@ let definePluginOptions = {
 }
 
 const plugins = [
-  new CleanWebpackPlugin(),
+ // new CleanWebpackPlugin(),
   new WebpackBar(),
+  new VueLoaderPlugin(),
   new DefinePlugin(definePluginOptions),
   new HtmlWebpackPlugin(htmlWebpackPluginOptions),  
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),

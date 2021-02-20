@@ -30,7 +30,7 @@ if not exist server/public (
 )
 
 cd game
-
+timeout 5
 rem TODO: try to disable GUI at godot export
 godot --no-window --path ./project.godot --export HTML5 ../server/public/game.html
 

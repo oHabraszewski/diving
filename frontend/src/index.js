@@ -1,12 +1,11 @@
 import * as Vue from "vue"
-
+import Login from "./public/Login.vue"
 
 const App = {
-    data() {
-      return {
-        message: "Unnamed"
-      }
+    components: {
+        Login
     }
 }
   
 Vue.createApp(App).mount('#app')
+
