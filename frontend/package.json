@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm run serve",
-    "serve": "cross-env NODE_ENV=development webpack --config ./webpack.config.js",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js"
   },
   "repository": "https://github.com/oHabraszewski/sfn2021",
@@ -33,5 +33,6 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
+    "vue": "^3.0.5"
   }
 }

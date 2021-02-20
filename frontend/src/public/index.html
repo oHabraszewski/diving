@@ -7,8 +7,10 @@
     <title>SFN2021 Game</title>
 </head>
 <body>
-    <a href="/game"><button id="button">Play</button></a>
-    <a href="/credits">Credits</a>
-    <a href="/technical">Technical</a>
+    <div><div id="app">
+        <p>Your nick is: {{message}}</p>
+        <input v-model="message" />
+    </div>
+    </div>
 </body>
 </html>

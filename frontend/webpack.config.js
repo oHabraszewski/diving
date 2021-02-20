@@ -22,6 +22,7 @@ const entry = {
 const resolve = {
   alias: {
     '@': context,
+    'vue$': 'vue/dist/vue.esm-bundler.js'
   },
 };
 
@@ -138,16 +139,7 @@ const plugins = [
   new CleanWebpackPlugin(),
   new WebpackBar(),
   new DefinePlugin(definePluginOptions),
-  new HtmlWebpackPlugin(htmlWebpackPluginOptions),
-  new HtmlWebpackPlugin({
-    filename: "credits.html",
-    template: path.resolve(context, 'public/credits.html'),
-  }),
-  new HtmlWebpackPlugin({
-    filename: "technical.html",
-    template: path.resolve(context, 'public/technical.html'),
-  })
-  
+  new HtmlWebpackPlugin(htmlWebpackPluginOptions),  
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
 ];
 {
@@ -206,6 +198,8 @@ let optimization = {};
 // =========================================================================
 const devServer = {
   contentBase: path.join(context),
+  open: true,
+  openPage: 'http://localhost:8080',
   publicPath: '/',
   port: 8081,
   index: './index.html',

@@ -11,10 +11,10 @@ if not exist node_modules (
     call yarn
 )
 if %1 == dev (
-    call yarn start
+    start yarn start
     rem goto :spring
 ) else if %1 == build (
-    start yarn build
+    call yarn build
      rem goto :godot
 ) else (
     echo Wrong mode! Possible modes: dev, build
