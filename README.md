@@ -27,6 +27,7 @@
 ## Technologies
 - Godot engine
 - Spring framework
+- VueJS 3 framework
 - REST architecture
 - Maven
 - Webpack
