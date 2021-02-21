@@ -11,6 +11,24 @@ script = ExtResource( 2 )
 layer = 2
 follow_viewport_enable = true
 
+[node name="StartingPlace" type="Node2D" parent="Game"]
+position = Vector2( 21.444, -190.58 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Game/StartingPlace"]
+scale = Vector2( 1, -1 )
+color = Color( 0.631373, 0.458824, 0.458824, 1 )
+polygon = PoolVector2Array( 253.935, -295.235, 255.716, -491.233, -496.202, -498.36, -499.766, 264.249, -278.823, 267.813, -282.386, 29.0518, -170.133, 29.0518, -170.133, 4.10657, -282.386, 5.88837, -284.168, -298.799 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Game/StartingPlace"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Game/StartingPlace/StaticBody2D"]
+scale = Vector2( 1, -1 )
+polygon = PoolVector2Array( 253.935, -295.235, 255.716, -491.233, -496.202, -498.36, -499.766, 264.249, -278.823, 267.813, -282.386, 29.0518, -170.133, 29.0518, -170.133, 4.10657, -282.386, 5.88837, -284.168, -298.799 )
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="terrain" parent="Game" instance=ExtResource( 1 )]
 position = Vector2( 179.962, 300 )
 
