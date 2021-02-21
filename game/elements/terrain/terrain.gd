@@ -327,6 +327,8 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
 #	print(end_segment)
+	
+## Add sharks to the world
 ## Add seaweed to the world
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	while(current_segment != end_segment):
@@ -335,6 +337,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				var seaweed_instance = seaweed.instance()
 				seaweed_instance.position.x = current_segment.x * segment_size.x + segment_size.x
 				seaweed_instance.position.y = -(current_segment.y * segment_size.y) - (segment_size.y / 2) - 30 # this "-30" is equal to size of the seaweed image (100px scaled by 0.3)
+				seaweed_instance.frame = randi() % 5 
 				self.add_child(seaweed_instance)
 			current_segment.x += 1
 			pass
@@ -348,7 +351,6 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			current_segment.y += 1
 			pass
 		pass
-	## Add sharks to the world
 	
 	#clockwise
 	#terrain_curve.add_point(segment_size,Vector2(0,0),Vector2(0,0))
@@ -371,10 +373,6 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 
 	
 	
-func _on_Button_pressed():
-	generate_terrain_v5(test_seed, 200, 200, 20, 30, Vector2(100,100))
-	pass # Replace with function body.
-
 
 func _on_HSlider4_value_changed(value):
 	test_seed = value
