@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var terrain = preload("res://elements/terrain.tscn")
+var terrain = preload("res://elements/terrain/terrain.tscn")
 onready var active_terrain = $Game/terrain
 
 

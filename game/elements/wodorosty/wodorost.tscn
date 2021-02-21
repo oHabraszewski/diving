@@ -12,11 +12,12 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "default",
-"speed": 10.0
+"speed": 5.0
 } ]
 
 [node name="wodorost" type="AnimatedSprite"]
-position = Vector2( 101, 102 )
+position = Vector2( 0, -30 )
+scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 1 )
 frame = 3
 playing = true

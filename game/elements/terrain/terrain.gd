@@ -11,6 +11,20 @@ class GeneratorSegment:
 		m_direction = direction
 		pass
 
+
+
+#	1 = last_was_right
+#	2 = last_was_left
+#	3 = last_was_up
+#	4 = last_was_down
+#	5 = last_two_were_right
+#	6 = last_two_were_left
+#	7 = last_two_were_up
+#	8 = last_two_were_up
+	enum last_segments {LAST_WAS_RIGHT, LAST_WAS_LEFT, LAST_WAS_UP, LAST_WAS_DOWN,
+	 LAST_TWO_WERE_RIGHT, LAST_TWO_WERE_LEFT, LAST_TWO_WERE_UP, LAST_TWO_WERE_DOWN}
+
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -307,7 +321,34 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	terrain_curve.add_point(Vector2(current_segment.x*segment_size.x + segment_size.x + segment_size.x,0),Vector2(0,0),Vector2(0,0))
 	
 	
+	## Add seaweed to the world
+	current_segment = Vector2(0,  floor((start_height / segment_size.y)) -1)
+#	print(current_segment)
 	
+	end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
+#	print(end_segment)
+## Add seaweed to the world
+	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
+	while(current_segment != end_segment):
+		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+			if direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.RIGHT and not current_segment.x == 0:
+				var seaweed_instance = seaweed.instance()
+				seaweed_instance.position.x = current_segment.x * segment_size.x + segment_size.x
+				seaweed_instance.position.y = -(current_segment.y * segment_size.y) - (segment_size.y / 2) - 30 # this "-30" is equal to size of the seaweed image (100px scaled by 0.3)
+				self.add_child(seaweed_instance)
+			current_segment.x += 1
+			pass
+		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+			current_segment.x -= 1
+			pass
+		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
+			current_segment.y -= 1
+			pass
+		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+			current_segment.y += 1
+			pass
+		pass
+	## Add sharks to the world
 	
 	#clockwise
 	#terrain_curve.add_point(segment_size,Vector2(0,0),Vector2(0,0))
