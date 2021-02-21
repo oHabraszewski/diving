@@ -17,18 +17,17 @@ func changeSize(new_size: int = 100, time: float = 10):
 	var track_index = anim.add_track(Animation.TYPE_VALUE)
 	anim.track_set_path(track_index, "AnimatedSprite:position")
 	anim.track_insert_key(track_index, 0.0, Vector2(0,0))
-	anim.track_insert_key(track_index, time / 2, Vector2(0, new_size))
+	anim.track_insert_key(track_index, time / 2, Vector2(new_size, 0))
 	anim.track_insert_key(track_index, time, Vector2(0,0))
 	track_index = anim.add_track(Animation.TYPE_VALUE)
+	anim.track_set_interpolation_type(track_index, Animation.INTERPOLATION_NEAREST)
 	anim.track_set_path(track_index, "AnimatedSprite:scale")
-	anim.track_insert_key(track_index, 0.0, Vector2(1, 1))
-	anim.track_insert_key(track_index, time / 2, Vector2(-1, 1))
-	anim.track_insert_key(track_index, time, Vector2(1, 1))
+	anim.track_insert_key(track_index, 0.0, Vector2(-1, 1))
+	anim.track_insert_key(track_index, time / 2, Vector2(1, 1))
+	anim.track_insert_key(track_index, time, Vector2(-1, 1))
 	$AnimationPlayer.remove_animation("swimming")
 	$AnimationPlayer.add_animation("swimming", anim)
 	$AnimationPlayer.play("swimming")
-	print(anim)
-	print("playing animation of swimming")
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
