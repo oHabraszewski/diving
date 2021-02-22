@@ -18,3 +18,9 @@
 - Architecture: **REST**
 - Synchronous/Asynchronous: **Both**
 - Data format: **JSON**
+
+## Game-Server communication
+- Protocol: **WebSocket (HTTPS)**
+  - In case of problems with obtaining an SSL certificate, the **WebSocket (HTTP)** will be used.
+- Synchronous/Asynchronous: **Asynchronous**
+- Data format: **JSON**
