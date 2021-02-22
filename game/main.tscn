@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://elements/terrain.tscn" type="PackedScene" id=1]
+[ext_resource path="res://elements/terrain/terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
-[ext_resource path="res://elements/nurek.tscn" type="PackedScene" id=3]
+[ext_resource path="res://elements/player/nurek.tscn" type="PackedScene" id=3]
+[ext_resource path="res://elements/rekin/Shark.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -10,6 +11,24 @@ script = ExtResource( 2 )
 [node name="Game" type="CanvasLayer" parent="."]
 layer = 2
 follow_viewport_enable = true
+
+[node name="StartingPlace" type="Node2D" parent="Game"]
+position = Vector2( 21.444, -190.58 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Game/StartingPlace"]
+scale = Vector2( 1, -1 )
+color = Color( 0.631373, 0.458824, 0.458824, 1 )
+polygon = PoolVector2Array( 253.935, -295.235, 255.716, -491.233, -496.202, -498.36, -499.766, 264.249, -278.823, 267.813, -282.386, 29.0518, -170.133, 29.0518, -170.133, 4.10657, -282.386, 5.88837, -284.168, -298.799 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Game/StartingPlace"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Game/StartingPlace/StaticBody2D"]
+scale = Vector2( 1, -1 )
+polygon = PoolVector2Array( 253.935, -295.235, 255.716, -491.233, -496.202, -498.36, -499.766, 264.249, -278.823, 267.813, -282.386, 29.0518, -170.133, 29.0518, -170.133, 4.10657, -282.386, 5.88837, -284.168, -298.799 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="terrain" parent="Game" instance=ExtResource( 1 )]
 position = Vector2( 179.962, 300 )
@@ -22,6 +41,9 @@ sleeping = true
 current = true
 zoom = Vector2( 1.804, 1.707 )
 smoothing_enabled = true
+
+[node name="Shark" parent="Game" instance=ExtResource( 4 )]
+position = Vector2( 1643.28, -435.515 )
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
@@ -57,12 +79,11 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="Interface/Control"]
-visible = false
 margin_left = -427.128
 margin_top = -239.769
 margin_right = -356.128
 margin_bottom = -191.769
-text = "tesselate"
+text = "test"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -78,4 +99,4 @@ __meta__ = {
 }
 [connection signal="entered_body" from="Game/terrain" to="." method="_on_terrain_entered_body"]
 [connection signal="value_changed" from="Interface/Control/HSlider4" to="Game/terrain" method="_on_HSlider4_value_changed"]
-[connection signal="pressed" from="Interface/Control/Button" to="Game/terrain" method="_on_Button_pressed"]
+[connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
