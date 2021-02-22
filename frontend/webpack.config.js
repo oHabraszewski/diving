@@ -17,7 +17,9 @@ const isDev = process.env.NODE_ENV != 'production';
 const context = path.resolve(__dirname, 'src');
 
 const entry = {
-  app: path.resolve(context, 'index.js'),
+  index: path.resolve(context, 'index.js'),
+  credits: path.resolve(context, 'credits.js'),
+  technical: path.resolve(context, 'technical.js')
 };
 
 const resolve = {
@@ -32,11 +34,11 @@ let output = {};
   if (isDev) {
     output = {
       path: path.resolve(__dirname, '../server/public'),
-      filename: 'index.js',
+      filename: '[name].bundle.js',
     };
   } else {
     output = {
-      path: path.resolve(__dirname, 'build'), //Finally, it will be ../server/public, but for safety reasons, it's build for now.
+      path: path.resolve(__dirname, '../server/public'),
       filename: '[contenthash].js', 
       jsonpFunction: 'a',
     };
@@ -63,7 +65,7 @@ const babelLoader = {
 }
 
 const fileLoader = {
-  test: /\.(png|jpe?g|gif|svg)$/i,
+  test: /\.(png|jpe?g|gif|svg|ttf)$/i,
   loader: 'file-loader',
   options: {
     outputPath: 'assets',
@@ -84,7 +86,7 @@ const cssLoader = {
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
-      //options: { hmr: isDev }, TODO: Wiktor, check it please. It was throwing errors when i was trying to start webpack, so i disabled it.
+      //options: { hmr: isDev },
     },
     'css-loader',
 
@@ -106,20 +108,36 @@ const rules = [/*babelLoader,*/ vueLoader, fileLoader, cssLoader];
 // =========================================================================
 // PLUGINS
 // =========================================================================
-let htmlWebpackPluginOptions = {
-  template: path.resolve(context, 'public/index.html'),
-};
+let htmlWebpackPluginsOptions = [
+  {
+    filename: "index.html",
+    template: path.resolve(context, 'public/index.html'),
+    chunks: ["index"]
+  },
+  {
+    filename: "credits.html",
+    template: path.resolve(context, 'public/credits.html'),
+    chunks: ["credits"]
+  },
+  {
+    filename: "technical.html",
+    template: path.resolve(context, 'public/technical.html'),
+    chunks: ["technical"]
+  }
+];
 {
   if (isDev) {
   } else {
-    htmlWebpackPluginOptions.minify = {
-      collapseWhitespace: true,
-      removeComments: true,
-      removeRedundantAttributes: true,
-      removeScriptTypeAttributes: true,
-      removeStyleLinkTypeAttributes: true,
-      useShortDoctype: true,
-    };
+    htmlWebpackPluginsOptions.forEach((plugin)=>{
+      plugin.minify = {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      }
+    })
   }
 }
 
@@ -146,7 +164,9 @@ const plugins = [
   new WebpackBar(),
   new VueLoaderPlugin(),
   new DefinePlugin(definePluginOptions),
-  new HtmlWebpackPlugin(htmlWebpackPluginOptions),  
+  new HtmlWebpackPlugin(htmlWebpackPluginsOptions[0]),
+  new HtmlWebpackPlugin(htmlWebpackPluginsOptions[1]),
+  new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
 ];
 {
@@ -163,7 +183,7 @@ let optimization = {};
 {
   if (isDev) {
     optimization = {
-      runtimeChunk: 'single',
+      //runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
         maxInitialRequests: Infinity,
@@ -203,28 +223,32 @@ let optimization = {};
 // =========================================================================
 // dev server
 // =========================================================================
-const devServer = {
-  contentBase: path.join(context),
-  open: true,
-  openPage: 'http://localhost:8080',
-  publicPath: '/',
-  port: 8081,
-  index: './index.html',
-  hot: true,
-  writeToDisk: true,
-  clientLogLevel: 'error',
-  overlay: {
-    warnings: false,
-    errors: true,
-  },
-  historyApiFallback: true,
-};
+// const devServer = {
+//   contentBase: path.join(context),
+//   open: true,
+//   openPage: 'http://localhost:8080',
+//   publicPath: '/',
+//   port: 8081,
+//   index: './index.html',
+//   hot: true,
+//   writeToDisk: true,
+//   clientLogLevel: 'error',
+//   overlay: {
+//     warnings: false,
+//     errors: true,
+//   },
+//   historyApiFallback: true,
+// };
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'source-map' : undefined,
   stats: isDev ? 'minimal' : undefined,
-  devServer: isDev ? devServer : undefined,
+  watch: isDev,
+  watchOptions: {
+    aggregateTimeout: 400,
+    ignored: /node_modules/,
+  },
   module: { rules },
 
   entry,
