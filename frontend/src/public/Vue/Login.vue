@@ -1,14 +1,13 @@
 <template>
     <div class="login">
-        <!-- <p>Last played world: {{world_id}}</p> -->
-
-        <!--<input class="input" v-model="nickname"/><br>-->
-        <input class="input" v-model="world_id"/><br>
+        <center><h1>ŚFN 2021</h1></center>
+        <Input title="Type world name" placeholder="World name" :default=world_id></Input>
         <Button destination="/game"></Button>
     </div>
 </template>
 <script>
     import Button from './Button.vue'
+    import Input from './Input.vue'
 
     export default {
         props: ['nickname'],
@@ -18,23 +17,20 @@
             }
         },
         components: {
-            Button
+            Button,
+            Input
         }
     }
 </script>
 <style lang="scss" scoped>
+    h1 {
+        font-size: 75px;
+        text-shadow: 3px 3px#266159;
+    }
     .login {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-    .input {
-        margin: 2px;
-        border-radius: 5px;
-        border: solid #aaa 2px;
-        width: 200px;
-        height: 30px;
-        padding: 0 3px 0 3px;
     }
 </style>
