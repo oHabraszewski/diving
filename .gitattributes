@@ -1,1 +1,2 @@
 *.vue linguist-language=Vue
+game/addons/* linguist-vendored
