@@ -54,4 +54,9 @@ func _on_terrain_entered_body():
 
 func _on_Button_pressed():
 	$Game/Shark.changeSize(100)
+	
+	pass # Replace with function body.
+
+
+func _on_Shark_detected_player_in_sharks_mouth(colided_body):
 	pass # Replace with function body.

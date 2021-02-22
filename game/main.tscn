@@ -98,5 +98,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="entered_body" from="Game/terrain" to="." method="_on_terrain_entered_body"]
+[connection signal="detected_player_in_sharks_mouth" from="Game/Shark" to="." method="_on_Shark_detected_player_in_sharks_mouth"]
 [connection signal="value_changed" from="Interface/Control/HSlider4" to="Game/terrain" method="_on_HSlider4_value_changed"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
