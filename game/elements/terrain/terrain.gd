@@ -40,29 +40,29 @@ var test_seed = 1
 var messyness = 0
 
 func halt(direction_stucture_organizer, size_x, size_y):
-	for y in range(size_y):
-		for x in range(size_x):
-			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
-				printraw("[  UP ]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
-				printraw("[ DOWN]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
-				printraw("[RIGHT]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
-				printraw("[ LEFT]")
-			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
-				printraw("[     ]")
-		print()
+#	for y in range(size_y):
+#		for x in range(size_x):
+#			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
+#				printraw("[  UP ]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+#				printraw("[ DOWN]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+#				printraw("[RIGHT]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+#				printraw("[ LEFT]")
+#			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+#				printraw("[     ]")
+#		print()
 	pass
 
 
 func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, segment_count_x = 16, segment_count_y = 16, segment_size = Vector2(100, 100)):
-	print("SH  ", start_height)
-	print("EH  ", end_height)
-#	end_height = segment_count_y * segment_size.y - end_height
-#	start_height = segment_count_y * segment_size.y - start_height
-	print("EHN ", start_height)
-	print("SHN ", end_height)
+#	print("SH  ", start_height)
+#	print("EH  ", end_height)
+##	end_height = segment_count_y * segment_size.y - end_height
+##	start_height = segment_count_y * segment_size.y - start_height
+#	print("EHN ", start_height)
+#	print("SHN ", end_height)
 	
 	points_to_draw.resize(0)
 	red_p_t_d.resize(0)
@@ -90,7 +90,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	var random
 	while(current_segment != end_segment):
-		print("end_segment: ", end_segment)
+#		print("end_segment: ", end_segment)
 #		print("Current segment  X:", current_segment.x, "    Y:", current_segment.y, "         ")
 #		if direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
 #			print("[  UP ]")
@@ -127,7 +127,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			else:
 				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.y == 0:
-			print("najwyższy wiersz y = 0")#DEV
+#			print("najwyższy wiersz y = 0")#DEV
 			if direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
@@ -137,7 +137,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			else:
 				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.y == (segment_count_y - 1):
-			print("najniższy wiersz  y = segment_count_y - 1")#DEV
+#			print("najniższy wiersz  y = segment_count_y - 1")#DEV
 			if current_segment.x+1 == segment_count_x:
 				#if direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
@@ -154,7 +154,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				else:
 					halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.x == (segment_count_x-1):
-			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
+#			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
 			if current_segment.y < end_segment.y:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
@@ -166,7 +166,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				
 				####end generation
 		else:#randomly choose segments
-			print("element wybierany losowo: ")
+#			print("element wybierany losowo: ")
 			random = rng.randi_range(1, 100)
 			if last_was_left:
 				random = rng.randi_range(1, 40)
@@ -174,20 +174,20 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 				current_segment.y -= 1
 				last_was_left = false
-				print("wybralem  UP")
+#				print("wybralem  UP")
 			elif random > 40 and random <= 70 and direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
 				last_was_left = false
-				print("wybralem  DOWN")
+#				print("wybralem  DOWN")
 			elif random > 70 and random <= 100 and direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
 					current_segment.x += 1
 					last_was_left = false
-					print("wybralem  RIGHT")
+#					print("wybralem  RIGHT")
 			elif random > 30 and random <= 40 and direction_stucture_organizer[current_segment.x-1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				var can_create_cave = true
-				print("sprawdzam LEFT...")
+#				print("sprawdzam LEFT...")
 				for i in range(0, current_segment.y, 1):
 					if direction_stucture_organizer[current_segment.x][i].m_direction != GeneratorSegment.avalaible_directions.NONE:
 						can_create_cave = false
@@ -200,7 +200,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.LEFT
 					current_segment.x -= 1
 					last_was_left = true
-					print("wybralem  LEFT")
+#					print("wybralem  LEFT")
 				pass
 			else:
 				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
