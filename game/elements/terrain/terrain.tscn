@@ -13,7 +13,8 @@ script = ExtResource( 1 )
 scale = Vector2( 1, -1 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 script = ExtResource( 2 )
-Width = 6.0
+OutLine = Color( 0, 0, 0, 1 )
+Width = 2.0
 draw = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
