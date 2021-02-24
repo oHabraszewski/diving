@@ -68,8 +68,7 @@ if not exist server/public (
 
 cd game
 timeout 5
-..\..\godot --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html
-
+start godot_export.bat
 cd ..
 cd server
 mvnw spring-boot:run
