@@ -114,7 +114,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 			current_segment.y -= 1
 		elif current_segment.x == 0:
-			print("pierwsza kolumna x = 0")#DEV
+#			print("pierwsza kolumna x = 0")#DEV
 			if direction_stucture_organizer[current_segment.x+1][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
 				current_segment.x += 1
@@ -247,6 +247,8 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 					ctrl_point = Vector2(current_segment.x*segment_size.x+segment_size.x, current_segment.y*segment_size.y+(segment_size.y / 2)) - Vector2(current_segment.x * segment_size.x + rng.randi_range((segment_size.x / 2), segment_size.x) + (segment_size.x/2), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
 					if next_vertex_needs_to_be_limited == true:
 						next_vertex_needs_to_be_limited = false
+					else:
+						next_vertex_needs_to_be_limited = true
 #					print("SEGMENT: ", current_segment, " DIRECTION: ", direction_stucture_organizer[current_segment.x][current_segment.y].m_direction, "CTRL_POINT: ", ctrl_point) #DEV
 					ctrl_point.x = -ctrl_point.x
 					pass
@@ -275,7 +277,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			current_segment.x -= 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y+segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
-			if current_segment.y > 0: #żeby nie wychodziło poza bufor 
+			if current_segment.y >= 0: #żeby nie wychodziło poza bufor 
 				if (direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.RIGHT) or next_vertex_needs_to_be_limited:
 #				[     ][ DOWN][     ]
 #				[     ][ {UP}][LEFT ]
@@ -295,7 +297,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			current_segment.y += 1
 		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.UP:
 			var ctrl_point = Vector2(current_segment.x*segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y) - Vector2(current_segment.x * segment_size.x + rng.randi_range(0, segment_size.x), current_segment.y * segment_size.y + rng.randi_range(0, segment_size.y))
-			if current_segment.y > 0: #żeby nie wychodziło poza bufor 
+			if current_segment.y >= 0: #żeby nie wychodziło poza bufor 
 				if (direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.LEFT or direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.RIGHT) or next_vertex_needs_to_be_limited:
 #				[     ][     ][     ]
 #				[     ][ {UP}][LEFT ]
@@ -356,12 +358,25 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	#terrain_curve.add_point(segment_size,Vector2(0,0),Vector2(0,0))
 	$Polygon2D.set("polygon", terrain_curve.tessellate())
 	$StaticBody2D/CollisionPolygon2D.set("polygon", terrain_curve.tessellate())
-	$Polygon2D.set("draw", false)
+	$Polygon2D.set("draw", true)
 	length = segment_count_x * segment_size.x 
 	$Area2D/CollisionShape2D.shape.extents.y = segment_count_y * segment_size.y / 2
 	$Area2D/CollisionShape2D.position.x = (segment_count_x * segment_size.x) / 3
 	$Area2D/CollisionShape2D.position.y = -(segment_count_y * segment_size.y / 2)
 	emit_signal("generated")
+	for y in range(segment_count_y):
+		for x in range(segment_count_x):
+			if direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.UP:
+				printraw("[  UP ]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.DOWN:
+				printraw("[ DOWN]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.RIGHT:
+				printraw("[RIGHT]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.LEFT:
+				printraw("[ LEFT]")
+			elif direction_stucture_organizer[x][y].m_direction == GeneratorSegment.avalaible_directions.NONE:
+				printraw("[     ]")
+		print()
 	pass
 	
 #var points = [Vector2(0, 0), Vector2(100, 1450), Vector2(200, 1450), Vector2(300, 1450),
