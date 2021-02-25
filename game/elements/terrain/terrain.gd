@@ -28,9 +28,12 @@ class GeneratorSegment:
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export(float) var length = 0.0
+export(float) var length = -1.0
+export(float) var final_height = -1.0
 export(PoolVector2Array) var points_to_draw = []
 export(PoolVector2Array) var red_p_t_d = []
+
+
 
 signal generated()
 signal entered_body()
@@ -87,7 +90,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	
 	var end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
 #	print(end_segment)
-	
+	var end_segment_set = true
 	var random
 	while(current_segment != end_segment):
 #		print("end_segment: ", end_segment)
@@ -154,6 +157,11 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				else:
 					halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.x == (segment_count_x-1):
+			if end_segment_set:#ustawianie ostatniego segmentu
+				end_height = current_segment.y * segment_size.y + (segment_size.y / 2)
+				end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
+				end_segment_set =  false
+				final_height = end_height
 #			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
 			if current_segment.y < end_segment.y:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
