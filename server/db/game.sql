@@ -43,7 +43,7 @@ CREATE TABLE `login` (
 
 CREATE TABLE `rooms` (
   `ID` int(11) NOT NULL,
-  `WORLD_ID` text COLLATE utf8_polish_ci NOT NULL,
+  `WORLD_NAME` text COLLATE utf8_polish_ci NOT NULL,
   `ROOM_CONFIG` longtext COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
@@ -55,9 +55,22 @@ CREATE TABLE `rooms` (
 
 CREATE TABLE `worlds` (
   `ID` int(11) NOT NULL,
-  `PLAYERS_IDS` longtext COLLATE utf8_polish_ci NOT NULL,
-  `OWNER_ID` text COLLATE utf8_polish_ci NOT NULL,
+  --`PLAYERS_IDS` longtext COLLATE utf8_polish_ci NOT NULL,
+  `OWNER_ID` int(11) NOT NULL,
   `SEED` bigint(20) NOT NULL,
+  `WORLD_DATA` longtext COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli "roomsPlayers"
+--
+
+CREATE TABLE `roomsPlayers` (
+  `ID` int(11) NOT NULL,
+  `WORLD_ID` int(11) NOT NULL,
+  `PLAYER_ID` int(11) NOT NULL,
   `WORLD_DATA` longtext COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
@@ -84,6 +97,12 @@ ALTER TABLE `worlds`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indeksy dla tabeli `roomsPlayers`
+--
+ALTER TABLE `roomsPlayers`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- AUTO_INCREMENT dla zrzuconych tabel
 --
 
@@ -103,6 +122,12 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT dla tabeli `worlds`
 --
 ALTER TABLE `worlds`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `roomsPlayers`
+--
+ALTER TABLE `roomsPlayers`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
