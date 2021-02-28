@@ -83,7 +83,7 @@ else
     read -n 1 -s -r -p "Press any key to continue" && echo
 fi
 cd ..
-if ! [[ "$JAVA_HOME"=="" ]]
+if ! [[ "$JAVA_HOME" == "" ]]
 then
     if ! [[ -d "server/public" ]]
     then
