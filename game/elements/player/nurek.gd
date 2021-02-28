@@ -21,9 +21,11 @@ func _process(delta):
 			
 	if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right") and self.linear_velocity.x > -200:
 		self.linear_velocity.x -= 40
+		self.get_child(0).flip_h = true
 		
 	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and self.linear_velocity.x < 200:
 		self.linear_velocity.x += 140
+		self.get_child(0).flip_h = false
 	
 	
 	if self.linear_velocity.y < 10:
