@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `login`
+-- Struktura tabeli dla tabeli `users`
 --
 
-CREATE TABLE `login` (
+CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `LOGIN` text COLLATE utf8_polish_ci NOT NULL,
   `PASS` text COLLATE utf8_polish_ci NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `login` (
 
 CREATE TABLE `rooms` (
   `ID` int(11) NOT NULL,
-  `WORLD_NAME` text COLLATE utf8_polish_ci NOT NULL,
+  `WORLD_ID` int(11) NOT NULL,
   `ROOM_CONFIG` longtext COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
@@ -55,7 +55,7 @@ CREATE TABLE `rooms` (
 
 CREATE TABLE `worlds` (
   `ID` int(11) NOT NULL,
-  --`PLAYERS_IDS` longtext COLLATE utf8_polish_ci NOT NULL,
+  `WORLD_NAME` text COLLATE utf8_polish_ci NOT NULL,
   `OWNER_ID` int(11) NOT NULL,
   `SEED` bigint(20) NOT NULL,
   `WORLD_DATA` longtext COLLATE utf8_polish_ci NOT NULL
@@ -67,11 +67,11 @@ CREATE TABLE `worlds` (
 -- Struktura tabeli "roomsPlayers"
 --
 
-CREATE TABLE `roomsPlayers` (
+CREATE TABLE `playersData` (
   `ID` int(11) NOT NULL,
   `WORLD_ID` int(11) NOT NULL,
   `PLAYER_ID` int(11) NOT NULL,
-  `WORLD_DATA` longtext COLLATE utf8_polish_ci NOT NULL
+  `PLAYER_DATA` longtext COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `roomsPlayers` (
 --
 -- Indeksy dla tabeli `login`
 --
-ALTER TABLE `login`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -99,7 +99,7 @@ ALTER TABLE `worlds`
 --
 -- Indeksy dla tabeli `roomsPlayers`
 --
-ALTER TABLE `roomsPlayers`
+ALTER TABLE `playersData`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -109,7 +109,7 @@ ALTER TABLE `roomsPlayers`
 --
 -- AUTO_INCREMENT dla tabeli `login`
 --
-ALTER TABLE `login`
+ALTER TABLE `users`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -127,8 +127,7 @@ ALTER TABLE `worlds`
 --
 -- AUTO_INCREMENT dla tabeli `roomsPlayers`
 --
-ALTER TABLE `roomsPlayers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `playersData int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
