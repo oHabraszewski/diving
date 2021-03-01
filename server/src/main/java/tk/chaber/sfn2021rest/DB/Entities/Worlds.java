@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.math.BigInteger;
 
 @Entity
-public class WorldEntity {
+public class Worlds {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

@@ -6,14 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class RoomEntity {
+public class PlayerDatas {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     private Integer worldId;
 
-    private String roomData;
+    private Integer playerId;
+
+    private String playerData;
 
     public Integer getId() {
         return id;
@@ -31,11 +33,19 @@ public class RoomEntity {
         this.worldId = worldId;
     }
 
-    public String getRoomData() {
-        return roomData;
+    public Integer getPlayerId() {
+        return playerId;
     }
 
-    public void setRoomData(String roomData) {
-        this.roomData = roomData;
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
+    }
+
+    public String getPlayerData() {
+        return playerData;
+    }
+
+    public void setPlayerData(String playerData) {
+        this.playerData = playerData;
     }
 }
