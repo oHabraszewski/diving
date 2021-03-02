@@ -21,6 +21,5 @@
 		WORLD_ID    (int, ID in worlds)
 		ROOM_DATA   (longtext, JSON)
 	}
-																																								Korzystając z bazy zobowiązujesz się do kupowania kawy dla Janka na każde zajęcia stacjonarne do końca roku kalendarzowego. Nieobecność nie zwalnia z obowiązku zakupu.
 	
 	
