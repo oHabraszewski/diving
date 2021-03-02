@@ -33,10 +33,10 @@ func _on_terrain_entered_body():
 	#$Interface/Control/Button.disconnect("pressed", active_terrain, "_on_Button_pressed")
 	print(terrain_instance.connect("entered_body", self, "_on_terrain_entered_body"))
 	#$Interface/Control/Button.connect("pressed", terrain_instance, "_on_Button_pressed")
-	active_terrain = terrain_instance
 	actual_seed = hash(actual_seed+1)
-	active_terrain.generate_terrain_v5(actual_seed, 200, 200, 20, 30, Vector2(100,100))
+	terrain_instance.generate_terrain_v5(actual_seed, active_terrain.final_height, 200 , 20, 30, Vector2(100,100))
 	print("NEW SEED: ", actual_seed)
+	active_terrain = terrain_instance
 	terrain_chunks.append(active_terrain)
 	while terrain_chunks.size() >= 4:#Deleating not needed anymore chunks of the world
 		terrain_chunks[0].queue_free()
