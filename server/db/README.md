@@ -3,7 +3,7 @@
 	login{
 		ID          (int, increment)
 		LOGIN       (txt)
-		PASS        (txt, Hash)
+		PASS        (blob, Hash)
 		SESSION     (txt)
 		EMAIL       (txt, email)
 	}
