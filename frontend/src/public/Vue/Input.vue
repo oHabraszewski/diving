@@ -1,11 +1,16 @@
 <template>
     <div class="inputContainer">
-        <input :title=title class="input" :placeholder=placeholder v-model="default"/><br>
+        <input :type=type :title=title class="input" :placeholder=placeholder v-model="value"/><br>
     </div>
 </template>
 <script>
     export default {
-        props: ['placeholder', "title", "default"],
+        props: ["placeholder", "title", "value", "type"],
+        watch: {
+            value(o, n){
+                this.$emit("valueChange", this.value)
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
