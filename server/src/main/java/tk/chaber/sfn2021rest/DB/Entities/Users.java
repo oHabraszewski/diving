@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 
 @Entity
 public class Users {
@@ -13,7 +16,7 @@ public class Users {
 
     private String username;
 
-    private String password;
+    private byte[] password;
 
     private String session;
 
@@ -35,12 +38,27 @@ public class Users {
         this.username = username;
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passToHash) {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        byte[] hashedPassword;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt);
+
+            hashedPassword = md.digest(passToHash.getBytes(StandardCharsets.UTF_8));
+
+            this.password = hashedPassword;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getSession() {

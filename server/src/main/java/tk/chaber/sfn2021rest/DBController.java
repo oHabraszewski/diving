@@ -22,10 +22,11 @@ public class DBController {
     @PostMapping(path="/add")
     public @ResponseBody
     String addNewUser (@RequestParam String name
-            , @RequestParam String email) {
+            , @RequestParam String email, @RequestParam String password) {
 
         Users n = new Users();
         n.setUsername(name);
+        n.setPassword(password);
         n.setEmail(email);
         userRepository.save(n);
         return "Saved";
