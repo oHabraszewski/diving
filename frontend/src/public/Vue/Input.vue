@@ -1,11 +1,16 @@
 <template>
     <div class="inputContainer">
-        <input :title=title class="input" :placeholder=placeholder v-model="default"/><br>
+        <input :type=type :title=title class="input" :placeholder=placeholder :minlength=minim :maxlength=maxim v-model="value" required/><br>
     </div>
 </template>
 <script>
     export default {
-        props: ['placeholder', "title", "default"],
+        props: ["placeholder", "title", "value", "type", "minim", "maxim"],
+        watch: {
+            value(o, n){
+                this.$emit("valueChange", this.value)
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
@@ -29,5 +34,16 @@
     }
     .input::placeholder {
         color: #163636
+    }
+    .showButton {
+        position: absolute;
+        right: 0px;
+        width: 52px;
+        height: 52px;
+        background: rgba($color: #367169, $alpha: 0.6);
+        margin: 2px;
+        border-radius: 0px 12px 12px 0px;
+        border: solid #103131 3px;
+        padding: 0 3px 0 3px;
     }
 </style>

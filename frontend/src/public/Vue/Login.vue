@@ -1,8 +1,8 @@
 <template>
     <div class="login">
-        <center><h1>ŚFN 2021</h1></center>
+        <h1>ŚFN 2021</h1>
         <Input title="Type world name" placeholder="World name" :default=world_id></Input>
-        <Button destination="/game"></Button>
+        <Button text="Play" destination="/game"></Button>
     </div>
 </template>
 <script>

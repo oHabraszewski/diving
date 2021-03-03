@@ -29,6 +29,8 @@
 - Spring framework
 - VueJS 3 framework
 - REST architecture
+- Axios
+- WebSocket
 - Maven
 - Webpack
 - Git

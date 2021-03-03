@@ -17,4 +17,8 @@ public class PagesController {
     public String technical() {
         return "technical.html";
     }
+    @GetMapping("/register")
+    public String register() {
+        return "login.html";
+    }
 }
