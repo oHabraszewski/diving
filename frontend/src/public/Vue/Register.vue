@@ -5,7 +5,7 @@
             <Input @valueChange="setUsername" title="Username" placeholder="Username" maxim="24"></Input>
             <Input @valueChange="setPassword" type="password" title="Password" placeholder="Password" minim="8" maxim="32"></Input>
             <Input @valueChange="setEmail" type="email" title="Email" placeholder="Email"></Input>
-            <p>{{info.data}}</p>
+            <p>{{error}}</p>
             <Button text="Sign up"></Button>
         </form>
     </div>
@@ -28,7 +28,6 @@
                 email: "",
                 errored: false,
                 error: "",
-                info: ""
             }
         },
         methods: {
@@ -46,16 +45,17 @@
             },
             sendData(){
                 this.test = this.username + this.password + this.email //Placeholder test function
-                axios.post("http://localhost:8080/registration", {  //TODO: set right URL on production
+                axios.post("http://localhost:8080/registerValidation", {  //TODO: set right URL on production
                     username: this.username,
                     password: this.password,
                     email: this.email
                 }).then(response=>{
-                    this.info = response
+                    this.error = response.data.description
                     console.log(response)
                 }).catch(error=>{
                     this.errored = true
                     this.error = error
+                    console.log(error)
                 })
             }
         }

@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+
+import static com.oracle.jrockit.jfr.ContentType.Bytes;
 
 @Entity
 public class Users {
@@ -18,9 +21,11 @@ public class Users {
 
     private byte[] password;
 
+    private String email;
+
     private String session;
 
-    private String email;
+    private byte[] salt;
 
     public Integer getId() {
         return id;
@@ -43,21 +48,22 @@ public class Users {
     }
 
     public void setPassword(String passToHash) {
-//        SecureRandom random = new SecureRandom();
-//        byte[] salt = new byte[16];
-//        random.nextBytes(salt);
-//        System.out.println(salt.toString());
+
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        this.setSalt(salt);
 
         byte[] hashedPassword;
 
         try {
-            String ourSalt = "heheBoi";
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(ourSalt.getBytes());
-
+            md.update(this.getSalt());
             hashedPassword = md.digest(passToHash.getBytes(StandardCharsets.UTF_8));
 
             this.password = hashedPassword;
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -67,8 +73,22 @@ public class Users {
         return session;
     }
 
-    public void setSession(String session) {
-        this.session = session;
+    public void setSession() {
+        SecureRandom random = new SecureRandom();
+        int randomizerInt = random.nextInt();
+        String randomizer = Integer.toString(randomizerInt);
+
+        byte[] hashSession;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            hashSession = md.digest((username + randomizer).getBytes(StandardCharsets.UTF_8));
+            String randomSession = hashSession.toString();
+            this.session = randomSession;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getEmail() {
@@ -77,5 +97,13 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }
