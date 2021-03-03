@@ -1,6 +1,6 @@
 <template>
     <div class="buttonContainer">
-        <button v-on:click="changeDir" class="button">Play</button>
+        <button v-on:click="changeDir" class="button">{{text}}</button>
     </div>
 </template>
 <script>
@@ -9,7 +9,9 @@
         methods: {
             changeDir(){
                 setTimeout(()=>{
-                    location.href = "./game"
+                    if(this.destination != undefined){
+                        location.href = this.destination
+                    }
                 },300)
             }
         }

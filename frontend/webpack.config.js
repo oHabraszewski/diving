@@ -19,7 +19,8 @@ const context = path.resolve(__dirname, 'src');
 const entry = {
   index: path.resolve(context, 'index.js'),
   credits: path.resolve(context, 'credits.js'),
-  technical: path.resolve(context, 'technical.js')
+  technical: path.resolve(context, 'technical.js'),
+  login: path.resolve(context, 'login.js')
 };
 
 const resolve = {
@@ -123,6 +124,11 @@ let htmlWebpackPluginsOptions = [
     filename: "technical.html",
     template: path.resolve(context, 'public/technical.html'),
     chunks: ["technical"]
+  },
+  {
+    filename: "login.html",
+    template: path.resolve(context, 'public/login.html'),
+    chunks: ["login"]
   }
 ];
 {
@@ -167,6 +173,7 @@ const plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[0]),
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[1]),
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
+  new HtmlWebpackPlugin(htmlWebpackPluginsOptions[3]), 
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
 ];
 {
