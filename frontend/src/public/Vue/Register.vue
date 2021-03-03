@@ -50,7 +50,7 @@
                     password: this.password,
                     email: this.email
                 }).then(response=>{
-                    this.error = response.data.description
+                    this.error = response.data.error
                     console.log(response)
                 }).catch(error=>{
                     this.errored = true
