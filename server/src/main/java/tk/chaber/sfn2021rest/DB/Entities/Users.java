@@ -43,15 +43,17 @@ public class Users {
     }
 
     public void setPassword(String passToHash) {
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
+//        SecureRandom random = new SecureRandom();
+//        byte[] salt = new byte[16];
+//        random.nextBytes(salt);
+//        System.out.println(salt.toString());
 
         byte[] hashedPassword;
 
         try {
+            String ourSalt = "heheBoi";
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
+            md.update(ourSalt.getBytes());
 
             hashedPassword = md.digest(passToHash.getBytes(StandardCharsets.UTF_8));
 

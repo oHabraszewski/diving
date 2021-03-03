@@ -7,29 +7,21 @@ import tk.chaber.sfn2021rest.DB.Entities.Users;
 import tk.chaber.sfn2021rest.DB.Repositories.UserRepo;
 
 /*
-*
-* This is starting, testing code and it'll be changed.
-*
+ *
+ * This is starting, testing code and it'll be changed.
+ *
  */
 
-
-@Controller
-@RequestMapping(path="/demo")
-public class DBController {
+@RestController
+public class UsersController {
     @Autowired
     private UserRepo userRepository;
 
-    @PostMapping(path="/add")
-    public @ResponseBody
-    String addNewUser (@RequestParam String name
-            , @RequestParam String email, @RequestParam String password) {
-
-        Users n = new Users();
-        n.setUsername(name);
-        n.setPassword(password);
-        n.setEmail(email);
-        userRepository.save(n);
-        return "Saved";
+    @PostMapping(path = "/registration", consumes = "application/json", produces = "application/json")
+    public @ResponseBody Users register(@RequestBody Users user) {
+        System.out.println("==== post signup ====");
+        System.out.println(user.getUsername());
+        return user;
     }
 
     @GetMapping(path="/all")
