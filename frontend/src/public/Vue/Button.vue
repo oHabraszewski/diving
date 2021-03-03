@@ -1,6 +1,6 @@
 <template>
     <div class="buttonContainer">
-        <button v-on:click="changeDir" class="button">Play</button>
+        <button v-on:click="changeDir" class="button">{{text}}</button>
     </div>
 </template>
 <script>
