@@ -29,7 +29,7 @@ class GeneratorSegment:
 # var a = 2
 # var b = "text"
 export(float) var length = -1.0
-export(float) var final_height = -1.0
+export(float) var final_height = 1.0
 export(PoolVector2Array) var points_to_draw = []
 export(PoolVector2Array) var red_p_t_d = []
 
@@ -37,6 +37,7 @@ export(PoolVector2Array) var red_p_t_d = []
 
 signal generated()
 signal entered_body()
+signal entered_body_backwards()
 
 var terrain_size = Vector2(1000,800)
 var test_seed = 1
@@ -86,7 +87,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			direction_stucture_organizer[x][y] = GeneratorSegment.new(segment_size)
 
 	var current_segment = Vector2(0,  floor((start_height / segment_size.y)) -1)
-#	print(current_segment)
+	print("CURRENT_SEGMENT_FOR_START:", current_segment)
 	
 	var end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
 #	print(end_segment)
@@ -106,13 +107,23 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 #		elif direction_stucture_organizer[current_segment.x][current_segment.y].m_direction == GeneratorSegment.avalaible_directions.NONE:
 #			print("[     ]")
 			
-#		if current_segment.x == segment_count_x-1:
-#			print("BORDER X!")
+		if current_segment.x == segment_count_x-1:
+			print("BORDER X!")
 #
-#		if current_segment.y == segment_count_y-1:
-#			print("BORDER Y!")
+		if current_segment.y == segment_count_y-1:
+			print("BORDER Y!")
 			
 		# jesli 1 kolumna od lewej, to idz w prawo
+		if current_segment.x == (segment_count_x - 2):
+			if end_segment_set:#ustawianie ostatniego segmentu
+				end_height = current_segment.y * segment_size.y - (segment_size.y / 2)
+				if end_height <= 0:
+					end_height = current_segment.y * segment_size.y
+				end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
+				end_segment_set =  false
+				final_height = end_height
+		
+		
 		if current_segment.x == (segment_count_x - 1) and current_segment.y == (segment_count_y - 1):
 			direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 			current_segment.y -= 1
@@ -129,8 +140,20 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 				current_segment.y -= 1
 			else:
 				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
-		elif current_segment.y == 0:
-#			print("najwyższy wiersz y = 0")#DEV
+		elif current_segment.x == (segment_count_x-1):
+#			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
+			if current_segment.y < end_segment.y:
+				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
+				current_segment.y += 1
+			elif current_segment.y > end_segment.y:
+				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
+				current_segment.y -= 1
+			if current_segment == end_segment:
+				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
+				
+				####end generation
+		elif current_segment.y == 1:
+			print("najwyższy wiersz y = 0")#DEV
 			if direction_stucture_organizer[current_segment.x][current_segment.y+1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
 				current_segment.y += 1
@@ -140,7 +163,7 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 			else:
 				halt(direction_stucture_organizer, segment_count_x, segment_count_y)
 		elif current_segment.y == (segment_count_y - 1):
-#			print("najniższy wiersz  y = segment_count_y - 1")#DEV
+			print("najniższy wiersz  y = segment_count_y - 1")#DEV
 			if current_segment.x+1 == segment_count_x:
 				#if direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 					direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
@@ -156,28 +179,12 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 					current_segment.y -= 1
 				else:
 					halt(direction_stucture_organizer, segment_count_x, segment_count_y)
-		elif current_segment.x == (segment_count_x-1):
-			if end_segment_set:#ustawianie ostatniego segmentu
-				end_height = current_segment.y * segment_size.y + (segment_size.y / 2)
-				end_segment =  Vector2(segment_count_x-1,  floor((end_height / segment_size.y)) - 1)
-				end_segment_set =  false
-				final_height = end_height
-#			print("ostatnia kolumna x = segment_count_x-1 powinno schodzić na dol lub isc do gory")#DEV
-			if current_segment.y < end_segment.y:
-				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.DOWN
-				current_segment.y += 1
-			elif current_segment.y > end_segment.y:
-				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
-				current_segment.y -= 1
-			if current_segment == end_segment:
-				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.RIGHT
-				
-				####end generation
 		else:#randomly choose segments
 #			print("element wybierany losowo: ")
 			random = rng.randi_range(1, 100)
 			if last_was_left:
 				random = rng.randi_range(1, 40)
+			print("C SEGMENT: ",current_segment)
 			if random <= 30 and direction_stucture_organizer[current_segment.x][current_segment.y-1].m_direction == GeneratorSegment.avalaible_directions.NONE:
 				direction_stucture_organizer[current_segment.x][current_segment.y].m_direction = GeneratorSegment.avalaible_directions.UP
 				current_segment.y -= 1
@@ -371,6 +378,9 @@ func generate_terrain_v5(generation_seed, start_height = 250, end_height = 250, 
 	$Area2D/CollisionShape2D.shape.extents.y = segment_count_y * segment_size.y / 2
 	$Area2D/CollisionShape2D.position.x = (segment_count_x * segment_size.x) / 3
 	$Area2D/CollisionShape2D.position.y = -(segment_count_y * segment_size.y / 2)
+	$Area2D2/CollisionShape2D.shape.extents.y = segment_count_y * segment_size.y / 2
+	$Area2D2/CollisionShape2D.position.x = (segment_count_x * segment_size.x) - ((segment_count_x * segment_size.x) / 3)
+	$Area2D2/CollisionShape2D.position.y = -(segment_count_y * segment_size.y / 2)
 	emit_signal("generated")
 	for y in range(segment_count_y):
 		for x in range(segment_count_x):
@@ -406,5 +416,9 @@ func _on_HSlider4_value_changed(value):
 func _on_Area2D_body_entered(body):
 	print(body)
 	emit_signal("entered_body")
-	print(body)
+	pass # Replace with function body.
+
+
+func _on_Area2D2_body_entered(body):
+	emit_signal("entered_body_backwards")
 	pass # Replace with function body.

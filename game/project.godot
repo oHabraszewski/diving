@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot_sfn2021"
-run/main_scene="res://main.tscn"
+run/main_scene="res://elements/terrainv2/TerrainV2.tscn"
 config/icon="res://icon.png"
 
 [display]
