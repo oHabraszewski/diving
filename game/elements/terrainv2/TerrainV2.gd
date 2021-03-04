@@ -9,6 +9,7 @@ export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 export(int) var generation_seed = 0 
 export(int) var end_height = -1
+var rng = RandomNumberGenerator.new()
 
 enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
 var segments = []
@@ -57,7 +58,7 @@ func reset_segments(segments_to_reset: Array):
 	pass
 func position_areas_correctly(): # Area2D objects used to make new chunks of tarrain
 	pass
-func generate_segments(starting_height = 200):
+func generate_segments(segments, starting_height = 200):
 	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
 #	wagi:
 #	jeśli wyskosc jest mniejsza niz 10% to:
@@ -79,9 +80,29 @@ func generate_segments(starting_height = 200):
 	
 	
 #	Wyglad tablicy (jak w pamieci i na zrzucie)
-	var starting_segment = Vector2(0, floor(starting_height / segment_size.y))# segmant ktory jest na wyskokosci startowej i w 0-wej kolumnie X
-	print("STARTING_SEGMENT: ", starting_segment)
+	var current_segment = Vector2(0, floor(starting_height / segment_size.y))# segmant ktory jest na wyskokosci startowej i w 0-wej kolumnie X
 	
+	while(not current_segment.x == (segment_count_x - 1)):
+		#TODO: wyjscie z rogow
+		if current_segment.x == 0: # pierwsza kolumna
+			segments[current_segment.x][current_segment.y] = Direction.RIGHT
+			current_segment.x += 1 # przesuniecie w prawo
+			pass
+		elif current_segment.y == 0: # pierwszy rzad
+			segments[current_segment.x][current_segment.y] = Direction.DOWN
+			current_segment.y += 1 # przesuniecie w dol
+			pass
+		elif current_segment.y == (segment_count_y - 1): # ostatni rzad
+			segments[current_segment.x][current_segment.y] = Direction.UP
+			current_segment.y += 1 # przesuniecie w gore
+			pass
+		elif current_segment.x ==  (segment_count_x - 1): # ostatnia kolumna
+			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
+			pass
+		else: # losowy wybor
+			var random = rng.randi_range(1, 100)
+			
+			pass
 	pass
 func calculate_final_height():
 	pass
@@ -96,6 +117,6 @@ func _ready():
 
 func _on_Button_pressed():
 	reset_segments(segments)
-	generate_segments(100)
-	print_segments(segments, Vector2(13,2), Vector2(0,5))
+	generate_segments(segments, 200)
+	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
 	pass # Replace with function body.
