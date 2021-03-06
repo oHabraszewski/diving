@@ -1,4 +1,4 @@
-# SFN2021 Project
+# Diving game
 
 ## Project starting and stopping
 
@@ -21,8 +21,9 @@
 ## Languages
 - Java
 - GDScript (language similar to Python)
-- SQL
-- HTML, SCSS, JS
+- HTML
+- SCSS
+- JS
 
 ## Technologies
 - Godot engine
