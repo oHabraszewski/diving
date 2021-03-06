@@ -82,7 +82,7 @@ func generate_segments(segments, starting_height = 200):
 #	Wyglad tablicy (jak w pamieci i na zrzucie)
 	var current_segment = Vector2(0, floor(starting_height / segment_size.y))# segmant ktory jest na wyskokosci startowej i w 0-wej kolumnie X
 	
-	while(not current_segment.x == (segment_count_x - 1)):
+	while(not current_segment.x == segment_count_x):
 		#TODO: wyjscie z rogow
 		if current_segment.x == 0: # pierwsza kolumna
 			segments[current_segment.x][current_segment.y] = Direction.RIGHT
@@ -94,15 +94,32 @@ func generate_segments(segments, starting_height = 200):
 			pass
 		elif current_segment.y == (segment_count_y - 1): # ostatni rzad
 			segments[current_segment.x][current_segment.y] = Direction.UP
-			current_segment.y += 1 # przesuniecie w gore
+			current_segment.y -= 1 # przesuniecie w gore
 			pass
 		elif current_segment.x ==  (segment_count_x - 1): # ostatnia kolumna
+			segments[current_segment.x][current_segment.y] = Direction.RIGHT
+			current_segment.x += 1
 			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
 			pass
 		else: # losowy wybor
 			var random = rng.randi_range(1, 100)
-			
+			if random > 0  and random <= 33 and segments[current_segment.x + 1][current_segment.y] == Direction.NONE: # go right
+				segments[current_segment.x][current_segment.y] = Direction.RIGHT
+				current_segment.x += 1
+				pass
+			elif random > 33 and random <= 66 and segments[current_segment.x][current_segment.y - 1] == Direction.NONE: # go up
+				segments[current_segment.x][current_segment.y] = Direction.UP
+				current_segment.y -= 1
+				pass
+			elif random > 66 and random <= 100 and segments[current_segment.x][current_segment.y + 1] == Direction.NONE: # go down
+				segments[current_segment.x][current_segment.y] = Direction.DOWN
+				current_segment.y += 1
+				pass
 			pass
+	for i in range(segment_count_x):
+		segments[i][0] = Direction.NONE
+		segments[i][segment_count_y-1] = Direction.NONE
+	
 	pass
 func calculate_final_height():
 	pass
