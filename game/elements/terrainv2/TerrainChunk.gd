@@ -12,7 +12,7 @@ export(int) var end_height = -1
 var rng = RandomNumberGenerator.new()
 
 enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
-var segments = []
+#var segments = []
 func print_segments(segments, current_segment = null,starting_segment = null):
 	var line_to_print = "        X: "
 	var x_values = range(segment_count_x)
@@ -48,17 +48,18 @@ func print_segments(segments, current_segment = null,starting_segment = null):
 				line_to_print += "%6s" % what_is_in_that_segment
 		print(line_to_print)
 	pass
-func reset_segments(segments_to_reset: Array):
+func reset_segments():
+	var segments_to_reset = []
 	segments_to_reset.clear()
 	for i in range(segment_count_x):
 		segments_to_reset.append([])
 		for j in range(segment_count_y):
 			segments_to_reset[i].append([])
 			segments_to_reset[i][j] = Direction.NONE
-	pass
+	return segments_to_reset
 func position_areas_correctly(): # Area2D objects used to make new chunks of tarrain
 	pass
-func generate_segments(segments, starting_height = 200):
+func generate_segments(segments: Array, starting_height = 200):
 	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
 #	wagi:
 #	jeśli wyskosc jest mniejsza niz 10% to:
@@ -87,53 +88,73 @@ func generate_segments(segments, starting_height = 200):
 		if current_segment.x == 0: # pierwsza kolumna
 			segments[current_segment.x][current_segment.y] = Direction.RIGHT
 			current_segment.x += 1 # przesuniecie w prawo
-			pass
 		elif current_segment.y == 0: # pierwszy rzad
 			segments[current_segment.x][current_segment.y] = Direction.DOWN
 			current_segment.y += 1 # przesuniecie w dol
-			pass
 		elif current_segment.y == (segment_count_y - 1): # ostatni rzad
 			segments[current_segment.x][current_segment.y] = Direction.UP
 			current_segment.y -= 1 # przesuniecie w gore
-			pass
 		elif current_segment.x ==  (segment_count_x - 1): # ostatnia kolumna
 			segments[current_segment.x][current_segment.y] = Direction.RIGHT
 			current_segment.x += 1
 			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
-			pass
 		else: # losowy wybor
 			var random = rng.randi_range(1, 100)
 			if random > 0  and random <= 33 and segments[current_segment.x + 1][current_segment.y] == Direction.NONE: # go right
 				segments[current_segment.x][current_segment.y] = Direction.RIGHT
 				current_segment.x += 1
-				pass
 			elif random > 33 and random <= 66 and segments[current_segment.x][current_segment.y - 1] == Direction.NONE: # go up
 				segments[current_segment.x][current_segment.y] = Direction.UP
 				current_segment.y -= 1
-				pass
 			elif random > 66 and random <= 100 and segments[current_segment.x][current_segment.y + 1] == Direction.NONE: # go down
 				segments[current_segment.x][current_segment.y] = Direction.DOWN
 				current_segment.y += 1
-				pass
-			pass
-	for i in range(segment_count_x):
+	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
-		segments[i][segment_count_y-1] = Direction.NONE
+		segments[i][segment_count_y - 1] = Direction.NONE
+	return segments
+func calculate_final_height(segments):
+	var final_height
+	for j in range(segment_count_y):
+		if not segments[segment_count_x - 1][j] == Direction.NONE:
+			final_height = j * segment_size.y + (segment_size.y / 2)
+	return final_height
 	
-	pass
-func calculate_final_height():
-	pass
-func create_curve_based_on_segments(): 
-	pass
+func create_curve_based_on_segments(segments: Array): 
+	var curve = Curve2D.new()
+#	Wierzcholki beda definiowane zgodnie z ruchem wskazowek zegara.
+	curve.add_point(Vector2(0, 0)) # pierwszy wierzcholek
+	var current_segment
+	for j in range(segment_count_y):
+		if not segments[0][j] == Direction.NONE:
+			curve.add_point(Vector2(0, j * segment_size.y)) # wierzcholek na wyskokosci startowej
+			current_segment = Vector2(0, j)
+	while(current_segment.x < segment_count_x):
+		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
+			
+		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
+			
+		elif segments[current_segment.x][current_segment.y] == Direction.UP:
+			
+		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
+			
+		pass
+	# przedostatni wierzcholek ten po prawej stronie
+	# ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)
+	return curve
+	
 func generate_objects(): # like seaweed, sharks etc.
 	pass
+	
 func _ready():
 	pass
 
 
 
 func _on_Button_pressed():
-	reset_segments(segments)
-	generate_segments(segments, 200)
+	var segments
+	segments = reset_segments()
+	segments = generate_segments(segments, 200)
+	print("calculated height is: ", calculate_final_height(segments))
 	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
 	pass # Replace with function body.
