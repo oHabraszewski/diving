@@ -129,18 +129,31 @@ func create_curve_based_on_segments(segments: Array):
 		if not segments[0][j] == Direction.NONE:
 			curve.add_point(Vector2(0, j * segment_size.y)) # wierzcholek na wyskokosci startowej
 			current_segment = Vector2(0, j)
+	var last_segment = Direction.NONE # zmienna wykorzystywana do wykrywania zmian kierunku
 	while(current_segment.x < segment_count_x):
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
-			
+			if last_segment == Direction.UP:
+				pass
+			elif last_segment == Direction.DOWN:
+				pass
+			curve.add_point(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
+			last_segment = Direction.RIGHT
+			current_segment.x += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
-			
+			curve.add_point(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
+			last_segment = Direction.LEFT
+			current_segment.x -= 1
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-			
+			curve.add_point(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
+			last_segment = Direction.UP
+			current_segment.y -= 1
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-			
+			curve.add_point(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
+			last_segment = Direction.DOWN
+			current_segment.y += 1
 		pass
 	# przedostatni wierzcholek ten po prawej stronie
-	# ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)
+	curve.add_point(Vector2(segment_count_x * segment_size.x, 0)) # ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)
 	return curve
 	
 func generate_objects(): # like seaweed, sharks etc.
@@ -156,5 +169,6 @@ func _on_Button_pressed():
 	segments = reset_segments()
 	segments = generate_segments(segments, 200)
 	print("calculated height is: ", calculate_final_height(segments))
+	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
 	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
 	pass # Replace with function body.
