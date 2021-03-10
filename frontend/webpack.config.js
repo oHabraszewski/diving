@@ -66,7 +66,7 @@ const babelLoader = {
 }
 
 const fileLoader = {
-  test: /\.(png|jpe?g|gif|svg|ttf)$/i,
+  test: /\.(png|jpe?g|gif|svg|ttf|woff)$/i,
   loader: 'file-loader',
   options: {
     outputPath: 'assets',

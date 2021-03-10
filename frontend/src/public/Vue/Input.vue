@@ -24,8 +24,8 @@
         margin: 2px;
         border-radius: 12px;
         border: solid #103131 3px;
-        width: 320px;
-        height: 52px;
+        width: 350px;
+        height: 56px;
         padding: 0 10px 0 10px;
     }
     .input:focus{
@@ -38,8 +38,8 @@
     .showButton {
         position: absolute;
         right: 0px;
-        width: 52px;
-        height: 52px;
+        width: 56px;
+        height: 56px;
         background: rgba($color: #367169, $alpha: 0.6);
         margin: 2px;
         border-radius: 0px 12px 12px 0px;

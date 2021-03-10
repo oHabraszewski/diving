@@ -8,6 +8,12 @@
             <p v-if="!success">{{error}}</p>
             <Button text="Sign up"></Button>
         </form>
+        <div class="registered" v-if="success">
+            Thank you for sign up to Diving game!
+            Now you can login and jump into a game.
+
+            <Button text="Return to login" destination="./"></Button>
+        </div>
     </div>
 </template>
 <script>
@@ -26,7 +32,8 @@
                 password: "",
                 email: "",
                 errored: false,
-                error: ""
+                error: "",
+                success: false
             }
         },
         methods: {
@@ -49,12 +56,11 @@
                     email: this.email
                 }).then(response=>{
                     if(response.data.success){
-
+                        this.success = true
                     }else{
-
+                        this.error = response.data.error
+                        console.log(response)
                     }
-                    this.error = response.data.description
-                    console.log(response)
                 }).catch(error=>{
                     this.errored = true
                     this.error = error
@@ -68,12 +74,13 @@
     h1 {
         font-size: 75px;
         text-shadow: 3px 3px#266159;
-        margin-bottom: 10px;
+        margin-bottom: 4px;
     }
     .register {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 350px;
     }
 </style>

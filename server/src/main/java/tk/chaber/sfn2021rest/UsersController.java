@@ -30,23 +30,23 @@ public class UsersController {
         String email = data.get("email");
 
         if(username.length() > 24){
-            return new Response("Username can have up to 24 characters, please choose shorter one.", null);
+            return new Response(false, "Username can have up to 24 characters, please choose shorter one.", null);
         }
 
         if(password.length() < 8 || password.length() > 32){
-            return new Response("Password must have from 8 to 32 characters.", null);
+            return new Response(false, "Password must have from 8 to 32 characters.", null);
         }
 
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         if(!matcher.find()){
-            return new Response("It's not a proper email!", null);
+            return new Response(false, "It's not a proper email!", null);
         }
 
         if(userRepository.findByUsername(username).size() > 0){
-            return new Response("There is already a player with such username, choose another one!", null);
+            return new Response(false, "There is already a player with such username, choose another one!", null);
         }
         if(userRepository.findByEmail(email).size() > 0){
-            return new Response("There is already an account with such an email!", null);
+            return new Response(false, "There is already an account with such an email!", null);
         }
 
         Users user = new Users();
@@ -58,7 +58,7 @@ public class UsersController {
         userRepository.save(user);
 
         System.out.println("==== post signup ====");
-        return new Response(null, user.getSession());
+        return new Response(true, null, user.getSession());
     }
 
     @GetMapping(path="/all")

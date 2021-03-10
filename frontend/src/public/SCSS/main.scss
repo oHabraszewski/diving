@@ -2,13 +2,18 @@
     font-family: Ubuntu;
     src: url(../../assets/Ubuntu-Regular.ttf);
 }
+@font-face {
+    font-family: Bariol;
+    src: url(../../assets/bariol.woff);
+}
 
 * {
     margin: 0;
     padding: 0;
-    font-family: Ubuntu, Calibri;
+    font-family: Bariol;
+    font-weight: 600;
     color: #062626;
-    font-size: 24px;
+    font-size: 28px;
     box-sizing: border-box;
     outline: none;
 }
