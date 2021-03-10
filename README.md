@@ -8,6 +8,12 @@
 - Type: ./run dev
 - Press enter
 
+#### OR
+- In 3 different terminals run:
+  - yarn serve
+  - mvnw spring-boot:run
+  - *path to godot.exe* --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html
+
 ### Starting project (production mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
