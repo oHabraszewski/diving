@@ -7,16 +7,23 @@
     src: url(../../assets/bariol.woff);
 }
 
+@import 'variables';
+
 * {
     margin: 0;
     padding: 0;
     font-family: Bariol;
     font-weight: 600;
-    color: #103030;
+    color: $accent;
     font-size: 28px;
     box-sizing: border-box;
     outline: none;
 }
+h1 {
+    font-size: 75px;
+    text-shadow: 3px 3px $light-back;
+}
+
 body {
     overflow-x: hidden;
     overflow-y: hidden;

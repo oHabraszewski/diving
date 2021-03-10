@@ -37,6 +37,10 @@ public class UsersController {
             return new Response(false, "Password must have from 8 to 32 characters.", null);
         }
 
+        if(email.length() > 256){
+            return new Response(false, "Email can have up to 256 characters. (where did you create such long email, huh?)", null);
+        }
+
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         if(!matcher.find()){
             return new Response(false, "It's not a proper email!", null);

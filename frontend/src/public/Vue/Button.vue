@@ -18,6 +18,8 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../scss/variables';
+
     @keyframes squeeze {
         0% { 
             border-radius: 12px;
@@ -38,10 +40,10 @@
         position: absolute;
         left: 175px;
         transform: translate(-50%, 0%);
-        background: rgba($color: #367169, $alpha: 0.6);
+        background: rgba($color: $light-back, $alpha: 0.6);
         margin: 2px;
         border-radius: 12px;
-        border: solid #103131 3px;
+        border: solid $accent 3px;
         width: 350px;
         height: 56px;
         padding: 0 3px 0 3px;

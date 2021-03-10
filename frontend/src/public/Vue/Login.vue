@@ -3,8 +3,8 @@
         <div class="newlogin">
             <h1>Diving</h1>
             <form>
-                <Input title="Type your username" placeholder="Username"></Input>
-                <Input title="Type your password" placeholder="Password" type="password"></Input>
+                <Input title="Type your username" placeholder="Username" maxim="24"></Input>
+                <Input title="Type your password" placeholder="Password" type="password" maxim="32"></Input>
                 <Button text="Play" destination="/game"></Button>
             </form>
             <Link text="Don't have an account?" destination="/register"></Link>
@@ -17,10 +17,10 @@
     import Link from './Link.vue'
 
     export default {
-        props: ['nickname'],
         data() {
             return {
-                world_id: 'FabulousTigerWritingNervously'
+                username: "",
+                password: ""
             }
         },
         components: {
@@ -31,10 +31,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    h1 {
-        font-size: 75px;
-        text-shadow: 3px 3px#266159;
-    }
+    @import '../scss/variables';
     .login {
         position: absolute;
         top: 50%;
