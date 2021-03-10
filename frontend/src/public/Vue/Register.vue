@@ -1,11 +1,11 @@
 <template>
     <div class="register">
         <h1>Register</h1>
-        <form @submit="validateData" action="javascript:void(0);">
+        <form v-if="!success" @submit="validateData" action="javascript:void(0);">
             <Input @valueChange="setUsername" title="Username" placeholder="Username" maxim="24"></Input>
             <Input @valueChange="setPassword" type="password" title="Password" placeholder="Password" minim="8" maxim="32"></Input>
             <Input @valueChange="setEmail" type="email" title="Email" placeholder="Email"></Input>
-            <p>{{error}}</p>
+            <p v-if="!success">{{error}}</p>
             <Button text="Sign up"></Button>
         </form>
     </div>
@@ -22,12 +22,11 @@
         },
         data(){
             return {
-                test: "",
                 username: "",
                 password: "",
                 email: "",
                 errored: false,
-                error: "",
+                error: ""
             }
         },
         methods: {
@@ -44,12 +43,16 @@
                 this.sendData()
             },
             sendData(){
-                this.test = this.username + this.password + this.email //Placeholder test function
                 axios.post("http://localhost:8080/registerValidation", {  //TODO: set right URL on production
                     username: this.username,
                     password: this.password,
                     email: this.email
                 }).then(response=>{
+                    if(response.data.success){
+
+                    }else{
+
+                    }
                     this.error = response.data.description
                     console.log(response)
                 }).catch(error=>{

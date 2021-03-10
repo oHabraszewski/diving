@@ -20,7 +20,7 @@ const entry = {
   index: path.resolve(context, 'index.js'),
   credits: path.resolve(context, 'credits.js'),
   technical: path.resolve(context, 'technical.js'),
-  login: path.resolve(context, 'login.js')
+  register: path.resolve(context, 'register.js')
 };
 
 const resolve = {
@@ -126,9 +126,9 @@ let htmlWebpackPluginsOptions = [
     chunks: ["technical"]
   },
   {
-    filename: "login.html",
-    template: path.resolve(context, 'public/login.html'),
-    chunks: ["login"]
+    filename: "register.html",
+    template: path.resolve(context, 'public/register.html'),
+    chunks: ["register"]
   }
 ];
 {
