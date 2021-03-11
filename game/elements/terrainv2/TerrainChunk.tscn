@@ -13,7 +13,6 @@ script = ExtResource( 1 )
 scale = Vector2( 1, -1 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 script = ExtResource( 2 )
-draw = true
 
 [node name="StaticBody2DHitboxTerenu" type="StaticBody2D" parent="."]
 collision_layer = 0
@@ -38,6 +37,7 @@ position = Vector2( 921.514, -336.673 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1377.55, -96.1086 )
 current = true
 zoom = Vector2( 2, 2 )
 
