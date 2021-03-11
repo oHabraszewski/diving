@@ -40,6 +40,13 @@ echo Godot is downloaded. Re run script now.
 pause
 goto :exit
 )
+if not exist %appdata%\Godot\templates\3.2.3.stable\ (
+rem instalowanie template'ow eksportu
+mkdir %appdata%\Godot\templates\3.2.3.stable\
+copy game\export_templates\version.txt %appdata%\Godot\templates\3.2.3.stable\
+copy game\export_templates\webassembly_debug.zip %appdata%\Godot\templates\3.2.3.stable\
+copy game\export_templates\webassembly_release.zip %appdata%\Godot\templates\3.2.3.stable\
+)
 
 cd frontend
 
