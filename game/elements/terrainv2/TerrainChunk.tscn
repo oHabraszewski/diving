@@ -13,6 +13,7 @@ script = ExtResource( 1 )
 scale = Vector2( 1, -1 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 script = ExtResource( 2 )
+draw_points = true
 
 [node name="StaticBody2DHitboxTerenu" type="StaticBody2D" parent="."]
 collision_layer = 0
