@@ -14,18 +14,20 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../scss/variables';
+    
     @keyframes focusy {
         0% { border-radius: 12px;} 
         50% { border-radius: 24px; }
         100% { border-radius: 12px;} 
     }
     .input {
-        background: rgba($color: #266159, $alpha: 0.6);
+        background: rgba($color: $dark-back, $alpha: 0.6);
         margin: 2px;
         border-radius: 12px;
-        border: solid #103131 3px;
-        width: 320px;
-        height: 52px;
+        border: solid $accent 3px;
+        width: 350px;
+        height: 56px;
         padding: 0 10px 0 10px;
     }
     .input:focus{
@@ -33,17 +35,17 @@
         animation-iteration-count: infinite;
     }
     .input::placeholder {
-        color: #163636
+        color: $tip;
     }
     .showButton {
         position: absolute;
         right: 0px;
-        width: 52px;
-        height: 52px;
-        background: rgba($color: #367169, $alpha: 0.6);
+        width: 56px;
+        height: 56px;
+        background: rgba($color: $light-back, $alpha: 0.6);
         margin: 2px;
         border-radius: 0px 12px 12px 0px;
-        border: solid #103131 3px;
+        border: solid $accent 3px;
         padding: 0 3px 0 3px;
     }
 </style>
