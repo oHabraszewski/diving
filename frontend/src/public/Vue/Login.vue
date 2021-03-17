@@ -9,6 +9,7 @@
                 <p v-if="!success">{{error}}</p>
                 <!--<Check text="Remember me" id="remember"></Check>-->
             </form>
+            <Button text="Play without login" destination="/game"></Button> <!--TODO: remove on production-->
             <Link text="Don't have an account?" destination="/register"></Link>
         </div>
     </div>
@@ -51,6 +52,7 @@
                         this.success = true
                         this.$cookies.set("sessionKey", response.data.session)
                         console.log(this.$cookies.get("sessionKey"))
+                        location.href = "/game"
                     }else{
                         this.error = response.data.error
                         console.log(response)
@@ -71,5 +73,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 350px;
     }
 </style>

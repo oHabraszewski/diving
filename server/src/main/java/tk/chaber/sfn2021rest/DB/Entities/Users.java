@@ -57,6 +57,8 @@ public class Users {
 
         byte[] hashedPassword;
 
+        System.out.println("Saved salt: " + salt);
+
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(this.getSalt());

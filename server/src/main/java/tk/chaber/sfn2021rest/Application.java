@@ -21,7 +21,6 @@ public class Application {
 				registry.addMapping("/registration").allowedOrigins("http://localhost:8080");
 				registry.addMapping("/register").allowedOrigins("http://localhost:8080 ");
 				registry.addMapping("/").allowedOrigins("http://localhost:8080 ");
-				registry.addMapping("").allowedOrigins("http://localhost:8080 ");
 			}
 		};
 	}
