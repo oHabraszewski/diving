@@ -58,16 +58,19 @@ public class UsersController {
             return new Response(false, "There is already an account with such an email!", null);
         }
 
+        SecureRandom random = new SecureRandom();
+        String UK = Long.toHexString(random.nextLong());
+
         Users user = new Users();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
-        user.setSession();
+        user.setToken(UK);
 
         userRepository.save(user);
 
         System.out.println("==== post signup ====");
-        return new Response(true, null, user.getSession());
+        return new Response(true, null, UK);
     }
 
     @PostMapping(path = "/loginValidation", consumes = "application/json", produces = "application/json")
@@ -102,7 +105,13 @@ public class UsersController {
             hashedPassword = md.digest(passToCheck.getBytes(StandardCharsets.UTF_8));
             if(Arrays.equals(correctPassword, hashedPassword)){
                 System.out.println("==== post login ====");
-                return new Response(true, null, user.getSession());
+                SecureRandom random = new SecureRandom();
+                String UK = Long.toHexString(random.nextLong());
+
+                user.setToken(UK);
+                userRepository.save(user);
+
+                return new Response(true, null, UK);
             }else{
                 return new Response(false, "This password is not correct, try again (make sure your caps lock is off)", null);
             }
