@@ -22,6 +22,7 @@
     // }
     .link {
         font-size: 24px;
+        text-decoration-line: underline;
     }
     .link:hover {
         cursor: pointer;

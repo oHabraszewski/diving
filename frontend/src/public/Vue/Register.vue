@@ -32,7 +32,6 @@
                 username: "",
                 password: "",
                 email: "",
-                errored: false,
                 error: "",
                 success: false
             }
@@ -58,14 +57,13 @@
                 }).then(response=>{
                     if(response.data.success){
                         this.success = true
-                        this.$cookies.set("sessionKey", response.data.session, "1M")
+                        this.$cookies.set("sessionKey", response.data.session)
                         console.log(this.$cookies.get("sessionKey"))
                     }else{
                         this.error = response.data.error
                         console.log(response)
                     }
                 }).catch(error=>{
-                    this.errored = true
                     this.error = error
                     console.log(error)
                 })
