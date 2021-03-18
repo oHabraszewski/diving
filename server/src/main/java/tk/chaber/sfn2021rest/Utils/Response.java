@@ -1,23 +1,23 @@
-package tk.chaber.sfn2021rest;
+package tk.chaber.sfn2021rest.Utils;
 
 public class Response {
 
     private boolean success;
     private String error;
-    private String session;
+    private String token;
 
-    public Response(boolean success, String error, String session) {
+    public Response(boolean success, String error, String token) {
         this.success = success;
         this.error = error;
-        this.session = session;
+        this.token = token;
     }
 
-    public String getSession() {
-        return session;
+    public String getToken() {
+        return token;
     }
 
-    public void setSession(String session) {
-        this.session = session;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getError() {

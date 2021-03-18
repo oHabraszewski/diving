@@ -57,15 +57,18 @@
                 }).then(response=>{
                     if(response.data.success){
                         this.success = true
-                        this.$cookies.set("sessionKey", response.data.session)
-                        console.log(this.$cookies.get("sessionKey"))
                     }else{
+                        this.success = false
                         this.error = response.data.error
-                        console.log(response)
+
+                        console.warn("Login data validation has not been completed successfully! Read description below for details")
+                        console.warn(response)
                     }
                 }).catch(error=>{
+                    this.success = false
                     this.error = error
-                    console.log(error)
+
+                    console.error("An error occured while trying connecting with a server, see description for more details: " + error)
                 })
             }
         }
