@@ -4,20 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tk.chaber.sfn2021rest.DB.Entities.User;
 import tk.chaber.sfn2021rest.DB.Repositories.UsersRepo;
+import tk.chaber.sfn2021rest.Utils.Hasher;
+import tk.chaber.sfn2021rest.Utils.Randomizer;
+import tk.chaber.sfn2021rest.Utils.Response;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-/*
- *
- * This is starting, testing code and it'll be changed.
- *
- */
 
 @RestController
 public class UsersController {
@@ -58,8 +53,7 @@ public class UsersController {
             return new Response(false, "There is already an account with such an email!", null);
         }
 
-        SecureRandom random = new SecureRandom();
-        String UK = Long.toHexString(random.nextLong());
+        String UK = Long.toHexString(Randomizer.randomLong());
 
         User user = new User();
         user.setUsername(username);
@@ -97,16 +91,12 @@ public class UsersController {
         byte[] correctPassword = user.getPassword();
         byte[] userSalt = user.getSalt();
 
-        byte[] hashedPassword;
-
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(userSalt);
-            hashedPassword = md.digest(passToCheck.getBytes(StandardCharsets.UTF_8));
+            byte[] hashedPassword = Hasher.hashWithSalt(passToCheck, userSalt);
+
             if(Arrays.equals(correctPassword, hashedPassword)){
                 System.out.println("==== post login ====");
-                SecureRandom random = new SecureRandom();
-                String UK = Long.toHexString(random.nextLong());
+                String UK = Long.toHexString(Randomizer.randomLong());
 
                 System.out.println(UK);
 

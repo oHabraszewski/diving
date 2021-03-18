@@ -1,5 +1,8 @@
 package tk.chaber.sfn2021rest.DB.Entities;
 
+import tk.chaber.sfn2021rest.Utils.Hasher;
+import tk.chaber.sfn2021rest.Utils.Randomizer;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,18 +51,12 @@ public class User {
 
     public void setPassword(String passToHash) {
 
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
+        byte[] salt = Randomizer.randomBytes(16);
 
         this.setSalt(salt);
 
-        byte[] hashedPassword;
-
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(this.getSalt());
-            hashedPassword = md.digest(passToHash.getBytes(StandardCharsets.UTF_8));
+            byte[] hashedPassword = Hasher.hashWithSalt(passToHash, salt);
 
             this.password = hashedPassword;
 
@@ -77,12 +74,8 @@ public class User {
 
         String toHash = username.concat(UK);
 
-        byte[] token;
-
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(this.getSalt());
-            token = md.digest(toHash.getBytes(StandardCharsets.UTF_8));
+            byte[] token = Hasher.hashWithSalt(toHash, this.getSalt());
             this.token = token;
         }catch (Exception e){
             e.printStackTrace();
