@@ -7,7 +7,7 @@
                 <Input @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32"></Input>
                 <Button text="Play"></Button>
                 <p v-if="!success">{{error}}</p>
-                <Check text="Remember me" id="remember"></Check>
+                <Check @valueChange="setRemember" text="Remember me" id="remember"></Check>
             </form>
             <Button text="Play without login" destination="/game"></Button> <!--TODO: remove on production-->
             <Link text="Don't have an account?" destination="/register"></Link>
@@ -26,6 +26,7 @@
             return {
                 username: "",
                 password: "",
+                remember: false,
                 success: false,
                 error: "",
             }
@@ -43,6 +44,9 @@
             setPassword(value){
                  this.password = value;
             },
+            setRemember(value){
+                 this.remember = value;
+            },
             sendData(){
                 axios.post("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
                     username: this.username,
@@ -50,17 +54,35 @@
                 }).then(response=>{
                     if(response.data.success){
                         this.success = true
-                        this.$cookies.set("sessionKey", response.data.session)
-                        console.log(this.$cookies.get("sessionKey"))
+
+                        let storage;
+
+                        if(this.remember){
+                            storage = localStorage;
+                        }
+                        else{ 
+                            storage = sessionStorage;
+                        }
+
+                        storage.setItem("username", this.username)
+                        storage.setItem("token", response.data.token)
+
+                        console.debug("Username: " + storage.getItem("username"))
+                        console.debug("Token: " + storage.getItem("token"))
+                        
                         //location.href = "/game" //TODO: re-enable
                     }else{
+                        this.success = false
                         this.error = response.data.error
-                        console.log(response)
+
+                        console.warn("Login data validation has not been completed successfully! Read description below for details")
+                        console.warn(response)
                     }
                 }).catch(error=>{
-                    this.errored = true
+                    this.success = false
                     this.error = error
-                    console.log(error)
+
+                    console.error("An error occured while trying connecting with a server, see description for more details: " + error)
                 })
             }
         }

@@ -108,6 +108,8 @@ public class UsersController {
                 SecureRandom random = new SecureRandom();
                 String UK = Long.toHexString(random.nextLong());
 
+                System.out.println(UK);
+
                 user.setToken(UK);
                 usersRepository.save(user);
 
