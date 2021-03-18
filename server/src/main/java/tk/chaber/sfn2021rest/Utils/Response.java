@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest;
+package tk.chaber.sfn2021rest.Utils;
 
 public class Response {
 
