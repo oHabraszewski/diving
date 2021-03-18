@@ -7,7 +7,7 @@
                 <Input @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32"></Input>
                 <Button text="Play"></Button>
                 <p v-if="!success">{{error}}</p>
-                <!--<Check text="Remember me" id="remember"></Check>-->
+                <Check text="Remember me" id="remember"></Check>
             </form>
             <Button text="Play without login" destination="/game"></Button> <!--TODO: remove on production-->
             <Link text="Don't have an account?" destination="/register"></Link>
@@ -52,7 +52,7 @@
                         this.success = true
                         this.$cookies.set("sessionKey", response.data.session)
                         console.log(this.$cookies.get("sessionKey"))
-                        location.href = "/game"
+                        //location.href = "/game" //TODO: re-enable
                     }else{
                         this.error = response.data.error
                         console.log(response)

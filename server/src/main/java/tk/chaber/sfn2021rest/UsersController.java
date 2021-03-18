@@ -2,8 +2,8 @@ package tk.chaber.sfn2021rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tk.chaber.sfn2021rest.DB.Entities.Users;
-import tk.chaber.sfn2021rest.DB.Repositories.UserRepo;
+import tk.chaber.sfn2021rest.DB.Entities.User;
+import tk.chaber.sfn2021rest.DB.Repositories.UsersRepo;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 @RestController
 public class UsersController {
     @Autowired
-    private UserRepo userRepository;
+    private UsersRepo usersRepository;
 
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -51,23 +51,23 @@ public class UsersController {
             return new Response(false, "It's not a proper email!", null);
         }
 
-        if(userRepository.findByUsername(username).size() > 0){
+        if(usersRepository.findByUsername(username).size() > 0){
             return new Response(false, "There is already a player with such username, choose another one!", null);
         }
-        if(userRepository.findByEmail(email).size() > 0){
+        if(usersRepository.findByEmail(email).size() > 0){
             return new Response(false, "There is already an account with such an email!", null);
         }
 
         SecureRandom random = new SecureRandom();
         String UK = Long.toHexString(random.nextLong());
 
-        Users user = new Users();
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setToken(UK);
 
-        userRepository.save(user);
+        usersRepository.save(user);
 
         System.out.println("==== post signup ====");
         return new Response(true, null, UK);
@@ -88,11 +88,11 @@ public class UsersController {
             return new Response(false, "Password must have from 8 to 32 characters.", null);
         }
 
-        if(userRepository.findByUsername(username).size() == 0){
+        if(usersRepository.findByUsername(username).size() == 0){
             return new Response(false, "There is no player with such username, register!", null);
         }
 
-        Users user = userRepository.findByUsername(username).get(0);
+        User user = usersRepository.findByUsername(username).get(0);
 
         byte[] correctPassword = user.getPassword();
         byte[] userSalt = user.getSalt();
@@ -109,7 +109,7 @@ public class UsersController {
                 String UK = Long.toHexString(random.nextLong());
 
                 user.setToken(UK);
-                userRepository.save(user);
+                usersRepository.save(user);
 
                 return new Response(true, null, UK);
             }else{
@@ -122,7 +122,7 @@ public class UsersController {
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<Users> getAllUsers() {
-        return userRepository.findAll();
+    public @ResponseBody Iterable<User> getAllUsers() {
+        return usersRepository.findAll();
     }
 }

@@ -5,8 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class PlayerDatas {
+@Entity(name = "player_datas")
+public class PlayerData {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

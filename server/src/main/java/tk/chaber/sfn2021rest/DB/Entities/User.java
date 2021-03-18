@@ -10,10 +10,8 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import static com.oracle.jrockit.jfr.ContentType.Bytes;
-
-@Entity
-public class Users {
+@Entity(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -57,8 +55,6 @@ public class Users {
         this.setSalt(salt);
 
         byte[] hashedPassword;
-
-        System.out.println("Saved salt: " + salt);
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
