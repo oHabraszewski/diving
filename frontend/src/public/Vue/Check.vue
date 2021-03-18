@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="checkContainer">
         <label class="checkLabel" :for=id>{{text}}</label><input type="checkbox" :id=id class="check" v-model="value">
     </div>
 </template>
@@ -16,10 +16,17 @@
     }
 </script>
 <style lang="scss" scoped>
+    .checkContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 32px;
+    }
     .checkLabel {
         font-size: 24px;
     }
-    .link:hover {
-        cursor: pointer;
+    .check {
+        height: 20px;
+        width: 20px;
     }
 </style>
