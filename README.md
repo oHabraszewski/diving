@@ -5,7 +5,7 @@
 ### Starting project (development mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
-- Type: ./run dev
+- Type: ./run
 - Press enter
 
 #### OR
