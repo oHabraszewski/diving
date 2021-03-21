@@ -1,6 +1,6 @@
 # Diving game
 
-## Project starting and stopping
+## Project operating
 
 ### Starting project (development mode)
 
@@ -19,6 +19,13 @@
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run build
 - Press enter
+
+### Logging for testing
+
+You can use preregistered account for testing in logged mode (will be deleted on production)
+
+Username: admin
+Password: adminadmin
 
 ### Stopping project
 

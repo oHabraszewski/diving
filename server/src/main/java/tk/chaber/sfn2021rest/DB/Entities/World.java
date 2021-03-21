@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigInteger;
 
-@Entity
-public class Worlds {
+@Entity(name = "worlds")
+public class World {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

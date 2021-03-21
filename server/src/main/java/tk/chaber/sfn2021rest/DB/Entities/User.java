@@ -1,5 +1,8 @@
 package tk.chaber.sfn2021rest.DB.Entities;
 
+import tk.chaber.sfn2021rest.Utils.Hasher;
+import tk.chaber.sfn2021rest.Utils.Randomizer;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,11 +11,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
-import static com.oracle.jrockit.jfr.ContentType.Bytes;
-
-@Entity
-public class Users {
+@Entity(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -23,7 +25,7 @@ public class Users {
 
     private String email;
 
-    private String session;
+    private byte[] token;
 
     private byte[] salt;
 
@@ -49,18 +51,12 @@ public class Users {
 
     public void setPassword(String passToHash) {
 
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
+        byte[] salt = Randomizer.randomBytes(16);
 
         this.setSalt(salt);
 
-        byte[] hashedPassword;
-
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(this.getSalt());
-            hashedPassword = md.digest(passToHash.getBytes(StandardCharsets.UTF_8));
+            byte[] hashedPassword = Hasher.hashWithSalt(passToHash, salt);
 
             this.password = hashedPassword;
 
@@ -69,24 +65,19 @@ public class Users {
         }
     }
 
-    public String getSession() {
-        return session;
+    public byte[] getToken() {
+        return token;
     }
 
-    public void setSession() {
-        SecureRandom random = new SecureRandom();
-        int randomizerInt = random.nextInt();
-        String randomizer = Integer.toString(randomizerInt);
+    public void setToken(String UK) {
+        String username = this.getUsername();
 
-        byte[] hashSession;
+        String toHash = username.concat(UK);
 
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            hashSession = md.digest((username + randomizer).getBytes(StandardCharsets.UTF_8));
-            String randomSession = hashSession.toString();
-            this.session = randomSession;
-        }
-        catch (Exception e){
+            byte[] token = Hasher.hashWithSalt(toHash, this.getSalt());
+            this.token = token;
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
