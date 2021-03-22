@@ -13,6 +13,7 @@
   - yarn serve
   - mvnw spring-boot:run
   - *path to godot.exe* --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html
+  (For exporting in godot you need to download godot's export templates)
 
 ### Starting project (production mode)
 
