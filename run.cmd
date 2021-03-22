@@ -56,6 +56,8 @@ if not exist node_modules (
 if "%1" == "dev" (
     start yarn start
     rem goto :spring
+)else if "%1" == "" (
+    start yarn start
 ) else if "%1" == "build" (
     call yarn build
      rem goto :godot
