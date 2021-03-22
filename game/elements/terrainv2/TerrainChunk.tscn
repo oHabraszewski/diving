@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://elements/terrainv2/TerrainChunk.gd" type="Script" id=1]
 [ext_resource path="res://elements/terrainv2/Polygon2D.gd" type="Script" id=2]
+[ext_resource path="res://elements/terrainv2/debug.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 105.881, 3000 )
@@ -49,4 +50,10 @@ text = "Generate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 300.741, 231.968 )
+scale = Vector2( 0.894737, 1.28767 )
+color = Color( 0.878431, 0.0745098, 0.0745098, 1 )
+script = ExtResource( 3 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

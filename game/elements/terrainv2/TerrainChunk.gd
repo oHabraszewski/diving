@@ -129,6 +129,7 @@ func create_curve_based_on_segments(segments: Array):
 		if not segments[0][j] == Direction.NONE:
 			curve.add_point(Vector2(0, j * segment_size.y)) # wierzcholek na wyskokosci startowej
 			current_segment = Vector2(0, j)
+	print(current_segment)
 	var last_segment = Direction.NONE # zmienna wykorzystywana do wykrywania zmian kierunku
 	var control_point = Vector2(rng.randf_range(-segment_size.x, 0), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # zmienna ustawiana jako punkt kontolny
 	
@@ -141,61 +142,35 @@ func create_curve_based_on_segments(segments: Array):
 	$Polygon2DKrztaltTerenu.red_p_t_d = []
 	$Polygon2DKrztaltTerenu.points_to_draw = []
 	control_point = Vector2(0, 0)
+	
 	while(current_segment.x < segment_count_x):
+		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
+		var angle = rad2deg(control_point.angle_to(Vector2(segment_size.x / 2, segment_size.y / 2)))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
-			control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # wartosc domyslna dla kirunku w prawo, zostanie nadpisana nizej
-			if last_segment == Direction.UP and control_point.x > 0 and control_point.y > 0: # zakret w prawo z gory PATRZ NOTATKI!!!
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-			elif last_segment == Direction.DOWN and control_point.x > 0 and control_point.y < 0: # zakret w prawo z dolu
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-#			curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
+			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and not ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
+				control_point.x = -control_point.x
 			last_segment = Direction.RIGHT
 			current_segment.x += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
-			control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # wartosc domyslna dla kierunku 
-			if last_segment == Direction.UP:
-				pass
-			elif last_segment == Direction.DOWN:
-				pass
-#			curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
+			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
+				control_point.x = -control_point.x
 			last_segment = Direction.LEFT
 			current_segment.x -= 1
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-			control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # wartosc domyslna dla kirunku w prawo, zostanie nadpisana nizej
-			if last_segment == Direction.LEFT and control_point.x < 0 and control_point.y < 0: # zakret w prawo z gory PATRZ NOTATKI!!!
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-			elif last_segment == Direction.RIGHT and control_point.x > 0 and control_point.y < 0: # zakret w prawo z dolu
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-#			curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
+			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
+				control_point.x = -control_point.x
 			last_segment = Direction.UP
 			current_segment.y += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-			control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # wartosc domyslna dla kirunku w prawo, zostanie nadpisana nizej
-			if last_segment == Direction.LEFT and control_point.x < 0 and control_point.y < 0: # zakret w prawo z gory PATRZ NOTATKI!!!
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-			elif last_segment == Direction.RIGHT and control_point.x > 0 and control_point.y < 0: # zakret w prawo z dolu
-				if rng.randi_range(0, 1) == 1:
-					control_point.x = -control_point.x
-				else:
-					control_point.y = -control_point.y
-#			curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
+			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and not ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
+				control_point.x = -control_point.x
 			last_segment = Direction.DOWN
 			current_segment.y -= 1
+		
+		print("loop...", current_segment, "    LAST:", last_segment, "     CTRL_PT:", control_point)
+#		$Polygon2D.vectors_to_draw.append(control_point)
+		$Polygon2D.vectors_to_draw[0] = control_point
+		$Polygon2D.update()
 		curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
@@ -218,7 +193,7 @@ func _on_Button_pressed():
 	segments = reset_segments()
 	segments = generate_segments(segments, 200)
 	print("calculated height is: ", calculate_final_height(segments))
+	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
 	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
 	$StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $Polygon2DKrztaltTerenu.polygon
-	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
 	pass # Replace with function body.
