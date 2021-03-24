@@ -39,8 +39,9 @@ func _process(delta):
 	
 	if self.linear_velocity.x < 0:
 		self.linear_velocity.x += 5
-		
+	##by zmniejszać prędkość imitując opór wody
 	if self.linear_velocity.x > 0:
 		self.linear_velocity.x += -5
+	##by zmniejszać prędkość imitując opór wody
 	## Po co te if'y?????
 pass
