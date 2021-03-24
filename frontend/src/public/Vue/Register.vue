@@ -1,5 +1,5 @@
 <template>
-    <div class="register">
+    <div class="register center-container">
         <h1>Register</h1>
         <form v-if="!success" @submit="validateData" action="javascript:void(0);">
             <Input @valueChange="setUsername" title="Type an username" placeholder="Username" maxim="24"></Input>
@@ -17,9 +17,10 @@
     </div>
 </template>
 <script>
-    import axios from 'axios'
     import Button from './Button.vue'
     import Input from './Input.vue'
+
+    import connect from "../js/utils/connectAxios.js"
 
 
     export default {
@@ -49,38 +50,25 @@
             validateData(){
                 this.sendData()
             },
-            sendData(){
-                axios.post("http://localhost:8080/registerValidation", {  //TODO: set right URL on production
+            async sendData(){
+                const response = await connect("http://localhost:8080/registerValidation",{  //TODO: set right URL on production
                     username: this.username,
                     password: this.password,
                     email: this.email
-                }).then(response=>{
-                    if(response.data.success){
-                        this.success = true
-                    }else{
-                        this.success = false
+                })
+
+                this.success = response.data.success;
+
+                if(!this.success){
                         this.error = response.data.error
 
-                        console.warn("Login data validation has not been completed successfully! Read description below for details")
+                        console.warn("Register data validation has not been completed successfully! Read description below for details")
                         console.warn(response)
-                    }
-                }).catch(error=>{
-                    this.success = false
-                    this.error = error
-
-                    console.error("An error occured while trying connecting with a server, see description for more details: " + error)
-                })
+                }
             }
         }
     }
 </script>
 <style lang="scss" scoped>
     @import '../scss/variables';
-    .register {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 350px;
-    }
 </style>

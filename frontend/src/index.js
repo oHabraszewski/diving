@@ -10,5 +10,11 @@ const App = {
     }
 }
   
-Vue.createApp(App).use(VueCookies).mount('#app')
+Vue.createApp(App).use(VueCookies, {
+    expireTimes: "3M",
+    path: "/",
+    domain: "chaber.tk",
+    secure: true,
+    sameSite: "None"
+}).mount('#app')
 

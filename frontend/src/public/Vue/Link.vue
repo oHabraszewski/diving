@@ -16,10 +16,6 @@
     }
 </script>
 <style lang="scss" scoped>
-    // .buttonContainer{
-    //     width: 350px;
-    //     height: 56px;
-    // }
     .link {
         font-size: 24px;
         text-decoration-line: underline;
@@ -27,9 +23,4 @@
     .link:hover {
         cursor: pointer;
     }
-    // .button:focus{
-    //     animation: squeeze 0.4s ease-in-out;
-    //     animation-iteration-count: 1;
-        
-    // } 
 </style>
