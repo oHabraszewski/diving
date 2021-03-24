@@ -147,30 +147,29 @@ func create_curve_based_on_segments(segments: Array):
 		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
 		var angle = rad2deg(control_point.angle_to(Vector2(segment_size.x / 2, segment_size.y / 2)))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
-			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and not ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
-				control_point.x = -control_point.x
+			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and true:
+				control_point = Vector2(0,0)
 			last_segment = Direction.RIGHT
 			current_segment.x += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
-			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
-				control_point.x = -control_point.x
+			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and true:
+				control_point = Vector2(0,0)
 			last_segment = Direction.LEFT
 			current_segment.x -= 1
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
-				control_point.x = -control_point.x
+			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and true:
+				control_point = Vector2(0,0)
 			last_segment = Direction.UP
 			current_segment.y += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and not ((angle < 45 and angle > -45) or angle > 135 or angle < -135):
-				control_point.x = -control_point.x
+			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and (control_point.x < 0 or control_point.y < 0):
+				control_point = Vector2(50,50)
+			$Polygon2D.points.append(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)) + control_point)
+			$Polygon2D.update()
 			last_segment = Direction.DOWN
 			current_segment.y -= 1
 		
 		print("loop...", current_segment, "    LAST:", last_segment, "     CTRL_PT:", control_point)
-#		$Polygon2D.vectors_to_draw.append(control_point)
-		$Polygon2D.vectors_to_draw[0] = control_point
-		$Polygon2D.update()
 		curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
