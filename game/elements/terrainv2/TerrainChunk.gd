@@ -143,37 +143,103 @@ func create_curve_based_on_segments(segments: Array):
 	$Polygon2DKrztaltTerenu.points_to_draw = []
 	control_point = Vector2(0, 0)
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	while(current_segment.x < segment_count_x):
+		
+		
+		
+		
+		var what_is_in_that_segment = ""
+		var what_is_in_last_segment = ""
+		if segments[current_segment.x][current_segment.y] == 0:
+			what_is_in_that_segment = "RIGHT"
+		elif segments[current_segment.x][current_segment.y] == 1:
+			what_is_in_that_segment = "LEFT"
+		elif segments[current_segment.x][current_segment.y] == 2:
+			what_is_in_that_segment = "UP"
+		elif segments[current_segment.x][current_segment.y] == 3:
+			what_is_in_that_segment = "DOWN"
+		elif segments[current_segment.x][current_segment.y] == 4:
+			what_is_in_that_segment = "NONE"
+		
+		if last_segment == 0:
+			what_is_in_last_segment = "RIGHT"
+		elif last_segment == 1:
+			what_is_in_last_segment = "LEFT"
+		elif last_segment == 2:
+			what_is_in_last_segment = "UP"
+		elif last_segment == 3:
+			what_is_in_last_segment = "DOWN"
+		elif last_segment == 4:
+			what_is_in_last_segment = "NONE"
+		
+		if not what_is_in_last_segment == what_is_in_that_segment:
+			print("loop...", "this, segment is: ", what_is_in_that_segment, " ", current_segment, "    LAST:", what_is_in_last_segment, "     CTRL_PT:", control_point)
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
-		var angle = rad2deg(control_point.angle_to(Vector2(segment_size.x / 2, segment_size.y / 2)))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
-			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and true:
-				control_point = Vector2(0,0)
+			if last_segment == Direction.DOWN and (control_point.x > 0 or control_point.y < 0):
+				control_point = Vector2(-50,50)
+			if last_segment == Direction.UP and (control_point.x > 0 or control_point.y > 0):
+				control_point = Vector2(-50,-50)
 			last_segment = Direction.RIGHT
-			current_segment.x += 1
+			
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
-			if (last_segment == Direction.UP or last_segment == Direction.DOWN) and true:
+			if (last_segment == Direction.UP or last_segment == Direction.DOWN):
 				control_point = Vector2(0,0)
 			last_segment = Direction.LEFT
-			current_segment.x -= 1
+			
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and true:
-				control_point = Vector2(0,0)
+			if last_segment == Direction.LEFT and (control_point.x < 0 or control_point.y > 0):
+				control_point = Vector2(-50,-50)
+			elif last_segment == Direction.RIGHT and (control_point.x > 0 or control_point.y > 0):
+				control_point = Vector2(50,-50)
 			last_segment = Direction.UP
-			current_segment.y += 1
+			
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-			if (last_segment == Direction.LEFT or last_segment == Direction.RIGHT) and (control_point.x < 0 or control_point.y < 0):
+			if last_segment == Direction.LEFT and (control_point.x > 0 or control_point.y < 0):
+				control_point = Vector2(-50,50)
+			elif last_segment == Direction.RIGHT and (control_point.x < 0 or control_point.y < 0):
 				control_point = Vector2(50,50)
-			$Polygon2D.points.append(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)) + control_point)
-			$Polygon2D.update()
 			last_segment = Direction.DOWN
-			current_segment.y -= 1
+
 		
-		print("loop...", current_segment, "    LAST:", last_segment, "     CTRL_PT:", control_point)
+		
 		curve.add_point(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)), control_point, -control_point)
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
-		$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
+		#$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
 		$Polygon2DKrztaltTerenu.points_to_draw.append(Vector2(current_segment.x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
+		
+		#przesuniecie
+		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
+			current_segment.x += 1
+		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
+			current_segment.x -= 1
+		elif segments[current_segment.x][current_segment.y] == Direction.UP:
+			current_segment.y += 1
+		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
+			current_segment.y -= 1
+		
 		pass
 	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2))) # przedostatni wierzcholek ten po prawej stronie
 	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), 0)) # ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)

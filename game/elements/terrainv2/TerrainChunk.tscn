@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://elements/terrainv2/TerrainChunk.gd" type="Script" id=1]
 [ext_resource path="res://elements/terrainv2/Polygon2D.gd" type="Script" id=2]
 [ext_resource path="res://elements/terrainv2/debug_poly.gd" type="Script" id=3]
+[ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 105.881, 3000 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
 
 [node name="TerrainChunk" type="Node2D"]
 script = ExtResource( 1 )
@@ -44,9 +52,12 @@ current = true
 zoom = Vector2( 2, 2 )
 
 [node name="Button" type="Button" parent="."]
-margin_right = 564.0
-margin_bottom = 145.0
-text = "Generate"
+margin_left = 185.307
+margin_top = 616.502
+margin_right = 765.307
+margin_bottom = 757.502
+theme = SubResource( 3 )
+text = "Generateąąźńśśżłóę"
 __meta__ = {
 "_edit_use_anchors_": false
 }
