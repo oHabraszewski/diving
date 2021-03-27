@@ -21,10 +21,10 @@ func _draw():
 				if incrementer == 2:
 					clr = Color(rng.randf_range(0, 1),rng.randf_range(0, 1),rng.randf_range(0, 1))
 					incrementer = 0
-				draw_circle(i, 6, clr)
+				draw_circle(i, 2, clr)
 				incrementer += 1
 			for i in points_to_draw:
-				draw_circle(i, 4, Color(0,1,0))
+				draw_circle(i, 1, Color(0,1,0))
 			pass
 		if draw:
 			var rng = RandomNumberGenerator.new()
@@ -38,7 +38,7 @@ func _draw():
 				incrementer += 1
 		#		print(i)
 			for i in $"..".points_to_draw:
-				draw_circle(i, 4, Color(0,1,0))
+				draw_circle(i, 1, Color(0,1,0))
 				
 			for i in range(100):
 				draw_line(Vector2(0, i*100), Vector2(1000*10, i*100), Color(0, 0, 0))

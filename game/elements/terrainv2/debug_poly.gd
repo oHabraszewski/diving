@@ -15,5 +15,13 @@ func _draw():
 		draw_circle(i, 5, Color(1,1,1))
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if Input.is_action_pressed("move_left"):
+		$"../Polygon2DKrztaltTerenu".position.x += 10
+	if Input.is_action_pressed("move_right"):
+		$"../Polygon2DKrztaltTerenu".position.x -= 10
+	if Input.is_action_pressed("move_up"):
+		$"../Polygon2DKrztaltTerenu".position.y += 10
+	if Input.is_action_pressed("move_down"):
+		$"../Polygon2DKrztaltTerenu".position.y -= 10
+	pass
