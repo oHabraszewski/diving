@@ -180,10 +180,10 @@ func create_curve_based_on_segments(segments: Array):
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			if last_segment == Direction.DOWN: # and (control_point.x > 0 or control_point.y < 0):
 #				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), 10), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
 			elif last_segment == Direction.UP: #and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), 10), rng.randf_range(-(segment_size.y / 2), 10))
+				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
 			elif control_point.x > 0:
 				control_point.x = -control_point.x
 			last_segment = Direction.RIGHT
@@ -192,7 +192,7 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
 			if last_segment == Direction.DOWN: #and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), 10))
+				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
 			elif last_segment == Direction.UP: #and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
 				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
@@ -201,23 +201,23 @@ func create_curve_based_on_segments(segments: Array):
 			last_segment = Direction.LEFT
 			
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-			if last_segment == Direction.LEFT and (control_point.x < 0 or control_point.y > 0):
+			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), 10), rng.randf_range(-(segment_size.y / 2), 10))
-			elif last_segment == Direction.RIGHT and (control_point.x > 0 or control_point.y > 0):
+				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
+			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), 10))
+				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
 			elif control_point.y > 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.UP
 			
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-			if last_segment == Direction.LEFT and (control_point.x < 0 or control_point.y < 0):
-#				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), 10), rng.randf_range(10, segment_size.y / 2))
-			elif last_segment == Direction.RIGHT and (control_point.x > 0 or control_point.y < 0):
+			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
 				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
+			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y < 0):
+#				control_point = Vector2(-50,50)
+				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
 			elif control_point.y < 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.DOWN
@@ -226,7 +226,7 @@ func create_curve_based_on_segments(segments: Array):
 		
 		curve.add_point(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y), control_point, -control_point)
 		$Polygon2DKrztaltTerenu.red_p_t_d.append(control_point + Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
-		$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
+		#$Polygon2DKrztaltTerenu.red_p_t_d.append(-control_point + Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
 		$Polygon2DKrztaltTerenu.points_to_draw.append(Vector2(current_segment.x * segment_size.x, current_segment.y * segment_size.y))
 		
 		#przesuniecie

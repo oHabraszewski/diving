@@ -47,11 +47,6 @@ collision_layer = 0
 position = Vector2( 921.514, -336.673 )
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 1377.55, -96.1086 )
-current = true
-zoom = Vector2( 2, 2 )
-
 [node name="Button" type="Button" parent="."]
 margin_left = 185.307
 margin_top = 616.502
