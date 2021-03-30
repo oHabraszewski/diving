@@ -2,21 +2,21 @@
     <div class="login center-container" >
         <h1>Diving</h1>
         <form @submit="sendData" action="javascript:void(0);">
-            <Input @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username"></Input>
-            <Input @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></Input>
-            <Button text="Play"></Button>
+            <InputVue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username"></InputVue>
+            <InputVue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></InputVue>
+            <ButtonVue text="Play"></ButtonVue>
             <p v-if="!success">{{error}}</p>
-            <Check @valueChange="setRemember" text="Remember me" id="remember" :value="remember"></Check>
+            <CheckVue @valueChange="setRemember" text="Remember me" id="remember" :value="remember"></CheckVue>
         </form>
-        <Button text="Play without login" destination="/game"></Button> <!--TODO: remove on production-->
-        <Link text="Don't have an account?" destination="/register"></Link>
+        <ButtonVue text="Play without login" destination="/game"></ButtonVue> <!--TODO: remove on production-->
+        <LinkVue text="Don't have an account?" destination="/register"></LinkVue>
     </div>
 </template>
 <script>
-    import Button from './Button.vue'
-    import Input from './Input.vue'
-    import Link from './Link.vue'
-    import Check from './Check.vue'
+    import ButtonVue from './Button.vue'
+    import InputVue from './Input.vue'
+    import LinkVue from './Link.vue'
+    import CheckVue from './Check.vue'
 
     import connect from "../js/utils/connectAxios.js"
 
@@ -104,10 +104,10 @@
             }
         },
         components: {
-            Button,
-            Input,
-            Link,
-            Check
+            ButtonVue,
+            InputVue,
+            LinkVue,
+            CheckVue
         }
     }
 </script>

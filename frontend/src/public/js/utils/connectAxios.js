@@ -12,7 +12,6 @@ async function connect(address, data){
                     console.error("An error occured while trying connecting with a server, see description for more details: " + errored)
                 })
     })
-
 }
 
 export default connect
