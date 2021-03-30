@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://elements/terrain/terrain.tscn" type="PackedScene" id=1]
+[ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://elements/player/nurek.tscn" type="PackedScene" id=3]
 [ext_resource path="res://elements/rekin/Shark.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Air.gd" type="Script" id=5]
+
+[sub_resource type="SegmentShape2D" id=1]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,21 +15,28 @@ script = ExtResource( 2 )
 layer = 2
 follow_viewport_enable = true
 
-[node name="terrain" parent="Game" instance=ExtResource( 1 )]
-position = Vector2( -8057.76, 2000 )
-
-[node name="RigidBody2D" parent="Game" instance=ExtResource( 3 )]
-position = Vector2( 377.802, 682.582 )
+[node name="Player" parent="Game" instance=ExtResource( 3 )]
+position = Vector2( 1.37708, -59.589 )
 mode = 2
 sleeping = true
 
-[node name="Camera2D" type="Camera2D" parent="Game/RigidBody2D"]
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
 current = true
 zoom = Vector2( 1.804, 1.707 )
 smoothing_enabled = true
 
 [node name="Shark" parent="Game" instance=ExtResource( 4 )]
 position = Vector2( 2021.08, 247.067 )
+
+[node name="Terrain" parent="Game" instance=ExtResource( 1 )]
+
+[node name="Air" type="Node2D" parent="Game"]
+script = ExtResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="Game/Air"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D"]
+shape = SubResource( 1 )
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
@@ -82,7 +92,4 @@ __meta__ = {
 }
 
 [node name="NetworkNode" type="Node" parent="."]
-[connection signal="entered_body" from="Game/terrain" to="." method="_on_terrain_entered_body"]
-[connection signal="entered_body_backwards" from="Game/terrain" to="." method="_on_terrain_entered_body_backwards"]
-[connection signal="value_changed" from="Interface/Control/HSlider4" to="Game/terrain" method="_on_HSlider4_value_changed"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]

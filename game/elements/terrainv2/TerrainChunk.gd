@@ -252,7 +252,8 @@ func _ready():
 
 
 
-func _on_Button_pressed():
+func generate():
+	# jeśli dostanie takie samo generation seed i takie samo start height powinno generować ten sam teren
 	var segments
 	segments = reset_segments()
 	segments = generate_segments(segments, 200)
