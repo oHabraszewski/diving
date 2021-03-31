@@ -12,7 +12,7 @@ func load_chunks():
 func save_chunks():
 	pass
 	
-func add_chunk(current_chunks: Dictionary, front: bool, generation_seed: int): #funkcja dodaje chunk z podanym seedem
+func add_chunk(front: bool, generation_seed: int): #funkcja dodaje chunk z podanym seedem
 	print("DBG: ", current_chunks.keys().max()+1)
 	var incrementar 
 	var instance = terrain_chunk.instance()
@@ -42,9 +42,9 @@ func _ready():
 	current_chunks[0].generate()
 	self.add_child(current_chunks[0])
 	self.position.y = self.position.y + current_chunks[0].segment_size.y * current_chunks[0].segment_count_y #ustawianie wysokości
-	add_chunk(current_chunks, true, 1)
-	add_chunk(current_chunks, false, 1)
-	
+	add_chunk(true, 1)
+	add_chunk(false, 1)
+	$Bounds.recalculate(current_chunks[0].segment_size.y * current_chunks[0].segment_count_y, current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2 )
 	
 	pass 
 
@@ -54,3 +54,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_Bounds_colision_left():
+	add_chunk(false, 1)
+	$Bounds.move_left(current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2)
+	pass # Replace with function body.
+
+
+func _on_Bounds_colision_right():
+	add_chunk(true, 1)
+	$Bounds.move_right(current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2)
+	pass # Replace with function body.

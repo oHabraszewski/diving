@@ -8,11 +8,11 @@ signal moved(player)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("moved", $"../Air", "_player_moved", ["player", "player"])
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$"../Air".player_moved(self)
 	if Input.is_action_pressed("move_down"):
 		self.linear_velocity.y += 20
 		

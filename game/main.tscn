@@ -7,6 +7,8 @@
 [ext_resource path="res://Air.gd" type="Script" id=5]
 
 [sub_resource type="SegmentShape2D" id=1]
+a = Vector2( -150, 0 )
+b = Vector2( 150, 0 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -16,7 +18,7 @@ layer = 2
 follow_viewport_enable = true
 
 [node name="Player" parent="Game" instance=ExtResource( 3 )]
-position = Vector2( 1.37708, -59.589 )
+position = Vector2( -0.741939, 50.5951 )
 mode = 2
 sleeping = true
 
@@ -29,11 +31,13 @@ smoothing_enabled = true
 position = Vector2( 2021.08, 247.067 )
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]
+position = Vector2( -612.173, 3.36365 )
 
 [node name="Air" type="Node2D" parent="Game"]
 script = ExtResource( 5 )
 
-[node name="Area2D" type="Area2D" parent="Game/Air"]
+[node name="Area2D" type="KinematicBody2D" parent="Game/Air"]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D"]
 shape = SubResource( 1 )

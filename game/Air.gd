@@ -12,8 +12,6 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _player_moved(player):
-	shape.a = Vector2(player.position.x - 250, 10)
-	shape.b = Vector2(player.position.x + 250, 10)
-	$Area2D/CollisionShape2D.shape = shape
+func player_moved(player):
+	self.position.x = player.position.x
 	pass
