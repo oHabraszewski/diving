@@ -1,11 +1,11 @@
 import "./public/scss/main.scss"
 
 import * as Vue from "vue"
-import Login from "./public/vue/Login.vue"
+import Technical from "./public/vue/Technical.vue"
 
 const App = {
     components: {
-        Login
+        Technical
     }
 }
   
