@@ -1,5 +1,5 @@
 <template>
-    <div class="login center-container" >
+    <div class="login center horizontal-vertical" >
         <h1>Diving</h1>
         <form @submit="sendData" action="javascript:void(0);">
             <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
@@ -10,6 +10,8 @@
         </form>
         <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
         <link-vue destination="/register">Don't have an account?</link-vue>
+        <link-vue destination="/credits">We made this game!</link-vue>
+        <link-vue destination="/technical">Check how we made this game</link-vue>
     </div>
 </template>
 <script>

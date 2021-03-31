@@ -1,5 +1,5 @@
 <template>
-    <div class="technical center-container" >
+    <div class="technical center horizontal" >
         <h1>Technical</h1>
         <article-vue name="Client">{{texts.client}}</article-vue>
         <article-vue name="Game">{{texts.game}}</article-vue>
@@ -13,15 +13,12 @@
     import LinkVue from './components/Link.vue'  
     import CheckVue from './components/Check.vue'
 
+    import content from '../../assets/json/technical_content.json'
+
     export default {
         data() {
             return {
-                texts: { //TODO: Read from JSON
-                    client: "Some nerdy stuff about client development.",
-                    game: "Some nerdy stuff about game development.",
-                    server: "Some nerdy stuff about server development.",
-                    data_transfer: "Some nerdy stuff about data transfer solutions."
-                }
+                texts: content
             }
         },
         mounted(){
@@ -41,4 +38,9 @@
 </script>
 <style lang="scss" scoped>
     @import '../scss/variables';
+
+    .technical {
+        width: 70vw;
+        top: 10%;
+    }
 </style>

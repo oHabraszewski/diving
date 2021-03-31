@@ -1,11 +1,8 @@
 <template>
     <div class="list-container">
-        Developers
         <ul>
             <element-vue v-for="item in items">{{item}}</element-vue>
         </ul>
-        <br>
-        of course it's not final
     </div>
 </template>
 <script>
@@ -20,6 +17,8 @@
 </script>
 <style lang="scss" scoped>
     @import '../../scss/variables';
-    
+    .list-container ul {
+        list-style: none;
+    }
     
 </style>

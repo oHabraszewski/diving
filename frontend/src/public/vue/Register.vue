@@ -1,5 +1,5 @@
 <template>
-    <div class="register center-container">
+    <div class="register center horizontal-vertical">
         <h1>Register</h1>
         <form v-if="!success" @submit="validateData" action="javascript:void(0);">
             <input-vue @valueChange="setUsername" title="Type an username" placeholder="Username" maxim="24"></input-vue>

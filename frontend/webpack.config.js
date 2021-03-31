@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const WebpackBar = require('webpackbar');
 
@@ -175,6 +176,7 @@ const plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[3]), 
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
+  new FaviconsWebpackPlugin(path.resolve(context, 'assets/img/favicon.png')) //TODO: new icon -> change path
 ];
 {
   if (isDev) {

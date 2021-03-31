@@ -29,33 +29,45 @@ h2 {
     text-shadow: 3px 3px $light-back;
 }
 
-body {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background: rgba(200,200, 200, 0.08) url(../../assets/img/background.png);
-    background-blend-mode:color;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#background {
+.background, .overback {
+    position: fixed;
+    top: 0;
+    right: 0;
     width: 100%;
     height: 100vh;
+    
 
     background: rgba(200,200, 200, 0.08) url(../../assets/img/background.png);
     background-blend-mode:color;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    
+}
+
+.overback {
     filter: blur(8px);
     -webkit-filter: blur(8px);
 }
 
-.center-container {
+.center{
     position: absolute;
+    width: 350px;    
+}
+
+.vertical{
+    top: 50%;
+    transform: translateY(-50%);
+} 
+
+.horizontal {
+    left: 50%;
+    transform: translateX(-50%);
+} 
+
+.horizontal-vertical {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
-}
+} 
+

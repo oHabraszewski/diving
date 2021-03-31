@@ -4,6 +4,7 @@
             <h2>{{name}}</h2>
             <p><slot></slot></p>
         </article>
+        <br>
     </div>
 </template>
 <script>
