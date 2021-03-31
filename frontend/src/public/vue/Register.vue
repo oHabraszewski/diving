@@ -2,17 +2,17 @@
     <div class="register center-container">
         <h1>Register</h1>
         <form v-if="!success" @submit="validateData" action="javascript:void(0);">
-            <InputVue @valueChange="setUsername" title="Type an username" placeholder="Username" maxim="24"></InputVue>
-            <InputVue @valueChange="setPassword" type="password" title="Type a password" placeholder="Password" minim="8" maxim="32"></InputVue>
-            <InputVue @valueChange="setEmail" type="email" title="Type your email" placeholder="Email" maxim="256"></InputVue>
+            <input-vue @valueChange="setUsername" title="Type an username" placeholder="Username" maxim="24"></input-vue>
+            <input-vue @valueChange="setPassword" type="password" title="Type a password" placeholder="Password" minim="8" maxim="32"></input-vue>
+            <input-vue @valueChange="setEmail" type="email" title="Type your email" placeholder="Email" maxim="256"></input-vue>
             <p v-if="!success">{{error}}</p>
-            <ButtonVue>Sign up</ButtonVue>
+            <button-vue>Sign up</button-vue>
         </form>
         <div class="registered" v-if="success">
             Thank you for sign up to Diving game!
             Now you can login and jump into a game.
 
-            <ButtonVue destination="./">Return to login</ButtonVue>
+            <button-vue destination="./">Return to login</button-vue>
         </div>
     </div>
 </template>

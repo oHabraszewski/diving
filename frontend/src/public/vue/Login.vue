@@ -2,14 +2,14 @@
     <div class="login center-container" >
         <h1>Diving</h1>
         <form @submit="sendData" action="javascript:void(0);">
-            <InputVue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</InputVue>
-            <InputVue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></InputVue>
-            <ButtonVue>Play</ButtonVue>
+            <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
+            <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
+            <button-vue>Play</button-vue>
             <p v-if="!success">{{error}}</p>
-            <CheckVue @valueChange="setRemember" id="remember" :value="remember">Remember me</CheckVue>
+            <check-vue @valueChange="setRemember" id="remember" :value="remember">Remember me</check-vue>
         </form>
-        <ButtonVue destination="/game">Play without login</ButtonVue> <!--TODO: remove on production-->
-        <LinkVue destination="/register">Don't have an account?</LinkVue>
+        <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
+        <link-vue destination="/register">Don't have an account?</link-vue>
     </div>
 </template>
 <script>

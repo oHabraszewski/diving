@@ -1,7 +1,7 @@
 <template>
     <div class="credits center-container" >
         <h1>Credits</h1>
-        <ListVue :items="items"></ListVue>
+        <list-vue :items="items"></list-vue>
     </div>
 </template>
 <script>

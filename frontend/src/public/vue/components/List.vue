@@ -2,19 +2,19 @@
     <div class="list-container">
         Developers
         <ul>
-            <Element v-for="item in items">{{item}}</Element>
+            <element-vue v-for="item in items">{{item}}</element-vue>
         </ul>
         <br>
         of course it's not final
     </div>
 </template>
 <script>
-    import Element from "./Element.vue"
+    import ElementVue from "./Element.vue"
 
     export default {
         props: ["items"],
         components: {
-            Element
+            ElementVue
         }
     }
 </script>
