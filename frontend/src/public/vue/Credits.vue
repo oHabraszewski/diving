@@ -14,7 +14,7 @@
     export default {
         data() {
             return {
-                items: [
+                items: [ //TODO: Read from JSON
                     "Oskar",
                     "Kamil",
                     "Aleksander",
