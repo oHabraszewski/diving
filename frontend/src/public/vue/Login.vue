@@ -2,20 +2,20 @@
     <div class="login center-container" >
         <h1>Diving</h1>
         <form @submit="sendData" action="javascript:void(0);">
-            <InputVue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username"></InputVue>
+            <InputVue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</InputVue>
             <InputVue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></InputVue>
-            <ButtonVue text="Play"></ButtonVue>
+            <ButtonVue>Play</ButtonVue>
             <p v-if="!success">{{error}}</p>
-            <CheckVue @valueChange="setRemember" text="Remember me" id="remember" :value="remember"></CheckVue>
+            <CheckVue @valueChange="setRemember" id="remember" :value="remember">Remember me</CheckVue>
         </form>
-        <ButtonVue text="Play without login" destination="/game"></ButtonVue> <!--TODO: remove on production-->
-        <LinkVue text="Don't have an account?" destination="/register"></LinkVue>
+        <ButtonVue destination="/game">Play without login</ButtonVue> <!--TODO: remove on production-->
+        <LinkVue destination="/register">Don't have an account?</LinkVue>
     </div>
 </template>
 <script>
     import ButtonVue from './Button.vue'
     import InputVue from './Input.vue'
-    import LinkVue from './Link.vue'
+    import LinkVue from './Link.vue'    
     import CheckVue from './Check.vue'
 
     import connect from "../js/utils/connectAxios.js"

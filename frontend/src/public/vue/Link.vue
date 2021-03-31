@@ -1,11 +1,11 @@
 <template>
     <div>
-        <a class="link" v-on:click="changeDir">{{text}}</a>
+        <a class="link" v-on:click="changeDir"><slot></slot></a>
     </div>
 </template>
 <script>
     export default {
-        props: ['text','destination'],
+        props: ['destination'],
         methods: {
             changeDir(){
                 if(this.destination != undefined){

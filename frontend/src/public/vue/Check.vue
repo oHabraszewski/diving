@@ -1,11 +1,11 @@
 <template>
     <div class="checkContainer">
-        <label class="checkLabel" :for=id>{{text}}</label><input type="checkbox" :id=id class="check" v-model="value">
+        <label class="checkLabel" :for=id><slot></slot></label><input type="checkbox" :id=id class="check" v-model="value">
     </div>
 </template>
 <script>
     export default {
-        props: ['text', 'id', 'value'],
+        props: ['id', 'value'],
         methods: {
         },
         watch: {

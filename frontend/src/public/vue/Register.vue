@@ -6,13 +6,13 @@
             <InputVue @valueChange="setPassword" type="password" title="Type a password" placeholder="Password" minim="8" maxim="32"></InputVue>
             <InputVue @valueChange="setEmail" type="email" title="Type your email" placeholder="Email" maxim="256"></InputVue>
             <p v-if="!success">{{error}}</p>
-            <ButtonVue text="Sign up"></ButtonVue>
+            <ButtonVue>Sign up</ButtonVue>
         </form>
         <div class="registered" v-if="success">
             Thank you for sign up to Diving game!
             Now you can login and jump into a game.
 
-            <ButtonVue text="Return to login" destination="./"></ButtonVue>
+            <ButtonVue destination="./">Return to login</ButtonVue>
         </div>
     </div>
 </template>
