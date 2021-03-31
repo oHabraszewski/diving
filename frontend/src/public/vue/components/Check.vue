@@ -1,6 +1,6 @@
 <template>
-    <div class="checkContainer">
-        <label class="checkLabel" :for=id><slot></slot></label><input type="checkbox" :id=id class="check" v-model="value">
+    <div class="check-container">
+        <label class="check-label" :for=id><slot></slot></label><input type="checkbox" :id=id class="check" v-model="value">
     </div>
 </template>
 <script>
@@ -16,13 +16,13 @@
     }
 </script>
 <style lang="scss" scoped>
-    .checkContainer{
+    .check-container{
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 32px;
     }
-    .checkLabel {
+    .check-label {
         font-size: 24px;
     }
     .check {

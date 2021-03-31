@@ -17,8 +17,8 @@
     </div>
 </template>
 <script>
-    import ButtonVue from './Button.vue'
-    import InputVue from './Input.vue'
+    import ButtonVue from './components/Button.vue'
+    import InputVue from './components/Input.vue'
 
     import connect from "../js/utils/connectAxios.js"
 

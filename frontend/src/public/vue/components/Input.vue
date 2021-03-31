@@ -1,5 +1,5 @@
 <template>
-    <div class="inputContainer">
+    <div class="input-container">
         <input :type=type :title=title class="input" :placeholder=placeholder :minlength=minim :maxlength=maxim v-model="value" required/><br>
     </div>
 </template>
@@ -14,7 +14,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    @import '../scss/variables';
+    @import '../../scss/variables';
     
     @keyframes focusy {
         0% { border-radius: 12px;} 
@@ -37,7 +37,7 @@
     .input::placeholder {
         color: $tip;
     }
-    .showButton {
+    .show-button {
         position: absolute;
         right: 0px;
         width: 56px;

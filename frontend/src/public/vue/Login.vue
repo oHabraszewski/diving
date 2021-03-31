@@ -13,10 +13,10 @@
     </div>
 </template>
 <script>
-    import ButtonVue from './Button.vue'
-    import InputVue from './Input.vue'
-    import LinkVue from './Link.vue'    
-    import CheckVue from './Check.vue'
+    import ButtonVue from './components/Button.vue'
+    import InputVue from './components/Input.vue'
+    import LinkVue from './components/Link.vue'  
+    import CheckVue from './components/Check.vue'
 
     import connect from "../js/utils/connectAxios.js"
 

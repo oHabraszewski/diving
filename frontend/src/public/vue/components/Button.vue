@@ -1,5 +1,5 @@
 <template>
-    <div class="buttonContainer">
+    <div class="button-container">
         <button v-on:click="changeDir" class="button">
             <slot></slot>
         </button>
@@ -20,7 +20,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    @import '../scss/variables';
+    @import '../../scss/variables';
 
     @keyframes squeeze {
         0% { 
@@ -34,7 +34,7 @@
             width: 350px;
         } 
     } 
-    .buttonContainer{
+    .button-container{
         width: 350px;
         height: 56px;
     }
