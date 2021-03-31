@@ -1,11 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://elements/terrainv2/TerrainChunk.gd" type="Script" id=1]
 [ext_resource path="res://elements/terrainv2/Polygon2D.gd" type="Script" id=2]
 [ext_resource path="res://elements/terrainv2/debug_poly.gd" type="Script" id=3]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 105.881, 3000 )
 
 [node name="TerrainChunk" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,22 +19,6 @@ collision_layer = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2DHitboxTerenu"]
 scale = Vector2( 1, -1 )
 build_mode = 1
-
-[node name="Area2DNastepnaDoGenerowania" type="Area2D" parent="."]
-monitorable = false
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DNastepnaDoGenerowania"]
-position = Vector2( 921.514, -336.673 )
-shape = SubResource( 1 )
-
-[node name="Area2DPoprzedniDoGenerowania" type="Area2D" parent="."]
-monitorable = false
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DPoprzedniDoGenerowania"]
-position = Vector2( 921.514, -336.673 )
-shape = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 scale = Vector2( 1, -1 )
