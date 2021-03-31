@@ -9,6 +9,8 @@ export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 export(int) var generation_seed = 0 
 export(int) var end_height = -1
+var generated_runned = false
+
 var rng = RandomNumberGenerator.new()
 
 enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
@@ -57,8 +59,7 @@ func reset_segments():
 			segments_to_reset[i].append([])
 			segments_to_reset[i][j] = Direction.NONE
 	return segments_to_reset
-func position_areas_correctly(): # Area2D objects used to make new chunks of tarrain
-	pass
+	
 func generate_segments(segments: Array, starting_height = 200):
 	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
 #	wagi:
@@ -116,6 +117,8 @@ func generate_segments(segments: Array, starting_height = 200):
 	
 	
 func calculate_final_height(segments):
+	if generated_runned == false:
+		print("ERROR: run generate before calculating final height ")
 	var final_height
 	for j in range(segment_count_y):
 		if not segments[segment_count_x - 1][j] == Direction.NONE:
@@ -133,7 +136,7 @@ func create_curve_based_on_segments(segments: Array):
 		if not segments[0][j] == Direction.NONE:
 			curve.add_point(Vector2(0, j * segment_size.y)) # wierzcholek na wyskokosci startowej
 			current_segment = Vector2(0, j)
-	print(current_segment)
+#	print(current_segment)
 	var last_segment = Direction.NONE # zmienna wykorzystywana do wykrywania zmian kierunku
 	var control_point = Vector2(rng.randf_range(-segment_size.x, 0), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2)) # zmienna ustawiana jako punkt kontolny
 	
@@ -252,14 +255,19 @@ func _ready():
 
 
 
-func generate():
+
+
+
+func generate(starting_height):
 	# jeśli dostanie takie samo generation seed i takie samo start height powinno generować ten sam teren
 	var segments
 	segments = reset_segments()
-	segments = generate_segments(segments, 200)
-	print("calculated height is: ", calculate_final_height(segments))
-	print_segments(segments, Vector2(13,2), Vector2(0, floor(200 / segment_size.y)))
+	segments = generate_segments(segments, starting_height)
+	generated_runned = true
+	var final_height = calculate_final_height(segments)
+#	print("calculated height is: ", final_height)
+#	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
 	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
 	$StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $Polygon2DKrztaltTerenu.polygon
-	pass # Replace with function body.
+	return final_height
 

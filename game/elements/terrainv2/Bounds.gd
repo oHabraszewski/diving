@@ -19,7 +19,8 @@ func recalculate(height: int, distance: int ):#wyliczanie jak maja przebiegac gr
 	colision_shape.b = Vector2(0, height)
 	$Area2DLeft/CollisionShape2D.shape = colision_shape
 	$Area2DRight/CollisionShape2D.shape = colision_shape
-	$Area2DLeft/CollisionShape2D.position.x = $Area2DLeft/CollisionShape2D.position.x + distance
+	$Area2DLeft/CollisionShape2D.position.x += distance + 100
+	$Area2DRight/CollisionShape2D.position.x -= 100 
 	
 func move_right(movement: int):
 	self.position.x += movement

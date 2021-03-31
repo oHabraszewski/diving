@@ -14,5 +14,5 @@ func _process(delta):
 	pass
 	
 func _on_Button_pressed():
-	$Game/Shark.changeSize(100)
+	$Game/Terrain.print_chunks()
 	pass # Replace with function body.
