@@ -1,19 +1,13 @@
 <template>
     <div class="technical center horizontal" >
         <h1>Technical</h1>
-        <article-vue name="Client">{{texts.client}}</article-vue>
-        <article-vue name="Game">{{texts.game}}</article-vue>
-        <article-vue name="Server">{{texts.server}}</article-vue>
-        <article-vue name="Data transfer">{{texts.data_transfer}}</article-vue>
+        <article-vue :key="text" v-for="text in texts" :name=text.name>{{text.content}}</article-vue>
     </div>
 </template>
 <script>
     import ArticleVue from './components/Article.vue'
-    import InputVue from './components/Input.vue'
-    import LinkVue from './components/Link.vue'  
-    import CheckVue from './components/Check.vue'
 
-    import content from '../../assets/json/technical_content.json'
+    import content from '../../assets/json/technical.json'
 
     export default {
         data() {
@@ -21,24 +15,12 @@
                 texts: content
             }
         },
-        mounted(){
-        },
-        methods: {
-            setUsername(value){
-                this.username = value;
-            },
-        },
         components: {
             ArticleVue,
-            InputVue,
-            LinkVue,
-            CheckVue
         }
     }
 </script>
 <style lang="scss" scoped>
-    @import '../scss/variables';
-
     .technical {
         width: 70vw;
         top: 10%;
