@@ -16,6 +16,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isDev = process.env.NODE_ENV != 'production';
 const context = path.resolve(__dirname, 'src');
+const assetsPath = path.resolve(__dirname, 'assets');
 
 const entry = {
   index: path.resolve(context, 'index.js'),
@@ -27,6 +28,7 @@ const entry = {
 const resolve = {
   alias: {
     '@': context,
+    'assets': assetsPath,
     'vue$': 'vue/dist/vue.esm-bundler.js'
   },
 };
@@ -113,22 +115,22 @@ const rules = [/*babelLoader,*/ vueLoader, fileLoader, cssLoader];
 let htmlWebpackPluginsOptions = [
   {
     filename: "index.html",
-    template: path.resolve(context, 'public/index.html'),
+    template: path.resolve(context, 'html/index.html'),
     chunks: ["index"]
   },
   {
     filename: "credits.html",
-    template: path.resolve(context, 'public/credits.html'),
+    template: path.resolve(context, 'html/credits.html'),
     chunks: ["credits"]
   },
   {
     filename: "technical.html",
-    template: path.resolve(context, 'public/technical.html'),
+    template: path.resolve(context, 'html/technical.html'),
     chunks: ["technical"]
   },
   {
     filename: "register.html",
-    template: path.resolve(context, 'public/register.html'),
+    template: path.resolve(context, 'html/register.html'),
     chunks: ["register"]
   }
 ];
@@ -176,7 +178,7 @@ const plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[3]), 
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
-  new FaviconsWebpackPlugin(path.resolve(context, 'assets/img/favicon.png')) //TODO: new icon -> change path
+  new FaviconsWebpackPlugin(path.resolve(assetsPath, 'img/favicon.png')) //TODO: new icon -> change path
 ];
 {
   if (isDev) {

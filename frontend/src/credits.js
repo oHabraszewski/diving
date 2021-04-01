@@ -1,7 +1,7 @@
-import "./public/scss/main.scss"
+import "./scss/main.scss"
 
 import * as Vue from "vue"
-import Credits from "./public/vue/Credits.vue"
+import Credits from "./vue/Credits.vue"
 
 const App = {
     components: {
