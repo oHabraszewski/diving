@@ -21,9 +21,9 @@
 - Type: ./run build
 - Press enter
 
-### Logging for testing
+### Logging in for testing
 
-You can use preregistered account for testing in logged mode (will be deleted on production)
+You can use preregistered account for testing in logged in mode (will be deleted on production)
 
 Username: admin
 Password: adminadmin
@@ -40,10 +40,14 @@ Password: adminadmin
 - JS
 
 ## Technologies
-- Godot engine
-- Spring framework
-- VueJS 3 framework
-- REST architecture
+- Godot
+  - Game engine
+- Spring
+  - Java server framework
+- VueJS
+  - Web framework
+- REST
+  - API architecture
 - Axios
 - WebSocket
 - Maven
