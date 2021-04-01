@@ -72,7 +72,7 @@ const fileLoader = {
   test: /\.(png|jpe?g|gif|svg|ttf|woff)$/i,
   loader: 'file-loader',
   options: {
-    outputPath: 'assets',
+    outputPath: '',
     name: '[path][name].[ext]',
     esModule: false,
   },
