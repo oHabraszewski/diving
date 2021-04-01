@@ -1,8 +1,8 @@
-import "./public/scss/main.scss"
+import "./scss/main.scss"
 
 import * as Vue from "vue"
 import Vuex from 'vuex'
-import Register from "./public/vue/Register.vue"
+import Register from "./vue/Register.vue"
 
 const App = {
     components: {

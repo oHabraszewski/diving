@@ -1,7 +1,7 @@
-import "./public/scss/main.scss"
+import "./scss/main.scss"
 
 import * as Vue from "vue"
-import Technical from "./public/vue/Technical.vue"
+import Technical from "./vue/Technical.vue"
 
 const App = {
     components: {

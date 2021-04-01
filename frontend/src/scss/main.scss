@@ -1,10 +1,10 @@
 @font-face {
     font-family: Ubuntu;
-    src: url(../../assets/font/Ubuntu-Regular.ttf);
+    src: url(assets/font/Ubuntu-Regular.ttf);
 }
 @font-face {
     font-family: Bariol;
-    src: url(../../assets/font/Bariol_pl.ttf);
+    src: url(assets/font/Bariol_pl.ttf);
 }
 
 @import 'variables';
@@ -37,7 +37,7 @@ h2 {
     height: 100vh;
     
 
-    background: rgba(200,200, 200, 0.08) url(../../assets/img/background.png);
+    background: rgba(200,200, 200, 0.08) url(assets/img/background.png);
     background-blend-mode:color;
     background-position: center;
     background-repeat: no-repeat;
