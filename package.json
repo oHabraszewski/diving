@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "favicons-webpack-plugin": "^5.0.2"
+  }
+}

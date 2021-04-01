@@ -1,25 +1,26 @@
 <template>
-    <div class="login">
-        <div class="newlogin">
-            <h1>Diving</h1>
-            <form @submit="sendData" action="javascript:void(0);">
-                <Input @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username"></Input>
-                <Input @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></Input>
-                <Button text="Play"></Button>
-                <p v-if="!success">{{error}}</p>
-                <Check @valueChange="setRemember" text="Remember me" id="remember" :value="remember"></Check>
-            </form>
-            <Button text="Play without login" destination="/game"></Button> <!--TODO: remove on production-->
-            <Link text="Don't have an account?" destination="/register"></Link>
-        </div>
+    <div class="login center horizontal-vertical" >
+        <h1>Diving</h1>
+        <form @submit="sendData" action="javascript:void(0);">
+            <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
+            <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
+            <button-vue>Play</button-vue>
+            <p v-if="!success">{{error}}</p>
+            <check-vue @valueChange="setRemember" id="remember" :value="remember">Remember me</check-vue>
+        </form>
+        <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
+        <link-vue destination="/register">Don't have an account?</link-vue>
+        <link-vue destination="/credits">We made this game!</link-vue>
+        <link-vue destination="/technical">Check how we made this game</link-vue>
     </div>
 </template>
 <script>
-    import axios from 'axios'
-    import Button from './Button.vue'
-    import Input from './Input.vue'
-    import Link from './Link.vue'
-    import Check from './Check.vue'
+    import ButtonVue from './components/Button.vue'
+    import InputVue from './components/Input.vue'
+    import LinkVue from './components/Link.vue'  
+    import CheckVue from './components/Check.vue'
+
+    import connect from "../js/utils/connectAxios.js"
 
     export default {
         data() {
@@ -57,7 +58,7 @@
                 localStorage.removeItem("username")
                 localStorage.removeItem("token")
             },
-            sendData(){
+            async sendData(){
                 const username = localStorage.getItem("username")
                 const token = localStorage.getItem("token")
 
@@ -69,14 +70,15 @@
                     this.changeDirectory("/game")
                 }else{
                     console.debug("There is no token, connecting with server...")
-                    axios.post("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
-                        username: this.username,
-                        password: this.password,
-                    }).then(response=>{
-                        if(response.data.success){
-                            
-                            this.success = true
 
+                    let response = await connect("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
+                        username: this.username,
+                        password: this.password
+                    })
+
+                    this.success = response.data.success
+
+                    if(this.success){
                             let storage;
 
                             if(this.remember){
@@ -94,37 +96,23 @@
                             console.debug("Token: " + storage.getItem("token"))
 
                             this.changeDirectory("/game")
-                        }else{
-                            this.success = false
-                            this.error = response.data.error
+                    }else{
+                        this.error = response.data.error
 
-                            console.warn("Login data validation has not been completed successfully! Read description below for details")
-                            console.warn(response)
-                        }
-                    }).catch(error=>{
-                        this.success = false
-                        this.error = error
-
-                        console.error("An error occured while trying connecting with a server, see description for more details: " + error)
-                    })
+                        console.warn("Login data validation has not been completed successfully! Read description below for details")
+                        console.warn(response)
+                    }
                 }
             }
         },
         components: {
-            Button,
-            Input,
-            Link,
-            Check
+            ButtonVue,
+            InputVue,
+            LinkVue,
+            CheckVue
         }
     }
 </script>
 <style lang="scss" scoped>
     @import '../scss/variables';
-    .login {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 350px;
-    }
 </style>

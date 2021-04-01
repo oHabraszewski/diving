@@ -1,11 +1,13 @@
 <template>
-    <div class="buttonContainer">
-        <button v-on:click="changeDir" class="button">{{text}}</button>
+    <div class="button-container">
+        <button v-on:click="changeDir" class="button">
+            <slot></slot>
+        </button>
     </div>
 </template>
 <script>
     export default {
-        props: ['text','destination'],
+        props: ['destination'],
         methods: {
             changeDir(){
                 setTimeout(()=>{
@@ -18,7 +20,7 @@
     }
 </script>
 <style lang="scss" scoped>
-    @import '../scss/variables';
+    @import '../../scss/variables';
 
     @keyframes squeeze {
         0% { 
@@ -32,7 +34,7 @@
             width: 350px;
         } 
     } 
-    .buttonContainer{
+    .button-container{
         width: 350px;
         height: 56px;
     }
