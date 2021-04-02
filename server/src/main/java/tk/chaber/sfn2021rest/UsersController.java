@@ -2,11 +2,11 @@ package tk.chaber.sfn2021rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tk.chaber.sfn2021rest.DB.Entities.User;
-import tk.chaber.sfn2021rest.DB.Repositories.UsersRepo;
-import tk.chaber.sfn2021rest.Utils.Hasher;
-import tk.chaber.sfn2021rest.Utils.Randomizer;
-import tk.chaber.sfn2021rest.Utils.Response;
+import tk.chaber.sfn2021rest.db.Entities.User;
+import tk.chaber.sfn2021rest.db.Repositories.UsersRepo;
+import tk.chaber.sfn2021rest.utils.Hasher;
+import tk.chaber.sfn2021rest.utils.Randomizer;
+import tk.chaber.sfn2021rest.utils.Response;
 
 import java.security.SecureRandom;
 import java.util.Arrays;

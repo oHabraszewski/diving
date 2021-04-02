@@ -1,7 +1,7 @@
-package tk.chaber.sfn2021rest.DB.Repositories;
+package tk.chaber.sfn2021rest.db.Repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import tk.chaber.sfn2021rest.DB.Entities.User;
+import tk.chaber.sfn2021rest.db.Entities.User;
 
 import java.util.List;
 
