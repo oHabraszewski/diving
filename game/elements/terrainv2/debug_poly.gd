@@ -14,6 +14,7 @@ func _draw():
 	for i in points:
 		draw_circle(i, 5, Color(1,1,1))
 	pass
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

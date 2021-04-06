@@ -11,49 +11,67 @@ export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 
+
+
 func load_chunks():
 	pass
 func save_chunks():
 	pass
+func calculate_seed(index: int):
+	var gener_seed = String(index) + String(generation_seed) + "123123123"
+	gener_seed = gener_seed.sha256_text()
+	return hash(gener_seed)
 	
-func add_chunk(front: bool, generation_seed: int, new_game = false): #funkcja dodaje chunk z podanym seedem
+	
+func add_chunk(front: bool, generation_seed: int, new_game = false, start_index = 0): #funkcja dodaje chunk z podanym seedem
 	var incrementar 
 	var instance = terrain_chunk.instance()
-	instance.generation_seed = generation_seed
 	instance.segment_count_x = segment_count_x 
 	instance.segment_count_y = segment_count_y 
-	instance.segment_size = segment_size 
+	instance.segment_size = segment_size
 	if new_game: #if new game
-		current_chunks[0] = terrain_chunk.instance()
-		current_chunks[0].generation_seed = generation_seed
-		current_chunks[0].segment_count_x = segment_count_x 
-		current_chunks[0].segment_count_y = segment_count_y 
-		current_chunks[0].segment_size = segment_size 
-		chunks[0] = current_chunks[0].generate(200)
-		self.add_child(current_chunks[0])
-		self.position.y = self.position.y + current_chunks[0].segment_size.y * current_chunks[0].segment_count_y #ustawianie wysokości
+		#gdy zaczyna się nowa gra pierwszy chunk jest tworzony tutaj
+		current_chunks[start_index] = terrain_chunk.instance()
+		current_chunks[start_index].generation_seed = calculate_seed(start_index)
+		current_chunks[start_index].segment_count_x = segment_count_x 
+		current_chunks[start_index].segment_count_y = segment_count_y 
+		current_chunks[start_index].segment_size = segment_size 
+		chunks[start_index] = 200
+		chunks[start_index - 1] = 200
+		chunks[start_index + 1] = current_chunks[start_index].generate(200)
+		self.add_child(current_chunks[start_index])
+		self.position.y = self.position.y + current_chunks[start_index].segment_size.y * current_chunks[start_index].segment_count_y #ustawianie wysokości
+	
 	else:        #if not new game
-		if front:
-			instance.position = Vector2(current_chunks[current_chunks.keys().max()].position.x + current_chunks[current_chunks.keys().max()].segment_size.x/2 + current_chunks[current_chunks.keys().max()].segment_size.x * current_chunks[current_chunks.keys().max()].segment_count_x, current_chunks[current_chunks.keys().max()].position.y)
+#		print(chunks)
+		if front: #ruch garcza w prawo
+			instance.position.x = current_chunks[current_chunks.keys().max()].position.x + segment_size.x/2 + segment_size.x * segment_count_x
 			incrementar = current_chunks.keys().max()+1
-			if chunks.has(incrementar):
+			instance.generation_seed = calculate_seed(incrementar)
+			if chunks.keys().has(incrementar + 1):
 				instance.generate(chunks[incrementar])
 			else:
-				chunks[incrementar] = instance.generate(chunks[incrementar-1])
-			if current_chunks.size() > 3:
+				chunks[incrementar + 1] = instance.generate(chunks[incrementar])
+			
+				
+				
+			if current_chunks.size() == 3:
+				current_chunks[current_chunks.keys().min()].queue_free()
 				current_chunks.erase(current_chunks.keys().min()) # usuwanie niepotrzebnego chunka
-		else:
+		else: #ruch garcza w lewo
 			instance.position = Vector2(current_chunks[current_chunks.keys().min()].position.x - current_chunks[current_chunks.keys().min()].segment_size.x/2 - current_chunks[current_chunks.keys().min()].segment_size.x * current_chunks[current_chunks.keys().min()].segment_count_x, current_chunks[current_chunks.keys().min()].position.y)
 			incrementar = current_chunks.keys().min()-1
-			if chunks.has(incrementar):
+			instance.generation_seed = calculate_seed(incrementar)
+			if chunks.keys().has(incrementar - 1):
 				instance.generate(chunks[incrementar])
 			else:
-				print(instance.generate(chunks[incrementar+1]))
-				print(instance.generate(chunks[incrementar+1]))
-				chunks[incrementar] = instance.generate(chunks[incrementar+1])
-			if current_chunks.size() > 3:
+				chunks[incrementar - 1] = instance.generate(chunks[incrementar])
+			
+			if current_chunks.size() == 3:
+				current_chunks[current_chunks.keys().max()].queue_free()
 				current_chunks.erase(current_chunks.keys().max())# usuwanie niepotrzebnego chunka
 		current_chunks[incrementar] = instance
+		current_chunks[incrementar].minus_index_flip(incrementar)
 		self.add_child(current_chunks[incrementar])
 	pass
 	
@@ -64,7 +82,7 @@ func _ready():
 #	self.add_child(current_instance)
 	
 #	[-2][-1][0][1][2][3]
-#	[  ][  ][ ][ ][ ][ ]
+#	[  ][  ][200][ ][ ][ ]
 	
 	add_chunk(true, 1, true)
 	add_chunk(true, 1)

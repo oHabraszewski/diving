@@ -8,8 +8,10 @@ export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 export(int) var generation_seed = 0 
+export(int) var index
 export(int) var end_height = -1
 var generated_runned = false
+
 
 var rng = RandomNumberGenerator.new()
 
@@ -243,7 +245,8 @@ func create_curve_based_on_segments(segments: Array):
 			current_segment.y -= 1
 		
 		pass
-	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2))) # przedostatni wierzcholek ten po prawej stronie
+#		to tu bylo zamiast tego ponizej, jakby sie mielo przydaccurve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y + (segment_size.y / 2)))
+	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), current_segment.y * segment_size.y )) # przedostatni wierzcholek ten po prawej stronie
 	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), 0)) # ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)
 	return curve
 	
@@ -253,12 +256,22 @@ func generate_objects(): # like seaweed, sharks etc.
 func _ready():
 	pass
 
+func minus_index_flip(idx: int):
+	index = idx
+	if index < 0:
+		$Polygon2D.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
+		$Polygon2DKrztaltTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
+		$StaticBody2DHitboxTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
+		self.scale.x = -1 #obracanie chunka terenu
+	pass
 
 
 
 
 
 func generate(starting_height):
+	rng.seed = generation_seed
+	
 	# jeśli dostanie takie samo generation seed i takie samo start height powinno generować ten sam teren
 	var segments
 	segments = reset_segments()
