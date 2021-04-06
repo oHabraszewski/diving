@@ -37,6 +37,9 @@
     .input::placeholder {
         color: $tip;
     }
+    .input:-moz-ui-invalid {
+        box-shadow: none;
+    }
     .show-button {
         position: absolute;
         right: 0px;
