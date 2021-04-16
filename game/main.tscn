@@ -29,7 +29,7 @@ sleeping = true
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 current = true
-zoom = Vector2( 8, 8 )
+zoom = Vector2( 2, 2 )
 smoothing_enabled = true
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]

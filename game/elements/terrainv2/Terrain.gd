@@ -48,10 +48,12 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 			instance.position.x = current_chunks[current_chunks.keys().max()].position.x + segment_size.x/2 + segment_size.x * segment_count_x
 			incrementar = current_chunks.keys().max()+1
 			instance.generation_seed = calculate_seed(incrementar)
-			if chunks.keys().has(incrementar + 1):
+			if chunks.keys().has(incrementar) and not chunks.keys().has(incrementar + 1):
+				chunks[incrementar + 1] = instance.generate(chunks[incrementar])
+			elif chunks.keys().has(incrementar):
 				instance.generate(chunks[incrementar])
 			else:
-				chunks[incrementar + 1] = instance.generate(chunks[incrementar])
+				print("ERROR: Corrupted seve or invalod data!")
 			
 				
 				
@@ -62,10 +64,12 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 			instance.position = Vector2(current_chunks[current_chunks.keys().min()].position.x - current_chunks[current_chunks.keys().min()].segment_size.x/2 - current_chunks[current_chunks.keys().min()].segment_size.x * current_chunks[current_chunks.keys().min()].segment_count_x, current_chunks[current_chunks.keys().min()].position.y)
 			incrementar = current_chunks.keys().min()-1
 			instance.generation_seed = calculate_seed(incrementar)
-			if chunks.keys().has(incrementar - 1):
+			if chunks.keys().has(incrementar) and not chunks.keys().has(incrementar - 1):
+				chunks[incrementar - 1] = instance.generate(chunks[incrementar])
+			elif chunks.keys().has(incrementar):
 				instance.generate(chunks[incrementar])
 			else:
-				chunks[incrementar - 1] = instance.generate(chunks[incrementar])
+				print("ERROR: Corrupted save file or invalid data!")
 			
 			if current_chunks.size() == 3:
 				current_chunks[current_chunks.keys().max()].queue_free()

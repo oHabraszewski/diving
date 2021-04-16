@@ -102,13 +102,16 @@ func generate_segments(segments: Array, starting_height = 200):
 			current_segment.x += 1
 			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
 		else: # losowy wybor
-			var random = rng.randi_range(1, 100)
+			var random = rng.randi_range(1, 133)
 			if random > 0  and random <= 33 and segments[current_segment.x + 1][current_segment.y] == Direction.NONE: # go right
 				segments[current_segment.x][current_segment.y] = Direction.RIGHT
 				current_segment.x += 1
 			elif random > 33 and random <= 66 and segments[current_segment.x][current_segment.y + 1] == Direction.NONE: # go up
 				segments[current_segment.x][current_segment.y] = Direction.UP
 				current_segment.y += 1
+			elif random > 100 and random <= 133 and segments[current_segment.x - 1][current_segment.y] == Direction.NONE: # go left
+				segments[current_segment.x][current_segment.y] = Direction.LEFT
+				current_segment.x -= 1
 			elif random > 66 and random <= 100 and segments[current_segment.x][current_segment.y - 1] == Direction.NONE: # go down
 				segments[current_segment.x][current_segment.y] = Direction.DOWN
 				current_segment.y -= 1

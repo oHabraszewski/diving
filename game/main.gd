@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Interface/Control/Label.text = "Player position: " + String($Game/Player.position) #DEV
+	$Interface/Control/Label.text = "Player position: " + String($Game/Player.position) + "\n Player current chunk: " + String(floor((($Game/Player.position.x - $Game/Terrain.position.x) / ($Game/Terrain.segment_size.x * $Game/Terrain.segment_count_x))) ) #DEV
 	pass
 	
 func _on_Button_pressed():

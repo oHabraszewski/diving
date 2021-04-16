@@ -59,7 +59,7 @@ then
         `pwd`"/../"$0 "asdasd" "konsole --new-tab -e yarn start" &
     elif command -v gnome-terminal &> /dev/null
     then
-        `pwd`"/../"$0 "asdasd" "gnome-terminal --tab -e yarn start" &
+        `pwd`"/../"$0 "asdasd" "gnome-terminal --execute /bin/bash -c "yarn start""
     else
         echo "Unsupported terminal emulator. This script supports konsole and gnome-terminal"
     fi
