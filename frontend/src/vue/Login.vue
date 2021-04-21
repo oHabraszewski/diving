@@ -1,7 +1,7 @@
 <template>
     <div class="login center horizontal-vertical" >
         <h1>Diving</h1>
-        <form @submit="sendData" action="javascript:void(0);">
+        <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
             <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
             <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
             <button-vue>Play</button-vue>

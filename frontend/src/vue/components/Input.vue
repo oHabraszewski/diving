@@ -36,6 +36,13 @@
     }
     .input::placeholder {
         color: $tip;
+        @-moz-document url-prefix() {
+            opacity: 1;
+        }
+        
+    }
+    .input:-moz-ui-invalid {
+        box-shadow: none;
     }
     .show-button {
         position: absolute;
