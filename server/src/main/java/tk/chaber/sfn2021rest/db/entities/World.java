@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.DB.Entities;
+package tk.chaber.sfn2021rest.db.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

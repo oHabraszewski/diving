@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.Utils;
+package tk.chaber.sfn2021rest.utils;
 
 import java.security.SecureRandom;
 
