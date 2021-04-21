@@ -10,18 +10,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args);  //Starting API
 	}
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {
+			public void addCorsMappings(CorsRegistry registry) {  //CORS configuration
 				registry.addMapping("/register").allowedOrigins("http://localhost:8080 ");
 				registry.addMapping("/").allowedOrigins("http://localhost:8080 ");
 			}
 		};
 	}
-
 }
