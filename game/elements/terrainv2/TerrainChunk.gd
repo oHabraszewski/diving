@@ -109,12 +109,37 @@ func generate_segments(segments: Array, starting_height = 200):
 			elif random > 33 and random <= 66 and segments[current_segment.x][current_segment.y + 1] == Direction.NONE: # go up
 				segments[current_segment.x][current_segment.y] = Direction.UP
 				current_segment.y += 1
-#			elif random > 100 and random <= 133 and segments[current_segment.x - 1][current_segment.y] == Direction.NONE: # go left
-#				segments[current_segment.x][current_segment.y] = Direction.LEFT
-#				current_segment.x -= 1
 			elif random > 66 and random <= 100 and segments[current_segment.x][current_segment.y - 1] == Direction.NONE: # go down
 				segments[current_segment.x][current_segment.y] = Direction.DOWN
 				current_segment.y -= 1
+#
+# ______   _______         _______  _______  _______  ______  _________ _______          _________ _______  _ 
+#(  __  \ (  ___  )       / ___   )(  ____ )(  ___  )(  ___ \ \__   __/(  ____ \( (    /|\__   __/ (  ___  )( )
+#| (  \  )| (   ) |       \/   )  || (    )|| (   ) || (   ) )   ) (   | (    \/|  \  ( |   ) (    | (   ) || |
+#| |   ) || |   | |           /   )| (____)|| |   | || (__/ /    | |   | (__    |   \ | |   | |    | (___) || |
+#| |   | || |   | |          /   / |     __)| |   | ||  __ (     | |   |  __)   | (\ \) |   | |    |  ___  || |
+#| |   ) || |   | |         /   /  | (\ (   | |   | || (  \ \    | |   | (      | | \   |   | |    | (   ) |(_)
+#| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
+#(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)                                                                 
+
+			elif random > 100 and random <= 120 and segments[current_segment.x - 1][current_segment.y] == Direction.NONE: # go left
+				var can_go_left = true #sprawdzenie, czy mozna sie cofnac bezpiecznie
+				if current_segment.y >= segment_count_y - 2:
+					print("xd")
+					can_go_left = false
+				for i in range(current_segment.x ,segment_count_x - 1):
+#					print_segments(segments,current_segment, Vector2(i, current_segment.y))
+					if not segments[i][current_segment.y] == Direction.NONE:
+						can_go_left = false
+					pass
+				for i in range(current_segment.y ,segment_count_y - 1):
+#					print_segments(segments,current_segment, Vector2(current_segment.x, i))
+					if not segments[current_segment.x][i] == Direction.NONE:
+						can_go_left = false
+					pass
+				if can_go_left:
+					segments[current_segment.x][current_segment.y] = Direction.LEFT
+					current_segment.x -= 1
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
@@ -281,6 +306,7 @@ func generate(starting_height):
 	segments = generate_segments(segments, starting_height)
 	generated_runned = true
 	var final_height = calculate_final_height(segments)
+	generate_objects()
 #	print("calculated height is: ", final_height)
 #	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
 	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()

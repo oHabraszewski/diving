@@ -12,11 +12,35 @@ export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 
 
-
-func load_chunks():
+func check_for_bad_values():
+	if segment_count_x < 10:
+		printerr("Property segment_count_x too low, minimum is 10, but set ", segment_count_x)
+		get_tree().quit(123)
+	if segment_count_y < 10:
+		printerr("Property segment_count_y too low, minimum is 10, but set ", segment_count_y)
+		get_tree().quit(124)
+	if segment_size.x < 100:
+		printerr("Property segment_size.x too low, minimum is 100, but set ", segment_size.x)
+		get_tree().quit(125)
+	if segment_size.y < 100:
+		printerr("Property segment_size.y too low, minimum is 100, but set ", segment_size.y)
+		get_tree().quit(126)
 	pass
-func save_chunks():
+	
+func load_chunks_as_JSON(json_formatted_chunks):
+	chunks = JSON.parse(JSON.print(chunks)).result
 	pass
+	
+func load_chunks(chunks_passed):
+	chunks = chunks_passed
+	pass
+	
+func return_chunks_as_JSON():
+	return JSON.print(chunks)
+	
+func return_chunks():
+	return chunks
+	
 func calculate_seed(index: int):
 	var gener_seed = String(index) + String(generation_seed) + "123123123"
 	gener_seed = gener_seed.sha256_text()
@@ -85,6 +109,7 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 	
 	
 func _ready():
+	check_for_bad_values()
 #	current_instance = terrain_chunk.instance()
 #	current_instance.generate()
 #	self.add_child(current_instance)
@@ -93,15 +118,10 @@ func _ready():
 #	[  ][  ][200][ ][ ][ ]
 
 
-	chunks = {-1:200, -2:650, -3:850, -4:150, 0:200, 1:350, 2:550}
-	add_chunk(true, 1, true, -1)
+#	chunks = {-1:200, -2:650, -3:850, -4:150, 0:200, 1:350, 2:550}
+#	add_chunk(true, 1, true, -1)
 
-
-
-#	add_chunk(true, 1, true)
-	
-	
-	
+	add_chunk(true, 1, true)
 	add_chunk(true, 1)
 	add_chunk(false, 1)
 	$Bounds.recalculate(current_chunks[0].segment_size.y * current_chunks[0].segment_count_y, current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2 )
