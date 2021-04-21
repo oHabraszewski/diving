@@ -36,9 +36,13 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 		current_chunks[start_index].segment_count_x = segment_count_x 
 		current_chunks[start_index].segment_count_y = segment_count_y 
 		current_chunks[start_index].segment_size = segment_size 
-		chunks[start_index] = 200
-		chunks[start_index - 1] = 200
-		chunks[start_index + 1] = current_chunks[start_index].generate(200)
+		if not chunks.keys().has(start_index):#jeśli nie ma seveu terenu, zapisz domyslna wysokosc
+			chunks[start_index] = 200
+			chunks[start_index - 1] = 200
+			chunks[start_index + 1] = current_chunks[start_index].generate(200)
+		else:
+			current_chunks[start_index].generate(chunks[start_index])
+		current_chunks[start_index].minus_index_flip(start_index)
 		self.add_child(current_chunks[start_index])
 		self.position.y = self.position.y + current_chunks[start_index].segment_size.y * current_chunks[start_index].segment_count_y #ustawianie wysokości
 	
@@ -87,8 +91,17 @@ func _ready():
 	
 #	[-2][-1][0][1][2][3]
 #	[  ][  ][200][ ][ ][ ]
+
+
+	chunks = {-1:200, -2:650, -3:850, -4:150, 0:200, 1:350, 2:550}
+	add_chunk(true, 1, true, -1)
+
+
+
+#	add_chunk(true, 1, true)
 	
-	add_chunk(true, 1, true)
+	
+	
 	add_chunk(true, 1)
 	add_chunk(false, 1)
 	$Bounds.recalculate(current_chunks[0].segment_size.y * current_chunks[0].segment_count_y, current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2 )
