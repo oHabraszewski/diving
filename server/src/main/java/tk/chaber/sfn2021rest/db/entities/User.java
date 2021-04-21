@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.db.Entities;
+package tk.chaber.sfn2021rest.db.entities;
 
 import tk.chaber.sfn2021rest.utils.Hasher;
 import tk.chaber.sfn2021rest.utils.Randomizer;

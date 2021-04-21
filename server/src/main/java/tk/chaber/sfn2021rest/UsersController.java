@@ -1,14 +1,17 @@
 package tk.chaber.sfn2021rest;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.web.bind.annotation.*;
-import tk.chaber.sfn2021rest.db.Entities.User;
-import tk.chaber.sfn2021rest.db.Repositories.UsersRepo;
+import tk.chaber.sfn2021rest.db.entities.User;
+import tk.chaber.sfn2021rest.db.UsersRepo;
 import tk.chaber.sfn2021rest.utils.Hasher;
 import tk.chaber.sfn2021rest.utils.Randomizer;
 import tk.chaber.sfn2021rest.utils.Response;
 
-import java.security.SecureRandom;
+import javax.naming.CommunicationException;
+import javax.persistence.PersistenceException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -45,26 +48,30 @@ public class UsersController {
         if(!matcher.find()){
             return new Response(false, "It's not a proper email!", null);
         }
+        try {
+            if(usersRepository.findByUsername(username).size() > 0){
+                return new Response(false, "There is already a player with such username, choose another one!", null);
+            }
+            if(usersRepository.findByEmail(email).size() > 0){
+                return new Response(false, "There is already an account with such an email!", null);
+            }
 
-        if(usersRepository.findByUsername(username).size() > 0){
-            return new Response(false, "There is already a player with such username, choose another one!", null);
+            String UK = Long.toHexString(Randomizer.randomLong());
+
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setToken(UK);
+
+            usersRepository.save(user);
+
+            System.out.println("==== post signup ====");
+            return new Response(true, null, UK);
+        }catch(DataAccessResourceFailureException exception) {
+            System.out.println("Database Exception");
+            return new Response(false, "Server cannot connect to the database, please try again later or contact with developers.", null);
         }
-        if(usersRepository.findByEmail(email).size() > 0){
-            return new Response(false, "There is already an account with such an email!", null);
-        }
-
-        String UK = Long.toHexString(Randomizer.randomLong());
-
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setToken(UK);
-
-        usersRepository.save(user);
-
-        System.out.println("==== post signup ====");
-        return new Response(true, null, UK);
     }
 
     @PostMapping(path = "/loginValidation", consumes = "application/json", produces = "application/json")
@@ -82,16 +89,17 @@ public class UsersController {
             return new Response(false, "Password must have from 8 to 32 characters.", null);
         }
 
-        if(usersRepository.findByUsername(username).size() == 0){
-            return new Response(false, "There is no player with such username, register!", null);
-        }
-
-        User user = usersRepository.findByUsername(username).get(0);
-
-        byte[] correctPassword = user.getPassword();
-        byte[] userSalt = user.getSalt();
-
         try {
+            if(usersRepository.findByUsername(username).size() == 0){
+                return new Response(false, "There is no player with such username, register!", null);
+            }
+
+            User user = usersRepository.findByUsername(username).get(0);
+
+            byte[] correctPassword = user.getPassword();
+            byte[] userSalt = user.getSalt();
+
+
             byte[] hashedPassword = Hasher.hashWithSalt(passToCheck, userSalt);
 
             if(Arrays.equals(correctPassword, hashedPassword)){
@@ -107,9 +115,13 @@ public class UsersController {
             }else{
                 return new Response(false, "This password is not correct, try again (make sure your caps lock is off)", null);
             }
-        }catch (Exception e){
+        }catch(DataAccessResourceFailureException exception) {
+            System.out.println("Database Exception");
+            return new Response(false, "Server cannot connect to the database, please try again later or contact with developers.", null);
+        }
+        catch(Exception e){
             e.printStackTrace();
-            return new Response(false, e.getMessage(), null);
+            return new Response(false, "Unknown exception, more details: " + e.getMessage(), null);
         }
     }
 
