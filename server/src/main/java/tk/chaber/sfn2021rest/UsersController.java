@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.web.bind.annotation.*;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.UsersRepo;
+import tk.chaber.sfn2021rest.utils.ConfigVars;
 import tk.chaber.sfn2021rest.utils.Hasher;
 import tk.chaber.sfn2021rest.utils.Randomizer;
 import tk.chaber.sfn2021rest.utils.Response;
@@ -31,7 +32,7 @@ public class UsersController {
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     //Register mapping, creates mount point for register request from client.
-    @PostMapping(path = "/api/rls/register", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = ConfigVars.API_PREFIX + "/rls/register", consumes = "application/json", produces = "application/json")
     public @ResponseBody
     Response register(@RequestBody Map<String, String> data) {
 
@@ -100,7 +101,7 @@ public class UsersController {
     }
 
     //Login mapping, creates mount point for login request from client.
-    @PostMapping(path = "/api/rls/login", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = ConfigVars.API_PREFIX + "/rls/login", consumes = "application/json", produces = "application/json")
     public @ResponseBody
     Response login(@RequestBody Map<String, String> data) {
 
