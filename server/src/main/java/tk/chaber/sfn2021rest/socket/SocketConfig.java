@@ -9,6 +9,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class SocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new SocketHandler(), "/websocket/world");
+        //Adding new entries for WebSocket and linking them with handlers
+        registry.addHandler(new SocketHandler(), "/websocket/world").setAllowedOrigins("*");  //TODO: change CORS after WebSocket testing
     }
 }
