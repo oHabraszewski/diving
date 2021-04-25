@@ -17,6 +17,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+RLS (in "/api/rls/...") - Register and Login System
+ */
+
 @RestController
 public class UsersController {
     //Autoconnection of Hibernate database with variable by @Autowired
@@ -27,7 +31,7 @@ public class UsersController {
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     //Register mapping, creates mount point for register request from client.
-    @PostMapping(path = "/registerValidation", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/api/rls/register", consumes = "application/json", produces = "application/json")
     public @ResponseBody
     Response register(@RequestBody Map<String, String> data) {
 
@@ -96,7 +100,7 @@ public class UsersController {
     }
 
     //Login mapping, creates mount point for login request from client.
-    @PostMapping(path = "/loginValidation", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/api/rls/login", consumes = "application/json", produces = "application/json")
     public @ResponseBody
     Response login(@RequestBody Map<String, String> data) {
 
@@ -164,7 +168,7 @@ public class UsersController {
         }
     }
 
-    //Dev-mode mapping, for getting response with all users
+    //Dev-mode mapping, for getting response with all users TODO: remove on production
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return usersRepository.findAll();
