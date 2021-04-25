@@ -51,7 +51,7 @@
                 this.sendData()
             },
             async sendData(){
-                const response = await connect("http://localhost:8080/registerValidation",{  //TODO: set right URL on production
+                const response = await connect("http://localhost:8080/api/rls/register",{  //TODO: set right URL on production
                     username: this.username,
                     password: this.password,
                     email: this.email

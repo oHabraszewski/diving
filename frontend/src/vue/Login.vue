@@ -71,7 +71,7 @@
                 }else{
                     console.debug("There is no token, connecting with server...")
 
-                    let response = await connect("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
+                    let response = await connect("http://localhost:8080/api/rls/login", {  //TODO: set right URL on production
                         username: this.username,
                         password: this.password
                     })
