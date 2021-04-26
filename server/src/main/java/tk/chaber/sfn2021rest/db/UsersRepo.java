@@ -1,7 +1,7 @@
-package tk.chaber.sfn2021rest.DB.Repositories;
+package tk.chaber.sfn2021rest.db;
 
 import org.springframework.data.repository.CrudRepository;
-import tk.chaber.sfn2021rest.DB.Entities.User;
+import tk.chaber.sfn2021rest.db.entities.User;
 
 import java.util.List;
 
@@ -11,4 +11,6 @@ public interface UsersRepo extends CrudRepository<User, Integer> {
     List<User> findByEmail(String email);
 
     List<User> findByToken(byte[] token);
+
+    List<User> findById(int id);
 }

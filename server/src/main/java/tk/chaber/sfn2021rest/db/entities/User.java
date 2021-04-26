@@ -1,7 +1,7 @@
-package tk.chaber.sfn2021rest.DB.Entities;
+package tk.chaber.sfn2021rest.db.entities;
 
-import tk.chaber.sfn2021rest.Utils.Hasher;
-import tk.chaber.sfn2021rest.Utils.Randomizer;
+import tk.chaber.sfn2021rest.utils.Hasher;
+import tk.chaber.sfn2021rest.utils.Randomizer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +49,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String passToHash) {
+    public void setPassword(String passToHash) { //Hashes password and then saves it
 
         byte[] salt = Randomizer.randomBytes(16);
 
@@ -69,7 +69,7 @@ public class User {
         return token;
     }
 
-    public void setToken(String UK) {
+    public void setToken(String UK) { //Generates token based on given UniqueKey
         String username = this.getUsername();
 
         String toHash = username.concat(UK);

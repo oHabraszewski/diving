@@ -72,7 +72,7 @@
                 }else{
                     console.debug("There is no token, connecting with server...")
 
-                    let response = await connect(ConfigVars.HOSTNAME + "/loginValidation", {
+                    let response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/login", {
                         username: this.username,
                         password: this.password
                     })
