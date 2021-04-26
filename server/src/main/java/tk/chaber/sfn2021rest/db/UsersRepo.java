@@ -11,4 +11,6 @@ public interface UsersRepo extends CrudRepository<User, Integer> {
     List<User> findByEmail(String email);
 
     List<User> findByToken(byte[] token);
+
+    List<User> findById(int id);
 }
