@@ -1,7 +1,7 @@
-package tk.chaber.sfn2021rest.DB.Entities;
+package tk.chaber.sfn2021rest.db.entities;
 
-import tk.chaber.sfn2021rest.Utils.Hasher;
-import tk.chaber.sfn2021rest.Utils.Randomizer;
+import tk.chaber.sfn2021rest.utils.Hasher;
+import tk.chaber.sfn2021rest.utils.Randomizer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
