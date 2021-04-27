@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket;
+package tk.chaber.sfn2021rest.socket.handlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
-public class SocketHandler extends TextWebSocketHandler {
+public class WorldHandler extends TextWebSocketHandler {
 
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>(); //List for storing actually connected sessions
     ObjectMapper mapper = new ObjectMapper(); //JSON mapper
@@ -42,6 +42,5 @@ public class SocketHandler extends TextWebSocketHandler {
         //Removing session from List on close
         sessions.remove(session);
         System.out.println("Session closed: " + session.getId());
-
     }
 }
