@@ -37,3 +37,41 @@ const EWSPPrototype = {
 }
 
 //It is recommended to create own API for handling EWSP's messages rather than doing it manually (by the raw JSON manipulation)
+
+//Example implementation of API with EWSP at client
+
+const EWSPBroker = {
+    webSocketConnection: new WebSocket("link"), //It contains normal WebSocket instance
+    emit(event, data){
+        const messageObject = {
+            event: event,
+            header: {
+            
+            },
+            payload: data
+        }
+
+        const messageJSON = JSON.stringify(messageObject)
+
+        this.webSocketConnection.send(messageJSON)
+    },
+    receive(message){
+        JSON.parse(message)
+        return {
+            event: message.event,
+            header: message.header,
+            payload: message.payload
+        }
+    }
+}
+
+EWSPBroker.emit("worldSave", {
+    chunks: [
+        //...
+    ],
+    playerPosition: {
+        x: 321312,
+        y: 34
+    }
+    //Other stuff to send to worldSave event handler
+})
