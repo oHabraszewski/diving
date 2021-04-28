@@ -38,10 +38,25 @@ const EWSPPrototype = {
 
 //It is recommended to create own API for handling EWSP's messages rather than doing it manually (by the raw JSON manipulation)
 
-//Example implementation of API with EWSP at client
+//Example implementation of API with EWSP
 
-const EWSPBroker = {
-    webSocketConnection: new WebSocket("link"), //It contains normal WebSocket instance
+class EWSPHandler{
+    constructor(onEvent){
+        this.eventFunction = onEvent
+    }
+    handle(data){
+        this.eventFunction(data)
+    }
+}
+
+class EWSPBroker{
+    constructor(){
+        this.webSocketConnection = new WebSocket("link") //It contains normal WebSocket instance
+        this.handlers = {}
+
+        this.webSocketConnection.onmessage = this.handle(message)
+    }
+    
     emit(event, data){
         const messageObject = {
             event: event,
@@ -54,18 +69,26 @@ const EWSPBroker = {
         const messageJSON = JSON.stringify(messageObject)
 
         this.webSocketConnection.send(messageJSON)
-    },
-    receive(message){
-        JSON.parse(message)
-        return {
-            event: message.event,
-            header: message.header,
-            payload: message.payload
-        }
+    }
+
+    on(event, onEvent){
+        const handler = new EWSPHandler(onEvent)
+        this.handlers[event] = handler;
+    }
+
+    receive(message){ //It would be private in Java
+        JSON.parse(message);
+
+        const   event = message.event,
+                payload = message.payload;
+
+        this.handlers[event].handle(payload);
     }
 }
 
-EWSPBroker.emit("worldSave", {
+const broker = new EWSPBroker()
+
+broker.emit("worldSave", {
     chunks: [
         //...
     ],
@@ -73,5 +96,8 @@ EWSPBroker.emit("worldSave", {
         x: 321312,
         y: 34
     }
-    //Other stuff to send to worldSave event handler
+    //Other stuff to send to worldSave event handler at EWSP server
+})
+broker.on("newPlayerJoin", ()=>{
+    //Some action e.g. create new Player at Godot or update data
 })
