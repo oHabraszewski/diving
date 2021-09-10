@@ -169,7 +169,7 @@ public class UsersController {
         }
     }
 
-    //Dev-mode mapping, for getting response with all users TODO: remove on production
+    //Dev-mode mapping, for getting response with all users DELETEME: on production
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return usersRepository.findAll();

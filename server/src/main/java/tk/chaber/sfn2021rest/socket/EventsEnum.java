@@ -7,4 +7,5 @@ public enum EventsEnum {
     READ_WORLD,
     CREATE_WORLD,
     DELETE_WORLD,
+    DEFAULT
 }

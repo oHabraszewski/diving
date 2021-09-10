@@ -17,13 +17,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class EventSocketBroker extends TextWebSocketHandler {
 
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    HashMap<EventsEnum, EventHandling> handlers = new HashMap<>();
+    HashMap<EventsEnum, EventHandling> eventHandlers = new HashMap<>();
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    private void putHandler(EventHandling handler){
-        System.out.println("Hello there");
-        handlers.put(handler.getEvent(), handler);
+    private void putHandler(List<EventHandling> handlersList){
+        handlersList.forEach((EventHandling handler) -> {
+            System.out.println("Hello there");
+            eventHandlers.put(handler.getEvent(), handler);
+        });
     }
 
     public EventSocketBroker(){
@@ -34,7 +36,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.add(session);
-        System.out.println("Handler: " + handlers.get(EventsEnum.TEST));
+        System.out.println("Handler: " + eventHandlers.get(EventsEnum.TEST));
     }
 
     public void emitTextMessage(WebSocketSession session, HashMap data){
@@ -53,9 +55,9 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Headers: " + headers.toString());
         System.out.println("Payload: " + payload.toString());
 
-        System.out.println("Handlers: " + handlers.toString());
+        System.out.println("Handlers: " + eventHandlers.toString());
 
-        EventHandling handler = handlers.get(event);
+        EventHandling handler = eventHandlers.get(event);
         handler.handle(payload);
     }
 
