@@ -1,6 +1,6 @@
 package tk.chaber.sfn2021rest.socket;
 
-enum EventsEnum {
+public enum EventsEnum {
     TEST,
     MOVE_PLAYER,
     WRITE_WORLD,

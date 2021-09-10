@@ -2,19 +2,13 @@ package tk.chaber.sfn2021rest.socket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import tk.chaber.sfn2021rest.db.WorldsRepo;
-import tk.chaber.sfn2021rest.db.entities.World;
-import tk.chaber.sfn2021rest.socket.handlers.Handler;
-import tk.chaber.sfn2021rest.TestHandler;
+import tk.chaber.sfn2021rest.socket.handlers.EventHandling;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,20 +16,25 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Controller
 public class EventSocketBroker extends TextWebSocketHandler {
 
-    @Autowired
-    private TestHandler testHandler;
-
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    HashMap<EventsEnum, Class> handlers = new HashMap<>();
+    HashMap<EventsEnum, EventHandling> handlers = new HashMap<>();
     ObjectMapper mapper = new ObjectMapper();
 
-    public EventSocketBroker(){
-        handlers.put(EventsEnum.TEST, TestHandler.class);
+    @Autowired
+    private void putHandler(EventHandling handler){
+        System.out.println("Hello there");
+        handlers.put(handler.getEvent(), handler);
     }
+
+    public EventSocketBroker(){
+
+    }
+
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessions.add(session);
+        System.out.println("Handler: " + handlers.get(EventsEnum.TEST));
     }
 
     public void emitTextMessage(WebSocketSession session, HashMap data){
@@ -49,11 +48,15 @@ public class EventSocketBroker extends TextWebSocketHandler {
         HashMap headers = (HashMap) messageMap.get("headers"),
                 payload = (HashMap) messageMap.get("payload");
 
-        System.out.println(event); //TODO: Debug
-        System.out.println(headers.toString());
-        System.out.println(payload.toString());
+        System.out.println("------------------- New message received by broker -------------------");
+        System.out.println("Event type: " + event);
+        System.out.println("Headers: " + headers.toString());
+        System.out.println("Payload: " + payload.toString());
 
-        testHandler.handle(payload);
+        System.out.println("Handlers: " + handlers.toString());
+
+        EventHandling handler = handlers.get(event);
+        handler.handle(payload);
     }
 
     @Override

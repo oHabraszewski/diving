@@ -1,22 +1,27 @@
-package tk.chaber.sfn2021rest;
+package tk.chaber.sfn2021rest.socket.handlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.WorldsRepo;
 import tk.chaber.sfn2021rest.db.entities.World;
-import tk.chaber.sfn2021rest.socket.handlers.Handler;
+import tk.chaber.sfn2021rest.socket.EventsEnum;
 
 import java.math.BigInteger;
 import java.util.HashMap;
 
 @Service
-public class TestHandler implements Handler {
+public class TestHandler implements EventHandling {
     @Autowired
     private WorldsRepo worldsRepository;
 
+    private final EventsEnum event = EventsEnum.TEST;
 
+    @Override
+    public EventsEnum getEvent() {
+        return event;
+    }
+
+    @Override
     public void handle(HashMap data) {
         for (Object dataEntity : data.values()){
             System.out.println(dataEntity.toString());
