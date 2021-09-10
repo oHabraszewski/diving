@@ -9,8 +9,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
@@ -23,7 +23,7 @@ public class WorldHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws InterruptedException, IOException {
         //Reading values from JSON into Map
-        Map value = mapper.readValue(message.getPayload(), Map.class);
+        HashMap value = mapper.readValue(message.getPayload(), HashMap.class);
 
         //Responding with a message
         session.sendMessage(new TextMessage("Requested world's name is " + value.get("world_name")));

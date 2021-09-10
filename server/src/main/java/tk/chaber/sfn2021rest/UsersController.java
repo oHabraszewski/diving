@@ -31,7 +31,6 @@ public class UsersController {
 
     //Pattern for email validation. TODO: make it more reliable and strict
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
     //Register mapping, creates mount point for register request from client.
     @PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
     public @ResponseBody
