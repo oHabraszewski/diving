@@ -24,7 +24,6 @@ public class WritingHandler extends WorldHandler{
         world.setWorldName((String) data.get("name"));
         world.setSeed(BigInteger.valueOf(149148943));
         world.setWorldData(data.get("world_data").toString());
-
         worldsRepository.save(world);
     }
 }

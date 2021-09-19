@@ -16,7 +16,7 @@ import java.util.Arrays;
 @Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO) //FIXME: proper ID generation
     private Integer id;
 
     private String username;
@@ -82,6 +82,19 @@ public class User {
         }
     }
 
+    public boolean checkToken(String UK){
+        String username = this.getUsername();
+        String toCheck = username.concat(UK);
+
+        try {
+            byte[] toCheckToken = Hasher.hashWithSalt(toCheck, this.getSalt());
+
+            return Arrays.equals(this.getToken(), toCheckToken);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     public String getEmail() {
         return email;
     }
