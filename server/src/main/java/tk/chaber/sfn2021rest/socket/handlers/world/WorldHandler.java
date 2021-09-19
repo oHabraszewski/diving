@@ -16,10 +16,6 @@ public abstract class WorldHandler implements EventHandling {
         this.event = event;
     }
 
-//    private void setWorldsRepository(WorldsRepo repo){
-//        this.worldsRepository = repo;
-//    }
-
     @Override
     public EventsEnum getEvent() {
         return event;

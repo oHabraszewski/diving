@@ -14,7 +14,7 @@ public class CreatingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap data) { //TODO: code a proper creating world algorithm
+    public void handle(HashMap<String, Object> data) { //TODO: code a proper creating world algorithm
         World world = new World();
 
         world.setOwnerId(123312312);

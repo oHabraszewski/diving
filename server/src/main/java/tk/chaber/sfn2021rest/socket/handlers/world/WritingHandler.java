@@ -17,7 +17,7 @@ public class WritingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap data) { //TODO: code a proper writing world algorithm
+    public void handle(HashMap<String, Object> data) { //TODO: code a proper writing world algorithm
         World world = new World();
 
         world.setOwnerId(123312312);

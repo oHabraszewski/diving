@@ -39,16 +39,16 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Handler: " + eventHandlers.get(EventsEnum.TEST));
     }
 
-    public void emitTextMessage(WebSocketSession session, HashMap data){
+    public void emitTextMessage(WebSocketSession session, HashMap<String, Object> data){
     }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         //JSON to HashMap conversion, and assigning to variables
-        HashMap messageMap = mapper.readValue(message.getPayload(), HashMap.class);
+        HashMap<String, Object> messageMap = mapper.readValue(message.getPayload(), HashMap.class);
         EventsEnum  event = EventsEnum.valueOf(((String) messageMap.get("event")).toUpperCase());
-        HashMap headers = (HashMap) messageMap.get("headers"),
-                payload = (HashMap) messageMap.get("payload");
+        HashMap<String, Object> headers = (HashMap<String, Object>) messageMap.get("headers"),
+                                payload = (HashMap<String, Object>) messageMap.get("payload");
 
         System.out.println("------------------- New message received by broker -------------------");
         System.out.println("Event type: " + event);

@@ -12,7 +12,7 @@ public class ReadingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap data) { //TODO: code a proper reading world algorithm
+    public void handle(HashMap<String, Object> data) { //TODO: code a proper reading world algorithm
 
     }
 }
