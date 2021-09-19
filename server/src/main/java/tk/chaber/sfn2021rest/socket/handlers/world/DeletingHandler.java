@@ -1,6 +1,7 @@
 package tk.chaber.sfn2021rest.socket.handlers.world;
 
 import org.springframework.stereotype.Service;
+import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 
@@ -14,18 +15,36 @@ public class DeletingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap<String, Object> data) throws Exception{ //TODO: code a proper deleting world algorithm - owner validation using UK/TOKEN
-        Integer ownerId = Integer.parseInt((String) data.get("owner_id"));
+    public void handle(HashMap<String, Object> data){
+        String username = (String) data.get("username");
+        String uniqueKey = (String) data.get("unique_key");
+
         String worldName = (String) data.get("world_name");
 
-        List<World> worldsToDelete = worldsRepository.findByOwnerIdAndWorldName(ownerId, worldName);
+        User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
+        //FIXME: IndexOutOfBounds if there is no player with such an username
+        if(owner.checkToken(uniqueKey)){
 
-        if(worldsToDelete.size() > 1){
-            System.out.println("There was issue during deleting world: There is more than 1 world with such name.");
-            throw new Exception("There was issue during deleting world: There is more than 1 world with such name.");
-        }else {
-            System.out.println(worldsToDelete.toString());
-            worldsRepository.delete(worldsToDelete.get(0));
+            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+
+                World worldToDelete = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0); //FIXME: vulnerability if somehow there is 2 worlds with the same name.
+
+                worldsRepository.delete(worldToDelete);
+            }else{
+                System.out.println("There is no such world");
+            }
+        }else{
+            System.out.println("Incorrect authentication");
         }
+
+//        List<World> worldsToDelete = worldsRepository.findByOwnerIdAndWorldName(ownerId, worldName);
+//
+//        if(worldsToDelete.size() > 1){
+//            System.out.println("There was issue during deleting world: There is more than 1 world with such name.");
+//            throw new Exception("There was issue during deleting world: There is more than 1 world with such name.");
+//        }else {
+//            System.out.println(worldsToDelete.toString());
+//            worldsRepository.delete(worldsToDelete.get(0));
+//        }
     }
 }

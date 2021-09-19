@@ -7,7 +7,9 @@ import tk.chaber.sfn2021rest.db.entities.World;
 import java.util.List;
 
 public interface WorldsRepo extends CrudRepository<World, Integer> {
-    List<World> findByOwnerIdAndWorldName(Integer ownerId, String worldName);
+    boolean existsByOwnerIdAndWorldName(Long ownerId, String worldName);
 
-    List<World> findByOwnerId(Integer ownerId);
+    List<World> findByOwnerIdAndWorldName(Long ownerId, String worldName);
+
+    List<World> findByOwnerId(Long ownerId);
 }

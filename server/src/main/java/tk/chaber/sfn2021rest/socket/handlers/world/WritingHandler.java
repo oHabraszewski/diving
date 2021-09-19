@@ -3,6 +3,7 @@ package tk.chaber.sfn2021rest.socket.handlers.world;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.WorldsRepo;
+import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 import tk.chaber.sfn2021rest.socket.handlers.EventHandling;
@@ -17,14 +18,30 @@ public class WritingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap<String, Object> data) { //TODO: code a proper writing world algorithm
-        World world = new World();
+    public void handle(HashMap<String, Object> data) {
+        String username = (String) data.get("username");
+        String uniqueKey = (String) data.get("unique_key");
 
-        world.setOwnerId(123312312l);
-        world.setWorldName((String) data.get("name"));
-        world.setSeed(149148943l);
-        world.setWorldData(data.get("world_data").toString());
-        worldsRepository.save(world);
+        String worldName = (String) data.get("world_name");
+        String worldData = (String) data.get("world_data");
+
+        User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
+        //FIXME: IndexOutOfBounds if there is no player with such an username
+        if(owner.checkToken(uniqueKey)){
+
+            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+
+                World world = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0); //FIXME: vulnerability if somehow there is 2 worlds with the same name.
+
+                world.setWorldData(worldData);
+
+                worldsRepository.save(world);
+            }else{
+                System.out.println("There is no such world");
+            }
+        }else{
+            System.out.println("Incorrect authentication");
+        }
     }
 }
 

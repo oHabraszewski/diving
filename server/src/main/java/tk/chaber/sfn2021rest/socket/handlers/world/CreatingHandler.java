@@ -20,13 +20,16 @@ public class CreatingHandler extends WorldHandler{
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
+        String worldName = (String) data.get("world_name");
+        Long worldSeed = Long.parseLong((String) data.get("world_seed"));
+
         User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
         if(owner.checkToken(uniqueKey)){
             World world = new World();
 
             world.setOwnerId(owner.getId());
-            world.setWorldName((String) data.get("world_name"));
-            world.setSeed(Long.parseLong((String) data.get("world_seed")));
+            world.setWorldName(worldName);
+            world.setSeed(worldSeed);
             world.setWorldData("{}");
 
             worldsRepository.save(world);

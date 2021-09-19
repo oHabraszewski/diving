@@ -12,5 +12,5 @@ public interface UsersRepo extends CrudRepository<User, Integer> {
 
     List<User> findByToken(byte[] token);
 
-    List<User> findById(int id);
+    List<User> findById(Long id);
 }
