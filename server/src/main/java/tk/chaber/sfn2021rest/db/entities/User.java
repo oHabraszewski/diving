@@ -3,10 +3,7 @@ package tk.chaber.sfn2021rest.db.entities;
 import tk.chaber.sfn2021rest.utils.Hasher;
 import tk.chaber.sfn2021rest.utils.Randomizer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,8 +13,9 @@ import java.util.Arrays;
 @Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO) //FIXME: proper ID generation
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id", nullable = false, updatable = false, unique = true)
+    private Long id;
 
     private String username;
 
@@ -29,11 +27,11 @@ public class User {
 
     private byte[] salt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

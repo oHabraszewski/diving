@@ -6,7 +6,6 @@ import tk.chaber.sfn2021rest.db.WorldsRepo;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 
 @Service
@@ -30,9 +29,9 @@ public class TestHandler implements EventHandling {
 
         System.out.println(data);
 
-        world.setOwnerId(123312313);
+        world.setOwnerId(123312313l);
         world.setWorldName((String) data.get("world_name"));
-        world.setSeed(BigInteger.valueOf(149148943));
+        world.setSeed(149148943l);
         world.setWorldData(data.get("world_data").toString());
 
         System.out.println("Repo: " + worldsRepository);

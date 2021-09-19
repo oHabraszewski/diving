@@ -1,30 +1,28 @@
 package tk.chaber.sfn2021rest.db.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity(name = "worlds")
 public class World {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id", nullable = false, updatable = false, unique = true)
+    private Long id;
 
     private String worldName;
 
-    private Integer ownerId;
+    private Long ownerId;
 
-    private BigInteger seed;
+    private Long seed;
 
     private String worldData;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,19 +34,19 @@ public class World {
         this.worldName = worldName;
     }
 
-    public Integer getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(Integer ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
-    public BigInteger getSeed() {
+    public Long getSeed() {
         return seed;
     }
 
-    public void setSeed(BigInteger seed) {
+    public void setSeed(Long seed) {
         this.seed = seed;
     }
 

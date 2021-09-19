@@ -26,7 +26,7 @@ public class CreatingHandler extends WorldHandler{
 
             world.setOwnerId(owner.getId());
             world.setWorldName((String) data.get("world_name"));
-            world.setSeed(BigInteger.valueOf(Long.parseLong((String) data.get("world_seed"))));
+            world.setSeed(Long.parseLong((String) data.get("world_seed")));
             world.setWorldData("{}");
 
             worldsRepository.save(world);

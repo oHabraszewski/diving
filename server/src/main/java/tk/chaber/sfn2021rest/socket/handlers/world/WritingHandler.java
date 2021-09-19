@@ -20,9 +20,9 @@ public class WritingHandler extends WorldHandler{
     public void handle(HashMap<String, Object> data) { //TODO: code a proper writing world algorithm
         World world = new World();
 
-        world.setOwnerId(123312312);
+        world.setOwnerId(123312312l);
         world.setWorldName((String) data.get("name"));
-        world.setSeed(BigInteger.valueOf(149148943));
+        world.setSeed(149148943l);
         world.setWorldData(data.get("world_data").toString());
         worldsRepository.save(world);
     }
