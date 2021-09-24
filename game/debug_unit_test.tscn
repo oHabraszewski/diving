@@ -57,6 +57,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button4" type="Button" parent="."]
+margin_left = 46.7194
+margin_top = 735.496
+margin_right = 58.7194
+margin_bottom = 755.496
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="."]
+margin_left = 236.523
+margin_top = 611.149
+margin_right = 459.523
+margin_bottom = 844.149
+text = "RUN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button6" type="Button" parent="."]
+margin_left = 171.439
+margin_top = 288.907
+margin_right = 377.439
+margin_bottom = 398.907
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="Button6" to="." method="_on_Button6_pressed"]
