@@ -11,8 +11,8 @@ position = Vector2( -10.5944, 902.662 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="Button" type="Button" parent="."]
-margin_right = 123.0
-margin_bottom = 46.0
+margin_right = 255.0
+margin_bottom = 102.0
 text = "Go to main game"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,5 +37,57 @@ prefix = "Seed: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 1372.53
+margin_top = 461.968
+margin_right = 1535.53
+margin_bottom = 570.968
+text = "gen_segments"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 11.0
+margin_top = 107.0
+margin_right = 1366.0
+margin_bottom = 787.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="."]
+margin_left = 46.7194
+margin_top = 735.496
+margin_right = 58.7194
+margin_bottom = 755.496
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="."]
+margin_left = 236.523
+margin_top = 611.149
+margin_right = 459.523
+margin_bottom = 844.149
+text = "RUN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button6" type="Button" parent="."]
+margin_left = 171.439
+margin_top = 288.907
+margin_right = 377.439
+margin_bottom = 398.907
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="Button6" to="." method="_on_Button6_pressed"]

@@ -12,6 +12,9 @@ export(int) var index
 export(int) var end_height = -1
 var generated_runned = false
 
+var counter = 0
+
+
 
 var rng = RandomNumberGenerator.new()
 
@@ -19,18 +22,17 @@ enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
 #var segments = []
 func print_segments(segments, current_segment = null,starting_segment = null):
 	var line_to_print = "        X: "
-	var x_values = range(segment_count_x)
 	
-	for i in x_values:
+	for i in range(segments.size()):
 		line_to_print += "%3d" % i
 		line_to_print += "   "
 	print(line_to_print)
-	for j in range(segment_count_y-1, -1, -1):
+	for j in range(segments[0].size()-1, -1, -1):
 		line_to_print = ""
 		line_to_print += "Y:"
 		line_to_print += "%3d" % j
 		line_to_print += "   "
-		for i in range(0, segment_count_x):
+		for i in range(0, segments.size()):
 			var what_is_in_that_segment = ""
 			if segments[i][j] == 0:
 				what_is_in_that_segment = "RIGHT"
@@ -62,6 +64,82 @@ func reset_segments():
 			segments_to_reset[i][j] = Direction.NONE
 	return segments_to_reset
 	
+
+static func deep_copy(v):
+	var t = typeof(v)
+	if t == TYPE_DICTIONARY:
+		var d = {}
+		for k in v:
+			d[k] = deep_copy(v[k])
+		return d
+	elif t == TYPE_ARRAY:
+		var d = []
+		d.resize(len(v))
+		for i in range(len(v)):
+			d[i] = deep_copy(v[i])
+		return d
+	elif t == TYPE_OBJECT:
+		if v.has_method("duplicate"):
+			return v.duplicate()
+		else:
+			print("Found an object, but I don't know how to copy it!")
+			return v
+	else:
+		return v
+
+func check_if_current_segment_is_able_to_move_foreward(max_x_value_in_current_segment, current_segment, segments, checked_direction):
+	var simulated_segments = deep_copy(segments)
+	var simulated_current_segment = deep_copy(current_segment)
+	if checked_direction == Direction.RIGHT:
+		if simulated_segments[current_segment.x + 1][current_segment.y] == Direction.NONE:
+			simulated_segments[current_segment.x + 1][current_segment.y] = Direction.RIGHT
+			simulated_current_segment.x += 1
+		else:
+			return false
+	if checked_direction == Direction.LEFT:
+		if simulated_segments[current_segment.x - 1][current_segment.y] == Direction.NONE:
+			simulated_segments[current_segment.x - 1][current_segment.y] = Direction.LEFT
+			simulated_current_segment.x -= 1
+		else:
+			return false
+	if checked_direction == Direction.UP:
+		if simulated_segments[current_segment.x][current_segment.y - 1] == Direction.NONE:
+			simulated_segments[current_segment.x][current_segment.y - 1] = Direction.UP
+			simulated_current_segment.y -= 1
+		else:
+			return false
+	if checked_direction == Direction.DOWN:
+		if simulated_segments[current_segment.x][current_segment.y + 1] == Direction.NONE:
+			simulated_segments[current_segment.x][current_segment.y + 1] = Direction.DOWN
+			simulated_current_segment.y += 1
+		else:
+			return false
+#	print_segments(simulated_segments, simulated_current_segment)
+	
+#	TODO: sprawdzenie czy po wybraniu tego kierunku mozemy dalej isc!!!!
+	var is_able_to_move_foreward = true
+	var target_segment = Vector2(max_x_value_in_current_segment, simulated_current_segment.y)
+	
+	for i in range(simulated_current_segment.x, target_segment.x):
+		if not simulated_segments[i][target_segment.y] == Direction.NONE:
+			is_able_to_move_foreward = false
+			var is_able_to_move_in_this_fucking_loop = true
+			for j in range(simulated_current_segment.x, target_segment.x):
+				if not simulated_segments[j][target_segment.y-1] == Direction.NONE:
+					is_able_to_move_in_this_fucking_loop = false
+			for j in range(simulated_current_segment.x, target_segment.x):
+				if not simulated_segments[j][target_segment.y+1] == Direction.NONE:
+					is_able_to_move_in_this_fucking_loop = false
+			if is_able_to_move_in_this_fucking_loop == true:
+				is_able_to_move_foreward = true
+				
+	if not is_able_to_move_foreward:
+		print("stuck")
+	return is_able_to_move_foreward
+	
+	
+	
+	
 func generate_segments(segments: Array, starting_height = 200):
 	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
 #	wagi:
@@ -84,10 +162,18 @@ func generate_segments(segments: Array, starting_height = 200):
 	
 	
 #	Wyglad tablicy (jak w pamieci i na zrzucie)
+
+	var avalaible_directions = { 
+		Direction.DOWN : 33,
+		Direction.LEFT : 20,
+		Direction.RIGHT : 33,
+		Direction.UP : 33, 
+	}
 	var current_segment = Vector2(0, floor(starting_height / segment_size.y))# segmant ktory jest na wyskokosci startowej i w 0-wej kolumnie X
-	
+	var max_x_value_in_current_segment = 0  # == current_segment.x
 	while(not current_segment.x == segment_count_x):
-		#TODO: wyjscie z rogow
+		if max_x_value_in_current_segment < current_segment.x:
+			max_x_value_in_current_segment = current_segment.x
 		if current_segment.x == 0: # pierwsza kolumna
 			segments[current_segment.x][current_segment.y] = Direction.RIGHT
 			current_segment.x += 1 # przesuniecie w prawo
@@ -102,44 +188,67 @@ func generate_segments(segments: Array, starting_height = 200):
 			current_segment.x += 1
 			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
 		else: # losowy wybor
-			var random = rng.randi_range(1, 100)
-			if random > 0  and random <= 33 and segments[current_segment.x + 1][current_segment.y] == Direction.NONE: # go right
-				segments[current_segment.x][current_segment.y] = Direction.RIGHT
-				current_segment.x += 1
-			elif random > 33 and random <= 66 and segments[current_segment.x][current_segment.y + 1] == Direction.NONE: # go up
-				segments[current_segment.x][current_segment.y] = Direction.UP
-				current_segment.y += 1
-			elif random > 66 and random <= 100 and segments[current_segment.x][current_segment.y - 1] == Direction.NONE: # go down
-				segments[current_segment.x][current_segment.y] = Direction.DOWN
-				current_segment.y -= 1
-#
-# ______   _______         _______  _______  _______  ______  _________ _______          _________ _______  _ 
-#(  __  \ (  ___  )       / ___   )(  ____ )(  ___  )(  ___ \ \__   __/(  ____ \( (    /|\__   __/ (  ___  )( )
-#| (  \  )| (   ) |       \/   )  || (    )|| (   ) || (   ) )   ) (   | (    \/|  \  ( |   ) (    | (   ) || |
-#| |   ) || |   | |           /   )| (____)|| |   | || (__/ /    | |   | (__    |   \ | |   | |    | (___) || |
-#| |   | || |   | |          /   / |     __)| |   | ||  __ (     | |   |  __)   | (\ \) |   | |    |  ___  || |
-#| |   ) || |   | |         /   /  | (\ (   | |   | || (  \ \    | |   | (      | | \   |   | |    | (   ) |(_)
-#| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
-#(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)                                                                 
+#			print_segments(segments,current_segment)
 
-			elif random > 100 and random <= 120 and segments[current_segment.x - 1][current_segment.y] == Direction.NONE: # go left
-				var can_go_left = true #sprawdzenie, czy mozna sie cofnac bezpiecznie
-				if current_segment.y >= segment_count_y - 2:
-					print("xd")
-					can_go_left = false
-				for i in range(current_segment.x ,segment_count_x - 1):
-#					print_segments(segments,current_segment, Vector2(i, current_segment.y))
-					if not segments[i][current_segment.y] == Direction.NONE:
-						can_go_left = false
-					pass
-				for i in range(current_segment.y ,segment_count_y - 1):
-#					print_segments(segments,current_segment, Vector2(current_segment.x, i))
-					if not segments[current_segment.x][i] == Direction.NONE:
-						can_go_left = false
-					pass
-				if can_go_left:
-					segments[current_segment.x][current_segment.y] = Direction.LEFT
-					current_segment.x -= 1
+#			print(avalaible_directions)
+			
+
+			
+			
+			var max_value = 0
+			for i in avalaible_directions.keys():
+				max_value += avalaible_directions[i]
+				
+#			print(max_value)
+			var random = rng.randi_range(1, max_value)
+			var direction_in_question = Direction.NONE
+			if random > 0 and random <= avalaible_directions[Direction.DOWN]:
+				direction_in_question = Direction.DOWN
+			if random > avalaible_directions[Direction.DOWN] and random <= avalaible_directions[Direction.DOWN] + avalaible_directions[Direction.UP]:
+				direction_in_question = Direction.UP
+			if random > avalaible_directions[Direction.DOWN] + avalaible_directions[Direction.UP]  and random <= avalaible_directions[Direction.DOWN] + avalaible_directions[Direction.UP] + avalaible_directions[Direction.RIGHT]:
+				direction_in_question = Direction.RIGHT
+			if random > avalaible_directions[Direction.DOWN] + avalaible_directions[Direction.UP] + avalaible_directions[Direction.RIGHT]  and random <= avalaible_directions[Direction.DOWN] + avalaible_directions[Direction.UP] + avalaible_directions[Direction.RIGHT] + avalaible_directions[Direction.LEFT]:
+				direction_in_question = Direction.LEFT
+				
+				
+				
+				
+#			print("checking direction: ", direction_in_question, "  at ", current_segment,  check_if_current_segment_is_able_to_move_foreward(max_x_value_in_current_segment, current_segment, segments, direction_in_question))
+			if check_if_current_segment_is_able_to_move_foreward(max_x_value_in_current_segment, current_segment, segments, direction_in_question):
+#				avalaible_directions[direction_in_question] = 0
+#				print("direction_not_avalaible!")
+				if direction_in_question == Direction.RIGHT: # go right
+					segments[current_segment.x][current_segment.y] = Direction.RIGHT
+					current_segment.x += 1
+				elif direction_in_question == Direction.UP: # go up
+					segments[current_segment.x][current_segment.y] = Direction.UP
+					current_segment.y += 1
+				elif direction_in_question == Direction.DOWN: # go down
+					segments[current_segment.x][current_segment.y] = Direction.DOWN
+					current_segment.y -= 1
+				elif direction_in_question == Direction.LEFT: # go left
+					if current_segment.x > 1 and current_segment.x < segment_count_x - 2 and current_segment.y > 1 and current_segment.y < segment_count_y - 2:
+						segments[current_segment.x][current_segment.y] = Direction.LEFT
+						current_segment.x -= 1
+					else:
+						print_debug("ERROR: XD")
+				avalaible_directions = {Direction.DOWN : 33, Direction.LEFT : 2000, Direction.RIGHT : 33, Direction.UP : 33}
+			else:
+				avalaible_directions[direction_in_question] = 0
+				print("direction_not_avalaible!")
+				#	sprawdz czy da sie gdziekoleik ruszyc
+				var can_move = true
+				if avalaible_directions.values().max() == 0:
+					can_move = false
+				if not can_move:
+					print_debug("ERROR: NI MA KAJ ISC!!!")
+					get_tree().quit(-1)
+			
+			
+				
+					
+					
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
@@ -312,4 +421,15 @@ func generate(starting_height):
 	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
 	$StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $Polygon2DKrztaltTerenu.polygon
 	return final_height
+#
+# ______   _______         _______  _______  _______  ______  _________ _______          _________ _______  _ 
+#(  __  \ (  ___  )       / ___   )(  ____ )(  ___  )(  ___ \ \__   __/(  ____ \( (    /|\__   __/ (  ___  )( )
+#| (  \  )| (   ) |       \/   )  || (    )|| (   ) || (   ) )   ) (   | (    \/|  \  ( |   ) (    | (   ) || |
+#| |   ) || |   | |           /   )| (____)|| |   | || (__/ /    | |   | (__    |   \ | |   | |    | (___) || |
+#| |   | || |   | |          /   / |     __)| |   | ||  __ (     | |   |  __)   | (\ \) |   | |    |  ___  || |
+#| |   ) || |   | |         /   /  | (\ (   | |   | || (  \ \    | |   | (      | | \   |   | |    | (   ) |(_)
+#| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
+#(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)      
+
+
 
