@@ -7,6 +7,7 @@ import tk.chaber.sfn2021rest.socket.EventsEnum;
 import tk.chaber.sfn2021rest.socket.response.EventResponding;
 import tk.chaber.sfn2021rest.socket.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.response.WorldResponse;
+import tk.chaber.sfn2021rest.utils.Randomizer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +23,27 @@ public class CreatingHandler extends WorldHandler{
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
-        String worldName = (String) data.get("world_name");
-        Long worldSeed = Long.parseLong((String) data.get("world_seed"));
+        @SuppressWarnings("unchecked")
+        HashMap<String,Object> worldPayload = (HashMap<String, Object>) data.get("world");
+
+        String worldName;
+        long worldSeed;
+        String worldData;
 
         String errorMsg;
+
+        try {
+            String rawName = (String) worldPayload.get("name");
+            Long rawSeed = (Long) worldPayload.get("seed");
+            String rawData = (String) worldPayload.get("data");
+            //Data validation and generation if needed.
+            worldName = rawName;
+            worldSeed = rawSeed == null ? Randomizer.randomLong() : rawSeed;
+            worldData = rawData == null || rawData.equals("")  ? "{}" : rawData;
+        }catch(ClassCastException ex){
+            errorMsg = "There was problem during casting data. Numerical data should be send as number, not as string.";
+            return new FailedResponse(this.event, errorMsg);
+        }
 
         if(usersRepository.existsByUsername(username)) {
             List<User> potentialOwners = usersRepository.findByUsername(username);
@@ -34,16 +52,21 @@ public class CreatingHandler extends WorldHandler{
                 User owner = potentialOwners.get(0);
 
                 if (owner.checkToken(uniqueKey)) {
-                    World world = new World();
 
-                    world.setOwnerId(owner.getId());
-                    world.setWorldName(worldName);
-                    world.setSeed(worldSeed);
-                    world.setWorldData("{}");
+                    if(!worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                        World world = new World();
 
-                    worldsRepository.save(world);
+                        world.setOwnerId(owner.getId());
+                        world.setWorldName(worldName);
+                        world.setSeed(worldSeed);
+                        world.setWorldData(worldData);
 
-                    return new WorldResponse(this.event, world);
+                        worldsRepository.save(world);
+
+                        return new WorldResponse(this.event, world);
+                    }else{
+                        errorMsg = "There is already a world with such name.";
+                    }
                 } else {
                     errorMsg = "Authentication failed.";
                 }

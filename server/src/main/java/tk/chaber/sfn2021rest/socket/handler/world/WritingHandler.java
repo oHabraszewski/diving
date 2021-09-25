@@ -23,8 +23,11 @@ public class WritingHandler extends WorldHandler{
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
-        String worldName = (String) data.get("world_name");
-        String worldData = (String) data.get("world_data");
+        @SuppressWarnings("unchecked")
+        HashMap<String,Object> worldPayload = (HashMap<String, Object>) data.get("world");
+
+        String worldName = (String) worldPayload.get("name");
+        String worldData = (String) worldPayload.get("data");
 
         String errorMsg;
 

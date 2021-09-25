@@ -23,7 +23,10 @@ public class ReadingHandler extends WorldHandler{
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
-        String worldName = (String) data.get("world_name");
+        @SuppressWarnings("unchecked")
+        HashMap<String,Object> worldPayload = (HashMap<String, Object>) data.get("world");
+
+        String worldName = (String) worldPayload.get("name");
 
         String errorMsg;
 
