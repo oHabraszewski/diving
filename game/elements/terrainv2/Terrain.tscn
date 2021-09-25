@@ -19,6 +19,7 @@ collision_layer = 0
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/Area2DRight"]
+
 [connection signal="colision_left" from="Bounds" to="." method="_on_Bounds_colision_left"]
 [connection signal="colision_right" from="Bounds" to="." method="_on_Bounds_colision_right"]
 [connection signal="body_entered" from="Bounds/Area2DLeft" to="Bounds" method="_on_Area2DLeft_body_entered"]

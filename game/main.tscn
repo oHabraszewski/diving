@@ -44,6 +44,11 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D"]
 shape = SubResource( 1 )
 
+[node name="Polygon2D" type="Polygon2D" parent="Game/Air"]
+position = Vector2( -4.48975, 0 )
+color = Color( 0.486275, 0.172549, 0.172549, 1 )
+polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
+
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 
@@ -78,4 +83,5 @@ __meta__ = {
 }
 
 [node name="NetworkNode" type="Node" parent="."]
+
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
