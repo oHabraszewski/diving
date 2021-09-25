@@ -1,18 +1,32 @@
-# SFN2021 Project
+# Diving game
 
-## Project starting and stopping
+## Project operating
 
 ### Starting project (development mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
-- Type: ./run dev
+- Type: ./run
 - Press enter
+
+#### OR
+- In 3 different terminals run:
+  - yarn serve
+  - mvnw spring-boot:run
+  - *path to godot.exe* --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html
+  (For exporting in godot you need to download godot's export templates)
 
 ### Starting project (production mode)
 
 - Open CMD/Terminal/PowerShell at root directory of the project
 - Type: ./run build
 - Press enter
+
+### Logging in for testing
+
+You can use preregistered account for testing in logged in mode (will be deleted on production)
+
+Username: admin
+Password: adminadmin
 
 ### Stopping project
 
@@ -21,14 +35,19 @@
 ## Languages
 - Java
 - GDScript (language similar to Python)
-- SQL
-- HTML, SCSS, JS
+- HTML
+- SCSS
+- JS
 
 ## Technologies
-- Godot engine
-- Spring framework
-- VueJS 3 framework
-- REST architecture
+- Godot
+  - Game engine
+- Spring
+  - Java server framework
+- VueJS
+  - Web framework
+- REST
+  - API architecture
 - Axios
 - WebSocket
 - Maven

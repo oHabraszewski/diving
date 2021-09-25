@@ -46,6 +46,7 @@ mkdir %appdata%\Godot\templates\3.2.3.stable\
 copy game\export_templates\version.txt %appdata%\Godot\templates\3.3.3.stable\
 copy game\export_templates\webassembly_debug.zip %appdata%\Godot\templates\3.3.3.stable\
 copy game\export_templates\webassembly_release.zip %appdata%\Godot\templates\3.3.3.stable\
+
 )
 
 cd frontend
@@ -56,6 +57,8 @@ if not exist node_modules (
 if "%1" == "dev" (
     start yarn start
     rem goto :spring
+)else if "%1" == "" (
+    start yarn start
 ) else if "%1" == "build" (
     call yarn build
      rem goto :godot

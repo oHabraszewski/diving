@@ -18,8 +18,10 @@
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.0",
+    "favicons-webpack-plugin": "^4.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
+    "is-svg": "^4.2.2",
     "mini-css-extract-plugin": "^1.2.1",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^8.1.4",
@@ -28,6 +30,7 @@
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.27.1",
     "sass-loader": "^10.0.4",
+    "ssri": "^8.0.1",
     "vue-loader": "^16.1.2",
     "webpack": "4.44.2",
     "webpack-cli": "3.3.12",
@@ -37,6 +40,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "vue": "^3.0.5",
+    "vue3-cookies": "^1.0.1",
     "vuex": "^4.0.0"
   }
 }

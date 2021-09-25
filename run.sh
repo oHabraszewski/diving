@@ -52,7 +52,7 @@ then
 	yarn
 fi
 
-if [ "$1" == "dev" ]
+if [ "$1" == "dev" ] || ["$1" == ""]
 then
     if command -v konsole &> /dev/null
     then

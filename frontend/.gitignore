@@ -3,6 +3,7 @@ dist
 dev
 .env
 .prod.env
+.log
 
 # Mac
 .DS_Store
