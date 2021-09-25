@@ -7,8 +7,8 @@
 script = ExtResource( 1 )
 
 [node name="TerrainChunk" parent="." instance=ExtResource( 2 )]
-position = Vector2( -10.5944, 902.662 )
-scale = Vector2( 0.7, 0.7 )
+position = Vector2( 94.0574, 831.951 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Button" type="Button" parent="."]
 margin_right = 255.0
@@ -33,12 +33,14 @@ margin_left = 1209.76
 margin_top = 35.3568
 margin_right = 1317.76
 margin_bottom = 80.3568
+min_value = -100.0
 prefix = "Seed: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button3" type="Button" parent="."]
+visible = false
 margin_left = 1372.53
 margin_top = 461.968
 margin_right = 1535.53
@@ -49,6 +51,7 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 11.0
 margin_top = 107.0
 margin_right = 1366.0
@@ -58,6 +61,7 @@ __meta__ = {
 }
 
 [node name="Button4" type="Button" parent="."]
+visible = false
 margin_left = 46.7194
 margin_top = 735.496
 margin_right = 58.7194
@@ -67,6 +71,7 @@ __meta__ = {
 }
 
 [node name="Button5" type="Button" parent="."]
+visible = false
 margin_left = 236.523
 margin_top = 611.149
 margin_right = 459.523
@@ -77,6 +82,7 @@ __meta__ = {
 }
 
 [node name="Button6" type="Button" parent="."]
+visible = false
 margin_left = 171.439
 margin_top = 288.907
 margin_right = 377.439

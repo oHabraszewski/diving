@@ -24,7 +24,7 @@ func _on_Button_pressed():
 func _on_Button2_pressed():
 	$TerrainChunk.generation_seed = $SpinBox.value
 	$TerrainChunk.rng.seed = $TerrainChunk.generation_seed
-	$TerrainChunk.segment_count_y = 30
+	$TerrainChunk.segment_count_y = 20
 	# jeśli dostanie takie samo generation seed i takie samo start height powinno generować ten sam teren
 	var segments
 	segments = $TerrainChunk.reset_segments()
@@ -36,6 +36,7 @@ func _on_Button2_pressed():
 #	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
 	$TerrainChunk/Polygon2DKrztaltTerenu.polygon = $TerrainChunk.create_curve_based_on_segments(segments).tessellate()
 	$TerrainChunk/StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $TerrainChunk/Polygon2DKrztaltTerenu.polygon
+	$TerrainChunk/SegmentsDraw.show_segemnts(segments)
 #	$TerrainChunk.print_segments(segments)
 	$SpinBox.value = $SpinBox.value + 1
 	pass # Replace with function body.

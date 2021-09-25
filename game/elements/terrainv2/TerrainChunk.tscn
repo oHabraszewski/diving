@@ -1,26 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://elements/terrainv2/TerrainChunk.gd" type="Script" id=1]
 [ext_resource path="res://elements/terrainv2/Polygon2D.gd" type="Script" id=2]
 [ext_resource path="res://elements/terrainv2/debug_poly.gd" type="Script" id=3]
 [ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://elements/terrainv2/SegmentsDraw.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
 
 [node name="TerrainChunk" type="Node2D"]
 script = ExtResource( 1 )
+show_segments = false
 
 [node name="Polygon2DKrztaltTerenu" type="Polygon2D" parent="."]
 scale = Vector2( 1, -1 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 script = ExtResource( 2 )
-OutLine = Color( 0, 0, 0, 1 )
-Width = 2.0
-draw = false
-draw_points = true
-red_p_t_d = [  ]
-points_to_draw = [  ]
 
 [node name="StaticBody2DHitboxTerenu" type="StaticBody2D" parent="."]
 collision_layer = 0
@@ -32,6 +28,10 @@ build_mode = 1
 [node name="Polygon2D" type="Polygon2D" parent="."]
 scale = Vector2( 1, -1 )
 script = ExtResource( 3 )
+
+[node name="SegmentsDraw" type="Polygon2D" parent="."]
+position = Vector2( -50, -50 )
+script = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0

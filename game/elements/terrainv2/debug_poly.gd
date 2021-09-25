@@ -12,7 +12,7 @@ func _ready():
 
 func _draw():
 	for i in points:
-		draw_circle(i, 5, Color(1,1,1))
+		draw_circle(i, 20, Color(1,1,1))
 	pass
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
