@@ -10,6 +10,7 @@ import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
 import tk.chaber.sfn2021rest.socket.response.WorldResponse;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ReadingHandler extends WorldHandler{
@@ -24,20 +25,38 @@ public class ReadingHandler extends WorldHandler{
 
         String worldName = (String) data.get("world_name");
 
-        User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
-        if(owner.checkToken(uniqueKey)){
+        String errorMsg;
 
-            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-                World world = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0); //FIXME: vulnerability if somehow there is 2 worlds with the same name.
+        if(usersRepository.existsByUsername(username)) {
+            List<User> potentialOwners = usersRepository.findByUsername(username);
 
-                return new WorldResponse(this.event, world);
-            }else{
-                System.out.println("There is no such world");
-                return new FailedResponse(this.event);
+            if(potentialOwners.size() == 1){
+                User owner = potentialOwners.get(0);
+
+                if (owner.checkToken(uniqueKey)) {
+
+                    if (worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                        List<World> potentialWorlds = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
+
+                        if(potentialWorlds.size() == 1){
+                            World world = potentialWorlds.get(0);
+                            return new WorldResponse(this.event, world);
+                        }else{
+                            errorMsg = "Somehow there are 2 worlds with exactly the same names.";
+                        }
+                    } else {
+                        errorMsg = "There is no such world.";
+                    }
+                } else {
+                    errorMsg = "Authentication failed.";
+                }
+            }else {
+                errorMsg = "Somehow there are 2 users with exactly the same usernames.";
             }
-        }else{
-            System.out.println("Incorrect authentication");
-            return new FailedResponse(this.event);
+        }else {
+            errorMsg = "There is no user with such username.";
         }
+        System.out.println(errorMsg);
+        return new FailedResponse(this.event);
     }
 }

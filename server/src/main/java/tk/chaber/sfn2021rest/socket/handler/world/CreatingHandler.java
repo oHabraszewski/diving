@@ -9,6 +9,7 @@ import tk.chaber.sfn2021rest.socket.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.response.WorldResponse;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class CreatingHandler extends WorldHandler{
@@ -24,21 +25,52 @@ public class CreatingHandler extends WorldHandler{
         String worldName = (String) data.get("world_name");
         Long worldSeed = Long.parseLong((String) data.get("world_seed"));
 
-        User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
-        if(owner.checkToken(uniqueKey)){
-            World world = new World();
+        String errorMsg;
 
-            world.setOwnerId(owner.getId());
-            world.setWorldName(worldName);
-            world.setSeed(worldSeed);
-            world.setWorldData("{}");
+        if(usersRepository.existsByUsername(username)) {
+            List<User> potentialOwners = usersRepository.findByUsername(username);
 
-            worldsRepository.save(world);
+            if(potentialOwners.size() == 1){
+                User owner = potentialOwners.get(0);
 
-            return new WorldResponse(this.event, world);
-        }else{
-            System.out.println("Incorrect authentication");
-            return new FailedResponse(this.event);
+                if (owner.checkToken(uniqueKey)) {
+                    World world = new World();
+
+                    world.setOwnerId(owner.getId());
+                    world.setWorldName(worldName);
+                    world.setSeed(worldSeed);
+                    world.setWorldData("{}");
+
+                    worldsRepository.save(world);
+
+                    return new WorldResponse(this.event, world);
+                } else {
+                    errorMsg = "Authentication failed.";
+                }
+            }else {
+                errorMsg = "Somehow there are 2 users with exactly the same usernames.";
+            }
+        }else {
+            errorMsg = "There is no user with such username.";
         }
+        System.out.println(errorMsg);
+        return new FailedResponse(this.event);
+
+//        User owner = usersRepository.findByUsername(username).get(0);
+//        if(owner.checkToken(uniqueKey)){
+//            World world = new World();
+//
+//            world.setOwnerId(owner.getId());
+//            world.setWorldName(worldName);
+//            world.setSeed(worldSeed);
+//            world.setWorldData("{}");
+//
+//            worldsRepository.save(world);
+//
+//            return new WorldResponse(this.event, world);
+//        }else{
+//            System.out.println("Incorrect authentication");
+//            return new FailedResponse(this.event);
+//        }
     }
 }

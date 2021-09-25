@@ -7,8 +7,10 @@ import tk.chaber.sfn2021rest.socket.EventsEnum;
 import tk.chaber.sfn2021rest.socket.response.EventResponding;
 import tk.chaber.sfn2021rest.socket.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
+import tk.chaber.sfn2021rest.socket.response.WorldResponse;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class DeletingHandler extends WorldHandler{
@@ -23,34 +25,59 @@ public class DeletingHandler extends WorldHandler{
 
         String worldName = (String) data.get("world_name");
 
-        User owner = usersRepository.findByUsername(username).get(0); //FIXME: vulnerability if somehow there is 2 people with the same username.
-        //FIXME: IndexOutOfBounds if there is no player with such an username
-        if(owner.checkToken(uniqueKey)){
+        String errorMsg;
 
-            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+        if(usersRepository.existsByUsername(username)) {
+            List<User> potentialOwners = usersRepository.findByUsername(username);
 
-                World worldToDelete = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0); //FIXME: vulnerability if somehow there is 2 worlds with the same name.
+            if(potentialOwners.size() == 1){
+                User owner = potentialOwners.get(0);
 
-                worldsRepository.delete(worldToDelete);
+                if (owner.checkToken(uniqueKey)) {
 
-                return new SuccessResponse(this.event);
-            }else{
-                System.out.println("There is no such world");
-                return new FailedResponse(this.event);
+                    if (worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                        List<World> potentialWorlds = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
+
+                        if(potentialWorlds.size() == 1){
+                            World worldToDelete = potentialWorlds.get(0);
+                            worldsRepository.delete(worldToDelete);
+
+                            return new SuccessResponse(this.event);
+                        }else{
+                            errorMsg = "Somehow there are 2 worlds with exactly the same names.";
+                        }
+                    } else {
+                        errorMsg = "There is no such world.";
+                    }
+                } else {
+                    errorMsg = "Authentication failed.";
+                }
+            }else {
+                errorMsg = "Somehow there are 2 users with exactly the same usernames.";
             }
-        }else{
-            System.out.println("Incorrect authentication");
-            return new FailedResponse(this.event);
+        }else {
+            errorMsg = "There is no user with such username.";
         }
+        System.out.println(errorMsg);
+        return new FailedResponse(this.event);
 
-//        List<World> worldsToDelete = worldsRepository.findByOwnerIdAndWorldName(ownerId, worldName);
+//        User owner = usersRepository.findByUsername(username).get(0);
+//        if(owner.checkToken(uniqueKey)){
 //
-//        if(worldsToDelete.size() > 1){
-//            System.out.println("There was issue during deleting world: There is more than 1 world with such name.");
-//            throw new Exception("There was issue during deleting world: There is more than 1 world with such name.");
-//        }else {
-//            System.out.println(worldsToDelete.toString());
-//            worldsRepository.delete(worldsToDelete.get(0));
+//            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+//
+//                World worldToDelete = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0);
+//
+//                worldsRepository.delete(worldToDelete);
+//
+//                return new SuccessResponse(this.event);
+//            }else{
+//                System.out.println("There is no such world");
+//                return new FailedResponse(this.event);
+//            }
+//        }else{
+//            System.out.println("Incorrect authentication");
+//            return new FailedResponse(this.event);
 //        }
     }
 }

@@ -36,7 +36,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
 
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session){
         sessions.add(session);
         System.out.println("Handler: " + eventHandlers.get(EventsEnum.TEST));
     }
@@ -66,7 +66,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Headers: " + headers.toString());
         System.out.println("Payload: " + payload.toString());
 
-        System.out.println("Handlers: " + eventHandlers.toString());
+        System.out.println("Handlers: " + eventHandlers.toString()); //DELETEME: on production
 
         EventHandling handler = eventHandlers.get(event);
         EventResponding response = handler.handle(payload);
@@ -75,7 +75,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status){
         sessions.remove(session);
     }
 }
