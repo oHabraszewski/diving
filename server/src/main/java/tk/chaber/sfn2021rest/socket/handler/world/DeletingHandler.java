@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.handlers.world;
+package tk.chaber.sfn2021rest.socket.handler.world;
 
 import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
@@ -6,7 +6,6 @@ import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 public class DeletingHandler extends WorldHandler{

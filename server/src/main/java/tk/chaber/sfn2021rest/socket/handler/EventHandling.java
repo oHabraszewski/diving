@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.handlers;
+package tk.chaber.sfn2021rest.socket.handler;
 
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 

@@ -7,7 +7,7 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import tk.chaber.sfn2021rest.socket.handlers.EventHandling;
+import tk.chaber.sfn2021rest.socket.handler.EventHandling;
 
 import java.util.HashMap;
 import java.util.List;

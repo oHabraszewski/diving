@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.handlers;
+package tk.chaber.sfn2021rest.socket.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

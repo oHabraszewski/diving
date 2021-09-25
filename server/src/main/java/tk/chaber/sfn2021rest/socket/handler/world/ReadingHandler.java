@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.handlers.world;
+package tk.chaber.sfn2021rest.socket.handler.world;
 
 import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
