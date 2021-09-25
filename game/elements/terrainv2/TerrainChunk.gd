@@ -19,7 +19,7 @@ var counter = 0
 
 var rng = RandomNumberGenerator.new()
 
-enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
+enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4, SOLID_GROUND = 6}
 #var segments = []
 func print_segments(segments, current_segment = null,starting_segment = null):
 	var line_to_print = "        X: "
@@ -45,6 +45,8 @@ func print_segments(segments, current_segment = null,starting_segment = null):
 				what_is_in_that_segment = "DOWN"
 			elif segments[i][j] == 4:
 				what_is_in_that_segment = "NONE"
+			elif segments[i][j] == 6:
+				what_is_in_that_segment = "GND"
 			if not starting_segment == null and starting_segment.x == i and starting_segment.y == j:
 				line_to_print += "["
 				line_to_print += "%5s" % what_is_in_that_segment
@@ -88,56 +90,56 @@ static func deep_copy(v):
 	else:
 		return v
 
-func check_if_current_segment_is_able_to_move_foreward(max_x_value_in_current_segment, current_segment, segments, checked_direction):
-	var simulated_segments = deep_copy(segments)
-	var simulated_current_segment = deep_copy(current_segment)
-	if checked_direction == Direction.RIGHT:
-		if simulated_segments[current_segment.x + 1][current_segment.y] == Direction.NONE:
-			simulated_segments[current_segment.x + 1][current_segment.y] = Direction.RIGHT
-			simulated_current_segment.x += 1
-		else:
-			return false
-	if checked_direction == Direction.LEFT:
-		if simulated_segments[current_segment.x - 1][current_segment.y] == Direction.NONE:
-			simulated_segments[current_segment.x - 1][current_segment.y] = Direction.LEFT
-			simulated_current_segment.x -= 1
-		else:
-			return false
-	if checked_direction == Direction.UP:
-		if simulated_segments[current_segment.x][current_segment.y - 1] == Direction.NONE:
-			simulated_segments[current_segment.x][current_segment.y - 1] = Direction.UP
-			simulated_current_segment.y -= 1
-		else:
-			return false
-	if checked_direction == Direction.DOWN:
-		if simulated_segments[current_segment.x][current_segment.y + 1] == Direction.NONE:
-			simulated_segments[current_segment.x][current_segment.y + 1] = Direction.DOWN
-			simulated_current_segment.y += 1
-		else:
-			return false
-#	print_segments(simulated_segments, simulated_current_segment)
-	
-#	TODO: sprawdzenie czy po wybraniu tego kierunku mozemy dalej isc!!!!
-	var is_able_to_move_foreward = true
-	var target_segment = Vector2(max_x_value_in_current_segment, simulated_current_segment.y)
-	
-	for i in range(simulated_current_segment.x, target_segment.x):
-		if not simulated_segments[i][target_segment.y] == Direction.NONE:
-			is_able_to_move_foreward = false
-			var is_able_to_move_in_this_fucking_loop = true
-			for j in range(simulated_current_segment.x, target_segment.x):
-				if not simulated_segments[j][target_segment.y-1] == Direction.NONE:
-					is_able_to_move_in_this_fucking_loop = false
-			for j in range(simulated_current_segment.x, target_segment.x):
-				if not simulated_segments[j][target_segment.y+1] == Direction.NONE:
-					is_able_to_move_in_this_fucking_loop = false
-			if is_able_to_move_in_this_fucking_loop == true:
-				is_able_to_move_foreward = true
-				
-	if not is_able_to_move_foreward:
-		print("stuck")
-	return is_able_to_move_foreward
-	
+#func check_if_current_segment_is_able_to_move_foreward(max_x_value_in_current_segment, current_segment, segments, checked_direction):
+#	var simulated_segments = deep_copy(segments)
+#	var simulated_current_segment = deep_copy(current_segment)
+#	if checked_direction == Direction.RIGHT:
+#		if simulated_segments[current_segment.x + 1][current_segment.y] == Direction.NONE:
+#			simulated_segments[current_segment.x + 1][current_segment.y] = Direction.RIGHT
+#			simulated_current_segment.x += 1
+#		else:
+#			return false
+#	if checked_direction == Direction.LEFT:
+#		if simulated_segments[current_segment.x - 1][current_segment.y] == Direction.NONE:
+#			simulated_segments[current_segment.x - 1][current_segment.y] = Direction.LEFT
+#			simulated_current_segment.x -= 1
+#		else:
+#			return false
+#	if checked_direction == Direction.UP:
+#		if simulated_segments[current_segment.x][current_segment.y - 1] == Direction.NONE:
+#			simulated_segments[current_segment.x][current_segment.y - 1] = Direction.UP
+#			simulated_current_segment.y -= 1
+#		else:
+#			return false
+#	if checked_direction == Direction.DOWN:
+#		if simulated_segments[current_segment.x][current_segment.y + 1] == Direction.NONE:
+#			simulated_segments[current_segment.x][current_segment.y + 1] = Direction.DOWN
+#			simulated_current_segment.y += 1
+#		else:
+#			return false
+##	print_segments(simulated_segments, simulated_current_segment)
+#
+##	TODO: sprawdzenie czy po wybraniu tego kierunku mozemy dalej isc!!!!
+#	var is_able_to_move_foreward = true
+#	var target_segment = Vector2(max_x_value_in_current_segment, simulated_current_segment.y)
+#
+#	for i in range(simulated_current_segment.x, target_segment.x):
+#		if not simulated_segments[i][target_segment.y] == Direction.NONE:
+#			is_able_to_move_foreward = false
+#			var is_able_to_move_in_this_fucking_loop = true
+#			for j in range(simulated_current_segment.x, target_segment.x):
+#				if not simulated_segments[j][target_segment.y-1] == Direction.NONE:
+#					is_able_to_move_in_this_fucking_loop = false
+#			for j in range(simulated_current_segment.x, target_segment.x):
+#				if not simulated_segments[j][target_segment.y+1] == Direction.NONE:
+#					is_able_to_move_in_this_fucking_loop = false
+#			if is_able_to_move_in_this_fucking_loop == true:
+#				is_able_to_move_foreward = true
+#
+#	if not is_able_to_move_foreward:
+#		print("stuck")
+#	return is_able_to_move_foreward
+#
 	
 	
 var avalaible_directions = { 
@@ -283,7 +285,112 @@ func generate_segments(segments: Array, starting_height = 200):
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
-	print("REPS:   ",repetitions)
+#	print("REPS:   ",repetitions)
+#	print_segments(segments)
+
+
+	#
+	#           =======================
+	#
+	# THIS IS SETTING SOLID GROUND BLOCKS (KINDA IMPORTANT STUFF)
+	#
+	#           =======================
+	#
+	
+	
+	
+
+	for j in range(segment_count_y):
+		if not segments[0][j] == Direction.NONE:
+			current_segment = Vector2(0, j)
+	var not_garbage_segments = []
+	not_garbage_segments.append(Vector2(current_segment.x, current_segment.y))
+	while current_segment.x < segment_count_x:
+		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
+			current_segment.x += 1
+			not_garbage_segments.append(Vector2(current_segment.x, current_segment.y))
+		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
+			current_segment.x -= 1
+			not_garbage_segments.append(Vector2(current_segment.x, current_segment.y))
+		elif segments[current_segment.x][current_segment.y] == Direction.UP:
+			current_segment.y += 1
+			not_garbage_segments.append(Vector2(current_segment.x, current_segment.y))
+		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
+			current_segment.y -= 1
+			not_garbage_segments.append(Vector2(current_segment.x, current_segment.y))
+		
+	for i in range(segments.size()):
+		for j in range(segments[i].size()):
+			if not not_garbage_segments.has(Vector2(i,j)):
+				segments[i][j] = Direction.NONE
+#	print_segments(segments)
+	
+			
+
+
+#	var solid_ground_helper_segment
+#	var stop = false
+#	for j in range(segment_count_y):
+#		if not segments[0][j] == Direction.NONE:
+#			current_segment = Vector2(0, j)
+#	while current_segment.x < segment_count_x:
+#		solid_ground_helper_segment = current_segment
+#		stop = false
+#		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
+#			current_segment.x += 1
+#			while not stop:
+#				solid_ground_helper_segment.y -= 1
+#				if solid_ground_helper_segment.y < 0:
+#					stop = true
+#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
+#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
+#				else:
+#					stop = true
+#		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
+#			current_segment.x -= 1
+#
+#		elif segments[current_segment.x][current_segment.y] == Direction.UP:
+#			current_segment.y += 1
+#			while not stop:
+#				solid_ground_helper_segment.y -= 1
+#				if solid_ground_helper_segment.y < 0:
+#					stop = true
+#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
+#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
+#				else:
+#					stop = true
+#		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
+#			current_segment.y -= 1
+#			while not stop:
+#				solid_ground_helper_segment.y -= 1
+#				if solid_ground_helper_segment.y < 0:
+#					stop = true
+#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
+#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
+#				else:
+#					stop = true
+#
+#	for i in range(segments.size()):
+#		var ground = 0
+#		var encounter_xd = -1
+#		for j in range(segments[i].size()):
+#			if not segments[i][j] == Direction.NONE and ground % 2 == 1:
+#				encounter_xd = j
+#				ground += 1
+#			if not segments[i][j] == Direction.NONE and ground % 2 == 0:
+#				segments[i][j] = Direction.SOLID_GROUND
+#			if segments[i][j] == Direction.NONE and segments[i][j-1] != Direction.NONE:
+#				ground += 1 
+#			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
+#				segments[i][j] = Direction.SOLID_GROUND
+#for i in range(segments.size()):
+#		var ground = 0
+#		for j in range(segments[i].size()):
+#			if segments[i][j] == Direction.LEFT or segments[i][j] == Direction.RIGHT:
+#				ground += 1 
+#			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
+#				segments[i][j] = Direction.SOLID_GROUND
+	print_segments(segments)
 	return segments
 	
 	
@@ -419,7 +526,39 @@ func create_curve_based_on_segments(segments: Array):
 	curve.add_point(Vector2(segment_count_x * segment_size.x + (segment_size.x / 2), 0)) # ostatni wierzcholek ten w prawym dolnym rogu (po flip Y)
 	return curve
 	
-func generate_objects(): # like seaweed, sharks etc.
+	
+	
+func generate_objects(segments): # like seaweed, sharks etc.
+	var current_segment
+	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
+	var chest = preload("res://elements/chest/chest.tscn")
+	
+	for j in range(segment_count_y):
+		if segments[0][j] == Direction.RIGHT:
+			current_segment = Vector2(0, j)
+	while current_segment.x < segment_count_x:
+#		print(segments[current_segment.x][current_segment.y])
+		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
+			
+			if rng.randi_range(1, 10) > 7:
+				print("WODOROST! ", current_segment)
+				var this_sw = seaweed.instance()
+				this_sw.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-30)
+				self.add_child(this_sw)
+			elif rng.randi_range(1, 100) > 80:
+				var this_ch = chest.instance()
+				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
+				this_ch.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-5)
+				self.add_child(this_ch)
+		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
+			current_segment.x += 1
+		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
+			current_segment.x -= 1
+		elif segments[current_segment.x][current_segment.y] == Direction.UP:
+			current_segment.y += 1
+		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
+			current_segment.y -= 1
+		
 	pass
 	
 func _ready():
@@ -447,7 +586,7 @@ func generate(starting_height):
 	segments = generate_segments(segments, starting_height)
 	generated_runned = true
 	var final_height = calculate_final_height(segments)
-	generate_objects()
+	generate_objects(segments)
 #	print("calculated height is: ", final_height)
 #	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
 	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
