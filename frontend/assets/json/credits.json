@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Game",
+        "list": [
+            "Kamil",
+            "Aleksander"
+        ]
+    },
+    {
+        "name": "Client",
+        "list": [
+            "Oskar"
+        ]
+    },
+    {
+        "name": "Server",
+        "list": [
+            "Oskar"
+        ]
+    },
+    {
+        "name": "Minor things",
+        "list": [
+            "Jan"
+        ]
+    },
+    {
+        "name": "Special thanks",
+        "list": [
+            "Wiktor"
+        ]
+    }
+]

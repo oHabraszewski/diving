@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const WebpackBar = require('webpackbar');
 
@@ -15,17 +16,19 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isDev = process.env.NODE_ENV != 'production';
 const context = path.resolve(__dirname, 'src');
+const assetsPath = path.resolve(__dirname, 'assets');
 
 const entry = {
   index: path.resolve(context, 'index.js'),
   credits: path.resolve(context, 'credits.js'),
   technical: path.resolve(context, 'technical.js'),
-  login: path.resolve(context, 'login.js')
+  register: path.resolve(context, 'register.js')
 };
 
 const resolve = {
   alias: {
     '@': context,
+    'assets': assetsPath,
     'vue$': 'vue/dist/vue.esm-bundler.js'
   },
 };
@@ -66,10 +69,10 @@ const babelLoader = {
 }
 
 const fileLoader = {
-  test: /\.(png|jpe?g|gif|svg|ttf)$/i,
+  test: /\.(png|jpe?g|gif|svg|ttf|woff)$/i,
   loader: 'file-loader',
   options: {
-    outputPath: 'assets',
+    outputPath: '',
     name: '[path][name].[ext]',
     esModule: false,
   },
@@ -112,23 +115,23 @@ const rules = [/*babelLoader,*/ vueLoader, fileLoader, cssLoader];
 let htmlWebpackPluginsOptions = [
   {
     filename: "index.html",
-    template: path.resolve(context, 'public/index.html'),
+    template: path.resolve(context, 'html/index.html'),
     chunks: ["index"]
   },
   {
     filename: "credits.html",
-    template: path.resolve(context, 'public/credits.html'),
+    template: path.resolve(context, 'html/credits.html'),
     chunks: ["credits"]
   },
   {
     filename: "technical.html",
-    template: path.resolve(context, 'public/technical.html'),
+    template: path.resolve(context, 'html/technical.html'),
     chunks: ["technical"]
   },
   {
-    filename: "login.html",
-    template: path.resolve(context, 'public/login.html'),
-    chunks: ["login"]
+    filename: "register.html",
+    template: path.resolve(context, 'html/register.html'),
+    chunks: ["register"]
   }
 ];
 {
@@ -175,6 +178,7 @@ const plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[3]), 
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
+  new FaviconsWebpackPlugin(path.resolve(assetsPath, 'img/favicon.png')) //TODO: new icon -> change path
 ];
 {
   if (isDev) {

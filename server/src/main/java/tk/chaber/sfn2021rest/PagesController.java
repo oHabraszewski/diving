@@ -19,6 +19,6 @@ public class PagesController {
     }
     @GetMapping("/register")
     public String register() {
-        return "login.html";
+        return "register.html";
     }
 }
