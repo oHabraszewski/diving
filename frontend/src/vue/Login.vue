@@ -34,8 +34,8 @@
         },
         mounted(){
             const username = localStorage.getItem("username")
-            const token = localStorage.getItem("token")
-            if(username && token){
+            const key = localStorage.getItem("unique_key")
+            if(username && key){
                 this.username = username;
                 this.password = "password";
                 this.remember = true;
@@ -56,20 +56,20 @@
             },
             clearLocalStorage(){
                 localStorage.removeItem("username")
-                localStorage.removeItem("token")
+                localStorage.removeItem("unique_key")
             },
             async sendData(){
                 const username = localStorage.getItem("username")
-                const token = localStorage.getItem("token")
+                const key = localStorage.getItem("unique_key")
 
-                if(username && token){
-                    console.debug("There is saved token, going directly into a game")
+                if(username && key){
+                    console.debug("There is saved key, going directly into a game")
                     if(!this.remember){
                         this.clearLocalStorage()
                     }
                     this.changeDirectory("/game")
                 }else{
-                    console.debug("There is no token, connecting with server...")
+                    console.debug("There is no key, connecting with server...")
 
                     let response = await connect("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
                         username: this.username,
@@ -90,10 +90,10 @@
                             }
 
                             storage.setItem("username", this.username)
-                            storage.setItem("token", response.data.token)
+                            storage.setItem("unique_key", response.data.token)
 
                             console.debug("Username: " + storage.getItem("username"))
-                            console.debug("Token: " + storage.getItem("token"))
+                            console.debug("Key: " + storage.getItem("unique_key"))
 
                             this.changeDirectory("/game")
                     }else{
