@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.response.EventResponding;
+import tk.chaber.sfn2021rest.socket.response.FailedResponse;
+import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
 
 import java.util.HashMap;
 
@@ -14,7 +17,7 @@ public class DeletingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap<String, Object> data){
+    public EventResponding handle(HashMap<String, Object> data){
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
@@ -29,11 +32,15 @@ public class DeletingHandler extends WorldHandler{
                 World worldToDelete = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0); //FIXME: vulnerability if somehow there is 2 worlds with the same name.
 
                 worldsRepository.delete(worldToDelete);
+
+                return new SuccessResponse(this.event);
             }else{
                 System.out.println("There is no such world");
+                return new FailedResponse(this.event);
             }
         }else{
             System.out.println("Incorrect authentication");
+            return new FailedResponse(this.event);
         }
 
 //        List<World> worldsToDelete = worldsRepository.findByOwnerIdAndWorldName(ownerId, worldName);

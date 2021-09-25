@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.response.EventResponding;
+import tk.chaber.sfn2021rest.socket.response.FailedResponse;
+import tk.chaber.sfn2021rest.socket.response.WorldResponse;
 
 import java.util.HashMap;
 
@@ -14,7 +17,7 @@ public class CreatingHandler extends WorldHandler{
     }
 
     @Override
-    public void handle(HashMap<String, Object> data) {
+    public EventResponding handle(HashMap<String, Object> data) {
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 
@@ -31,8 +34,11 @@ public class CreatingHandler extends WorldHandler{
             world.setWorldData("{}");
 
             worldsRepository.save(world);
+
+            return new WorldResponse(this.event, world);
         }else{
             System.out.println("Incorrect authentication");
+            return new FailedResponse(this.event);
         }
     }
 }

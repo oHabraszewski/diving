@@ -1,17 +1,18 @@
 package tk.chaber.sfn2021rest.socket.response;
 
+import tk.chaber.sfn2021rest.socket.EventsEnum;
+
 import java.util.HashMap;
-import java.util.Map;
 
-public class FailedResponse implements EventResponsing{
+public class FailedResponse implements EventResponding {
 
-    private final String requestEvent;
+    private final EventsEnum requestEvent;
     HashMap<String, Object> payloadObjects = new HashMap<>();
 
-    public FailedResponse(String responseToEvent) {
+    public FailedResponse(EventsEnum responseToEvent) {
         this.requestEvent = responseToEvent;
 
-        payloadObjects.put("success", "false");
+        payloadObjects.put("success", false);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class FailedResponse implements EventResponsing{
 
         payloadObjects.forEach(payload::put);
 
-        response.put("event", requestEvent);
+        response.put("event", requestEvent.toString());
         response.put("payload", payload);
         return response;
     }

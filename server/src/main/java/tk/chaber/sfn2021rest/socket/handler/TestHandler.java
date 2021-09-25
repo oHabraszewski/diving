@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.WorldsRepo;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.response.EventResponding;
+import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
 
 import java.util.HashMap;
 
@@ -21,7 +23,7 @@ public class TestHandler implements EventHandling {
     }
 
     @Override
-    public void handle(HashMap<String, Object> data) {
+    public EventResponding handle(HashMap<String, Object> data) {
         for (Object dataEntity : data.values()){
             System.out.println(dataEntity.toString());
         }
@@ -38,5 +40,7 @@ public class TestHandler implements EventHandling {
         System.out.println("New World: " + world.toString());
 
         worldsRepository.save(world);
+
+        return new SuccessResponse(this.event);
     }
 }

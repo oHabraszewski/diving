@@ -1,5 +1,6 @@
 package tk.chaber.sfn2021rest.socket;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import tk.chaber.sfn2021rest.socket.handler.EventHandling;
+import tk.chaber.sfn2021rest.socket.response.EventResponding;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,10 +42,19 @@ public class EventSocketBroker extends TextWebSocketHandler {
     }
 
     public void emitTextMessage(WebSocketSession session, HashMap<String, Object> data){
+        try {
+            String stringResponse = mapper.writeValueAsString(data);
+
+            System.out.println("Raw response: " + stringResponse);
+
+            session.sendMessage(new TextMessage(stringResponse));
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws JsonProcessingException {
         //JSON to HashMap conversion, and assigning to variables
         HashMap<String, Object> messageMap = mapper.readValue(message.getPayload(), HashMap.class);
         EventsEnum  event = EventsEnum.valueOf(((String) messageMap.get("event")).toUpperCase());
@@ -58,7 +69,9 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Handlers: " + eventHandlers.toString());
 
         EventHandling handler = eventHandlers.get(event);
-        handler.handle(payload);
+        EventResponding response = handler.handle(payload);
+
+        this.emitTextMessage(session, response.getRawJSONResponse());
     }
 
     @Override
