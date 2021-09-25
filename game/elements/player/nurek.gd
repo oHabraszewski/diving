@@ -4,7 +4,7 @@ extends RigidBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+signal moved(player)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,6 +12,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$"../Air".player_moved(self)
 	if Input.is_action_pressed("move_down"):
 		self.linear_velocity.y += 20
 		
@@ -19,12 +20,12 @@ func _process(delta):
 		if self.linear_velocity.y > -150:
 			self.linear_velocity.y -= 10
 			
-	if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right") and self.linear_velocity.x > -200:
-		self.linear_velocity.x -= 40
+	if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right") and self.linear_velocity.x > -380:
+		self.linear_velocity.x -= 140
 		self.get_child(0).flip_h = true
 		
-	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and self.linear_velocity.x < 200:
-		self.linear_velocity.x += 140
+	if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and self.linear_velocity.x < 2000:
+		self.linear_velocity.x += 440
 		self.get_child(0).flip_h = false
 	
 	
