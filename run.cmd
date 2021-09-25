@@ -22,7 +22,7 @@ choco install yarn
 set ERRORLEVEL=0
 ..\godot --quiet -w --no-window -q >nul 2>nul
 if ERRORLEVEL 9009 (
-echo "godot not found! This script will try to install it, but if it fails install it from https://downloads.tuxfamily.org/godotengine/3.2.3/Godot_v3.2.3-stable_win64.exe.zip, unzip, rename file to godot.exe"
+echo "godot not found! This script will try to install it, but if it fails install it from https://downloads.tuxfamily.org/godotengine/3.3.3/Godot_v3.2.3-stable_win64.exe.zip, unzip, rename file to godot.exe"
 echo This script needs to install 7-zip, it will donload and start installer automaticaly, just click install.
 pause
 curl https://www.7-zip.org/a/7z1900-x64.exe --output 7zip.exe
@@ -31,10 +31,10 @@ echo continue when 7zip is installed
 pause
 del 7zip.exe
 echo Now script will download godot...
-curl https://downloads.tuxfamily.org/godotengine/3.2.3/Godot_v3.2.3-stable_win64.exe.zip --output godot.zip
+curl https://downloads.tuxfamily.org/godotengine/3.3.3/Godot_v3.3.3-stable_win64.exe.zip --output godot.zip
 "%ProgramFiles%/7-zip/7z.exe" e godot.zip
 del godot.zip
-rename Godot_v3.2.3-stable_win64.exe godot.exe
+rename Godot_v3.3.3-stable_win64.exe godot.exe
 move godot.exe ..
 echo Godot is downloaded. Re run script now.
 pause
@@ -43,9 +43,10 @@ goto :exit
 if not exist %appdata%\Godot\templates\3.2.3.stable\ (
 rem instalowanie template'ow eksportu
 mkdir %appdata%\Godot\templates\3.2.3.stable\
-copy game\export_templates\version.txt %appdata%\Godot\templates\3.2.3.stable\
-copy game\export_templates\webassembly_debug.zip %appdata%\Godot\templates\3.2.3.stable\
-copy game\export_templates\webassembly_release.zip %appdata%\Godot\templates\3.2.3.stable\
+copy game\export_templates\version.txt %appdata%\Godot\templates\3.3.3.stable\
+copy game\export_templates\webassembly_debug.zip %appdata%\Godot\templates\3.3.3.stable\
+copy game\export_templates\webassembly_release.zip %appdata%\Godot\templates\3.3.3.stable\
+
 )
 
 cd frontend
