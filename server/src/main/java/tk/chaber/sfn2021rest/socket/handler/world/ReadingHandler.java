@@ -57,6 +57,6 @@ public class ReadingHandler extends WorldHandler{
             errorMsg = "There is no user with such username.";
         }
         System.out.println(errorMsg);
-        return new FailedResponse(this.event);
+        return new FailedResponse(this.event, errorMsg);
     }
 }

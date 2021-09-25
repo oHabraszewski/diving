@@ -9,10 +9,11 @@ public class FailedResponse implements EventResponding {
     private final EventsEnum requestEvent;
     HashMap<String, Object> payloadObjects = new HashMap<>();
 
-    public FailedResponse(EventsEnum responseToEvent) {
+    public FailedResponse(EventsEnum responseToEvent, String errorMessage) {
         this.requestEvent = responseToEvent;
 
         payloadObjects.put("success", false);
+        payloadObjects.put("error", errorMessage);
     }
 
     @Override

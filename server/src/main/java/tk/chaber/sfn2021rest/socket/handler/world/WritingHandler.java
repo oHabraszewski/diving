@@ -63,28 +63,7 @@ public class WritingHandler extends WorldHandler{
             errorMsg = "There is no user with such username.";
         }
         System.out.println(errorMsg);
-        return new FailedResponse(this.event);
-
-//        User owner = usersRepository.findByUsername(username).get(0);
-//        if(owner.checkToken(uniqueKey)){
-//
-//            if(worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-//
-//                World world = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName).get(0);
-//
-//                world.setWorldData(worldData);
-//
-//                worldsRepository.save(world);
-//
-//                return new SuccessResponse(this.event);
-//            }else{
-//                System.out.println("There is no such world");
-//                return new FailedResponse(this.event);
-//            }
-//        }else{
-//            System.out.println("Incorrect authentication");
-//            return new FailedResponse(this.event);
-//        }
+        return new FailedResponse(this.event, errorMsg);
     }
 }
 
