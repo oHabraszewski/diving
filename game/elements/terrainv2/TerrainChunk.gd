@@ -391,7 +391,6 @@ func generate_segments(segments: Array, starting_height = 200):
 		ground = false
 		for i in range(segments.size()-1):
 			for j in range(segments[i].size()-1):
-				
 #			print("Po LEWO", segments[i][j+1])
 #			print("Po PRaWO", segments[i][j-1])
 #			print("Po dol", segments[i-1][j])
