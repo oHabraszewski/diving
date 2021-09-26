@@ -14,5 +14,5 @@ func _process(delta):
 	pass
 	
 func _on_Button_pressed():
-	$Game/Terrain.print_chunks()
+	$Interface/Popup.popup()
 	pass # Replace with function body.

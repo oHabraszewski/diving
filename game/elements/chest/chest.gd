@@ -5,12 +5,11 @@ extends Node2D
 # var a = 2
 # var b = "text"
 export var opened = false
-export var chest_id = 0
+export var chest_id = ""
 signal opened(id)
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready():	
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

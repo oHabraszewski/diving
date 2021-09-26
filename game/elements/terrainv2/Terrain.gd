@@ -107,6 +107,10 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 		current_chunks[incrementar] = instance
 		current_chunks[incrementar].minus_index_flip(incrementar)
 		self.add_child(current_chunks[incrementar])
+		
+		for i in current_chunks:
+			current_chunks[i].chunk_id = i
+		print(current_chunks)
 	pass
 	
 	
@@ -121,11 +125,19 @@ func _ready():
 
 
 #	chunks = {-1:200, -2:650, -3:850, -4:150, 0:200, 1:350, 2:550}
-#	add_chunk(true, 1, true, -1)
+#	add_chunk(true, 1, true)
 
-	add_chunk(true, 1, true)
-	add_chunk(true, 1)
-	add_chunk(false, 1)
+	add_chunk(true, generation_seed, true)
+	add_chunk(true, generation_seed)
+	add_chunk(false, generation_seed)
+	for i in current_chunks:
+		print(i)
+		current_chunks[i].chunk_id = i
+	print(current_chunks)
+	
+	
+	
+	
 	$Bounds.recalculate(current_chunks[0].segment_size.y * current_chunks[0].segment_count_y, current_chunks[0].segment_size.x * current_chunks[0].segment_count_x + current_chunks[0].segment_size.x / 2 )
 	
 	pass 
@@ -143,15 +155,18 @@ func _process(delta):
 
 
 func _on_Bounds_colision_left():
-	add_chunk(false, 1)
+	add_chunk(false, generation_seed)
 	$Bounds.move_left(segment_size.x * segment_count_x + segment_size.x / 2)
 	pass # Replace with function body.
 
-
+func get_current_chunk():
+	print(current_chunks.keys())
+	return current_chunks.keys().max() - 1
 func _on_Bounds_colision_right():
-	add_chunk(true, 1)
+	add_chunk(true, generation_seed)
 	$Bounds.move_right(segment_size.x * segment_count_x + segment_size.x / 2)
 	pass # Replace with function body.
 func signal_resolver(id):
 	emit_signal("chest_opened", id)
+	print(id)
 	pass

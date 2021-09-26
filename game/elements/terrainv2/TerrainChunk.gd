@@ -11,9 +11,9 @@ export(int) var generation_seed = 0
 export(int) var index
 export(int) var end_height = -1
 export(bool) var show_segments = true
-export(Dictionary) var objects 
+export(Dictionary) var objects = {"chests":[]}
 var generated_runned = false
-
+export(int) var chunk_id 
 
 
 var counter = 0
@@ -543,7 +543,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	var current_segment
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest = preload("res://elements/chest/chest.tscn")
-	
+	var chest_count = 0
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
@@ -557,8 +557,12 @@ func generate_objects(segments): # like seaweed, sharks etc.
 			elif rng.randi_range(1, 100) > 80:
 				
 				var this_ch = chest.instance()
-#				if objects.keys().has("chests"):
-#					print("skrzynia juz istnieje")
+				chest_count += 1
+				if objects["chests"] != []:
+					if objects["chests"].has(chest_count):
+						this_ch.opened = true
+						print("skrzynia juz istnieje")
+				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
 				this_ch.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-5)
 				this_ch.connect("opened", self,"signal_interpreter")
@@ -618,8 +622,9 @@ func generate(starting_height):
 #| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
 #(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)      
 func signal_interpreter(id):
-	emit_signal("chest_opened", id)
-#	print("opened")
+	var chid = String(chunk_id) + "." + String(id)
+	emit_signal("chest_opened", chid)
 	pass
+
 
 
