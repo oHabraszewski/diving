@@ -10,7 +10,7 @@ export(int) var generation_seed = 1
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
-
+signal chest_opened(id)
 
 func check_for_bad_values():
 	if segment_count_x < 10:
@@ -50,12 +50,14 @@ func calculate_seed(index: int):
 func add_chunk(front: bool, generation_seed: int, new_game = false, start_index = 0): #funkcja dodaje chunk z podanym seedem
 	var incrementar 
 	var instance = terrain_chunk.instance()
+	instance.connect("chest_opened", self, "signal_resolver")
 	instance.segment_count_x = segment_count_x 
 	instance.segment_count_y = segment_count_y 
 	instance.segment_size = segment_size
 	if new_game: #if new game
 		#gdy zaczyna się nowa gra pierwszy chunk jest tworzony tutaj
 		current_chunks[start_index] = terrain_chunk.instance()
+		current_chunks[start_index].connect("chest_opened", self, "signal_resolver")
 		current_chunks[start_index].generation_seed = calculate_seed(start_index)
 		current_chunks[start_index].segment_count_x = segment_count_x 
 		current_chunks[start_index].segment_count_y = segment_count_y 
@@ -150,3 +152,6 @@ func _on_Bounds_colision_right():
 	add_chunk(true, 1)
 	$Bounds.move_right(segment_size.x * segment_count_x + segment_size.x / 2)
 	pass # Replace with function body.
+func signal_resolver(id):
+	emit_signal("chest_opened", id)
+	pass

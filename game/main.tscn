@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -54,6 +54,11 @@ corner_radius_bottom_right = 400
 
 [sub_resource type="DynamicFont" id=9]
 size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
 [sub_resource type="Animation" id=11]
@@ -129,19 +134,6 @@ script = ExtResource( 2 )
 layer = 2
 follow_viewport_enable = true
 
-[node name="Player" parent="Game" instance=ExtResource( 3 )]
-position = Vector2( -0.741939, 50.5951 )
-z_index = 2
-mode = 2
-sleeping = true
-
-[node name="Camera2D" type="Camera2D" parent="Game/Player"]
-current = true
-smoothing_enabled = true
-
-[node name="Terrain" parent="Game" instance=ExtResource( 1 )]
-position = Vector2( -612.173, 3.36365 )
-
 [node name="Air" type="Node2D" parent="Game"]
 script = ExtResource( 5 )
 
@@ -175,6 +167,19 @@ collision_layer = 262144
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D2"]
 shape = SubResource( 3 )
+
+[node name="Player" parent="Game" instance=ExtResource( 3 )]
+position = Vector2( -0.741939, 50.5951 )
+z_index = 2
+mode = 2
+sleeping = true
+
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+current = true
+smoothing_enabled = true
+
+[node name="Terrain" parent="Game" instance=ExtResource( 1 )]
+position = Vector2( -612.173, 3.36365 )
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
@@ -263,6 +268,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control3" type="Control" parent="Interface"]
+margin_left = 62.9325
+margin_top = 89.8026
+margin_right = 436.932
+margin_bottom = 312.803
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Interface/Control3"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 12 )
+text = "Treasures found: 0"
+
 [node name="OxygenTimer" type="Timer" parent="Interface"]
 wait_time = 0.431
 autostart = true
@@ -274,8 +295,8 @@ autostart = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 follow_viewport_enable = true
-scroll_limit_end = Vector2( 10, 0 )
-scroll_ignore_camera_zoom = true
+scroll_limit_begin = Vector2( 1000, 0 )
+scroll_limit_end = Vector2( 10000, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0 )
@@ -291,8 +312,9 @@ texture = ExtResource( 7 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
 anims/change_bck_to_air = SubResource( 6 )
 
-[connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
+[connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
+[connection signal="chest_opened" from="Game/Terrain" to="Interface" method="_on_Terrain_chest_opened"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="Interface/OxygenTimer" to="Interface" method="_on_OxygenTimer_timeout"]

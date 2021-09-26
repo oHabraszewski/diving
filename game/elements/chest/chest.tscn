@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/bubble.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 364.087, 277.327 )
+extents = Vector2( 285.39, 146.245 )
 
 [sub_resource type="ParticlesMaterial" id=2]
 lifetime_randomness = 0.39
@@ -33,7 +33,7 @@ texture = ExtResource( 1 )
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -9.44931, -244.637 )
+position = Vector2( 16.7711, -180.959 )
 shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]

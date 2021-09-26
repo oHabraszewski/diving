@@ -619,7 +619,7 @@ func generate(starting_height):
 #(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)      
 func signal_interpreter(id):
 	emit_signal("chest_opened", id)
-	print("opened")
+#	print("opened")
 	pass
 
 

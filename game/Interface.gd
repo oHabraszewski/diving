@@ -5,7 +5,7 @@ extends CanvasLayer
 # var a = 2
 # var b = "text"
 export(int) var oxygen_level = 100 
-
+var points = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -34,4 +34,10 @@ func _on_Player_bumped_into_rocks():
 	else:
 		oxygen_level -= 3
 	$AnimationPlayer.play("progress bar tint")
+	pass # Replace with function body.
+
+
+func _on_Terrain_chest_opened(id):
+	points += 1
+	$Control3/Label.text = "Treasures found: " + String(points)
 	pass # Replace with function body.
