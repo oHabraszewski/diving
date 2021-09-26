@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -55,6 +55,21 @@ corner_radius_bottom_right = 400
 [sub_resource type="DynamicFont" id=9]
 size = 48
 font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "progress bar tint"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control2/Panel/ProgressBar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.133278, 0.242562, 0.338884, 0.46551 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.768627, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.776471, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "change_bck_to_air"
@@ -122,7 +137,6 @@ sleeping = true
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 current = true
-zoom = Vector2( 2, 2 )
 smoothing_enabled = true
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]
@@ -132,7 +146,7 @@ position = Vector2( -612.173, 3.36365 )
 script = ExtResource( 5 )
 
 [node name="Area2D" type="KinematicBody2D" parent="Game/Air"]
-collision_layer = 0
+collision_layer = 262144
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D"]
 shape = SubResource( 1 )
@@ -157,7 +171,7 @@ texture_rotation_degrees = 90.0
 polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 
 [node name="Area2D2" type="Area2D" parent="Game/Air"]
-collision_layer = 0
+collision_layer = 262144
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D2"]
 shape = SubResource( 3 )
@@ -253,6 +267,9 @@ __meta__ = {
 wait_time = 0.431
 autostart = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
+"anims/progress bar tint" = SubResource( 11 )
+
 [node name="NetworkNode" type="Node" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -274,6 +291,7 @@ texture = ExtResource( 7 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
 anims/change_bck_to_air = SubResource( 6 )
 
+[connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]

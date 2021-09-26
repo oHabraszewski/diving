@@ -5,7 +5,7 @@ extends RigidBody2D
 # var a = 2
 # var b = "text"
 signal moved(player)
-
+signal bumped_into_rocks()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -43,3 +43,19 @@ func _process(delta):
 	##by zmniejszać prędkość imitując opór wody
 	## Po co te if'y?????
 pass
+
+
+
+
+func _on_Area2D_body_entered(body):
+	if body.collision_layer == 2:
+		self.linear_velocity = Vector2((-0.7)*self.linear_velocity.x, (-0.7)*self.linear_velocity.y-8)
+		$AnimationPlayer.play("taking damage")
+		$Particles2D3.emitting = true
+		emit_signal("bumped_into_rocks")
+	pass # Replace with function body.
+
+
+func _on_Timer_timeout():
+	$Particles2D2.emitting = true
+	pass # Replace with function body.

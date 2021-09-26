@@ -26,3 +26,12 @@ func _on_OxygenTimer_timeout():
 	if oxygen_level > 100:
 		oxygen_level = 100
 	pass # Replace with function body.
+
+
+func _on_Player_bumped_into_rocks():
+	if oxygen_level > 15:
+		oxygen_level -= 15
+	else:
+		oxygen_level -= 3
+	$AnimationPlayer.play("progress bar tint")
+	pass # Replace with function body.
