@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.response.Error;
 import tk.chaber.sfn2021rest.socket.response.EventResponding;
 import tk.chaber.sfn2021rest.socket.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.response.WorldResponse;
@@ -30,7 +31,7 @@ public class CreatingHandler extends WorldHandler{
         long worldSeed;
         String worldData;
 
-        String errorMsg;
+        Error error;
 
         try {
             String rawName = (String) worldPayload.get("name");
@@ -41,8 +42,7 @@ public class CreatingHandler extends WorldHandler{
             worldSeed = rawSeed == null ? Randomizer.randomLong() : rawSeed;
             worldData = rawData == null || rawData.equals("")  ? "{}" : rawData;
         }catch(ClassCastException ex){
-            errorMsg = "There was problem during casting data. Numerical data should be send as number, not as string.";
-            return new FailedResponse(this.event, errorMsg);
+            return new FailedResponse(this.event, Error.CASTING_IMPOSSIBLE);
         }
 
         if(usersRepository.existsByUsername(username)) {
@@ -65,18 +65,18 @@ public class CreatingHandler extends WorldHandler{
 
                         return new WorldResponse(this.event, world);
                     }else{
-                        errorMsg = "There is already a world with such name.";
+                        error = Error.WORLD_EXISTS;
                     }
                 } else {
-                    errorMsg = "Authentication failed.";
+                    error = Error.AUTH_FAIL;
                 }
             }else {
-                errorMsg = "Somehow there are 2 users with exactly the same usernames.";
+                error = Error.MULTIPLE_USERS_EXIST;
             }
         }else {
-            errorMsg = "There is no user with such username.";
+            error = Error.USER_DOES_NOT_EXIST;
         }
-        System.out.println(errorMsg);
-        return new FailedResponse(this.event, errorMsg);
+        System.out.println(error.getMessage());
+        return new FailedResponse(this.event, error);
     }
 }

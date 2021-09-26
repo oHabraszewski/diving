@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.response.Error;
 import tk.chaber.sfn2021rest.socket.response.EventResponding;
 import tk.chaber.sfn2021rest.socket.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
@@ -28,7 +29,7 @@ public class ReadingHandler extends WorldHandler{
 
         String worldName = (String) worldPayload.get("name");
 
-        String errorMsg;
+        Error error;
 
         if(usersRepository.existsByUsername(username)) {
             List<User> potentialOwners = usersRepository.findByUsername(username);
@@ -45,21 +46,21 @@ public class ReadingHandler extends WorldHandler{
                             World world = potentialWorlds.get(0);
                             return new WorldResponse(this.event, world);
                         }else{
-                            errorMsg = "Somehow there are 2 worlds with exactly the same names.";
+                            error = Error.MULTIPLE_WORLDS_EXIST;
                         }
                     } else {
-                        errorMsg = "There is no such world.";
+                        error = Error.WORLD_DOES_NOT_EXIST;
                     }
                 } else {
-                    errorMsg = "Authentication failed.";
+                    error = Error.AUTH_FAIL;
                 }
             }else {
-                errorMsg = "Somehow there are 2 users with exactly the same usernames.";
+                error = Error.MULTIPLE_USERS_EXIST;
             }
         }else {
-            errorMsg = "There is no user with such username.";
+            error = Error.USER_DOES_NOT_EXIST;
         }
-        System.out.println(errorMsg);
-        return new FailedResponse(this.event, errorMsg);
+        System.out.println(error.getMessage());
+        return new FailedResponse(this.event, error);
     }
 }
