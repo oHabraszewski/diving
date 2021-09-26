@@ -385,16 +385,21 @@ func generate_segments(segments: Array, starting_height = 200):
 #				segments[i][j] = Direction.SOLID_GROUND
 	for i in range(segments.size()):
 		segments[i][0] = Direction.SOLID_GROUND
-	var not_added_new_sg = true
-	while not_added_new_sg:
-		not_added_new_sg = false
+	var print_val = ""
+	var ground = false
+	while not ground:
+		ground = false
 		for i in range(segments.size()-1):
 			for j in range(segments[i].size()-1):
-				if segments[i][j] == Direction.NONE and (segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND or segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND):
-					segments[i][j] == Direction.SOLID_GROUND
-					print(segments[i])
-					not_added_new_sg = true
-	print_segments(segments)
+				
+#			print("Po LEWO", segments[i][j+1])
+#			print("Po PRaWO", segments[i][j-1])
+#			print("Po dol", segments[i-1][j])
+#			print("Po gora", segments[i+1][j])
+				if segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND or segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND:
+					if segments[i][j] == Direction.NONE:
+						segments[i][j] = Direction.SOLID_GROUND
+						ground = true
 	return segments
 	
 	
@@ -543,9 +548,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
-			
 			if rng.randi_range(1, 10) > 7:
-				print("WODOROST! ", current_segment)
 				var this_sw = seaweed.instance()
 				this_sw.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-30)
 				self.add_child(this_sw)
