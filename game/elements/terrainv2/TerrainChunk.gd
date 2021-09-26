@@ -2,7 +2,7 @@ extends Node2D
 
 signal generate_new_terrain()
 signal generate_terrain_that_was_before()
-
+signal chest_opened(id)
 
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
@@ -11,7 +11,10 @@ export(int) var generation_seed = 0
 export(int) var index
 export(int) var end_height = -1
 export(bool) var show_segments = true
+export(Dictionary) var objects 
 var generated_runned = false
+
+
 
 var counter = 0
 
@@ -552,10 +555,15 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				this_sw.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-30)
 				self.add_child(this_sw)
 			elif rng.randi_range(1, 100) > 80:
+				
 				var this_ch = chest.instance()
+#				if objects.keys().has("chests"):
+#					print("skrzynia juz istnieje")
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
 				this_ch.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-5)
+				this_ch.connect("opened", self,"signal_interpreter")
 				self.add_child(this_ch)
+				
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			current_segment.x += 1
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
@@ -609,6 +617,9 @@ func generate(starting_height):
 #| |   ) || |   | |         /   /  | (\ (   | |   | || (  \ \    | |   | (      | | \   |   | |    | (   ) |(_)
 #| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
 #(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)      
-
+func signal_interpreter(id):
+	emit_signal("chest_opened", id)
+	print("opened")
+	pass
 
 

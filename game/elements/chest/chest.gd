@@ -4,8 +4,9 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var opened = false
-
+export var opened = false
+export var chest_id = 0
+signal opened(id)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -21,6 +22,7 @@ func _on_Area2D_area_entered(area):
 		$Sprite.texture = preload("res://assets/chest-open.png")
 		$Particles2D.emitting = true
 		opened = true
+		emit_signal("opened", chest_id)
 	pass # Replace with function body.
 
 

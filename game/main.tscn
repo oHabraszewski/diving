@@ -1,19 +1,110 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://elements/player/nurek.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Air.gd" type="Script" id=5]
+[ext_resource path="res://assets/background.png" type="Texture" id=6]
+[ext_resource path="res://assets/background-air.png" type="Texture" id=7]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=8]
+[ext_resource path="res://assets/zawor.png" type="Texture" id=9]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -150, 0 )
 b = Vector2( 150, 0 )
 
+[sub_resource type="OpenSimplexNoise" id=4]
+octaves = 5
+period = 39.6
+persistence = 0.991
+lacunarity = 2.07
+
+[sub_resource type="NoiseTexture" id=5]
+seamless = true
+as_normalmap = true
+noise = SubResource( 4 )
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.323194 )
+colors = PoolColorArray( 0.47451, 0.678431, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 117.228, 22 )
+
 [sub_resource type="DynamicFont" id=2]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 1, 0, 0, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_right = 400
+corner_radius_bottom_right = 400
+
+[sub_resource type="DynamicFont" id=9]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "change_bck_to_air"
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.929412 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Game/Air/Polygon2DAir:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.929412 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -24,6 +115,7 @@ follow_viewport_enable = true
 
 [node name="Player" parent="Game" instance=ExtResource( 3 )]
 position = Vector2( -0.741939, 50.5951 )
+z_index = 2
 mode = 2
 sleeping = true
 
@@ -49,10 +141,31 @@ position = Vector2( -4.48975, 0 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 
+[node name="Polygon2DWater_if_in_air" type="Polygon2D" parent="Game/Air"]
+modulate = Color( 1, 1, 1, 0.929412 )
+position = Vector2( 163.684, -981.044 )
+color = Color( 0.0784314, 0.301961, 0.690196, 1 )
+texture = SubResource( 5 )
+polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
+
+[node name="Polygon2DAir" type="Polygon2D" parent="Game/Air"]
+modulate = Color( 1, 1, 1, 0.929412 )
+position = Vector2( 201.739, -1981.17 )
+texture = SubResource( 8 )
+texture_rotation_degrees = 90.0
+polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
+
+[node name="Area2D2" type="Area2D" parent="Game/Air"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D2"]
+shape = SubResource( 3 )
+
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 
 [node name="Control" type="Control" parent="Interface"]
+visible = false
 margin_left = 506.428
 margin_top = 293.668
 margin_right = 546.428
@@ -82,6 +195,79 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Control2" type="Control" parent="Interface"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Interface/Control2"]
+margin_left = 936.881
+margin_top = 41.5595
+margin_right = 1556.88
+margin_bottom = 188.56
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Interface/Control2/Panel"]
+margin_left = 500.0
+margin_top = 37.0
+margin_right = 1577.0
+margin_bottom = 107.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 9 )
+text = "O2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="Interface/Control2/Panel"]
+margin_left = 30.0
+margin_top = 56.0
+margin_right = 400.0
+margin_bottom = 76.0
+theme = ExtResource( 8 )
+step = 1.0
+value = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Interface/Control2/Panel"]
+margin_left = 616.443
+margin_top = 19.6447
+margin_right = 744.443
+margin_bottom = 319.645
+rect_scale = Vector2( 0.340021, 0.340021 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="NetworkNode" type="Node" parent="."]
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_enable = true
+scroll_limit_end = Vector2( 10, 0 )
+scroll_ignore_camera_zoom = true
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 90.7139, 514.048 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 417.415, -95.9656 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
+anims/change_bck_to_air = SubResource( 6 )
+
+[connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
+[connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
