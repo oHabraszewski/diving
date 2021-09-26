@@ -1,4 +1,19 @@
-[gd_resource type="Theme" format=2]
+[gd_resource type="Theme" load_steps=4 format=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.427451, 0.431373, 0.498039, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.352941, 0.843137, 1, 1 )
+border_width_top = 2
+border_width_right = 2
+border_color = Color( 0.0588235, 0.47451, 0.560784, 1 )
+border_blend = true
+corner_radius_top_right = 50
+shadow_color = Color( 0.184314, 0.184314, 0.184314, 0.6 )
+shadow_size = 7
 
 [resource]
 BoxContainer/constants/separation = 4
@@ -867,13 +882,13 @@ ItemList/styles/cursor = null
 ItemList/styles/cursor_unfocused = null
 ItemList/styles/selected = null
 ItemList/styles/selected_focus = null
-Label/colors/font_color = Color( 0, 0, 0, 1 )
-Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color_shadow = Color( 0.352941, 0.843137, 1, 1 )
 Label/constants/line_spacing = 3
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
-Label/styles/normal = null
+Label/styles/normal = SubResource( 1 )
 LineEdit/colors/clear_button_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
 LineEdit/colors/cursor_color = Color( 0, 0, 0, 1 )
@@ -941,9 +956,9 @@ PopupMenu/styles/panel = null
 PopupMenu/styles/pressed = null
 PopupMenu/styles/separator = null
 PopupPanel/styles/panel = null
-ProgressBar/colors/font_color = Color( 0, 0, 0, 1 )
-ProgressBar/styles/bg = null
-ProgressBar/styles/fg = null
+ProgressBar/colors/font_color = Color( 1, 1, 1, 1 )
+ProgressBar/styles/bg = SubResource( 2 )
+ProgressBar/styles/fg = SubResource( 3 )
 ProjectSettingsEditor/styles/panel = null
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 1 )
