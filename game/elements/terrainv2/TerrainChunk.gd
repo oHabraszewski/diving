@@ -383,13 +383,17 @@ func generate_segments(segments: Array, starting_height = 200):
 #				ground += 1 
 #			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
 #				segments[i][j] = Direction.SOLID_GROUND
-#for i in range(segments.size()):
-#		var ground = 0
-#		for j in range(segments[i].size()):
-#			if segments[i][j] == Direction.LEFT or segments[i][j] == Direction.RIGHT:
-#				ground += 1 
-#			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
-#				segments[i][j] = Direction.SOLID_GROUND
+	for i in range(segments.size()):
+		segments[i][0] = Direction.SOLID_GROUND
+	var not_added_new_sg = true
+	while not_added_new_sg:
+		not_added_new_sg = false
+		for i in range(segments.size()-1):
+			for j in range(segments[i].size()-1):
+				if segments[i][j] == Direction.NONE and (segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND or segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND):
+					segments[i][j] == Direction.SOLID_GROUND
+					print(segments[i])
+					not_added_new_sg = true
 	print_segments(segments)
 	return segments
 	
