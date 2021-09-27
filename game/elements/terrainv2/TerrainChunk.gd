@@ -440,42 +440,17 @@ func create_curve_based_on_segments(segments: Array):
 	control_point = Vector2(0, 0)
 	
 	
-	
+	var half_segment_size = Vector2(segment_size.x / 2, segment_size.y / 2)
+	var second_variation = 0
 	while(current_segment.x < segment_count_x):
-#		var what_is_in_that_segment = ""
-#		var what_is_in_last_segment = ""
-#		if segments[current_segment.x][current_segment.y] == 0:
-#			what_is_in_that_segment = "RIGHT"
-#		elif segments[current_segment.x][current_segment.y] == 1:
-#			what_is_in_that_segment = "LEFT"
-#		elif segments[current_segment.x][current_segment.y] == 2:
-#			what_is_in_that_segment = "UP"
-#		elif segments[current_segment.x][current_segment.y] == 3:
-#			what_is_in_that_segment = "DOWN"
-#		elif segments[current_segment.x][current_segment.y] == 4:
-#			what_is_in_that_segment = "NONE"
-#
-#		if last_segment == 0:
-#			what_is_in_last_segment = "RIGHT"
-#		elif last_segment == 1:
-#			what_is_in_last_segment = "LEFT"
-#		elif last_segment == 2:
-#			what_is_in_last_segment = "UP"
-#		elif last_segment == 3:
-#			what_is_in_last_segment = "DOWN"
-#		elif last_segment == 4:
-#			what_is_in_last_segment = "NONE"
-#
-#		print("loop...", "this, segment is: ", what_is_in_that_segment, " ", current_segment, "    LAST:", what_is_in_last_segment, "     CTRL_PT:", control_point)
-		
 		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			if last_segment == Direction.DOWN: # and (control_point.x > 0 or control_point.y < 0):
 #				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(second_variation, half_segment_size.y))
 			elif last_segment == Direction.UP: #and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif control_point.x > 0:
 				control_point.x = -control_point.x
 			last_segment = Direction.RIGHT
@@ -484,10 +459,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
 			if last_segment == Direction.DOWN: #and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif last_segment == Direction.UP: #and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(second_variation, half_segment_size.y))
 			elif control_point.x < 0:
 				control_point.x = -control_point.x
 			last_segment = Direction.LEFT
@@ -495,10 +470,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
 			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif control_point.y > 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.UP
@@ -506,10 +481,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
 			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(second_variation, half_segment_size.y))
 			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y < 0):
 #				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(second_variation, half_segment_size.y))
 			elif control_point.y < 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.DOWN

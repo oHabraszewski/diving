@@ -21,15 +21,15 @@ func _draw():
 				if incrementer == 2:
 					clr = Color(rng.randf_range(0, 1),rng.randf_range(0, 1),rng.randf_range(0, 1))
 					incrementer = 0
-				draw_circle(i, 2, clr)
+				draw_circle(i, 5, clr)
 				incrementer += 1
 			for i in points_to_draw:
-				draw_circle(i, 1, Color(0,1,0))
+				draw_circle(i, 2, Color(0,1,0))
 			pass
 		if draw:
 			var rng = RandomNumberGenerator.new()
 			var incrementer = 0
-			var clr = Color(rng.randf_range(0, 1),rng.randf_range(0, 1),rng.randf_range(0, 1))
+#			var clr = Color(rng.randf_range(0, 1),rng.randf_range(0, 1),rng.randf_range(0, 1))
 #			for i in $"..".red_p_t_d:
 #				if incrementer == 2:
 #					clr = Color(rng.randf_range(0, 1),rng.randf_range(0, 1),rng.randf_range(0, 1))
@@ -39,10 +39,13 @@ func _draw():
 ##		#		print(i)
 #			for i in $"..".points_to_draw:
 #				draw_circle(i, 20, Color(0,0,0))
-				
+			var ssize = Vector2(50,50)
 			for i in range(100):
-				draw_line(Vector2(0, i*100), Vector2(1000*10, i*100), Color(0, 0, 0))
-				draw_line(Vector2(i*100, 0), Vector2(i*100, 1000*10), Color(0, 0, 0))
+				draw_line(Vector2(0+ssize.x, i*100+ssize.y), Vector2(1000*10+ssize.x, i*100+ssize.y), Color(0, 0, 0), 5)
+				draw_line(Vector2(i*100+ssize.x, 0+ssize.y), Vector2(i*100+ssize.x, 1000*10+ssize.y), Color(0, 0, 0), 5)
+			for i in range(100):
+				draw_line(Vector2(0, i*100), Vector2(1000*10, i*100), Color(1, 0, 0))
+				draw_line(Vector2(i*100, 0), Vector2(i*100, 1000*10), Color(0, 0, 1))
 			
 func set_color(color):
 	OutLine = color

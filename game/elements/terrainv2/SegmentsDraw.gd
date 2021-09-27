@@ -8,7 +8,6 @@ export(Array) var segments_to_draw = []
 var segment_size   = Vector2(100, -100)
 var segment_offset = Vector2(50, 50)
 enum Direction {RIGHT = 0, LEFT = 1, UP = 2, DOWN = 3, NONE = 4}
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

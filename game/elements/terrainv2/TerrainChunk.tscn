@@ -18,7 +18,7 @@ scale = Vector2( 1, -1 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 script = ExtResource( 2 )
 OutLine = Color( 0.486275, 0.172549, 0.172549, 1 )
-Width = 0.0
+Width = 6.0
 
 [node name="StaticBody2DHitboxTerenu" type="StaticBody2D" parent="."]
 collision_layer = 2
