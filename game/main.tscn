@@ -316,6 +316,7 @@ autostart = true
 "anims/progress bar tint" = SubResource( 11 )
 
 [node name="Popup" type="Popup" parent="Interface"]
+visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -340,10 +341,10 @@ custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "You died :("
 
 [node name="Label2" type="Label" parent="Interface/Popup/Panel"]
-margin_left = 529.207
-margin_top = 839.239
-margin_right = 1022.21
-margin_bottom = 881.239
+margin_left = 330.0
+margin_top = 786.0
+margin_right = 1244.0
+margin_bottom = 868.0
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 10 )
 text = "TIP: to get oxygen swim to the top"
