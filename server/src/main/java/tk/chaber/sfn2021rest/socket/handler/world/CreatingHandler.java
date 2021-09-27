@@ -52,20 +52,27 @@ public class CreatingHandler extends WorldHandler{
                 User owner = potentialOwners.get(0);
 
                 if (owner.checkToken(uniqueKey)) {
+                    Long ownerId = owner.getId();
+                    List<World> ownersWorlds = worldsRepository.findByOwnerId(ownerId);
 
-                    if(!worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-                        World world = new World();
+                    if(ownersWorlds.size() < 10) {
 
-                        world.setOwnerId(owner.getId());
-                        world.setWorldName(worldName);
-                        world.setSeed(worldSeed);
-                        world.setWorldData(worldData);
+                        if (!worldsRepository.existsByOwnerIdAndWorldName(ownerId, worldName)) {
+                            World world = new World();
 
-                        worldsRepository.save(world);
+                            world.setOwnerId(owner.getId());
+                            world.setWorldName(worldName);
+                            world.setSeed(worldSeed);
+                            world.setWorldData(worldData);
 
-                        return new WorldResponse(this.event, world);
-                    }else{
-                        error = Error.WORLD_EXISTS;
+                            worldsRepository.save(world);
+
+                            return new WorldResponse(this.event, world);
+                        } else {
+                            error = Error.WORLD_EXISTS;
+                        }
+                    }else {
+                        error = Error.WORLD_NUMBER_LIMIT;
                     }
                 } else {
                     error = Error.AUTH_FAIL;

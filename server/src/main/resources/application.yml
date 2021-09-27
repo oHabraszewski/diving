@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.134:3306/sfn_dev2
+    url: jdbc:mysql://habery.tk:3306/sfn_dev2
     username: admin
     password: haslo
     continueOnError: true

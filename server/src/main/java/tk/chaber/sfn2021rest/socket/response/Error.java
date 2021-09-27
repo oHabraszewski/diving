@@ -7,6 +7,7 @@ public enum Error{
 
     WORLD_DOES_NOT_EXIST    ("11", "There is no world with such a name."),
     WORLD_EXISTS            ("12", "There is already a world with such a name."),
+    WORLD_NUMBER_LIMIT      ("15", "This user has achieved limit of stored worlds (10 worlds per user)"),
     MULTIPLE_WORLDS_EXIST   ("19", "Somehow there are 2 or more worlds with exactly the same names."),
 
     CASTING_IMPOSSIBLE      ("91", "There was problem casting data.");
