@@ -31,13 +31,13 @@ func _on_Button2_pressed():
 	segments = $TerrainChunk.generate_segments(segments, 200)
 	$TerrainChunk.generated_runned = true
 	var final_height = $TerrainChunk.calculate_final_height(segments)
-	$TerrainChunk.generate_objects(segments)
-#	print("calculated height is: ", final_height)
-#	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
+#	$TerrainChunk.generate_objects(segments)
+##	print("calculated height is: ", final_height)
+##	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
 	$TerrainChunk/Polygon2DKrztaltTerenu.polygon = $TerrainChunk.create_curve_based_on_segments(segments).tessellate()
 	$TerrainChunk/StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $TerrainChunk/Polygon2DKrztaltTerenu.polygon
-	$TerrainChunk/SegmentsDraw.show_segemnts(segments)
-#	$TerrainChunk.print_segments(segments)
+#	$TerrainChunk/SegmentsDraw.show_segemnts(segments)
+##	$TerrainChunk.print_segments(segments)
 	$SpinBox.value = $SpinBox.value + 1
 	pass # Replace with function body.
 

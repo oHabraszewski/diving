@@ -11,9 +11,9 @@ export(int) var generation_seed = 0
 export(int) var index
 export(int) var end_height = -1
 export(bool) var show_segments = true
-export(Dictionary) var objects 
+export(Dictionary) var objects = {"chests":[]}
 var generated_runned = false
-
+export(int) var chunk_id 
 
 
 var counter = 0
@@ -440,42 +440,17 @@ func create_curve_based_on_segments(segments: Array):
 	control_point = Vector2(0, 0)
 	
 	
-	
+	var half_segment_size = Vector2(segment_size.x / 2, segment_size.y / 2)
+	var second_variation = 0
 	while(current_segment.x < segment_count_x):
-#		var what_is_in_that_segment = ""
-#		var what_is_in_last_segment = ""
-#		if segments[current_segment.x][current_segment.y] == 0:
-#			what_is_in_that_segment = "RIGHT"
-#		elif segments[current_segment.x][current_segment.y] == 1:
-#			what_is_in_that_segment = "LEFT"
-#		elif segments[current_segment.x][current_segment.y] == 2:
-#			what_is_in_that_segment = "UP"
-#		elif segments[current_segment.x][current_segment.y] == 3:
-#			what_is_in_that_segment = "DOWN"
-#		elif segments[current_segment.x][current_segment.y] == 4:
-#			what_is_in_that_segment = "NONE"
-#
-#		if last_segment == 0:
-#			what_is_in_last_segment = "RIGHT"
-#		elif last_segment == 1:
-#			what_is_in_last_segment = "LEFT"
-#		elif last_segment == 2:
-#			what_is_in_last_segment = "UP"
-#		elif last_segment == 3:
-#			what_is_in_last_segment = "DOWN"
-#		elif last_segment == 4:
-#			what_is_in_last_segment = "NONE"
-#
-#		print("loop...", "this, segment is: ", what_is_in_that_segment, " ", current_segment, "    LAST:", what_is_in_last_segment, "     CTRL_PT:", control_point)
-		
 		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			if last_segment == Direction.DOWN: # and (control_point.x > 0 or control_point.y < 0):
 #				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(second_variation, half_segment_size.y))
 			elif last_segment == Direction.UP: #and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif control_point.x > 0:
 				control_point.x = -control_point.x
 			last_segment = Direction.RIGHT
@@ -484,10 +459,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
 			if last_segment == Direction.DOWN: #and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif last_segment == Direction.UP: #and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(second_variation, half_segment_size.y))
 			elif control_point.x < 0:
 				control_point.x = -control_point.x
 			last_segment = Direction.LEFT
@@ -495,10 +470,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
 			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), -10))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif control_point.y > 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.UP
@@ -506,10 +481,10 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
 			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
-				control_point = Vector2(rng.randf_range(10, segment_size.x / 2), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(second_variation, half_segment_size.y))
 			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y < 0):
 #				control_point = Vector2(-50,50)
-				control_point = Vector2(rng.randf_range(-(segment_size.x / 2), -10), rng.randf_range(10, segment_size.y / 2))
+				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(second_variation, half_segment_size.y))
 			elif control_point.y < 0:
 				control_point.y = -control_point.y
 			last_segment = Direction.DOWN
@@ -540,29 +515,40 @@ func create_curve_based_on_segments(segments: Array):
 	
 	
 func generate_objects(segments): # like seaweed, sharks etc.
+#	print("CHUNK_ID= ", chunk_id)
+	
 	var current_segment
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest = preload("res://elements/chest/chest.tscn")
-	
+	var chest_count = 0
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
+	current_segment.x += 1
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
-				this_sw.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-30)
-				self.add_child(this_sw)
+				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				$SegmentsDraw.add_child(this_sw)
 			elif rng.randi_range(1, 100) > 80:
 				
 				var this_ch = chest.instance()
-#				if objects.keys().has("chests"):
-#					print("skrzynia juz istnieje")
+				chest_count += 1
+				
+				
+				if objects["chests"] != []:
+					if objects["chests"].has(chest_count):
+						this_ch.opened = true
+						print("skrzynia juz istnieje")
+				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
-				this_ch.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-5)
+				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-5+50)
 				this_ch.connect("opened", self,"signal_interpreter")
-				self.add_child(this_ch)
+#				print("==CHEST===")
+#				print(this_ch.position, ", ", this_ch.chest_id, current_segment)
+				$SegmentsDraw.add_child(this_ch)
 				
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			current_segment.x += 1
@@ -584,6 +570,10 @@ func minus_index_flip(idx: int):
 		$Polygon2D.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
 		$Polygon2DKrztaltTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
 		$StaticBody2DHitboxTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
+		$SegmentsDraw.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2) 
+#		$SegmentsDraw.position.y += segment_size.y / 2
+#		$SegmentsDraw.position.x += segment_size.x / 2
+		
 		self.scale.x = -1 #obracanie chunka terenu
 	pass
 
@@ -618,8 +608,9 @@ func generate(starting_height):
 #| (__/  )| (___) |        /   (_/\| ) \ \__| (___) || )___) )___) (___| (____/\| )  \  |___) (___ | )   ( | _ 
 #(______/ (_______)       (_______/|/   \__/(_______)|/ \___/ \_______/(_______/|/    )_)\_______/ |/     \|(_)      
 func signal_interpreter(id):
-	emit_signal("chest_opened", id)
-#	print("opened")
+	var chid = String(chunk_id) + "." + String(id)
+	emit_signal("chest_opened", chid)
 	pass
+
 
 
