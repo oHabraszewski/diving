@@ -221,13 +221,13 @@ __meta__ = {
 }
 
 [node name="ProgressBar" type="ProgressBar" parent="Interface/Control2/Panel"]
-margin_left = 30.0
-margin_top = 56.0
-margin_right = 400.0
-margin_bottom = 76.0
+margin_left = 12.0
+margin_top = 13.0
+margin_right = 498.0
+margin_bottom = 134.0
 theme = ExtResource( 8 )
 step = 1.0
-value = 40.0
+value = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
