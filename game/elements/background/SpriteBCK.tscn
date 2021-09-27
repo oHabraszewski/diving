@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/background.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var me = preload(\"res://elements/background/SpriteBCK.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Area2D_area_entered(area):
+	var tme = me.instance()
+	tme.position.x += 23040
+	$\"..\".add_child(tme)
+	pass # Replace with function body.
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 10000 )
+
+[node name="SpriteBCK" type="Sprite"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+script = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -30.238, -171.349 )
+scale = Vector2( 0.333333, 0.333333 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 9426.13, 697.171 )
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
