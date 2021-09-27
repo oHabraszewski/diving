@@ -124,8 +124,7 @@ func _ready():
 #	[  ][  ][200][ ][ ][ ]
 
 
-#	chunks = {-1:200, -2:650, -3:850, -4:150, 0:200, 1:350, 2:550}
-#	add_chunk(true, 1, true)
+
 
 	add_chunk(true, generation_seed, true)
 	add_chunk(true, generation_seed)

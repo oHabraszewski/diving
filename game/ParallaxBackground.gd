@@ -18,7 +18,6 @@ func _process(delta):
 	$Sprite2.position.x = $"../Game/Player".position.x
 	$Sprite3.modulate = $Sprite.modulate
 	$Sprite4.modulate = $Sprite.modulate
-	print($"../Game/Player".position.x)
 	if $"../Game/Player".position.x > backgrounds[1].position.x + 23040 - 1080:
 		var asd = backgrounds.pop_front()
 		asd.position.x += 23040*3

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/chest-closed.png" type="Texture" id=1]
 [ext_resource path="res://elements/chest/chest.gd" type="Script" id=2]
 [ext_resource path="res://assets/bubble.png" type="Texture" id=3]
+[ext_resource path="res://assets/coin_single.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 285.39, 146.245 )
@@ -20,6 +21,25 @@ orbit_velocity_random = 0.0
 linear_accel_random = 0.38
 scale = 0.1
 scale_random = 0.26
+
+[sub_resource type="Curve" id=3]
+max_value = 656.52
+_data = [ Vector2( 0, 1 ), 0.0, 527.679, 0, 0, Vector2( 0.580556, 80.5729 ), 0.0, 0.0, 0, 0, Vector2( 0.983333, 438.675 ), 41.519, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+gravity = Vector3( 0, -800, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 14.74
+damping = 11.58
+damping_random = 0.07
+damping_curve = SubResource( 4 )
+scale = 2.0
+scale_random = 0.07
 
 [node name="Node2D" type="Node2D"]
 scale = Vector2( 0.2, 0.2 )
@@ -47,6 +67,18 @@ explosiveness = 0.12
 visibility_rect = Rect2( -300, 0, 400, 10 )
 process_material = SubResource( 2 )
 texture = ExtResource( 3 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+position = Vector2( 0.743256, -167.027 )
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.33
+explosiveness = 0.44
+randomness = 0.15
+process_material = SubResource( 5 )
+texture = ExtResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

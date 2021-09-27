@@ -330,6 +330,7 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="Interface"]
+visible = false
 margin_left = 506.428
 margin_top = 293.668
 margin_right = 546.428

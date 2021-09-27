@@ -20,6 +20,7 @@ func _on_Area2D_area_entered(area):
 	if not opened:
 		$Sprite.texture = preload("res://assets/chest-open.png")
 		$Particles2D.emitting = true
+		$Particles2D2.emitting = true
 		opened = true
 		emit_signal("opened", chest_id)
 	pass # Replace with function body.
