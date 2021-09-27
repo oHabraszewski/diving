@@ -540,6 +540,8 @@ func create_curve_based_on_segments(segments: Array):
 	
 	
 func generate_objects(segments): # like seaweed, sharks etc.
+#	print("CHUNK_ID= ", chunk_id)
+	
 	var current_segment
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest = preload("res://elements/chest/chest.tscn")
@@ -547,26 +549,31 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
+	current_segment.x += 1
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
-				this_sw.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-30)
-				self.add_child(this_sw)
+				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				$SegmentsDraw.add_child(this_sw)
 			elif rng.randi_range(1, 100) > 80:
 				
 				var this_ch = chest.instance()
 				chest_count += 1
+				
+				
 				if objects["chests"] != []:
 					if objects["chests"].has(chest_count):
 						this_ch.opened = true
 						print("skrzynia juz istnieje")
 				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
-				this_ch.position = Vector2(current_segment.x * segment_size.x,-(current_segment.y * segment_size.y)-5)
+				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-5+50)
 				this_ch.connect("opened", self,"signal_interpreter")
-				self.add_child(this_ch)
+#				print("==CHEST===")
+#				print(this_ch.position, ", ", this_ch.chest_id, current_segment)
+				$SegmentsDraw.add_child(this_ch)
 				
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
 			current_segment.x += 1
@@ -588,6 +595,10 @@ func minus_index_flip(idx: int):
 		$Polygon2D.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
 		$Polygon2DKrztaltTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
 		$StaticBody2DHitboxTerenu.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2)
+		$SegmentsDraw.position.x -= segment_size.x * segment_count_x + (segment_size.x / 2) 
+#		$SegmentsDraw.position.y += segment_size.y / 2
+#		$SegmentsDraw.position.x += segment_size.x / 2
+		
 		self.scale.x = -1 #obracanie chunka terenu
 	pass
 
