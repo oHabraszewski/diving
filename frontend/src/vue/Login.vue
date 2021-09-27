@@ -21,6 +21,7 @@
     import CheckVue from './components/Check.vue'
 
     import connect from "../js/utils/connectAxios.js"
+    import ConfigVars from "../js/utils/ConfigVars.js"
 
     export default {
         data() {
@@ -71,7 +72,7 @@
                 }else{
                     console.debug("There is no key, connecting with server...")
 
-                    let response = await connect("http://localhost:8080/loginValidation", {  //TODO: set right URL on production
+                    let response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/login", {
                         username: this.username,
                         password: this.password
                     })

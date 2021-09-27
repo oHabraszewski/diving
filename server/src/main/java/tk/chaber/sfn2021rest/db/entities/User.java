@@ -3,10 +3,7 @@ package tk.chaber.sfn2021rest.db.entities;
 import tk.chaber.sfn2021rest.utils.Hasher;
 import tk.chaber.sfn2021rest.utils.Randomizer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,8 +13,9 @@ import java.util.Arrays;
 @Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id", nullable = false, updatable = false, unique = true)
+    private Long id;
 
     private String username;
 
@@ -29,11 +27,11 @@ public class User {
 
     private byte[] salt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,7 +47,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String passToHash) {
+    public void setPassword(String passToHash) { //Hashes password and then saves it
 
         byte[] salt = Randomizer.randomBytes(16);
 
@@ -69,7 +67,7 @@ public class User {
         return token;
     }
 
-    public void setToken(String UK) {
+    public void setToken(String UK) { //Generates token based on given UniqueKey
         String username = this.getUsername();
 
         String toHash = username.concat(UK);
@@ -82,6 +80,19 @@ public class User {
         }
     }
 
+    public boolean checkToken(String UK){
+        String username = this.getUsername();
+        String toCheck = username.concat(UK);
+
+        try {
+            byte[] toCheckToken = Hasher.hashWithSalt(toCheck, this.getSalt());
+
+            return Arrays.equals(this.getToken(), toCheckToken);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     public String getEmail() {
         return email;
     }

@@ -21,6 +21,7 @@
     import InputVue from './components/Input.vue'
 
     import connect from "../js/utils/connectAxios.js"
+    import ConfigVars from "../js/utils/ConfigVars.js"
 
 
     export default {
@@ -51,7 +52,7 @@
                 this.sendData()
             },
             async sendData(){
-                const response = await connect("http://localhost:8080/registerValidation",{  //TODO: set right URL on production
+                const response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/register",{ 
                     username: this.username,
                     password: this.password,
                     email: this.email
