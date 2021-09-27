@@ -73,6 +73,7 @@ const ERROR_CODES = [
 
     "11", //There is no world with such a name.
     "12", //There is already a world with such a name.
+    "15", //This user has achieved limit of worlds (10 worlds per user).
     "19", //Somehow there are 2 or more worlds with exactly the same name.
 
     "91", //There was problem during casting data. It might mean, that numerical data was sent as a string or there was another issue with incompatible data types.
