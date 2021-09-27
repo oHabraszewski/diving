@@ -41,7 +41,7 @@ func _on_Player_bumped_into_rocks():
 
 func _on_Terrain_chest_opened(id):
 	points += 1
-	$Control3/Label.text = "Treasures found: " + String(points)
+	$Control3/HBoxContainer/Label.text = String(points) + " coins"
 	pass # Replace with function body.
 
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.301961, 0.545098, 0.827451, 1 )
 border_width_left = 5
 border_width_bottom = 5
@@ -10,14 +10,14 @@ border_color = Color( 0, 0.219608, 0.737255, 1 )
 border_blend = true
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.270588, 0.403922, 0.552941, 1 )
 border_width_left = 5
 border_width_bottom = 5
 border_color = Color( 0, 0.219608, 0.737255, 1 )
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.301961, 0.545098, 0.827451, 1 )
 border_width_left = 5
 border_width_bottom = 5
@@ -25,22 +25,22 @@ border_color = Color( 0, 0.219608, 0.737255, 1 )
 border_blend = true
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.156863, 0.223529, 0.301961, 1 )
 border_width_left = 5
 border_width_bottom = 5
 border_color = Color( 0, 0.219608, 0.737255, 1 )
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.301961, 0.545098, 0.827451, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.427451, 0.431373, 0.498039, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.352941, 0.843137, 1, 1 )
 border_width_top = 2
 border_width_right = 2
@@ -64,10 +64,10 @@ Button/colors/font_color_pressed = Color( 0, 0.219608, 0.737255, 1 )
 Button/colors/icon_color_hover = Color( 0, 0.219608, 0.737255, 1 )
 Button/colors/icon_color_pressed = Color( 0, 0.219608, 0.737255, 1 )
 Button/styles/disabled = null
-Button/styles/focus = SubResource( 4 )
-Button/styles/hover = SubResource( 5 )
-Button/styles/normal = SubResource( 6 )
-Button/styles/pressed = SubResource( 7 )
+Button/styles/focus = SubResource( 1 )
+Button/styles/hover = SubResource( 2 )
+Button/styles/normal = SubResource( 3 )
+Button/styles/pressed = SubResource( 4 )
 CheckBox/colors/font_color = Color( 0, 0, 0, 1 )
 CheckBox/colors/font_color_disabled = Color( 0, 0, 0, 1 )
 CheckBox/colors/font_color_hover = Color( 0, 0, 0, 1 )
@@ -928,7 +928,7 @@ Label/constants/line_spacing = 3
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
-Label/styles/normal = SubResource( 1 )
+Label/styles/normal = SubResource( 5 )
 LineEdit/colors/clear_button_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 0, 0, 0, 1 )
 LineEdit/colors/cursor_color = Color( 0, 0, 0, 1 )
@@ -970,7 +970,7 @@ OptionButton/styles/focus = null
 OptionButton/styles/hover = null
 OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
-Panel/styles/panel = SubResource( 8 )
+Panel/styles/panel = SubResource( 6 )
 PanelContainer/styles/panel = null
 PopupDialog/styles/panel = null
 PopupMenu/colors/font_color = Color( 0, 0, 0, 1 )
@@ -997,8 +997,8 @@ PopupMenu/styles/pressed = null
 PopupMenu/styles/separator = null
 PopupPanel/styles/panel = null
 ProgressBar/colors/font_color = Color( 1, 1, 1, 1 )
-ProgressBar/styles/bg = SubResource( 2 )
-ProgressBar/styles/fg = SubResource( 3 )
+ProgressBar/styles/bg = SubResource( 7 )
+ProgressBar/styles/fg = SubResource( 8 )
 ProjectSettingsEditor/styles/panel = null
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 RichTextLabel/colors/font_color_shadow = Color( 0, 0, 0, 1 )

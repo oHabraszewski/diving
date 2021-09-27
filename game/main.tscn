@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -10,38 +10,39 @@
 [ext_resource path="res://assets/theme.tres" type="Theme" id=8]
 [ext_resource path="res://assets/zawor.png" type="Texture" id=9]
 [ext_resource path="res://Interface.gd" type="Script" id=10]
+[ext_resource path="res://assets/coin.png" type="Texture" id=11]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -150, 0 )
 b = Vector2( 150, 0 )
 
-[sub_resource type="OpenSimplexNoise" id=4]
+[sub_resource type="OpenSimplexNoise" id=2]
 octaves = 5
 period = 39.6
 persistence = 0.991
 lacunarity = 2.07
 
-[sub_resource type="NoiseTexture" id=5]
+[sub_resource type="NoiseTexture" id=3]
 seamless = true
 as_normalmap = true
-noise = SubResource( 4 )
+noise = SubResource( 2 )
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.323194 )
 colors = PoolColorArray( 0.47451, 0.678431, 1, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 117.228, 22 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=7]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 1, 0, 0, 1 )
 border_width_left = 10
 border_width_top = 10
@@ -56,8 +57,8 @@ corner_radius_bottom_right = 400
 size = 48
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=12]
-size = 32
+[sub_resource type="DynamicFont" id=10]
+size = 64
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
@@ -76,13 +77,12 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.768627, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.776471, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=12]
 size = 100
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "change_bck_to_air"
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
 tracks/0/interp = 1
@@ -157,13 +157,13 @@ polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 modulate = Color( 1, 1, 1, 0.929412 )
 position = Vector2( 163.684, -981.044 )
 color = Color( 0.0784314, 0.301961, 0.690196, 1 )
-texture = SubResource( 5 )
+texture = SubResource( 3 )
 polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 
 [node name="Polygon2DAir" type="Polygon2D" parent="Game/Air"]
 modulate = Color( 1, 1, 1, 0.929412 )
 position = Vector2( 201.739, -1981.17 )
-texture = SubResource( 8 )
+texture = SubResource( 5 )
 texture_rotation_degrees = 90.0
 polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 
@@ -171,7 +171,7 @@ polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 collision_layer = 262144
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Air/Area2D2"]
-shape = SubResource( 3 )
+shape = SubResource( 6 )
 
 [node name="Player" parent="Game" instance=ExtResource( 3 )]
 position = Vector2( -0.741939, 50.5951 )
@@ -215,7 +215,7 @@ margin_left = -506.0
 margin_top = -294.0
 margin_right = -195.0
 margin_bottom = -244.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 7 )
 text = "Player position:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -233,7 +233,7 @@ margin_left = 936.881
 margin_top = 41.5595
 margin_right = 1556.88
 margin_bottom = 188.56
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -282,12 +282,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Interface/Control3"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control3"]
+margin_left = -23.0
+margin_top = -36.0
+margin_right = 561.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Interface/Control3/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 100.0
+texture = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="Interface/Control3/HBoxContainer"]
+margin_left = 104.0
+margin_top = 9.0
+margin_right = 300.0
+margin_bottom = 91.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
-text = "Treasures found: 0"
+custom_fonts/font = SubResource( 10 )
+text = "0 coins"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="OxygenTimer" type="Timer" parent="Interface"]
 wait_time = 0.431
@@ -297,7 +316,6 @@ autostart = true
 "anims/progress bar tint" = SubResource( 11 )
 
 [node name="Popup" type="Popup" parent="Interface"]
-visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -316,7 +334,7 @@ margin_top = 286.128
 margin_right = 1019.5
 margin_bottom = 415.128
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0, 0.219608, 0.737255, 1 )
 custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "You died :("
@@ -327,7 +345,7 @@ margin_top = 839.239
 margin_right = 1022.21
 margin_bottom = 881.239
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 10 )
 text = "TIP: to get oxygen swim to the top"
 
 [node name="Button" type="Button" parent="Interface/Popup/Panel"]
@@ -360,7 +378,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/change_bck_to_air = SubResource( 6 )
+anims/change_bck_to_air = SubResource( 13 )
 
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
