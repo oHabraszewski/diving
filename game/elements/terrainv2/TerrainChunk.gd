@@ -440,8 +440,8 @@ func create_curve_based_on_segments(segments: Array):
 	control_point = Vector2(0, 0)
 	
 	
-	var half_segment_size = Vector2(segment_size.x / 2, segment_size.y / 2)
-	var second_variation = 0
+	var half_segment_size = Vector2(segment_size.x / 2-5, segment_size.y / 2-5)
+	var second_variation = 5
 	while(current_segment.x < segment_count_x):
 		control_point = Vector2(rng.randf_range(-(segment_size.x / 2), segment_size.x / 2), rng.randf_range(-(segment_size.y / 2), segment_size.y / 2))
 		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
@@ -459,7 +459,7 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
 			if last_segment == Direction.DOWN: #and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
-				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))
+				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range((half_segment_size.y), second_variation))
 			elif last_segment == Direction.UP: #and (control_point.x < 0 or control_point.y < 0):
 #				control_point = Vector2(50,50)
 				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(second_variation, half_segment_size.y))
@@ -470,7 +470,7 @@ func create_curve_based_on_segments(segments: Array):
 		elif segments[current_segment.x][current_segment.y] == Direction.UP:
 			if last_segment == Direction.LEFT: # and (control_point.x < 0 or control_point.y > 0):
 #				control_point = Vector2(-50,-50)
-				control_point = Vector2(rng.randf_range(-(half_segment_size.x), -second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
+				control_point = Vector2(rng.randf_range((half_segment_size.x), second_variation), rng.randf_range(-(half_segment_size.y), -second_variation))
 			elif last_segment == Direction.RIGHT: # and (control_point.x > 0 or control_point.y > 0):
 #				control_point = Vector2(50,-50)
 				control_point = Vector2(rng.randf_range(second_variation, half_segment_size.x), rng.randf_range(-(half_segment_size.y), -second_variation))

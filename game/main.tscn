@@ -38,7 +38,7 @@ gradient = SubResource( 4 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 117.228, 22 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 1, 0, 0, 1 )
 border_width_left = 10
 border_width_top = 10
@@ -49,17 +49,16 @@ border_blend = true
 corner_radius_top_right = 400
 corner_radius_bottom_right = 400
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=10]
 size = 48
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 64
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=11]
-resource_name = "progress bar tint"
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control2/Panel/ProgressBar:modulate")
 tracks/0/interp = 1
@@ -73,17 +72,17 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.768627, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.776471, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 100
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=14]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
 tracks/0/interp = 1
@@ -203,7 +202,7 @@ margin_left = 936.881
 margin_top = 41.5595
 margin_right = 1556.88
 margin_bottom = 188.56
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -214,7 +213,7 @@ margin_top = 37.0
 margin_right = 1577.0
 margin_bottom = 107.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "O2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -272,7 +271,7 @@ margin_top = 9.0
 margin_right = 300.0
 margin_bottom = 91.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "0 coins"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -283,7 +282,7 @@ wait_time = 0.431
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
-"anims/progress bar tint" = SubResource( 11 )
+"anims/progress bar tint" = SubResource( 12 )
 
 [node name="Popup" type="Popup" parent="Interface"]
 margin_right = 1613.0
@@ -304,7 +303,7 @@ margin_top = 286.128
 margin_right = 1019.5
 margin_bottom = 415.128
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0, 0.219608, 0.737255, 1 )
 custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "You died :("
@@ -315,7 +314,7 @@ margin_top = 786.0
 margin_right = 1244.0
 margin_bottom = 868.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "TIP: to get oxygen swim to the top"
 
 [node name="Button" type="Button" parent="Interface/Popup/Panel"]
@@ -354,7 +353,7 @@ margin_left = -506.0
 margin_top = -294.0
 margin_right = -195.0
 margin_bottom = -244.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 14 )
 text = "Player position:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -388,7 +387,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/change_bck_to_air = SubResource( 13 )
+anims/change_bck_to_air = SubResource( 15 )
 
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
