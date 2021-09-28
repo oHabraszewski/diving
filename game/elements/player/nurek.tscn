@@ -8,7 +8,7 @@
 radius = 19.9095
 height = 27.7678
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=2]
 resource_name = "progress bar tint"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control2/Panel/ProgressBar:modulate")
@@ -58,7 +58,7 @@ position = Vector2( 1.06351, 0.522574 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/taking damage" = SubResource( 11 )
+"anims/taking damage" = SubResource( 2 )
 
 [node name="Particles2D2" type="Particles2D" parent="."]
 position = Vector2( 2.09185, -2.80658 )

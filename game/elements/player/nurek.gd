@@ -27,6 +27,10 @@ func _process(delta):
 		if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and self.linear_velocity.x < 380:
 			self.linear_velocity.x += 15
 			self.get_child(0).flip_h = false
+			
+		$CollisionShape2D.rotation = deg2rad(self.linear_velocity.x/380)*25
+		$nurek.rotation = deg2rad(self.linear_velocity.x/380)*25
+		$Area2D.rotation = deg2rad(self.linear_velocity.x/380)*25
 	else:
 		if Input.is_action_pressed("move_down"):
 			self.linear_velocity.y += 5
