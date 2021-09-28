@@ -150,7 +150,7 @@ collision_layer = 262144
 shape = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Game/Air"]
-position = Vector2( -4.48975, 0 )
+position = Vector2( 0, 1000 )
 color = Color( 0.486275, 0.172549, 0.172549, 1 )
 polygon = PoolVector2Array( 4000, 1000, -4000, 1000, -4000, 2000, 4000, 2000 )
 
@@ -186,14 +186,15 @@ smoothing_enabled = true
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]
 position = Vector2( -612.173, 3.36365 )
+segment_count_y = 20
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 script = ExtResource( 10 )
 
 [node name="Control2" type="Control" parent="Interface"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1658.0
+margin_bottom = 264.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -227,7 +228,7 @@ margin_right = 498.0
 margin_bottom = 134.0
 theme = ExtResource( 8 )
 step = 1.0
-value = 100.0
+value = 98.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

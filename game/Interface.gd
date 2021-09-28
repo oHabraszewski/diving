@@ -47,6 +47,7 @@ func _on_Terrain_chest_opened(id):
 		$Control3/HBoxContainer/Label.text = String(points) + " coin"
 	else:
 		$Control3/HBoxContainer/Label.text = String(points) + " coins"
+	oxygen_level += 13
 	pass # Replace with function body.
 
 
