@@ -25,6 +25,8 @@ func _on_OxygenTimer_timeout():
 		oxygen_level -= 1
 	else:
 		oxygen_level += 10
+	if oxygen_level < 15:
+		$AnimationPlayer.play("progress bar tint")
 	if oxygen_level > 100:
 		oxygen_level = 100
 	pass # Replace with function body.
