@@ -22,7 +22,7 @@ func _on_Button_pressed():
 
 
 func _on_Button2_pressed():
-	$TerrainChunk.generation_seed = $SpinBox.value
+	$TerrainChunk.generation_seed = $CanvasLayer/SpinBox.value
 	$TerrainChunk.rng.seed = $TerrainChunk.generation_seed
 	$TerrainChunk.segment_count_y = 20
 	# jeśli dostanie takie samo generation seed i takie samo start height powinno generować ten sam teren
@@ -38,7 +38,7 @@ func _on_Button2_pressed():
 	$TerrainChunk/StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $TerrainChunk/Polygon2DKrztaltTerenu.polygon
 #	$TerrainChunk/SegmentsDraw.show_segemnts(segments)
 ##	$TerrainChunk.print_segments(segments)
-	$SpinBox.value = $SpinBox.value + 1
+	$CanvasLayer/SpinBox.value = $CanvasLayer/SpinBox.value + 1
 	pass # Replace with function body.
 
 
@@ -364,4 +364,9 @@ func _on_Button6_pressed():
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
+	pass # Replace with function body.
+
+
+func _on_HSlider_value_changed(value):
+	$Camera2D.zoom = Vector2(value, value)
 	pass # Replace with function body.
