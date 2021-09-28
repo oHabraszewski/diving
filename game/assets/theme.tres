@@ -46,7 +46,10 @@ border_width_top = 2
 border_width_right = 2
 border_color = Color( 0.0588235, 0.47451, 0.560784, 1 )
 border_blend = true
+corner_radius_top_left = 5
 corner_radius_top_right = 50
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 shadow_color = Color( 0.184314, 0.184314, 0.184314, 0.6 )
 shadow_size = 7
 
