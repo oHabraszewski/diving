@@ -30,6 +30,6 @@
 <style lang="scss" scoped>
     .credits {
         width: 60vw;
-        top: 10%;
+        top: 5%;
     }
 </style>

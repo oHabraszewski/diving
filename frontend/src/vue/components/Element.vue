@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="element-container">
-            <slot></slot>
+            <p><slot></slot></p>
         </div>
     </li> 
 </template>
@@ -12,6 +12,7 @@
 </script>
 <style lang="scss" scoped>
     @import '../../scss/variables';
-    
-    
+    p {
+        font-size: 34px;
+    }
 </style>

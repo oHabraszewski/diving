@@ -12,8 +12,10 @@
             <p v-if="!success">{{error}}</p>
             <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
             <link-vue destination="/register">Don't have an account?</link-vue>
+        </div>
+        <div class="bottom">
             <link-vue destination="/credits">We made this game!</link-vue>
-            <link-vue destination="/technical">Check how we made this game</link-vue>
+            <link-vue destination="/technical">See how we made this game</link-vue>
         </div>
     </div>
 </template>
@@ -127,6 +129,16 @@
         img{
             width: 80px;
             height: 80px;
+        }
+   }
+   .bottom {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        bottom: 8px;
+        left: 8px;
+        div {
+            margin: 0px 16px 4px 4px;
         }
    }
 </style>
