@@ -1,0 +1,61 @@
+.link[data-v-26908da1] {
+  font-size: 24px;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+.link[data-v-26908da1]:hover {
+  cursor: pointer;
+}
+.check-container[data-v-26b41d71] {
+  margin-top: 6px;
+  height: 32px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.check[data-v-26b41d71] {
+  opacity: 0;
+  height: 1px;
+  width: 1px;
+}
+.check-style[data-v-26b41d71] {
+  height: 28px;
+  width: 28px;
+  background-color: #266159;
+  border-radius: 6px;
+  border: solid #103131 3px;
+}
+.check-style[data-v-26b41d71]::after {
+  content: "";
+  position: relative;
+  display: none;
+}
+.check-label[data-v-26b41d71] {
+  font-size: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.check-label .check-style[data-v-26b41d71]::after {
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  border: solid #103131;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.check-label input:checked ~ .check-style[data-v-26b41d71]::after {
+  display: block;
+}
+.check-label input:checked ~ .check-style[data-v-26b41d71] {
+  background-color: #367169;
+}
+.check-label input:hover ~ .check-style[data-v-26b41d71] {
+  background-color: #367169;
+}
+
+/*# sourceMappingURL=index.css.map*/

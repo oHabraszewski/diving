@@ -37,12 +37,12 @@ let output = {};
 {
   if (isDev) {
     output = {
-      path: path.resolve(__dirname, '../server/public'),
+      path: path.resolve(__dirname, '../server/src/main/resources/public'),
       filename: '[name].bundle.js',
     };
   } else {
     output = {
-      path: path.resolve(__dirname, '../server/public'),
+      path: path.resolve(__dirname, '../server/src/main/resources/public'),
       filename: '[contenthash].js', 
       jsonpFunction: 'a',
     };

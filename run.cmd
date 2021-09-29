@@ -72,8 +72,8 @@ if "%1" == "dev" (
 if not "%JAVA_HOME%"=="" (
 cd ..
 
-if not exist server/public (
-    mkdir server/public
+if not exist server/src/main/resources/public (
+    mkdir server/src/main/resources/public
 )
 
 cd game
