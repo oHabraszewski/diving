@@ -386,22 +386,44 @@ func generate_segments(segments: Array, starting_height = 200):
 #				ground += 1 
 #			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
 #				segments[i][j] = Direction.SOLID_GROUND
+#	for i in range(segments.size()-2):
+#			for j in range(segments[i].size()-2):
+#				print("I=", i, ", J=", segments[i].size()-2-j)
+#				if segments[i][segments[i].size()-2-j] != Direction.NONE and segments[i][segments[i].size()-2-j-1] == Direction.NONE:
+#					segments[i][segments[i].size()-2-j+1] = Direction.SOLID_GROUND
+#					continue
+#	var indexxx = 1
+#	while segments[segment_count_x-1][indexxx] == Direction.NONE:
+#		segments[segment_count_x-1][indexxx] = Direction.SOLID_GROUND
+#		indexxx += 1
+		
+#	print_segments(segments)
+		
 	for i in range(segments.size()):
 		segments[i][0] = Direction.SOLID_GROUND
-	var print_val = ""
+
+#	for i in range(segment_count_y-1):
+#		if segments[segment_count_x-1][i+1] != Direction.NONE:
+#			ground = false
+#		if ground:
+#			segments[segment_count_x-1][i+1] = Direction.SOLID_GROUND
+#		print_segments(segments)
+#	print_debug("asd")
 	var ground = false
 	while not ground:
-		ground = false
+		ground = true
 		for i in range(segments.size()-1):
 			for j in range(segments[i].size()-1):
 #			print("Po LEWO", segments[i][j+1])
 #			print("Po PRaWO", segments[i][j-1])
 #			print("Po dol", segments[i-1][j])
-#			print("Po gora", segments[i+1][j])
+#			print("Po gora", segments[i+1][j]) 
 				if segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND or segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND:
 					if segments[i][j] == Direction.NONE:
 						segments[i][j] = Direction.SOLID_GROUND
-						ground = true
+						ground = false
+#		print_segments(segments)
+#		print_segments(segments)
 	return segments
 	
 	
