@@ -549,7 +549,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	current_segment.x += 1
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
-		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
+		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
