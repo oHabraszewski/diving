@@ -1,6 +1,8 @@
 <template>
     <div>
-        <a class="github" href="https://github.com/oHabraszewski/sfn2021" target="_blank"><img src="../../assets/img/github.png"></a>
+        <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" title="Check EXACTLY how we made this game" target="_blank"><img src="../../assets/img/github.png"></a>
+        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" title="Join Palac Mlodziezy's group on Discord!" target="_blank"><img src="../../assets/img/discord_new.png"></a>
+
         <div class="login center horizontal-vertical" >
             <h1>Diving</h1>
             <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
@@ -120,16 +122,21 @@
     }
 </script>
 <style lang="scss" scoped>
-   .github {
+   .social{
         position: absolute;
         left: 8px;
-        top: 8px;
         width: 80px;
         height: 80px;
         img{
             width: 80px;
             height: 80px;
         }
+   }
+   #github{
+       top: 8px;
+   }
+   #discord{
+       top: 104px;
    }
    .bottom {
         position: absolute;
