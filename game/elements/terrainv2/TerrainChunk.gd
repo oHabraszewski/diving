@@ -3,6 +3,8 @@ extends Node2D
 signal generate_new_terrain()
 signal generate_terrain_that_was_before()
 signal chest_opened(id)
+signal bb_exited()
+signal bb_entered()
 
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
@@ -386,22 +388,44 @@ func generate_segments(segments: Array, starting_height = 200):
 #				ground += 1 
 #			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
 #				segments[i][j] = Direction.SOLID_GROUND
+#	for i in range(segments.size()-2):
+#			for j in range(segments[i].size()-2):
+#				print("I=", i, ", J=", segments[i].size()-2-j)
+#				if segments[i][segments[i].size()-2-j] != Direction.NONE and segments[i][segments[i].size()-2-j-1] == Direction.NONE:
+#					segments[i][segments[i].size()-2-j+1] = Direction.SOLID_GROUND
+#					continue
+#	var indexxx = 1
+#	while segments[segment_count_x-1][indexxx] == Direction.NONE:
+#		segments[segment_count_x-1][indexxx] = Direction.SOLID_GROUND
+#		indexxx += 1
+		
+#	print_segments(segments)
+		
 	for i in range(segments.size()):
 		segments[i][0] = Direction.SOLID_GROUND
-	var print_val = ""
+
+#	for i in range(segment_count_y-1):
+#		if segments[segment_count_x-1][i+1] != Direction.NONE:
+#			ground = false
+#		if ground:
+#			segments[segment_count_x-1][i+1] = Direction.SOLID_GROUND
+#		print_segments(segments)
+#	print_debug("asd")
 	var ground = false
 	while not ground:
-		ground = false
+		ground = true
 		for i in range(segments.size()-1):
 			for j in range(segments[i].size()-1):
 #			print("Po LEWO", segments[i][j+1])
 #			print("Po PRaWO", segments[i][j-1])
 #			print("Po dol", segments[i-1][j])
-#			print("Po gora", segments[i+1][j])
+#			print("Po gora", segments[i+1][j]) 
 				if segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND or segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND:
 					if segments[i][j] == Direction.NONE:
 						segments[i][j] = Direction.SOLID_GROUND
-						ground = true
+						ground = false
+#		print_segments(segments)
+#		print_segments(segments)
 	return segments
 	
 	
@@ -520,6 +544,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	var current_segment
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest = preload("res://elements/chest/chest.tscn")
+	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
 	var chest_count = 0
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
@@ -527,12 +552,18 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	current_segment.x += 1
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
-		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT or segments[current_segment.x][current_segment.y] == Direction.LEFT):
+		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
-			elif rng.randi_range(1, 100) > 80:
+			elif rng.randi_range(1, 100) > 94:
+				var this_bb = bubbles.instance()
+				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				this_bb.connect("bbenter", self, "bb_pass_enter")
+				this_bb.connect("bbexit", self, "bb_pass_exit")
+				$SegmentsDraw.add_child(this_bb)
+			elif rng.randi_range(1, 100) > 90:
 				
 				var this_ch = chest.instance()
 				chest_count += 1
@@ -610,6 +641,12 @@ func generate(starting_height):
 func signal_interpreter(id):
 	var chid = String(chunk_id) + "." + String(id)
 	emit_signal("chest_opened", chid)
+	pass
+func bb_pass_exit():
+	emit_signal("bb_exited")
+	pass
+func bb_pass_enter():
+	emit_signal("bb_entered")
 	pass
 
 
