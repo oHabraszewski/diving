@@ -294,7 +294,6 @@ autostart = true
 "anims/progress bar tint" = SubResource( 10 )
 
 [node name="Popup" type="Popup" parent="Interface"]
-visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
