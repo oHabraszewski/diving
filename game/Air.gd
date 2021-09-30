@@ -15,7 +15,12 @@ func _ready():
 func player_moved(player):
 	self.position.x = player.position.x
 	pass
-
+func player_entered_bubbles():
+	player_is_in_water = false
+	pass
+func player_exited_bubbles():
+	player_is_in_water = true
+	pass
 
 func _on_Area2D2_area_entered(area):
 	if player_is_in_water:

@@ -67,6 +67,7 @@ move_stop={
 2d_physics/layer_2="generation_area"
 2d_physics/layer_3="shark"
 2d_physics/layer_4="chest"
+2d_physics/layer_5="bubbles"
 
 [rendering]
 

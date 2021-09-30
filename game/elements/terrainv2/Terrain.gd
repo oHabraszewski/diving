@@ -11,6 +11,8 @@ export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
 export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 signal chest_opened(id)
+signal bubbles_entered()
+signal bubbles_exited()
 
 func check_for_bad_values():
 	if segment_count_x < 10:
@@ -51,6 +53,8 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 	var incrementar 
 	var instance = terrain_chunk.instance()
 	instance.connect("chest_opened", self, "signal_resolver")
+	instance.connect("bb_exited", self, "bb_exit")
+	instance.connect("bb_entered", self, "bb_enter")
 	instance.segment_count_x = segment_count_x 
 	instance.segment_count_y = segment_count_y 
 	instance.segment_size = segment_size
@@ -58,6 +62,8 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 		#gdy zaczyna się nowa gra pierwszy chunk jest tworzony tutaj
 		current_chunks[start_index] = terrain_chunk.instance()
 		current_chunks[start_index].connect("chest_opened", self, "signal_resolver")
+		current_chunks[start_index].connect("bb_exited", self, "bb_exit")
+		current_chunks[start_index].connect("bb_entered", self, "bb_enter")
 		current_chunks[start_index].generation_seed = calculate_seed(start_index)
 		current_chunks[start_index].segment_count_x = segment_count_x 
 		current_chunks[start_index].segment_count_y = segment_count_y 
@@ -168,4 +174,10 @@ func _on_Bounds_colision_right():
 func signal_resolver(id):
 	emit_signal("chest_opened", id)
 	print(id)
+	pass
+func bb_exit():
+	emit_signal("bubbles_exited")
+	pass
+func bb_enter():
+	emit_signal("bubbles_entered")
 	pass

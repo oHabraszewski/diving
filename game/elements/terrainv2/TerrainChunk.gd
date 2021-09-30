@@ -3,6 +3,8 @@ extends Node2D
 signal generate_new_terrain()
 signal generate_terrain_that_was_before()
 signal chest_opened(id)
+signal bb_exited()
+signal bb_entered()
 
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
@@ -542,6 +544,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	var current_segment
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest = preload("res://elements/chest/chest.tscn")
+	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
 	var chest_count = 0
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
@@ -554,7 +557,13 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				var this_sw = seaweed.instance()
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
-			elif rng.randi_range(1, 100) > 80:
+			elif rng.randi_range(1, 100) > 94:
+				var this_bb = bubbles.instance()
+				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				this_bb.connect("bbenter", self, "bb_pass_enter")
+				this_bb.connect("bbexit", self, "bb_pass_exit")
+				$SegmentsDraw.add_child(this_bb)
+			elif rng.randi_range(1, 100) > 90:
 				
 				var this_ch = chest.instance()
 				chest_count += 1
@@ -632,6 +641,12 @@ func generate(starting_height):
 func signal_interpreter(id):
 	var chid = String(chunk_id) + "." + String(id)
 	emit_signal("chest_opened", chid)
+	pass
+func bb_pass_exit():
+	emit_signal("bb_exited")
+	pass
+func bb_pass_enter():
+	emit_signal("bb_entered")
 	pass
 
 
