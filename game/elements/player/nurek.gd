@@ -73,5 +73,6 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_Timer_timeout():
-	$Particles2D2.emitting = true
+	if $"../Air".player_is_in_water:
+		$Particles2D2.emitting = true
 	pass # Replace with function body.
