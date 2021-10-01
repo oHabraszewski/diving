@@ -575,7 +575,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				this_bb.connect("bbenter", self, "bb_pass_enter")
 				this_bb.connect("bbexit", self, "bb_pass_exit")
 				$SegmentsDraw.add_child(this_bb)
-			elif rng.randi_range(1, 100) > 89:
+			elif rng.randi_range(1, 100) > 89 and current_segment.y < 2:
 				var this_b = bomb.instance()
 				this_b.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
 				this_b.connect("explode", self, "b_pass_explode")
