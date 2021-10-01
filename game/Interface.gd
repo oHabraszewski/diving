@@ -108,3 +108,31 @@ func bubbles_entered():
 func _on_Timer_timeout():
 	play_time += 1
 	pass # Replace with function body.
+
+var dead_zone = 15
+func _on_Joystick_moved_raw(direction):
+	Input.action_release("move_down")
+	Input.action_release("move_up")
+	Input.action_release("move_left")
+	Input.action_release("move_right")
+	if direction.x > dead_zone:
+		Input.action_press("move_right")
+	if direction.x < -dead_zone:
+		Input.action_press("move_left")
+	if direction.y > dead_zone:
+		Input.action_press("move_down")
+	if direction.y < -dead_zone:
+		Input.action_press("move_up")
+		
+	$"../Game/Player".side_force_multiplier = abs(direction.x / 100)
+	$"../Game/Player".vertical_force_multiplier = abs(direction.y / 100)
+	pass # Replace with function body.
+
+
+func _on_Joystick_released():
+	Input.action_release("move_down")
+	Input.action_release("move_up")
+	Input.action_release("move_left")
+	Input.action_release("move_right")
+	print("welp")
+	pass # Replace with function body.

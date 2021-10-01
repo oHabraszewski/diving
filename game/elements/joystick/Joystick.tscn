@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://elements/joystick/Polygon2D.gd" type="Script" id=1]
+[ext_resource path="res://elements/joystick/Polygon2D2.gd" type="Script" id=2]
+[ext_resource path="res://elements/joystick/Joystick.gd" type="Script" id=3]
+
+[node name="Joystick" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Tlo" type="Polygon2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Galka" type="Polygon2D" parent="."]
+color = Color( 0, 0.247059, 0.6, 1 )
+script = ExtResource( 1 )
