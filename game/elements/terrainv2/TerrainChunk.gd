@@ -544,6 +544,8 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	var chest_count = 0
 	var current_segment
 	var coral   = preload("res://assets/koralowiec.png")
+	var shell   = preload("res://assets/muszla.png")
+	var shell2   = preload("res://assets/muszla2.png")
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest   = preload("res://elements/chest/chest.tscn")
 	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
@@ -569,6 +571,22 @@ func generate_objects(segments): # like seaweed, sharks etc.
 					this_crl.flip_h = true
 				this_crl.modulate = Color(rand_range(40, 255) / 255, rand_range(40, 255) / 255, rand_range(40, 255) / 255)
 				$SegmentsDraw.add_child(this_crl)
+			elif rng.randi_range(1, 100) > 94:
+				var this_sh = Sprite.new()
+				this_sh.texture = shell2
+				this_sh.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-10+50)
+				this_sh.rotation_degrees = randi() % 40 - 20
+				if randi() % 2 == 0:
+					this_sh.flip_h = true
+				this_sh.modulate = Color(rand_range(40, 235) / 255, rand_range(40, 235) / 255, rand_range(40, 235) / 255)
+				$SegmentsDraw.add_child(this_sh)
+			elif rng.randi_range(1, 100) > 96:
+				var this_sh2 = Sprite.new()
+				this_sh2.texture = shell
+				this_sh2.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
+				if randi() % 2 == 0:
+					this_sh2.flip_h = true
+				$SegmentsDraw.add_child(this_sh2)
 			elif rng.randi_range(1, 100) > 94:
 				var this_bb = bubbles.instance()
 				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-20+50)
