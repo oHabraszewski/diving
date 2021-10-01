@@ -559,9 +559,17 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				this_sw.scale.y += (randi() % 3) * 0.1
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
+			elif rng.randi_range(1, 100) > 74:
+				var this_crl = Sprite.new()
+				this_crl.texture = coral
+				this_crl.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-50+50)
+				if randi() % 2 == 0:
+					this_crl.flip_h = true
+				this_crl.modulate = Color(rand_range(40, 255) / 255, rand_range(40, 255) / 255, rand_range(40, 255) / 255)
+				$SegmentsDraw.add_child(this_crl)
 			elif rng.randi_range(1, 100) > 94:
 				var this_bb = bubbles.instance()
-				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-20+50)
 				this_bb.connect("bbenter", self, "bb_pass_enter")
 				this_bb.connect("bbexit", self, "bb_pass_exit")
 				$SegmentsDraw.add_child(this_bb)
@@ -577,7 +585,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 						print("skrzynia juz istnieje")
 				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
-				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-5+50)
+				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+5+50)
 				this_ch.connect("opened", self,"signal_interpreter")
 #				print("==CHEST===")
 #				print(this_ch.position, ", ", this_ch.chest_id, current_segment)
