@@ -11,9 +11,8 @@ config_version=4
 [application]
 
 config/name="godot_sfn2021"
-run/main_scene="res://debug_unit_test.tscn"
-boot_splash/fullsize=false
-boot_splash/bg_color=Color( 0.027451, 0.156863, 0.458824, 1 )
+run/main_scene="res://main.tscn"
+boot_splash/bg_color=Color( 0.129412, 0.290196, 0.662745, 1 )
 config/icon="res://icon.png"
 
 [debug]
