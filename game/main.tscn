@@ -295,7 +295,6 @@ autostart = true
 "anims/progress bar tint" = SubResource( 10 )
 
 [node name="Popup" type="Popup" parent="Interface"]
-visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -423,6 +422,7 @@ anims/change_bck_to_air = SubResource( 13 )
 [connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
 [connection signal="bomb_exploded" from="Game/Terrain" to="Interface" method="_on_Terrain_bomb_exploded"]
 [connection signal="bubbles_entered" from="Game/Terrain" to="Game/Air" method="player_entered_bubbles"]
+[connection signal="bubbles_entered" from="Game/Terrain" to="Interface" method="bubbles_entered"]
 [connection signal="bubbles_exited" from="Game/Terrain" to="Game/Air" method="player_exited_bubbles"]
 [connection signal="chest_opened" from="Game/Terrain" to="Interface" method="_on_Terrain_chest_opened"]
 [connection signal="timeout" from="Interface/OxygenTimer" to="Interface" method="_on_OxygenTimer_timeout"]

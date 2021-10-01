@@ -56,6 +56,10 @@ func _on_OxygenTimer_timeout():
 		oxygen_level += 10
 	if oxygen_level < 15:
 		$AnimationPlayer.play("progress bar tint")
+	if oxygen_level < 30:
+		$Control2/Panel/ProgressBar.self_modulate = Color(1,0,0)
+	else:
+		$Control2/Panel/ProgressBar.self_modulate = Color(1,1,1)
 	if oxygen_level > 100:
 		oxygen_level = 100
 	pass # Replace with function body.
@@ -90,4 +94,9 @@ func _on_Button_pressed():
 func _on_Terrain_bomb_exploded():
 	oxygen_level = -1
 	$Popup/Panel/Label2.text = strings["tip_miny"]
+	pass # Replace with function body.
+
+
+func bubbles_entered():
+	oxygen_level += 8
 	pass # Replace with function body.
