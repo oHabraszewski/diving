@@ -17,7 +17,7 @@
 </script>
 <style lang="scss" scoped>
     .link {
-        font-size: 24px;
+        font-size: 26px;
         text-decoration-line: underline;
     }
     .link:hover {

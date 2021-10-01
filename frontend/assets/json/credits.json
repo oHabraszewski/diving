@@ -1,33 +1,33 @@
 [
     {
+        "name": "Project Management",
+        "list": [
+            "Oskar Habraszewski"
+        ]
+    },
+    {
         "name": "Game",
         "list": [
-            "Kamil",
-            "Aleksander"
+            "Kamil Warczek"
         ]
     },
     {
-        "name": "Client",
+        "name": "Frontend",
         "list": [
-            "Oskar"
+            "Oskar Habraszewski"
         ]
     },
     {
-        "name": "Server",
+        "name": "Server and Database",
         "list": [
-            "Oskar"
-        ]
-    },
-    {
-        "name": "Minor things",
-        "list": [
-            "Jan"
+            "Oskar Habraszewski"
         ]
     },
     {
         "name": "Special thanks",
         "list": [
-            "Wiktor"
+            "Dominika Dąbrowska",
+            "Jan Surmacz - for preparing presentation environment at the stand at ŚFN 2021"
         ]
     }
 ]

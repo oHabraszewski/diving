@@ -1,9 +1,10 @@
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://habery.tk:3306/sfn_dev2
-    username: admin
-    password: haslo
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-34-254-120-2.eu-west-1.compute.amazonaws.com:5432/d8dek7llts1ldi #jdbc:postgresql://192.168.0.134:5432/postgres_check  backup DB
+    username: rduonhwzleytpd
+    password: 986c2a4939363226f411b837599ce5a3b89a65006f63b3697a48e93b04ec2ff9
     continueOnError: true
     initialize: false
     initialSize: 0
@@ -12,13 +13,14 @@ spring:
     minIdle: 0
 
   jpa:
+    database: POSTGRESQL
     show-sql: true
     hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
       naming_strategy: org.hibernate.cfg.DefaultNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
         hbm2ddl:
           auto: none
         temp:

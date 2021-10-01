@@ -18,6 +18,13 @@ const isDev = process.env.NODE_ENV != 'production';
 const context = path.resolve(__dirname, 'src');
 const assetsPath = path.resolve(__dirname, 'assets');
 
+let publicLoc;
+if(isDev){
+  publicLoc = "../server/target/classes/public"
+}else{
+  publicLoc = "../server/src/main/resources/public"
+}
+
 const entry = {
   index: path.resolve(context, 'index.js'),
   credits: path.resolve(context, 'credits.js'),
@@ -37,12 +44,12 @@ let output = {};
 {
   if (isDev) {
     output = {
-      path: path.resolve(__dirname, '../server/public'),
+      path: path.resolve(__dirname, publicLoc),
       filename: '[name].bundle.js',
     };
   } else {
     output = {
-      path: path.resolve(__dirname, '../server/public'),
+      path: path.resolve(__dirname, publicLoc),
       filename: '[contenthash].js', 
       jsonpFunction: 'a',
     };

@@ -19,6 +19,10 @@
     box-sizing: border-box;
     outline: none;
 }
+body {
+    background-color: #26C;
+    overflow-y: overlay;
+}
 
 h1 {
     font-size: 75px;
@@ -37,7 +41,7 @@ h2 {
     height: 100vh;
     
 
-    background: rgba(200,200, 200, 0.08) url(assets/img/background.png);
+    background: rgba(250,250, 250, 0.1) url(assets/img/background.png);
     background-blend-mode:color;
     background-position: center;
     background-repeat: no-repeat;

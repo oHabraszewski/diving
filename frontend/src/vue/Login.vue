@@ -1,17 +1,24 @@
 <template>
-    <div class="login center horizontal-vertical" >
-        <h1>Diving</h1>
-        <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
-            <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
-            <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
-            <button-vue>Play</button-vue>
-            <check-vue @valueChange="setRemember" id="remember" :value="remember">Remember me</check-vue>
-        </form>
-        <p v-if="!success">{{error}}</p>
-        <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
-        <link-vue destination="/register">Don't have an account?</link-vue>
-        <link-vue destination="/credits">We made this game!</link-vue>
-        <link-vue destination="/technical">Check how we made this game</link-vue>
+    <div>
+        <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" title="Check EXACTLY how we made this game" target="_blank"><img src="../../assets/img/github.png"></a>
+        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" title="Join Palac Mlodziezy's group on Discord!" target="_blank"><img src="../../assets/img/discord_new.png"></a>
+
+        <div class="login center horizontal-vertical" >
+            <h1>Diving</h1>
+            <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
+                <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
+                <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
+                <button-vue>Play</button-vue>
+                <check-vue @valueChange="setRemember" id="remember" :value="remember">Remember me</check-vue>
+            </form>
+            <p v-if="!success">{{error}}</p>
+            <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
+            <link-vue destination="/register">Don't have an account?</link-vue>
+        </div>
+        <div class="bottom">
+            <link-vue destination="/credits">We made this game!</link-vue>
+            <link-vue destination="/technical">See how we made this game</link-vue>
+        </div>
     </div>
 </template>
 <script>
@@ -115,5 +122,30 @@
     }
 </script>
 <style lang="scss" scoped>
-   
+   .social{
+        position: absolute;
+        left: 8px;
+        width: 80px;
+        height: 80px;
+        img{
+            width: 80px;
+            height: 80px;
+        }
+   }
+   #github{
+       top: 8px;
+   }
+   #discord{
+       top: 104px;
+   }
+   .bottom {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        bottom: 8px;
+        left: 8px;
+        div {
+            margin: 0px 16px 4px 4px;
+        }
+   }
 </style>
