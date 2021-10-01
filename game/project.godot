@@ -68,6 +68,7 @@ move_stop={
 2d_physics/layer_3="shark"
 2d_physics/layer_4="chest"
 2d_physics/layer_5="bubbles"
+2d_physics/layer_6="bombs"
 
 [rendering]
 

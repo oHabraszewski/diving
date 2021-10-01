@@ -5,6 +5,7 @@ signal generate_terrain_that_was_before()
 signal chest_opened(id)
 signal bb_exited()
 signal bb_entered()
+signal b_explode()
 
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
@@ -546,6 +547,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
 	var chest   = preload("res://elements/chest/chest.tscn")
 	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
+	var bomb = preload("res://elements/bomb/Bomb.tscn")
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
@@ -562,7 +564,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 			elif rng.randi_range(1, 100) > 74:
 				var this_crl = Sprite.new()
 				this_crl.texture = coral
-				this_crl.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-50+50)
+				this_crl.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-65+50)
 				if randi() % 2 == 0:
 					this_crl.flip_h = true
 				this_crl.modulate = Color(rand_range(40, 255) / 255, rand_range(40, 255) / 255, rand_range(40, 255) / 255)
@@ -573,6 +575,11 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				this_bb.connect("bbenter", self, "bb_pass_enter")
 				this_bb.connect("bbexit", self, "bb_pass_exit")
 				$SegmentsDraw.add_child(this_bb)
+			elif rng.randi_range(1, 100) > 89:
+				var this_b = bomb.instance()
+				this_b.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
+				this_b.connect("explode", self, "b_pass_explode")
+				$SegmentsDraw.add_child(this_b)
 			elif rng.randi_range(1, 100) > 90:
 				
 				var this_ch = chest.instance()
@@ -657,6 +664,9 @@ func bb_pass_exit():
 	pass
 func bb_pass_enter():
 	emit_signal("bb_entered")
+	pass
+func b_pass_explode():
+	emit_signal("b_explode")
 	pass
 
 

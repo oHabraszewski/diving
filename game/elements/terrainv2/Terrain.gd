@@ -13,6 +13,7 @@ export(Vector2) var segment_size = Vector2(100, 100) #minimum 100x100
 signal chest_opened(id)
 signal bubbles_entered()
 signal bubbles_exited()
+signal bomb_exploded()
 
 func check_for_bad_values():
 	if segment_count_x < 10:
@@ -55,6 +56,7 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 	instance.connect("chest_opened", self, "signal_resolver")
 	instance.connect("bb_exited", self, "bb_exit")
 	instance.connect("bb_entered", self, "bb_enter")
+	instance.connect("b_explode", self, "b_exp")
 	instance.segment_count_x = segment_count_x 
 	instance.segment_count_y = segment_count_y 
 	instance.segment_size = segment_size
@@ -64,6 +66,7 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 		current_chunks[start_index].connect("chest_opened", self, "signal_resolver")
 		current_chunks[start_index].connect("bb_exited", self, "bb_exit")
 		current_chunks[start_index].connect("bb_entered", self, "bb_enter")
+		current_chunks[start_index].connect("b_explode", self, "b_exp")
 		current_chunks[start_index].generation_seed = calculate_seed(start_index)
 		current_chunks[start_index].segment_count_x = segment_count_x 
 		current_chunks[start_index].segment_count_y = segment_count_y 
@@ -180,4 +183,7 @@ func bb_exit():
 	pass
 func bb_enter():
 	emit_signal("bubbles_entered")
+	pass
+func b_exp():
+	emit_signal("bomb_exploded")
 	pass

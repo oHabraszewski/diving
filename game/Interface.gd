@@ -70,3 +70,9 @@ func _on_Button_pressed():
 	pass # Replace with function body.
 
 
+
+
+func _on_Terrain_bomb_exploded():
+	oxygen_level = -1
+	$Popup/Panel/Label2.text = "TIP: TRY NOT TO HIT THE MINES :p"
+	pass # Replace with function body.
