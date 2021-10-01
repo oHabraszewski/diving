@@ -4,7 +4,7 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var play_time = 0
 var strings = {
  "twoj_wynik": "YOUR SCORE: ",
  "najlepszy_wynik": " HIGHSCORE: ",
@@ -14,7 +14,8 @@ var strings = {
  "zagraj_jeszcze_raz":"PLAY AGAIN",
  "przegrales":"you died :(",
  "monety":" coins",
- "moneta":" coin"
+ "moneta":" coin",
+ "czas_gry": "Playtime: "
  }
 export(int) var oxygen_level = 100 
 var points = 0
@@ -35,6 +36,8 @@ func _ready():
 func _process(delta):
 	$Control2/Panel/ProgressBar.value = oxygen_level
 	if oxygen_level < 0:
+		$Timer.stop()
+		$Popup/Panel/Label4.text = strings["czas_gry"] + String(floor(play_time / 60)) + ":" + String("%02d" % floor(play_time % 60))
 		if points > hiscore:
 			savegame.open_encrypted_with_pass("user://savegame.save", File.WRITE, "sfn2021asd")
 			savegame.store_64(points)
@@ -57,7 +60,7 @@ func _on_OxygenTimer_timeout():
 	if oxygen_level < 15:
 		$AnimationPlayer.play("progress bar tint")
 	if oxygen_level < 30:
-		$Control2/Panel/ProgressBar.self_modulate = Color(1,0,0)
+		$Control2/Panel/ProgressBar.self_modulate = Color(0.8,0,0)
 	else:
 		$Control2/Panel/ProgressBar.self_modulate = Color(1,1,1)
 	if oxygen_level > 100:
@@ -99,4 +102,9 @@ func _on_Terrain_bomb_exploded():
 
 func bubbles_entered():
 	oxygen_level += 8
+	pass # Replace with function body.
+
+
+func _on_Timer_timeout():
+	play_time += 1
 	pass # Replace with function body.

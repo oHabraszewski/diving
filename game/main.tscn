@@ -295,6 +295,7 @@ autostart = true
 "anims/progress bar tint" = SubResource( 10 )
 
 [node name="Popup" type="Popup" parent="Interface"]
+visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -344,6 +345,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label4" type="Label" parent="Interface/Popup/Panel"]
+margin_left = 9.59656
+margin_top = 10.7503
+margin_right = 923.597
+margin_bottom = 177.75
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 14 )
+text = "Playtime: 1:10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button" type="Button" parent="Interface/Popup/Panel"]
 margin_left = 625.092
 margin_top = 494.112
@@ -385,6 +398,9 @@ text = "Player position:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Timer" type="Timer" parent="Interface"]
+autostart = true
 
 [node name="NetworkNode" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -428,3 +444,4 @@ anims/change_bck_to_air = SubResource( 13 )
 [connection signal="timeout" from="Interface/OxygenTimer" to="Interface" method="_on_OxygenTimer_timeout"]
 [connection signal="pressed" from="Interface/Popup/Panel/Button" to="Interface" method="_on_Button_pressed"]
 [connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Interface/Timer" to="Interface" method="_on_Timer_timeout"]
