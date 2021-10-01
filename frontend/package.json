@@ -38,7 +38,7 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "vue": "^3.0.5",
     "vue3-cookies": "^1.0.1",
     "vuex": "^4.0.0"
