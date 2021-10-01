@@ -55,6 +55,7 @@ shadow_size = 7
 
 [sub_resource type="DynamicFont" id=9]
 size = 32
+extra_spacing_top = 5
 font_data = ExtResource( 1 )
 
 [resource]
