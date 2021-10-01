@@ -64,6 +64,7 @@ pass
 
 
 func _on_Area2D_body_entered(body):
+	print("asd")
 	if body.collision_layer == 2:
 		self.linear_velocity = Vector2((-0.7)*self.linear_velocity.x, (-0.7)*self.linear_velocity.y-8)
 		$AnimationPlayer.play("taking damage")

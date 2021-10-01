@@ -10,9 +10,9 @@ export var points_to_draw = []
 func _draw():
 	if not get_polygon().empty():
 		var poly = get_polygon()
-		for i in range(1 , poly.size()):
+		for i in range(100 , poly.size()-1):
 			draw_line(poly[i-1] , poly[i], OutLine , Width)
-		draw_line(poly[poly.size() - 1] , poly[0], OutLine , Width)
+#		draw_line(poly[poly.size() - 1] , poly[0], OutLine , Width)
 		if draw_points:
 			var rng = RandomNumberGenerator.new()
 			var incrementer = 0

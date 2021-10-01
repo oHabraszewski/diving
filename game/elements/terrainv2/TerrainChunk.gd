@@ -5,6 +5,7 @@ signal generate_terrain_that_was_before()
 signal chest_opened(id)
 signal bb_exited()
 signal bb_entered()
+signal b_explode()
 
 export(int) var segment_count_x = 20 #minimum 10
 export(int) var segment_count_y = 10 #minimum 10
@@ -540,12 +541,15 @@ func create_curve_based_on_segments(segments: Array):
 	
 func generate_objects(segments): # like seaweed, sharks etc.
 #	print("CHUNK_ID= ", chunk_id)
-	
-	var current_segment
-	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
-	var chest = preload("res://elements/chest/chest.tscn")
-	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
 	var chest_count = 0
+	var current_segment
+	var coral   = preload("res://assets/koralowiec.png")
+	var shell   = preload("res://assets/muszla.png")
+	var shell2   = preload("res://assets/muszla2.png")
+	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
+	var chest   = preload("res://elements/chest/chest.tscn")
+	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
+	var bomb = preload("res://elements/bomb/Bomb.tscn")
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
@@ -555,14 +559,45 @@ func generate_objects(segments): # like seaweed, sharks etc.
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
+				this_sw.scale.x += (randi() % 5 - 1) * 0.1
+				this_sw.scale.y += (randi() % 3) * 0.1
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
+			elif rng.randi_range(1, 100) > 74:
+				var this_crl = Sprite.new()
+				this_crl.texture = coral
+				this_crl.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-65+50)
+				if randi() % 2 == 0:
+					this_crl.flip_h = true
+				this_crl.modulate = Color(rand_range(40, 255) / 255, rand_range(40, 255) / 255, rand_range(40, 255) / 255)
+				$SegmentsDraw.add_child(this_crl)
+			elif rng.randi_range(1, 100) > 94:
+				var this_sh = Sprite.new()
+				this_sh.texture = shell2
+				this_sh.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-10+50)
+				this_sh.rotation_degrees = randi() % 40 - 20
+				if randi() % 2 == 0:
+					this_sh.flip_h = true
+				this_sh.modulate = Color(rand_range(40, 235) / 255, rand_range(40, 235) / 255, rand_range(40, 235) / 255)
+				$SegmentsDraw.add_child(this_sh)
+			elif rng.randi_range(1, 100) > 96:
+				var this_sh2 = Sprite.new()
+				this_sh2.texture = shell
+				this_sh2.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
+				if randi() % 2 == 0:
+					this_sh2.flip_h = true
+				$SegmentsDraw.add_child(this_sh2)
 			elif rng.randi_range(1, 100) > 94:
 				var this_bb = bubbles.instance()
-				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
+				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-20+50)
 				this_bb.connect("bbenter", self, "bb_pass_enter")
 				this_bb.connect("bbexit", self, "bb_pass_exit")
 				$SegmentsDraw.add_child(this_bb)
+			elif rng.randi_range(1, 100) > 89 and current_segment.y < 2:
+				var this_b = bomb.instance()
+				this_b.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
+				this_b.connect("explode", self, "b_pass_explode")
+				$SegmentsDraw.add_child(this_b)
 			elif rng.randi_range(1, 100) > 90:
 				
 				var this_ch = chest.instance()
@@ -575,7 +610,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 						print("skrzynia juz istnieje")
 				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
-				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-5+50)
+				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+5+50)
 				this_ch.connect("opened", self,"signal_interpreter")
 #				print("==CHEST===")
 #				print(this_ch.position, ", ", this_ch.chest_id, current_segment)
@@ -647,6 +682,9 @@ func bb_pass_exit():
 	pass
 func bb_pass_enter():
 	emit_signal("bb_entered")
+	pass
+func b_pass_explode():
+	emit_signal("b_explode")
 	pass
 
 
