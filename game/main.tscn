@@ -190,6 +190,7 @@ sleeping = true
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 current = true
 smoothing_enabled = true
+smoothing_speed = 3.0
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]
 position = Vector2( -612.173, 3.36365 )
@@ -294,6 +295,7 @@ autostart = true
 "anims/progress bar tint" = SubResource( 10 )
 
 [node name="Popup" type="Popup" parent="Interface"]
+visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -316,6 +318,9 @@ custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0.219608, 0.737255, 1 )
 custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "You died :("
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="Interface/Popup/Panel"]
 margin_left = 330.0

@@ -40,7 +40,6 @@ func _on_Bubbles_area_exited(area):
 func _on_Timer_timeout():
 	if bubbling:
 		$CollisionShape2D.shape = null
-		emit_signal("bbexit")
 		$Particles2D.emitting = false
 		$Timer.wait_time = silent_time
 		$Timer.start()
