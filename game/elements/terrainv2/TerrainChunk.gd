@@ -540,12 +540,12 @@ func create_curve_based_on_segments(segments: Array):
 	
 func generate_objects(segments): # like seaweed, sharks etc.
 #	print("CHUNK_ID= ", chunk_id)
-	
-	var current_segment
-	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
-	var chest = preload("res://elements/chest/chest.tscn")
-	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
 	var chest_count = 0
+	var current_segment
+	var coral   = preload("res://assets/koralowiec.png")
+	var seaweed = preload("res://elements/wodorosty/wodorost.tscn")
+	var chest   = preload("res://elements/chest/chest.tscn")
+	var bubbles = preload("res://elements/bubbles/bubbles.tscn")
 	for j in range(segment_count_y):
 		if segments[0][j] == Direction.RIGHT:
 			current_segment = Vector2(0, j)
@@ -555,6 +555,8 @@ func generate_objects(segments): # like seaweed, sharks etc.
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT):
 			if rng.randi_range(1, 10) > 7:
 				var this_sw = seaweed.instance()
+				this_sw.scale.x += (randi() % 5 - 1) * 0.1
+				this_sw.scale.y += (randi() % 3) * 0.1
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
 			elif rng.randi_range(1, 100) > 94:
