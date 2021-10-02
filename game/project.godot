@@ -16,7 +16,6 @@ _global_script_class_icons={
 
 config/name="godot_sfn2021"
 run/main_scene="res://main.tscn"
-run/low_processor_mode=true
 boot_splash/image="res://icon.png"
 boot_splash/bg_color=Color( 0.224915, 0.591712, 0.859375, 1 )
 config/icon="res://icon.png"
@@ -81,4 +80,6 @@ move_stop={
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 environment/default_environment="res://default_env.tres"

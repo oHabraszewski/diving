@@ -185,30 +185,6 @@ func reset_and_calculate_avalaible_directions(current_segment):
 		Direction.UP : 33 
 		}
 func generate_segments(segments: Array, starting_height = 200):
-	
-#	var _repetitions = 0
-	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
-#	wagi:
-#	jeśli wyskosc jest mniejsza niz 10% to:
-#			80% do gory
-#			20% w prawo
-#	jesli wysokosc jest wieksza niz 50% ale mniejsza niz 80%:
-#			30% w prawo
-#			30% w lewo
-#			20% w gore
-#			20% w dol
-#	jesli wysokosc jest wieksza niz 80% ale mneijsza niz 90% to:
-#			40% w lewo
-#			40% w prawo
-#			10% w gore
-#			10% w dol
-#	jesli wysokosc jest wieksza niz 90% to:
-#			80% w dol
-#			20% w prawo
-	
-	
-#	Wyglad tablicy (jak w pamieci i na zrzucie)
-
 	var current_segment = Vector2(0, floor(starting_height / segment_size.y))# segmant ktory jest na wyskokosci startowej i w 0-wej kolumnie X
 	var max_x_value_in_current_segment = 0  # == current_segment.x
 	while(not current_segment.x == segment_count_x):
@@ -226,21 +202,11 @@ func generate_segments(segments: Array, starting_height = 200):
 		elif current_segment.x ==  (segment_count_x - 1): # ostatnia kolumna
 			segments[current_segment.x][current_segment.y] = Direction.RIGHT
 			current_segment.x += 1
-			#ewentualne checki na to czy koniec jest git + wylicznaie wyskosci koncowej
 		else: # losowy wybor
-#			print_segments(segments,current_segment)
-
-#			print(avalaible_directions)
-#			_repetitions += 1
-
-			
-				
-				
 			var max_value = 0
 			for i in avalaible_directions.keys():
 				max_value += avalaible_directions[i]
-				
-#			print(max_value)
+			
 			var random = rng.randi_range(1, max_value)
 			var direction_in_question = Direction.NONE
 			if random > 0 and random <= avalaible_directions[Direction.DOWN]:
@@ -291,9 +257,6 @@ func generate_segments(segments: Array, starting_height = 200):
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
-#	print("REPS:   ",_repetitions)
-#	print_segments(segments)
-
 
 	#
 	#           =======================
@@ -302,10 +265,6 @@ func generate_segments(segments: Array, starting_height = 200):
 	#
 	#           =======================
 	#
-	
-	
-	
-
 	for j in range(segment_count_y):
 		if not segments[0][j] == Direction.NONE:
 			current_segment = Vector2(0, j)
@@ -329,104 +288,21 @@ func generate_segments(segments: Array, starting_height = 200):
 		for j in range(segments[i].size()):
 			if not not_garbage_segments.has(Vector2(i,j)):
 				segments[i][j] = Direction.NONE
-#	print_segments(segments)
 	
-			
-
-
-#	var solid_ground_helper_segment
-#	var stop = false
-#	for j in range(segment_count_y):
-#		if not segments[0][j] == Direction.NONE:
-#			current_segment = Vector2(0, j)
-#	while current_segment.x < segment_count_x:
-#		solid_ground_helper_segment = current_segment
-#		stop = false
-#		if segments[current_segment.x][current_segment.y] == Direction.RIGHT:
-#			current_segment.x += 1
-#			while not stop:
-#				solid_ground_helper_segment.y -= 1
-#				if solid_ground_helper_segment.y < 0:
-#					stop = true
-#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
-#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
-#				else:
-#					stop = true
-#		elif segments[current_segment.x][current_segment.y] == Direction.LEFT:
-#			current_segment.x -= 1
-#
-#		elif segments[current_segment.x][current_segment.y] == Direction.UP:
-#			current_segment.y += 1
-#			while not stop:
-#				solid_ground_helper_segment.y -= 1
-#				if solid_ground_helper_segment.y < 0:
-#					stop = true
-#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
-#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
-#				else:
-#					stop = true
-#		elif segments[current_segment.x][current_segment.y] == Direction.DOWN:
-#			current_segment.y -= 1
-#			while not stop:
-#				solid_ground_helper_segment.y -= 1
-#				if solid_ground_helper_segment.y < 0:
-#					stop = true
-#				elif segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] == Direction.NONE:
-#					segments[solid_ground_helper_segment.x][solid_ground_helper_segment.y] = Direction.SOLID_GROUND
-#				else:
-#					stop = true
-#
-#	for i in range(segments.size()):
-#		var ground = 0
-#		var encounter_xd = -1
-#		for j in range(segments[i].size()):
-#			if not segments[i][j] == Direction.NONE and ground % 2 == 1:
-#				encounter_xd = j
-#				ground += 1
-#			if not segments[i][j] == Direction.NONE and ground % 2 == 0:
-#				segments[i][j] = Direction.SOLID_GROUND
-#			if segments[i][j] == Direction.NONE and segments[i][j-1] != Direction.NONE:
-#				ground += 1 
-#			elif segments[i][j] == Direction.NONE and ground % 2 == 0:
-#				segments[i][j] = Direction.SOLID_GROUND
-#	for i in range(segments.size()-2):
-#			for j in range(segments[i].size()-2):
-#				print("I=", i, ", J=", segments[i].size()-2-j)
-#				if segments[i][segments[i].size()-2-j] != Direction.NONE and segments[i][segments[i].size()-2-j-1] == Direction.NONE:
-#					segments[i][segments[i].size()-2-j+1] = Direction.SOLID_GROUND
-#					continue
-#	var indexxx = 1
-#	while segments[segment_count_x-1][indexxx] == Direction.NONE:
-#		segments[segment_count_x-1][indexxx] = Direction.SOLID_GROUND
-#		indexxx += 1
-		
-#	print_segments(segments)
-		
 	for i in range(segments.size()):
 		segments[i][0] = Direction.SOLID_GROUND
 
-#	for i in range(segment_count_y-1):
-#		if segments[segment_count_x-1][i+1] != Direction.NONE:
-#			ground = false
-#		if ground:
-#			segments[segment_count_x-1][i+1] = Direction.SOLID_GROUND
-#		print_segments(segments)
-#	print_debug("asd")
 	var ground = false
-	while not ground:
-		ground = true
-		for i in range(segments.size()-1):
-			for j in range(segments[i].size()-1):
-#			print("Po LEWO", segments[i][j+1])
-#			print("Po PRaWO", segments[i][j-1])
-#			print("Po dol", segments[i-1][j])
-#			print("Po gora", segments[i+1][j]) 
-				if segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND or segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND:
-					if segments[i][j] == Direction.NONE:
-						segments[i][j] = Direction.SOLID_GROUND
-						ground = false
-#		print_segments(segments)
-#		print_segments(segments)
+	### na razie do zakomentowania ale moze sie jeszcze przydac
+	if false:
+		while not ground:
+			ground = true
+			for i in range(segments.size()-1):
+				for j in range(segments[i].size()-1):
+					if segments[i+1][j] == Direction.SOLID_GROUND or segments[i-1][j] == Direction.SOLID_GROUND or segments[i][j+1] == Direction.SOLID_GROUND or segments[i][j-1] == Direction.SOLID_GROUND:
+						if segments[i][j] == Direction.NONE:
+							segments[i][j] = Direction.SOLID_GROUND
+							ground = false
 	return segments
 	
 	
@@ -659,7 +535,12 @@ func generate(starting_height):
 	generate_objects(segments)
 #	print("calculated height is: ", final_height)
 #	print_segments(segments, Vector2(13,2), Vector2(0, floor(starting_height / segment_size.y)))
-	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate()
+	var tollerance = 5
+	if OS.get_name() == "Android":
+		tollerance = 25
+	if OS.get_name() == "HTML5":
+		tollerance = 20
+	$Polygon2DKrztaltTerenu.polygon = create_curve_based_on_segments(segments).tessellate(5, tollerance)
 	$StaticBody2DHitboxTerenu/CollisionPolygon2D.polygon = $Polygon2DKrztaltTerenu.polygon
 	if show_segments:
 		$SegmentsDraw.show_segemnts(segments)
