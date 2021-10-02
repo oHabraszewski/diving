@@ -1,0 +1,28 @@
+{
+    "index":{
+        "play": "Play",
+        "remember_me": "Remember me",
+        "username": "Username",
+        "username_tip": "Type your username",
+        "password": "Password",
+        "password_tip": "Type your password",
+        "register": "Don't have an account?",
+        "credits": "We made this game!",
+        "technical": "See how we made this game",
+        "github_tip": "Check how EXACTLY we made this game",
+        "discord_tip": "Join Pałac Młodzieży's group on Discord!" 
+    },
+    "register": {
+        "register": "Register",
+        "username": "Username",
+        "username_tip": "Type a username",
+        "password": "Password",
+        "password_tip": "Type a password",
+        "email": "Email",
+        "email_tip": "Type your email",
+        "sign_up": "Sign up",
+        "success_1": "Thank you for signing up to the Diving game!",
+        "success_2": "Now you can login and dive into the game.",
+        "return": "Return to login"
+    }
+}

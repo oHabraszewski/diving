@@ -1,7 +1,7 @@
-@font-face {
-    font-family: Ubuntu;
-    src: url(assets/font/Ubuntu-Regular.ttf);
-}
+// @font-face {
+//     font-family: Ubuntu;
+//     src: url(assets/font/Ubuntu-Regular.ttf);
+// }
 @font-face {
     font-family: Bariol;
     src: url(assets/font/Bariol_pl.ttf);
@@ -50,8 +50,9 @@ h2 {
 }
 
 .overback {
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
+    filter: blur($blur-rad);
+    -webkit-filter: blur($blur-rad);
+    transform: scale(1.03); 
 }
 
 .center{

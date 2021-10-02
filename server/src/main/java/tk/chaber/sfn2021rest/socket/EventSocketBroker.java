@@ -38,7 +38,6 @@ public class EventSocketBroker extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session){
         sessions.add(session);
-        System.out.println("Handler: " + eventHandlers.get(EventsEnum.TEST));
     }
 
     public void emitTextMessage(WebSocketSession session, HashMap<String, Object> data){

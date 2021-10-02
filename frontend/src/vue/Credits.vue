@@ -13,10 +13,12 @@
     import ArticleVue from './components/Article.vue'
 
     import content from '../../assets/json/credits.json'
+    import createLang from "../js/translate/createLang.js"
 
     export default {
         data() {
             return {
+                lang: createLang("credits"),
                 credits: content
             }
         },

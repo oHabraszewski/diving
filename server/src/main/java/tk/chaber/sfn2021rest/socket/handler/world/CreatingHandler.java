@@ -37,10 +37,15 @@ public class CreatingHandler extends WorldHandler{
             String rawName = (String) worldPayload.get("name");
             Long rawSeed = (Long) worldPayload.get("seed");
             String rawData = (String) worldPayload.get("data");
+
+            int random = Randomizer.randomInt();
+            System.out.println(random); //DELETEME: on prod
             //Data validation and generation if needed.
             worldName = rawName;
-            worldSeed = rawSeed == null ? Randomizer.randomLong() : rawSeed;
+            worldSeed = rawSeed == null ? random : rawSeed;
             worldData = rawData == null || rawData.equals("")  ? "{}" : rawData;
+
+            worldSeed += 2147483647;
         }catch(ClassCastException ex){
             return new FailedResponse(this.event, Error.CASTING_IMPOSSIBLE);
         }
