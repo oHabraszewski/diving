@@ -1,23 +1,23 @@
 <template>
     <div>
-        <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" title="Check EXACTLY how we made this game" target="_blank"><img src="../../assets/img/github.png"></a>
-        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" title="Join Palac Mlodziezy's group on Discord!" target="_blank"><img src="../../assets/img/discord_new.png"></a>
+        <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
+        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord_new.png"></a>
 
         <div class="login center horizontal-vertical" >
             <h1>Diving</h1>
             <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
-                <input-vue @valueChange="setUsername" title="Type your username" placeholder="Username" maxim="24" :value="username">Username</input-vue>
-                <input-vue @valueChange="setPassword" title="Type your password" placeholder="Password" type="password" maxim="32" :value="password"></input-vue>
-                <button-vue>Play</button-vue>
-                <check-vue @valueChange="setRemember" id="remember" :value="remember">Remember me</check-vue>
+                <input-vue @valueChange="setUsername" :title="lang.username_tip" :placeholder="lang.username" maxim="24" :value="username"></input-vue>
+                <input-vue @valueChange="setPassword" :title="lang.password_tip" :placeholder="lang.password" type="password" maxim="32" :value="password"></input-vue>
+                <button-vue>{{lang.play}}</button-vue>
+                <check-vue @valueChange="setRemember" id="remember" :value="remember">{{lang.remember_me}}</check-vue>
             </form>
             <p v-if="!success">{{error}}</p>
             <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
-            <link-vue destination="/register">Don't have an account?</link-vue>
+            <link-vue destination="/register">{{lang.register}}</link-vue>
         </div>
         <div class="bottom">
-            <link-vue destination="/credits">We made this game!</link-vue>
-            <link-vue destination="/technical">See how we made this game</link-vue>
+            <link-vue destination="/credits">{{lang.credits}}</link-vue>
+            <link-vue destination="/technical">{{lang.technical}}</link-vue>
         </div>
     </div>
 </template>
@@ -29,10 +29,12 @@
 
     import connect from "../js/utils/connectAxios.js"
     import ConfigVars from "../js/utils/ConfigVars.js"
+    import createLang from "../js/translate/createLang.js"
 
     export default {
         data() {
             return {
+                lang: {},
                 username: "",
                 password: "",
                 remember: false,
@@ -48,6 +50,8 @@
                 this.password = "password";
                 this.remember = true;
             }
+
+            this.lang = createLang("index");
         },
         methods: {
             setUsername(value){

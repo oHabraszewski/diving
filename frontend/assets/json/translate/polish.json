@@ -1,0 +1,15 @@
+{
+    "index":{
+        "play": "Graj",
+        "remember_me": "Zapamiętaj mnie",
+        "username": "Nazwa użytkownika",
+        "username_tip": "Wpisz nazwę użytkownika",
+        "password": "Hasło",
+        "password_tip": "Wpisz hasło",
+        "register": "Nie masz konta?",
+        "credits": "My stworzyliśmy tę grę!",
+        "technical": "Zobacz jak stworzyliśmy tę grę",
+        "github_tip": "Sprawdź jak DOKŁADNIE stworzyliśmy tę grę",
+        "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!" 
+    }
+}
