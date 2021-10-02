@@ -119,7 +119,7 @@ func add_chunk(front: bool, generation_seed: int, new_game = false, start_index 
 		
 		for i in current_chunks:
 			current_chunks[i].chunk_id = i
-		print(current_chunks)
+#		print(current_chunks)
 	pass
 	
 	
@@ -139,9 +139,9 @@ func _ready():
 	add_chunk(true, generation_seed)
 	add_chunk(false, generation_seed)
 	for i in current_chunks:
-		print(i)
+#		print(i)
 		current_chunks[i].chunk_id = i
-	print(current_chunks)
+#	print(current_chunks)
 	
 	
 	

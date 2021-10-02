@@ -607,7 +607,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 				if objects["chests"] != []:
 					if objects["chests"].has(chest_count):
 						this_ch.opened = true
-						print("skrzynia juz istnieje")
+#						print("skrzynia juz istnieje")
 				this_ch.chest_id = chest_count
 				this_ch.rotate(deg2rad(rng.randf_range(-5.0,5.0)))
 				this_ch.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+5+50)

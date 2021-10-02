@@ -79,17 +79,17 @@ size = 100
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=12]
 size = 38
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 25
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
 tracks/0/interp = 1
@@ -211,6 +211,7 @@ __meta__ = {
 }
 
 [node name="Joystick" parent="Interface/Control4" instance=ExtResource( 14 )]
+visible = false
 
 [node name="Control2" type="Control" parent="Interface"]
 margin_right = 1658.0
@@ -348,7 +349,7 @@ margin_top = 23.3494
 margin_right = 1583.79
 margin_bottom = 190.349
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 12 )
 text = "YOUR SCORE:
 YOUR HIGHSCORE: "
 align = 2
@@ -362,7 +363,7 @@ margin_top = 10.7503
 margin_right = 923.597
 margin_bottom = 177.75
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 12 )
 text = "Playtime: 1:10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -404,7 +405,7 @@ margin_left = -506.0
 margin_top = -294.0
 margin_right = -195.0
 margin_bottom = -244.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Player position:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -454,8 +455,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/change_bck_to_air = SubResource( 13 )
-
+anims/change_bck_to_air = SubResource( 14 )
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
 [connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]

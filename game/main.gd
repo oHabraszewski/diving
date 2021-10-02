@@ -5,41 +5,45 @@ extends Node2D
 # var a = 2
 # var b = "text"
 # Called when the node enters the scene tree for the first time.
-
+# 1 = mouse and keyboard
+# 2 = touch (joystick)
+# 3 = gyroscope
+#
+#
 func _ready():
 	
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if OS.get_name() == "Android":
-		var acc_inp = Input.get_accelerometer()
-		$Interface/Label.text = String(acc_inp.x) + "\n" + String(acc_inp.y) + "\n" + String(acc_inp.z) 
-		if acc_inp.y < -3:
-#			$Interface/Label.text = $Interface/Label.text + "\n" + String(abs(acc_inp.y + 3) /10)
-			$Game/Player.vertical_force_multiplier =abs((acc_inp.y + 3) /7)
-			Input.action_release("move_up")
-			Input.action_press("move_down")
-		elif acc_inp.y > 3:
-			$Game/Player.vertical_force_multiplier = abs((acc_inp.y + 3) / 7)
-			Input.action_release("move_down")
-			Input.action_press("move_up")
-		else:
-			Input.action_release("move_up")
-			Input.action_release("move_down")
-		if acc_inp.x > 3:
-			$Game/Player.side_force_multiplier = abs((acc_inp.x - 3) / 7) 
-			Input.action_release("move_left")
-			Input.action_press("move_right")
-		elif acc_inp.x < -3:
-			$Game/Player.side_force_multiplier = abs((acc_inp.x + 3) / 7)
-			Input.action_release("move_right")
-			Input.action_press("move_left")
-		else:
-			Input.action_release("move_right")
-			Input.action_release("move_left")
-	
-	
+#	if OS.get_name() == "Android" and 2 == 3: 
+#		var acc_inp = Input.get_accelerometer()
+#		$Interface/Label.text = String(acc_inp.x) + "\n" + String(acc_inp.y) + "\n" + String(acc_inp.z) 
+#		if acc_inp.y < -3:
+##			$Interface/Label.text = $Interface/Label.text + "\n" + String(abs(acc_inp.y + 3) /10)
+#			$Game/Player.vertical_force_multiplier =abs((acc_inp.y + 3) /7)
+#			Input.action_release("move_up")
+#			Input.action_press("move_down")
+#		elif acc_inp.y > 3:
+#			$Game/Player.vertical_force_multiplier = abs((acc_inp.y + 3) / 7)
+#			Input.action_release("move_down")
+#			Input.action_press("move_up")
+#		else:
+#			Input.action_release("move_up")
+#			Input.action_release("move_down")
+#		if acc_inp.x > 3:
+#			$Game/Player.side_force_multiplier = abs((acc_inp.x - 3) / 7) 
+#			Input.action_release("move_left")
+#			Input.action_press("move_right")
+#		elif acc_inp.x < -3:
+#			$Game/Player.side_force_multiplier = abs((acc_inp.x + 3) / 7)
+#			Input.action_release("move_right")
+#			Input.action_press("move_left")
+#		else:
+#			Input.action_release("move_right")
+#			Input.action_release("move_left")
+#
+#	
 #	$Interface/Control/Label.text = "Player position: " + String($Game/Player.position) + "\n Player current chunk: " + String(floor((($Game/Player.position.x - $Game/Terrain.position.x) / ($Game/Terrain.segment_size.x * $Game/Terrain.segment_count_x))) ) #DEV
 	pass
 	

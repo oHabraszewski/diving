@@ -23,6 +23,9 @@ var savegame = File.new()
 var hiscore = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
+		$Control4/Joystick.show()
+#	print("asd")
 	if savegame.file_exists("user://savegame.save"):
 		savegame.open_encrypted_with_pass("user://savegame.save", File.READ, "sfn2021asd")
 		hiscore = savegame.get_64()
@@ -30,7 +33,6 @@ func _ready():
 	$Popup/Panel/Label.text = strings["przegrales"]
 	$Popup/Panel/Button.text = strings["zagraj_jeszcze_raz"]
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -134,5 +136,4 @@ func _on_Joystick_released():
 	Input.action_release("move_up")
 	Input.action_release("move_left")
 	Input.action_release("move_right")
-	print("welp")
 	pass # Replace with function body.
