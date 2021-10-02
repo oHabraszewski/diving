@@ -2,6 +2,7 @@
     <div>
         <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
         <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord_new.png"></a>
+        <lang-select-vue id="lang-select"></lang-select-vue>
 
         <div class="login center horizontal-vertical" >
             <h1>Diving</h1>
@@ -26,6 +27,7 @@
     import InputVue from './components/Input.vue'
     import LinkVue from './components/Link.vue'  
     import CheckVue from './components/Check.vue'
+    import LangSelectVue from './components/LanguageSelect.vue'
 
     import connect from "../js/utils/connectAxios.js"
     import ConfigVars from "../js/utils/ConfigVars.js"
@@ -121,7 +123,8 @@
             ButtonVue,
             InputVue,
             LinkVue,
-            CheckVue
+            CheckVue,
+            LangSelectVue
         }
     }
 </script>
@@ -141,6 +144,11 @@
    }
    #discord{
        top: 104px;
+   }
+   #lang-select{
+       position:absolute;
+       top: 8px;
+       right: 8px;
    }
    .bottom {
         position: absolute;
