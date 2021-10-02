@@ -186,7 +186,7 @@ func reset_and_calculate_avalaible_directions(current_segment):
 		}
 func generate_segments(segments: Array, starting_height = 200):
 	
-	var repetitions = 0
+#	var _repetitions = 0
 	# warunki graniczne w kolejności lewo, prawo, gora, dol, gdy nic nie jest spelnione to wybierz wedlug wag
 #	wagi:
 #	jeśli wyskosc jest mniejsza niz 10% to:
@@ -231,7 +231,7 @@ func generate_segments(segments: Array, starting_height = 200):
 #			print_segments(segments,current_segment)
 
 #			print(avalaible_directions)
-			repetitions += 1
+#			_repetitions += 1
 
 			
 				
@@ -291,7 +291,7 @@ func generate_segments(segments: Array, starting_height = 200):
 	for i in range(segment_count_x): # Usatawienie pierwszego rzędu i pierwszej kolumny na NONE
 		segments[i][0] = Direction.NONE
 		segments[i][segment_count_y - 1] = Direction.NONE
-#	print("REPS:   ",repetitions)
+#	print("REPS:   ",_repetitions)
 #	print_segments(segments)
 
 
