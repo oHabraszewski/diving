@@ -11,6 +11,9 @@ extends Node2D
 #
 #
 func _ready():
+	if OS.get_name() == "Android" and get_node("..").get_children().size() < 2:
+		get_tree().change_scene("res://android_popup.tscn")
+		
 	
 	pass # Replace with function body.
 
