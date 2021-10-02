@@ -2,7 +2,7 @@
     <div>
         <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
         <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord_new.png"></a>
-        <lang-select-vue id="lang-select"></lang-select-vue>
+        <lang-select-vue @valueChange="updateLang" id="lang-select"></lang-select-vue>
 
         <div class="login center horizontal-vertical" >
             <h1>Diving</h1>
@@ -36,7 +36,7 @@
     export default {
         data() {
             return {
-                lang: {},
+                lang: createLang("index"),
                 username: "",
                 password: "",
                 remember: false,
@@ -48,12 +48,10 @@
             const username = localStorage.getItem("username")
             const key = localStorage.getItem("unique_key")
             if(username && key){
-                this.username = username;
-                this.password = "password";
-                this.remember = true;
+                setUsername(username)
+                setPassword("password")
+                setRemember(true);
             }
-
-            this.lang = createLang("index");
         },
         methods: {
             setUsername(value){
@@ -64,6 +62,9 @@
             },
             setRemember(value){
                  this.remember = value;
+            },
+            updateLang(value){
+                this.lang = createLang("index")
             },
             changeDirectory(dir){
                 location.href = dir;

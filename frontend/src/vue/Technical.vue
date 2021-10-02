@@ -8,10 +8,12 @@
     import ArticleVue from './components/Article.vue'
 
     import content from '../../assets/json/technical.json'
+    import createLang from "../js/translate/createLang.js"
 
     export default {
         data() {
             return {
+                lang: createLang("technical"),
                 texts: content
             }
         },

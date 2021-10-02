@@ -1,8 +1,8 @@
 <template>
     <div class="input-container">
         <select name="language" v-model="value">
-            <option value="EN" selected>English</option>
-            <option value="PL">Polish</option>
+            <option value="EN">English</option>
+            <option value="PL">Polski</option>
         </select>
     </div>
 </template>
@@ -11,9 +11,13 @@
         props: ["title", "value"],
         watch: {
             value(o, n){
-                this.$emit("valueChange", this.value)
                 localStorage.setItem("lang", this.value)
+                this.$emit("valueChange", this.value)
             }
+        },
+        mounted(){
+            const lang = localStorage.getItem("lang")
+            this.value = lang;
         }
     }
 </script>

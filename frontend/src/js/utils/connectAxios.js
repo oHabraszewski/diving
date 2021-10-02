@@ -5,8 +5,8 @@ async function connect(address, data){
         axios.post(address, data).then(response=>{
                     resolve(response)
                 }).catch(errored=>{
-                    let response
-                    response.success = false
+                    let response = {}
+                    response.data.success = false
                     response.error = errored
                     resolve(response)
                     console.error("An error occured while trying connecting with a server, see description for more details: " + errored)

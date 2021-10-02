@@ -11,5 +11,18 @@
         "technical": "Zobacz jak stworzyliśmy tę grę",
         "github_tip": "Sprawdź jak DOKŁADNIE stworzyliśmy tę grę",
         "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!" 
+    },
+    "register": {
+        "register": "Rejestracja",
+        "username": "Nazwa użytkownika",
+        "username_tip": "Wpisz nazwę użytkownika",
+        "password": "Hasło",
+        "password_tip": "Wpisz hasło",
+        "email": "Email",
+        "email_tip": "Wpisz swój adres email",
+        "sign_up": "Zarejestruj się",
+        "success_1": "Dziękujemy za rejestrację w grze Diving!",
+        "success_2": "Teraz możesz zalogować się i zanurkować w grę.",
+        "return": "Powróć do logowania"
     }
 }
