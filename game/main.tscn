@@ -327,7 +327,7 @@ __meta__ = {
 }
 
 [node name="kill_screen_background" type="Sprite" parent="Interface/Popup"]
-position = Vector2( 773.894, 471.304 )
+position = Vector2( 824.836, 513.256 )
 texture = ExtResource( 7 )
 
 [node name="Panel" type="Panel" parent="Interface/Popup"]
@@ -339,27 +339,29 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Interface/Popup/Panel"]
-margin_left = 591.502
-margin_top = 286.128
-margin_right = 1019.5
-margin_bottom = 415.128
+margin_top = 296.128
+margin_right = 1600.0
+margin_bottom = 425.128
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
-custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
+custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
 text = "You died :("
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="Interface/Popup/Panel"]
-margin_left = 330.0
 margin_top = 786.0
-margin_right = 1244.0
+margin_right = 1600.0
 margin_bottom = 868.0
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 10 )
 text = "TIP: to get oxygen swim to the top"
+align = 1
 
 [node name="Label3" type="Label" parent="Interface/Popup/Panel"]
 margin_left = 669.795
@@ -390,10 +392,10 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="Interface/Popup/Panel"]
-margin_left = 625.092
-margin_top = 494.112
-margin_right = 975.092
-margin_bottom = 550.112
+margin_left = 627.092
+margin_top = 490.112
+margin_right = 977.092
+margin_bottom = 546.112
 theme = ExtResource( 8 )
 text = "Play again"
 __meta__ = {

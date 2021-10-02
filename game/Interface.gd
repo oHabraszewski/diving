@@ -5,24 +5,48 @@ extends CanvasLayer
 # var a = 2
 # var b = "text"
 var play_time = 0
-var strings = {
+var lang = "PL"
+var strings_eng = {
  "twoj_wynik": "YOUR SCORE: ",
  "najlepszy_wynik": " HIGHSCORE: ",
  "nowy_najlepszy_wynik":" NEW HISCORE!!!",
  "tip_miny":"TIP: try not to hit the mines :P",
  "tip_ox": "TIP: to get oxygen swim to the top",
  "zagraj_jeszcze_raz":"Play again",
- "przegrales":"you died :(",
+ "przegrales":"You died :(",
  "monety":" coins",
  "moneta":" coin",
+ "monet":" coins",
  "czas_gry": "Playtime: "
+ }
+var strings_pl = {
+ "twoj_wynik": "Twój wynik: ",
+ "najlepszy_wynik": " Najwyższy wynik: ",
+ "nowy_najlepszy_wynik":" NOWY REKORD!!!",
+ "tip_miny":"Wskazówka: nie uderzaj w miny wodne :P",
+ "tip_ox": "Wskazówka: aby uzyskać tlen wypłyń na powierzchnię",
+ "zagraj_jeszcze_raz":"Zagraj ponownie",
+ "przegrales":"Przegarłeś :(",
+ "monety":" monety",
+ "moneta":" moneta",
+ "monet":" monet",
+ "czas_gry": "Czas gry: "
  }
 export(int) var oxygen_level = 100 
 var points = 0
 var savegame = File.new()
 var hiscore = 0
+var strings
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.get_name() == "HTML5":
+		lang = JavaScript.eval("localStorage['lang']")
+		if not (lang == "EN" or lang == "PL"):
+			lang = "EN"
+	if lang == "PL":
+		strings = strings_pl
+	elif lang == "EN":
+		strings = strings_eng
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
 #	print("asd")
@@ -32,6 +56,7 @@ func _ready():
 	$Popup/Panel/Label2.text = strings["tip_ox"]
 	$Popup/Panel/Label.text = strings["przegrales"]
 	$Popup/Panel/Button.text = strings["zagraj_jeszcze_raz"]
+	$Control3/HBoxContainer/Label.text = "0 " + strings["monet"]
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,10 +106,19 @@ func _on_Player_bumped_into_rocks():
 
 func _on_Terrain_chest_opened(id):
 	points += 1
-	if points == 1:
-		$Control3/HBoxContainer/Label.text = String(points) + strings["moneta"]
-	else:
-		$Control3/HBoxContainer/Label.text = String(points) + strings["monety"]
+	if lang == "EN":
+		if points == 1:
+			$Control3/HBoxContainer/Label.text = String(points) + strings["moneta"]
+		else:
+			$Control3/HBoxContainer/Label.text = String(points) + strings["monety"]
+	if lang == "PL":
+		if points == 1:
+			$Control3/HBoxContainer/Label.text = String(points) + strings["moneta"]
+		elif points <= 4 or (points > 20 and (String(points).ends_with("2") or String(points).ends_with("3") or String(points).ends_with("4"))):
+			$Control3/HBoxContainer/Label.text = String(points) + strings["monety"]
+		else:
+			$Control3/HBoxContainer/Label.text = String(points) + strings["monet"]
+			
 	oxygen_level += 13
 	pass # Replace with function body.
 
