@@ -34,8 +34,8 @@ gravity = Vector3( 0, -180, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel_random = 0.38
-scale = 0.03
-scale_random = 0.03
+scale = 0.12
+scale_random = 0.12
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_mask = 2

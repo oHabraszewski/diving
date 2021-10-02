@@ -19,8 +19,8 @@ gravity = Vector3( 0, -180, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel_random = 0.38
-scale = 0.1
-scale_random = 0.26
+scale = 0.4
+scale_random = 1.0
 
 [sub_resource type="Curve" id=3]
 max_value = 656.52

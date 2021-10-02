@@ -14,8 +14,8 @@ initial_velocity_random = 0.1
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 tangential_accel = 10.96
-scale = 0.1
-scale_random = 0.09
+scale = 0.4
+scale_random = 0.36
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 35, 100 )

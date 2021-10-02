@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -6,14 +6,12 @@
 [ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Air.gd" type="Script" id=5]
 [ext_resource path="res://assets/background.png" type="Texture" id=6]
-[ext_resource path="res://assets/background-air.png" type="Texture" id=7]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=8]
 [ext_resource path="res://assets/zawor.png" type="Texture" id=9]
 [ext_resource path="res://Interface.gd" type="Script" id=10]
 [ext_resource path="res://assets/coin.png" type="Texture" id=11]
 [ext_resource path="res://ParallaxBackground.gd" type="Script" id=12]
 [ext_resource path="res://NetworkNode.gd" type="Script" id=13]
-[ext_resource path="res://elements/joystick/Joystick.tscn" type="PackedScene" id=14]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -150, 0 )
@@ -84,10 +82,12 @@ size = 38
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=13]
-size = 25
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.413284, 1 )
+colors = PoolColorArray( 0.976471, 1, 0.74902, 1, 0.779671, 0.931373, 0.810582, 1, 0.211765, 0.733333, 0.988235, 1 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
 
 [sub_resource type="Animation" id=14]
 tracks/0/type = "value"
@@ -200,18 +200,6 @@ segment_count_y = 20
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 script = ExtResource( 10 )
-
-[node name="Control4" type="Control" parent="Interface"]
-margin_left = 309.459
-margin_top = 665.815
-margin_right = 638.459
-margin_bottom = 940.815
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Joystick" parent="Interface/Control4" instance=ExtResource( 14 )]
-visible = false
 
 [node name="Control2" type="Control" parent="Interface"]
 margin_right = 1658.0
@@ -380,51 +368,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="Interface"]
-visible = false
-margin_left = 506.428
-margin_top = 293.668
-margin_right = 546.428
-margin_bottom = 333.668
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="Interface/Control"]
-margin_left = -427.128
-margin_top = -239.769
-margin_right = -356.128
-margin_bottom = -191.769
-text = "test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Interface/Control"]
-margin_left = -506.0
-margin_top = -294.0
-margin_right = -195.0
-margin_bottom = -244.0
-custom_fonts/font = SubResource( 13 )
-text = "Player position:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Timer" type="Timer" parent="Interface"]
 autostart = true
-
-[node name="Label" type="Label" parent="Interface"]
-visible = false
-margin_left = 251.984
-margin_top = 221.746
-margin_right = 291.984
-margin_bottom = 235.746
-theme = ExtResource( 8 )
-text = "asdasd"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NetworkNode" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -450,23 +395,21 @@ texture = ExtResource( 6 )
 
 [node name="Sprite2" type="Sprite" parent="ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0.00706724 )
-position = Vector2( 417.415, -95.9656 )
-scale = Vector2( 3, 3 )
-texture = ExtResource( 7 )
+position = Vector2( 417.415, -766.83 )
+scale = Vector2( 3, 1571.87 )
+texture = SubResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
 anims/change_bck_to_air = SubResource( 14 )
+
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
 [connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
 [connection signal="bomb_exploded" from="Game/Terrain" to="Interface" method="_on_Terrain_bomb_exploded"]
-[connection signal="bubbles_entered" from="Game/Terrain" to="Interface" method="bubbles_entered"]
 [connection signal="bubbles_entered" from="Game/Terrain" to="Game/Air" method="player_entered_bubbles"]
+[connection signal="bubbles_entered" from="Game/Terrain" to="Interface" method="bubbles_entered"]
 [connection signal="bubbles_exited" from="Game/Terrain" to="Game/Air" method="player_exited_bubbles"]
 [connection signal="chest_opened" from="Game/Terrain" to="Interface" method="_on_Terrain_chest_opened"]
-[connection signal="moved_raw" from="Interface/Control4/Joystick" to="Interface" method="_on_Joystick_moved_raw"]
-[connection signal="released" from="Interface/Control4/Joystick" to="Interface" method="_on_Joystick_released"]
 [connection signal="timeout" from="Interface/OxygenTimer" to="Interface" method="_on_OxygenTimer_timeout"]
 [connection signal="pressed" from="Interface/Popup/Panel/Button" to="Interface" method="_on_Button_pressed"]
-[connection signal="pressed" from="Interface/Control/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="Interface/Timer" to="Interface" method="_on_Timer_timeout"]
