@@ -59,6 +59,8 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 64
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
@@ -78,11 +80,15 @@ tracks/0/keys = {
 
 [sub_resource type="DynamicFont" id=12]
 size = 100
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=13]
 size = 38
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
@@ -238,6 +244,7 @@ margin_right = 1577.0
 margin_bottom = 107.0
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "O2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -245,10 +252,11 @@ __meta__ = {
 
 [node name="ProgressBar" type="ProgressBar" parent="Interface/Control2/Panel"]
 margin_left = 12.0
-margin_top = 13.0
+margin_top = 16.0
 margin_right = 498.0
 margin_bottom = 134.0
 theme = ExtResource( 8 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 step = 1.0
 value = 98.0
 __meta__ = {
@@ -296,6 +304,7 @@ margin_right = 300.0
 margin_bottom = 91.0
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "0 coins"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -313,6 +322,9 @@ visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="kill_screen_background" type="Sprite" parent="Interface/Popup"]
 position = Vector2( 773.894, 471.304 )
@@ -333,7 +345,7 @@ margin_right = 1019.5
 margin_bottom = 415.128
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 12 )
-custom_colors/font_color = Color( 0, 0.219608, 0.737255, 1 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 custom_colors/font_outline_modulate = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "You died :("
 __meta__ = {
@@ -356,6 +368,7 @@ margin_right = 1583.79
 margin_bottom = 190.349
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 13 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "YOUR SCORE:
 YOUR HIGHSCORE: "
 align = 2
@@ -370,6 +383,7 @@ margin_right = 923.597
 margin_bottom = 177.75
 theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 13 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "Playtime: 1:10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -378,10 +392,10 @@ __meta__ = {
 [node name="Button" type="Button" parent="Interface/Popup/Panel"]
 margin_left = 625.092
 margin_top = 494.112
-margin_right = 1001.09
-margin_bottom = 623.112
+margin_right = 975.092
+margin_bottom = 550.112
 theme = ExtResource( 8 )
-text = "PLAY AGAIN"
+text = "Play again"
 __meta__ = {
 "_edit_use_anchors_": false
 }
