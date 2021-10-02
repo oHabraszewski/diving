@@ -23,6 +23,9 @@ var savegame = File.new()
 var hiscore = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
+		$Control4/Joystick.show()
+#	print("asd")
 	if savegame.file_exists("user://savegame.save"):
 		savegame.open_encrypted_with_pass("user://savegame.save", File.READ, "sfn2021asd")
 		hiscore = savegame.get_64()
@@ -30,7 +33,6 @@ func _ready():
 	$Popup/Panel/Label.text = strings["przegrales"]
 	$Popup/Panel/Button.text = strings["zagraj_jeszcze_raz"]
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -107,4 +109,31 @@ func bubbles_entered():
 
 func _on_Timer_timeout():
 	play_time += 1
+	pass # Replace with function body.
+
+var dead_zone = 15
+func _on_Joystick_moved_raw(direction):
+	Input.action_release("move_down")
+	Input.action_release("move_up")
+	Input.action_release("move_left")
+	Input.action_release("move_right")
+	if direction.x > dead_zone:
+		Input.action_press("move_right")
+	if direction.x < -dead_zone:
+		Input.action_press("move_left")
+	if direction.y > dead_zone:
+		Input.action_press("move_down")
+	if direction.y < -dead_zone:
+		Input.action_press("move_up")
+		
+	$"../Game/Player".side_force_multiplier = abs(direction.x / 100)
+	$"../Game/Player".vertical_force_multiplier = abs(direction.y / 100)
+	pass # Replace with function body.
+
+
+func _on_Joystick_released():
+	Input.action_release("move_down")
+	Input.action_release("move_up")
+	Input.action_release("move_left")
+	Input.action_release("move_right")
 	pass # Replace with function body.
