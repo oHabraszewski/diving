@@ -79,6 +79,10 @@
 
                 if(username && key){
                     console.debug("There is saved key, going directly into a game")
+
+                    sessionStorage.setItem("username", username)
+                    sessionStorage.setItem("unique_key", key)
+
                     if(!this.remember){
                         this.clearLocalStorage()
                     }
@@ -94,21 +98,18 @@
                     this.success = response.data.success
 
                     if(this.success){
-                            let storage;
+                            sessionStorage.setItem("username", this.username)
+                            sessionStorage.setItem("unique_key", response.data.token)
 
                             if(this.remember){
-                                storage = localStorage;
-                            }
-                            else{ 
-                                storage = sessionStorage;
-                                this.clearLocalStorage()
+                                localStorage.setItem("username", this.username)
+                                localStorage.setItem("unique_key", response.data.token)
+                            }else{
+                                this.clearLocalStorage();
                             }
 
-                            storage.setItem("username", this.username)
-                            storage.setItem("unique_key", response.data.token)
-
-                            console.debug("Username: " + storage.getItem("username"))
-                            console.debug("Key: " + storage.getItem("unique_key"))
+                            console.debug("Username: " + sessionStorage.getItem("username"))
+                            console.debug("Key: " + sessionStorage.getItem("unique_key"))
 
                             this.changeDirectory("/game")
                     }else{

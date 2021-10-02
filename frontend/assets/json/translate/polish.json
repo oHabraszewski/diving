@@ -7,7 +7,7 @@
         "password": "Hasło",
         "password_tip": "Wpisz hasło",
         "register": "Nie masz konta?",
-        "credits": "My stworzyliśmy tę grę!",
+        "credits": "To my stworzyliśmy tę grę!",
         "technical": "Zobacz jak stworzyliśmy tę grę",
         "github_tip": "Sprawdź jak DOKŁADNIE stworzyliśmy tę grę",
         "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!" 
@@ -22,7 +22,7 @@
         "email_tip": "Wpisz swój adres email",
         "sign_up": "Zarejestruj się",
         "success_1": "Dziękujemy za rejestrację w grze Diving!",
-        "success_2": "Teraz możesz zalogować się i zanurkować w grę.",
+        "success_2": "Teraz możesz zalogować się i zanurkować w grze.",
         "return": "Powróć do logowania"
     }
 }

@@ -10,7 +10,7 @@
         "credits": "We made this game!",
         "technical": "See how we made this game",
         "github_tip": "Check how EXACTLY we made this game",
-        "discord_tip": "Join Palac Mlodziezy's group on Discord!" 
+        "discord_tip": "Join Pałac Młodzieży's group on Discord!" 
     },
     "register": {
         "register": "Register",
@@ -21,7 +21,7 @@
         "email": "Email",
         "email_tip": "Type your email",
         "sign_up": "Sign up",
-        "success_1": "Thank you for signing up to Diving game!",
+        "success_1": "Thank you for signing up to the Diving game!",
         "success_2": "Now you can login and dive into the game.",
         "return": "Return to login"
     }
