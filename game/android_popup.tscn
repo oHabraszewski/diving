@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/kill_screen_background.png" type="Texture" id=3]
+[ext_resource path="res://android_popup.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+extra_spacing_char = 2
+font_data = ExtResource( 1 )
+
+[node name="AndroidPopup" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="kill_screen_background" type="Sprite" parent="."]
+position = Vector2( 824.836, 513.256 )
+z_index = -4096
+z_as_relative = false
+texture = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1603.0
+margin_bottom = 901.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+margin_left = -47.9457
+margin_top = 233.199
+margin_right = 1552.05
+margin_bottom = 362.199
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Diving"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel"]
+margin_left = 564.727
+margin_top = 501.504
+margin_right = 974.727
+margin_bottom = 617.504
+theme = ExtResource( 2 )
+text = "PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
