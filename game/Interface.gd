@@ -11,7 +11,7 @@ var strings = {
  "nowy_najlepszy_wynik":" NEW HISCORE!!!",
  "tip_miny":"TIP: try not to hit the mines :P",
  "tip_ox": "TIP: to get oxygen swim to the top",
- "zagraj_jeszcze_raz":"PLAY AGAIN",
+ "zagraj_jeszcze_raz":"Play again",
  "przegrales":"you died :(",
  "monety":" coins",
  "moneta":" coin",

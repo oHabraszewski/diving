@@ -433,13 +433,14 @@ func generate_objects(segments): # like seaweed, sharks etc.
 	while current_segment.x < segment_count_x:
 #		print(segments[current_segment.x][current_segment.y])
 		if segments[current_segment.x][current_segment.y + 1] == Direction.NONE and (segments[current_segment.x][current_segment.y] == Direction.RIGHT):
-			if rng.randi_range(1, 10) > 7:
+			var rand_number = rng.randi_range(1, 100)
+			if rand_number < 26:
 				var this_sw = seaweed.instance()
 				this_sw.scale.x += (randi() % 5 - 1) * 0.1
 				this_sw.scale.y += (randi() % 3) * 0.1
 				this_sw.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-30+50)
 				$SegmentsDraw.add_child(this_sw)
-			elif rng.randi_range(1, 100) > 74:
+			elif rand_number < 39:
 				var this_crl = Sprite.new()
 				this_crl.texture = coral
 				this_crl.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-65+50)
@@ -447,7 +448,7 @@ func generate_objects(segments): # like seaweed, sharks etc.
 					this_crl.flip_h = true
 				this_crl.modulate = Color(rand_range(40, 255) / 255, rand_range(40, 255) / 255, rand_range(40, 255) / 255)
 				$SegmentsDraw.add_child(this_crl)
-			elif rng.randi_range(1, 100) > 94:
+			elif rand_number < 41:
 				var this_sh = Sprite.new()
 				this_sh.texture = shell2
 				this_sh.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-10+50)
@@ -456,25 +457,25 @@ func generate_objects(segments): # like seaweed, sharks etc.
 					this_sh.flip_h = true
 				this_sh.modulate = Color(rand_range(40, 235) / 255, rand_range(40, 235) / 255, rand_range(40, 235) / 255)
 				$SegmentsDraw.add_child(this_sh)
-			elif rng.randi_range(1, 100) > 96:
+			elif rand_number < 46:
 				var this_sh2 = Sprite.new()
 				this_sh2.texture = shell
 				this_sh2.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
 				if randi() % 2 == 0:
 					this_sh2.flip_h = true
 				$SegmentsDraw.add_child(this_sh2)
-			elif rng.randi_range(1, 100) > 94:
+			elif rand_number < 55:
 				var this_bb = bubbles.instance()
 				this_bb.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)-20+50)
 				this_bb.connect("bbenter", self, "bb_pass_enter")
 				this_bb.connect("bbexit", self, "bb_pass_exit")
 				$SegmentsDraw.add_child(this_bb)
-			elif rng.randi_range(1, 100) > 89 and current_segment.y < 2:
+			elif rand_number < 69 and current_segment.y < 2:
 				var this_b = bomb.instance()
 				this_b.position = Vector2(current_segment.x * segment_size.x+50,-(current_segment.y * segment_size.y)+50)
 				this_b.connect("explode", self, "b_pass_explode")
 				$SegmentsDraw.add_child(this_b)
-			elif rng.randi_range(1, 100) > 90:
+			elif rand_number < 71:
 				
 				var this_ch = chest.instance()
 				chest_count += 1
