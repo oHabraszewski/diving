@@ -31,6 +31,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void saveRegisteredUser(User user){
+        userRepository.save(user);
+    }
+
+    public User getUser(String verificationToken){
+        return tokenRepository.findByToken(verificationToken).getUser();
+    }
+
     private boolean emailExists(String email){
         return userRepository.findByEmail(email) != null;
     }
@@ -38,5 +46,9 @@ public class UserService {
     public void createVerificationToken(User user, String token){
         VerificationToken verificationToken = new VerificationToken(token, user);
         tokenRepository.save(verificationToken);
+    }
+
+    public VerificationToken getVerificationToken(String token){
+        return tokenRepository.findByToken(token);
     }
 }
