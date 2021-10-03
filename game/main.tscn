@@ -359,6 +359,9 @@ theme = ExtResource( 8 )
 custom_fonts/font = SubResource( 10 )
 text = "TIP: to get oxygen swim to the top"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label3" type="Label" parent="Interface/Popup/Panel"]
 margin_left = 669.795

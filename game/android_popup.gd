@@ -15,8 +15,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-var strings_eng = {"graj":"PLAY", "ch_usr":"Choose username.", "usr_l":"Username cannot be longer than 16 characters."}
-var strings_pl = {"graj":"GRAJ", "ch_usr":"Wybierz nazwę użytkownika.", "usr_l":"Nazwa użytkownika może mieć do 16 znaków."}
+var strings_eng = {"graj":"PLAY", "ch_usr":"Choose username.", "usr_l":"Username cannot be longer than 16 characters.", "qu":"Quality"}
+var strings_pl = {"graj":"GRAJ", "ch_usr":"Wybierz nazwę użytkownika.", "usr_l":"Nazwa użytkownika może mieć do 16 znaków.", "qu":"Jakość"}
 var strings = strings_eng
 func _on_Button_pressed():
 	if $Panel/CenterContainer/VBoxContainer/LineEdit.text.length() > 0:
@@ -47,6 +47,7 @@ func _on_Button2_pressed():
 		$Panel/Button2.text = "PL"
 	$Panel/CenterContainer/VBoxContainer/Label2.hide()
 	$Panel/CenterContainer/VBoxContainer/Button.text = strings["graj"]
+	$Popup/Panel/HBoxContainer/HBoxContainer/Label.text = strings["qu"]
 	pass # Replace with function body.
 
 
@@ -57,4 +58,9 @@ func _on_ButtonGH_pressed():
 
 func _on_ButtonDSC_pressed():
 	OS.shell_open("https://discord.gg/B7V3cJrrd3")
+	pass # Replace with function body.
+
+
+func _on_Button3_pressed():
+	$Popup.popup()
 	pass # Replace with function body.
