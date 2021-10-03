@@ -5,7 +5,7 @@ import tk.chaber.sfn2021rest.db.entities.User;
 
 import java.util.List;
 
-public interface UserRepo extends CrudRepository<User, Integer> {
+public interface UserRepo extends CrudRepository<User, Long> {
     boolean existsByUsername(String username);
 
     List<User> findByUsername(String username);
@@ -13,6 +13,4 @@ public interface UserRepo extends CrudRepository<User, Integer> {
     List<User> findByEmail(String email);
 
     List<User> findByToken(byte[] token);
-
-    List<User> findById(Long id);
 }

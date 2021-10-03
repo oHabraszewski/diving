@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import tk.chaber.sfn2021rest.db.RegisterUserDto;
 import tk.chaber.sfn2021rest.db.UserAlreadyExistsException;
 import tk.chaber.sfn2021rest.db.UserDto;
 import tk.chaber.sfn2021rest.db.UserService;
@@ -31,7 +32,7 @@ public class RegistrationController {
 
     @PostMapping(path = "/user/register", consumes = "application/json", produces = "application/json")
     public @ResponseBody
-    EventResponding registerUserAccount(@RequestBody @Valid UserDto userDto, HttpServletRequest request){
+    EventResponding registerUserAccount(@RequestBody @Valid RegisterUserDto userDto, HttpServletRequest request){
         try{
             User registered = service.registerNewUserAccount(userDto);
 

@@ -19,7 +19,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passEncoder;
 
-    public User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistsException{
+    public User registerNewUserAccount(RegisterUserDto userDto) throws UserAlreadyExistsException{
         if(emailExists(userDto.getEmail())){
             throw new UserAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
         }

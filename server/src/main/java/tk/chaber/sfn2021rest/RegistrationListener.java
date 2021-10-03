@@ -18,14 +18,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private UserService service;
 
     @Autowired
-    private MessageSource messages;
-
-    @Autowired
     private JavaMailSender mailSender;
 
     @Override
-    public void onApplicationEvent(OnRegistrationCompleteEvent onRegistrationCompleteEvent) {
-
+    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
+        this.sendConfirmRegistration(event);
     }
 
     private void sendConfirmRegistration(OnRegistrationCompleteEvent event){
@@ -36,7 +33,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String recipientEmail = user.getEmail();
         String subject = "Confirm your registration to the Diving game";
         String confirmationUrl = event.getAppUrl() + "/registrationConfirm?token=" + token;
-        String message = messages.getMessage("message.regSucc", null, Locale.US);
+        String message = "Someone provided this email address to confirm their account creation. If that was you, click on the link below. Otherwise, ignore this message.";
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientEmail);
