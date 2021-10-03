@@ -5,12 +5,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.chaber.sfn2021rest.db.entities.User;
+import tk.chaber.sfn2021rest.db.entities.VerificationToken;
 
 @Service
 @Transactional
 public class UserService {
     @Autowired
     private UserRepo userRepository;
+
+    @Autowired
+    private VerificationTokenRepo tokenRepository;
 
     @Autowired
     private PasswordEncoder passEncoder;
@@ -29,5 +33,10 @@ public class UserService {
 
     private boolean emailExists(String email){
         return userRepository.findByEmail(email) != null;
+    }
+
+    public void createVerificationToken(User user, String token){
+        VerificationToken verificationToken = new VerificationToken(token, user);
+        tokenRepository.save(verificationToken);
     }
 }

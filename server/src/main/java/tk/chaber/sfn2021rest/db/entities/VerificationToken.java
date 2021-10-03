@@ -28,11 +28,11 @@ public class VerificationToken {
         return new Date(cal.getTime().getTime());
     }
 
-    public VerificationToken(Long id, String token, User user, Date expiryDate) {
-        this.id = id;
+    public VerificationToken(String token, User user) {
+        super();
         this.token = token;
         this.user = user;
-        this.expiryDate = expiryDate;
+        this.expiryDate = this.calculateExpiryDate(EXPIRATION);
     }
 
     public Long getId() {
