@@ -49,13 +49,14 @@ func _ready():
 		strings = strings_eng
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
+		
 #	print("asd")
 	if savegame.file_exists("user://savegame.save"):
 		savegame.open_encrypted_with_pass("user://savegame.save", File.READ, "sfn2021asd")
 		hiscore = savegame.get_64()
 	$Popup/Panel/Label2.text = strings["tip_ox"]
-	$Popup/Panel/Label.text = strings["przegrales"]
-	$Popup/Panel/Button.text = strings["zagraj_jeszcze_raz"]
+	$Popup/Panel/CenterContainer/VBoxContainer/Label.text = strings["przegrales"]
+	$Popup/Panel/CenterContainer/VBoxContainer/Button.text = strings["zagraj_jeszcze_raz"]
 	$Control3/HBoxContainer/Label.text = "0 " + strings["monet"]
 	pass # Replace with function body.
 
@@ -64,6 +65,15 @@ func _process(delta):
 	$Control2/Panel/ProgressBar.value = oxygen_level
 	if oxygen_level < 0:
 		$Timer.stop()
+		if OS.get_name() == "Android":
+			var font = DynamicFont.new()
+			font.font_data = preload("res://assets/Bariol_Regular_Webfont.ttf")
+			font.size = 48
+			font.set_outline_size(1)
+			font.set_outline_color(Color(0.062745, 0.192157, 0.192157))
+			$Popup/Panel/CenterContainer/VBoxContainer/Button.add_font_override("font", font)
+			$Popup/Panel/CenterContainer/VBoxContainer/Button.rect_min_size.x = 550
+			$Popup/Panel/CenterContainer/VBoxContainer/Button.rect_min_size.y = 80
 		$Popup/Panel/Label4.text = strings["czas_gry"] + String(floor(play_time / 60)) + ":" + String("%02d" % floor(play_time % 60))
 		if points > hiscore:
 			savegame.open_encrypted_with_pass("user://savegame.save", File.WRITE, "sfn2021asd")
