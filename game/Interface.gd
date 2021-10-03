@@ -40,6 +40,7 @@ var strings
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if OS.get_name() == "HTML5":
+#		print(JavaScript.eval("localStorage['lang']"))
 		lang = JavaScript.eval("localStorage['lang']")
 		if not (lang == "EN" or lang == "PL"):
 			lang = "EN"

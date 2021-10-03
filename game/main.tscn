@@ -79,14 +79,14 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.768627, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.776471, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=12]
 size = 38
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 100
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
@@ -366,7 +366,7 @@ margin_top = 23.3494
 margin_right = 1583.79
 margin_bottom = 190.349
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "YOUR SCORE:
 YOUR HIGHSCORE: "
@@ -381,7 +381,7 @@ margin_top = 10.7503
 margin_right = 923.597
 margin_bottom = 177.75
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "Playtime: 1:10"
 __meta__ = {
@@ -410,7 +410,7 @@ __meta__ = {
 margin_right = 428.0
 margin_bottom = 129.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
 custom_constants/shadow_offset_x = 3
