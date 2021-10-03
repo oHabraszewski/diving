@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.response;
+package tk.chaber.sfn2021rest.response;
 
 import java.util.HashMap;
 

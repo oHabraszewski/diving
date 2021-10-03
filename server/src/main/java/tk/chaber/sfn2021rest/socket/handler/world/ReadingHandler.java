@@ -4,11 +4,10 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
-import tk.chaber.sfn2021rest.socket.response.Error;
-import tk.chaber.sfn2021rest.socket.response.EventResponding;
-import tk.chaber.sfn2021rest.socket.response.FailedResponse;
-import tk.chaber.sfn2021rest.socket.response.SuccessResponse;
-import tk.chaber.sfn2021rest.socket.response.WorldResponse;
+import tk.chaber.sfn2021rest.response.Error;
+import tk.chaber.sfn2021rest.response.EventResponding;
+import tk.chaber.sfn2021rest.response.FailedResponse;
+import tk.chaber.sfn2021rest.response.WorldResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +30,16 @@ public class ReadingHandler extends WorldHandler{
 
         Error error;
 
-        if(usersRepository.existsByUsername(username)) {
-            List<User> potentialOwners = usersRepository.findByUsername(username);
+        if(userRepository.existsByUsername(username)) {
+            List<User> potentialOwners = userRepository.findByUsername(username);
 
             if(potentialOwners.size() == 1){
                 User owner = potentialOwners.get(0);
 
                 if (owner.checkToken(uniqueKey)) {
 
-                    if (worldsRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-                        List<World> potentialWorlds = worldsRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
+                    if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                        List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
 
                         if(potentialWorlds.size() == 1){
                             World world = potentialWorlds.get(0);

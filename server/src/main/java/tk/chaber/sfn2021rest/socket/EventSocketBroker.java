@@ -9,7 +9,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import tk.chaber.sfn2021rest.socket.handler.EventHandling;
-import tk.chaber.sfn2021rest.socket.response.EventResponding;
+import tk.chaber.sfn2021rest.response.EventResponding;
 
 import java.util.HashMap;
 import java.util.List;

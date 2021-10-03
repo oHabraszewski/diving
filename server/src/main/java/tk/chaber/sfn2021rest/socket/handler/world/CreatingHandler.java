@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.db.entities.User;
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
-import tk.chaber.sfn2021rest.socket.response.Error;
-import tk.chaber.sfn2021rest.socket.response.EventResponding;
-import tk.chaber.sfn2021rest.socket.response.FailedResponse;
-import tk.chaber.sfn2021rest.socket.response.WorldResponse;
+import tk.chaber.sfn2021rest.response.Error;
+import tk.chaber.sfn2021rest.response.EventResponding;
+import tk.chaber.sfn2021rest.response.FailedResponse;
+import tk.chaber.sfn2021rest.response.WorldResponse;
 import tk.chaber.sfn2021rest.utils.Randomizer;
 
 import java.util.HashMap;
@@ -50,19 +50,19 @@ public class CreatingHandler extends WorldHandler{
             return new FailedResponse(this.event, Error.CASTING_IMPOSSIBLE);
         }
 
-        if(usersRepository.existsByUsername(username)) {
-            List<User> potentialOwners = usersRepository.findByUsername(username);
+        if(userRepository.existsByUsername(username)) {
+            List<User> potentialOwners = userRepository.findByUsername(username);
 
             if(potentialOwners.size() == 1){
                 User owner = potentialOwners.get(0);
 
                 if (owner.checkToken(uniqueKey)) {
                     Long ownerId = owner.getId();
-                    List<World> ownersWorlds = worldsRepository.findByOwnerId(ownerId);
+                    List<World> ownersWorlds = worldRepository.findByOwnerId(ownerId);
 
                     if(ownersWorlds.size() < 10) {
 
-                        if (!worldsRepository.existsByOwnerIdAndWorldName(ownerId, worldName)) {
+                        if (!worldRepository.existsByOwnerIdAndWorldName(ownerId, worldName)) {
                             World world = new World();
 
                             world.setOwnerId(owner.getId());
@@ -70,7 +70,7 @@ public class CreatingHandler extends WorldHandler{
                             world.setSeed(worldSeed);
                             world.setWorldData(worldData);
 
-                            worldsRepository.save(world);
+                            worldRepository.save(world);
 
                             return new WorldResponse(this.event, world);
                         } else {

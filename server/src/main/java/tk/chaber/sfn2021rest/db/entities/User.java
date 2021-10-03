@@ -19,14 +19,19 @@ public class User {
 
     private String username;
 
-    private byte[] password;
+    @Column(length = 60)
+    private String password;
 
     private String email;
 
-    private byte[] token;
+    private boolean enabled;
 
-    private byte[] salt;
+    private String secret;
 
+    public User(){
+        super();
+        this.enabled = false;
+    }
     public Long getId() {
         return id;
     }
@@ -43,56 +48,14 @@ public class User {
         this.username = username;
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String passToHash) { //Hashes password and then saves it
-
-        byte[] salt = Randomizer.randomBytes(16);
-
-        this.setSalt(salt);
-
-        try {
-            byte[] hashedPassword = Hasher.hashWithSalt(passToHash, salt);
-
-            this.password = hashedPassword;
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public byte[] getToken() {
-        return token;
-    }
-
-    public void setToken(String UK) { //Generates token based on given UniqueKey
-        String username = this.getUsername();
-
-        String toHash = username.concat(UK);
-
-        try {
-            byte[] token = Hasher.hashWithSalt(toHash, this.getSalt());
-            this.token = token;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public boolean checkToken(String UK){
-        String username = this.getUsername();
-        String toCheck = username.concat(UK);
-
-        try {
-            byte[] toCheckToken = Hasher.hashWithSalt(toCheck, this.getSalt());
-
-            return Arrays.equals(this.getToken(), toCheckToken);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
     public String getEmail() {
         return email;
     }
@@ -101,11 +64,19 @@ public class User {
         this.email = email;
     }
 
-    public byte[] getSalt() {
-        return salt;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setSalt(byte[] salt) {
-        this.salt = salt;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }

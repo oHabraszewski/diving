@@ -1,24 +1,26 @@
-package tk.chaber.sfn2021rest.socket.response;
+package tk.chaber.sfn2021rest.response;
 
 import tk.chaber.sfn2021rest.socket.EventsEnum;
 
 import java.util.HashMap;
 
-public class SuccessResponse implements EventResponding {
+public class FailedResponse implements EventResponding {
 
     private final EventsEnum requestEvent;
     HashMap<String, Object> payloadObjects = new HashMap<>();
 
-    public SuccessResponse(EventsEnum responseToEvent) {
+    public FailedResponse(EventsEnum responseToEvent, Error error) {
         this.requestEvent = responseToEvent;
 
-        payloadObjects.put("success", true);
+        payloadObjects.put("success", false);
+        payloadObjects.put("ecode", error.getCode());
+        payloadObjects.put("error", error.getMessage());
     }
 
     @Override
     public HashMap<String, Object> getRawJSONResponse() {
         HashMap<String, Object> response = new HashMap<>(),
-                                payload = new HashMap<>();
+                payload = new HashMap<>();
 
         payloadObjects.forEach(payload::put);
 

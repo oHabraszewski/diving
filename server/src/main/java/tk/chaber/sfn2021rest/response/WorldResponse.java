@@ -1,4 +1,4 @@
-package tk.chaber.sfn2021rest.socket.response;
+package tk.chaber.sfn2021rest.response;
 
 import tk.chaber.sfn2021rest.db.entities.World;
 import tk.chaber.sfn2021rest.socket.EventsEnum;
