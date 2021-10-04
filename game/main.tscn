@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -14,6 +14,11 @@
 [ext_resource path="res://ParallaxBackground.gd" type="Script" id=12]
 [ext_resource path="res://NetworkNode.gd" type="Script" id=13]
 [ext_resource path="res://elements/joystick/Joystick.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/music/background.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/music/coin.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/music/hit.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/music/heartbeat.wav" type="AudioStream" id=18]
+[ext_resource path="res://assets/music/lost_game.wav" type="AudioStream" id=19]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -150, 0 )
@@ -211,6 +216,7 @@ sleeping = true
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player"]
 current = true
+smoothing_enabled = true
 smoothing_speed = 3.0
 
 [node name="Terrain" parent="Game" instance=ExtResource( 1 )]
@@ -438,6 +444,26 @@ __meta__ = {
 process_mode = 0
 autostart = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 15 )
+volume_db = -10.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 16 )
+volume_db = -17.865
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 18 )
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 17 )
+volume_db = -14.037
+pitch_scale = 0.89
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="Interface"]
+stream = ExtResource( 19 )
+volume_db = -11.485
+
 [node name="NetworkNode" type="Node" parent="."]
 script = ExtResource( 13 )
 
@@ -482,3 +508,5 @@ anims/change_bck_to_air = SubResource( 16 )
 [connection signal="released" from="Interface/Control4/Joystick" to="Interface" method="_on_Joystick_released"]
 [connection signal="pressed" from="Interface/Popup/Panel/CenterContainer/VBoxContainer/Button" to="Interface" method="_on_Button_pressed"]
 [connection signal="timeout" from="Interface/Timer" to="Interface" method="_on_Timer_timeout"]
+[connection signal="finished" from="Interface/AudioStreamPlayer" to="Interface" method="_on_AudioStreamPlayer_finished"]
+[connection signal="finished" from="Interface/AudioStreamPlayer3" to="Interface" method="_on_AudioStreamPlayer3_finished"]

@@ -7,7 +7,9 @@ extends Node
 
 
 # Called when the node enters the scene tree for the first time.
-#func _ready():
+func _ready():
+	
+	pass
 #	OS.has_feature()
 #	print(JavaScript.eval("console.log(document.cookie)"))
 #	var http_request = HTTPRequest.new()

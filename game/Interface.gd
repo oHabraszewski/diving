@@ -4,6 +4,8 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export(bool) var fx = true
+export(bool) var music = true
 var play_time = 0
 var lang = "PL"
 var strings_eng = {
@@ -59,12 +61,19 @@ func _ready():
 	$Popup/Panel/CenterContainer/VBoxContainer/Label.text = strings["przegrales"]
 	$Popup/Panel/CenterContainer/VBoxContainer/Button.text = strings["zagraj_jeszcze_raz"]
 	$Control3/HBoxContainer/Label.text = "0 " + strings["monet"]
+	if music:
+		$AudioStreamPlayer.play()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Control2/Panel/ProgressBar.value = oxygen_level
-	if oxygen_level < 0:
+	if oxygen_level < 0 and not $Popup.visible:
+		$AudioStreamPlayer.stream = null
+		$AudioStreamPlayer2.stream = null
+		$AudioStreamPlayer3.stream = null
+		$AudioStreamPlayer4.stream = null
+		$AudioStreamPlayer5.play()
 		$Timer.stop()
 		if OS.get_name() == "Android":
 			var font = DynamicFont.new()
@@ -90,13 +99,14 @@ func _process(delta):
 
 
 func _on_OxygenTimer_timeout():
-	
 	if $"../Game/Air".player_is_in_water:
 		oxygen_level -= 1
 	else:
 		oxygen_level += 10
 	if oxygen_level < 15:
 		$AnimationPlayer.play("progress bar tint")
+		if fx:
+			$AudioStreamPlayer3.play()
 	if oxygen_level < 30:
 		$Control2/Panel/ProgressBar.self_modulate = Color(0.8,0,0)
 	else:
@@ -107,6 +117,8 @@ func _on_OxygenTimer_timeout():
 
 
 func _on_Player_bumped_into_rocks():
+	if fx:
+		$AudioStreamPlayer4.play()
 	if oxygen_level > 15:
 		oxygen_level -= 15
 	else:
@@ -117,6 +129,8 @@ func _on_Player_bumped_into_rocks():
 
 func _on_Terrain_chest_opened(id):
 	points += 1
+	if fx:
+		$AudioStreamPlayer2.play()
 	if lang == "EN":
 		if points == 1:
 			$Control3/HBoxContainer/Label.text = String(points) + strings["moneta"]
@@ -181,4 +195,15 @@ func _on_Joystick_released():
 	Input.action_release("move_up")
 	Input.action_release("move_left")
 	Input.action_release("move_right")
+	pass # Replace with function body.
+
+
+func _on_AudioStreamPlayer_finished():
+	$AudioStreamPlayer.play()
+	pass # Replace with function body.
+
+
+func _on_AudioStreamPlayer3_finished():
+	if oxygen_level < 15:
+		$AudioStreamPlayer3.play()
 	pass # Replace with function body.
