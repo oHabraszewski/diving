@@ -37,6 +37,7 @@ var strings_pl = {
 export(int) var oxygen_level = 100 
 var points = 0
 var savegame = File.new()
+var sound_setting = File.new()
 var hiscore = 0
 var strings
 # Called when the node enters the scene tree for the first time.
@@ -54,6 +55,26 @@ func _ready():
 		$Control4/Joystick.show()
 		
 #	print("asd")
+#	savegame.open_encrypted_with_pass("user://savegame.save", File.WRITE, "sfn2021asd")
+#			savegame.store_64(points)
+#			savegame.close()
+	if sound_setting.file_exists("user://sound.save"):
+		print("ADSAD")
+		sound_setting.open("user://sound.save", File.READ)
+		music = sound_setting.get_var()
+		print(music)
+		fx = music
+		sound_setting.close()
+		if music:
+			$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-loud.png")
+			$AudioStreamPlayer.stream =  preload("res://assets/music/background.wav")
+			$AudioStreamPlayer.play()
+			$Control/HBoxContainer/CheckButton.pressed = true
+		else:
+			$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-quiet.png")
+			$AudioStreamPlayer.stream =  null
+			$Control/HBoxContainer/CheckButton.pressed = false
+		
 	if savegame.file_exists("user://savegame.save"):
 		savegame.open_encrypted_with_pass("user://savegame.save", File.READ, "sfn2021asd")
 		hiscore = savegame.get_64()
@@ -73,7 +94,8 @@ func _process(delta):
 		$AudioStreamPlayer2.stream = null
 		$AudioStreamPlayer3.stream = null
 		$AudioStreamPlayer4.stream = null
-		$AudioStreamPlayer5.play()
+		if music:
+			$AudioStreamPlayer5.play()
 		$Timer.stop()
 		if OS.get_name() == "Android":
 			var font = DynamicFont.new()
@@ -206,4 +228,23 @@ func _on_AudioStreamPlayer_finished():
 func _on_AudioStreamPlayer3_finished():
 	if oxygen_level < 15:
 		$AudioStreamPlayer3.play()
+	pass # Replace with function body.
+
+
+func _on_CheckButton_toggled(button_pressed):
+#	print(button_pressed)
+	if button_pressed:
+		$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-loud.png")
+		$AudioStreamPlayer.stream =  preload("res://assets/music/background.wav")
+		$AudioStreamPlayer.play()
+		music = true
+		fx = true
+	else:
+		$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-quiet.png")
+		$AudioStreamPlayer.stream =  null
+		music = false
+		fx = false
+	sound_setting.open("user://sound.save", File.WRITE)
+	sound_setting.store_var(music)
+	sound_setting.close()
 	pass # Replace with function body.

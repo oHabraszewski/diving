@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/music/hit.wav" type="AudioStream" id=17]
 [ext_resource path="res://assets/music/heartbeat.wav" type="AudioStream" id=18]
 [ext_resource path="res://assets/music/lost_game.wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/speaker-loud.png" type="Texture" id=20]
 
 [sub_resource type="SegmentShape2D" id=1]
 a = Vector2( -150, 0 )
@@ -464,6 +465,33 @@ pitch_scale = 0.89
 stream = ExtResource( 19 )
 volume_db = -11.485
 
+[node name="Control" type="Control" parent="Interface"]
+margin_left = 1459.77
+margin_top = 824.867
+margin_right = 1598.77
+margin_bottom = 898.867
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Interface/Control/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 20 )
+
+[node name="CheckButton" type="CheckButton" parent="Interface/Control/HBoxContainer"]
+margin_left = 54.0
+margin_right = 130.0
+margin_bottom = 50.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="NetworkNode" type="Node" parent="."]
 script = ExtResource( 13 )
 
@@ -510,3 +538,4 @@ anims/change_bck_to_air = SubResource( 16 )
 [connection signal="timeout" from="Interface/Timer" to="Interface" method="_on_Timer_timeout"]
 [connection signal="finished" from="Interface/AudioStreamPlayer" to="Interface" method="_on_AudioStreamPlayer_finished"]
 [connection signal="finished" from="Interface/AudioStreamPlayer3" to="Interface" method="_on_AudioStreamPlayer3_finished"]
+[connection signal="toggled" from="Interface/Control/HBoxContainer/CheckButton" to="Interface" method="_on_CheckButton_toggled"]
