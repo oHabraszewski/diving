@@ -1,41 +1,105 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/Bariol_Regular_Webfont.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
 [ext_resource path="res://assets/kill_screen_background.png" type="Texture" id=3]
 [ext_resource path="res://android_popup.gd" type="Script" id=4]
+[ext_resource path="res://assets/poland.png" type="Texture" id=5]
+[ext_resource path="res://assets/discord_logo.png" type="Texture" id=6]
+[ext_resource path="res://assets/github_logo.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
-size = 100
+size = 200
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+extra_spacing_char = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+extra_spacing_char = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.14902, 0.380392, 0.337255, 0.776471 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 40
+outline_size = 1
+outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 font_data = ExtResource( 1 )
 
 [node name="AndroidPopup" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="kill_screen_background" type="Sprite" parent="."]
-position = Vector2( 824.836, 513.256 )
+position = Vector2( 840, 500 )
 z_index = -4096
 z_as_relative = false
 texture = ExtResource( 3 )
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 1603.0
-margin_bottom = 901.0
+margin_right = 1600.0
+margin_bottom = 900.0
 theme = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel"]
-margin_left = -47.9457
-margin_top = 233.199
-margin_right = 1552.05
-margin_bottom = 362.199
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
+margin_left = 545.0
+margin_top = 250.0
+margin_right = 1095.0
+margin_bottom = 690.0
+rect_min_size = Vector2( 550, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/VBoxContainer"]
+margin_right = 550.0
+margin_bottom = 256.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
@@ -43,20 +107,203 @@ custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
 text = "Diving"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Panel"]
-margin_left = 564.727
-margin_top = 501.504
-margin_right = 974.727
-margin_bottom = 617.504
+[node name="LineEdit" type="LineEdit" parent="Panel/CenterContainer/VBoxContainer"]
+margin_top = 260.0
+margin_right = 550.0
+margin_bottom = 348.0
 theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+align = 1
+max_length = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Panel/CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 352.0
+margin_right = 550.0
+margin_bottom = 394.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Diving"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel/CenterContainer/VBoxContainer"]
+margin_top = 352.0
+margin_right = 550.0
+margin_bottom = 440.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
 text = "PLAY"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+[node name="Button2" type="Button" parent="Panel"]
+margin_left = 1287.66
+margin_top = 18.9729
+margin_right = 1583.66
+margin_bottom = 154.973
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+text = "PL"
+icon = ExtResource( 5 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="Panel"]
+margin_left = 1450.0
+margin_top = 750.0
+margin_right = 1550.0
+margin_bottom = 850.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 54.214
+margin_top = 524.575
+margin_right = 204.214
+margin_bottom = 840.575
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonGH" type="Button" parent="Panel/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 140, 144 )
+icon = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Panel/VBoxContainer"]
+margin_top = 154.0
+margin_right = 150.0
+margin_bottom = 154.0
+dragger_visibility = 1
+
+[node name="ButtonDSC" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 158.0
+margin_right = 150.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 140, 140 )
+icon = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 1600, 900 )
+
+[node name="Panel" type="Panel" parent="Popup"]
+margin_right = 1600.0
+margin_bottom = 900.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/Panel"]
+margin_right = 1600.0
+margin_bottom = 900.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/Panel/HBoxContainer"]
+margin_right = 800.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 800, 0 )
+alignment = 1
+
+[node name="Label" type="Label" parent="Popup/Panel/HBoxContainer/HBoxContainer"]
+margin_left = 131.0
+margin_top = 419.0
+margin_right = 264.0
+margin_bottom = 481.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 5 )
+text = "Quality"
+
+[node name="CenterContainer" type="CenterContainer" parent="Popup/Panel/HBoxContainer/HBoxContainer"]
+margin_left = 268.0
+margin_right = 668.0
+margin_bottom = 900.0
+
+[node name="HSlider" type="HSlider" parent="Popup/Panel/HBoxContainer/HBoxContainer/CenterContainer"]
+margin_top = 435.0
+margin_right = 400.0
+margin_bottom = 465.0
+rect_min_size = Vector2( 400, 0 )
+theme = ExtResource( 2 )
+min_value = 4.0
+max_value = 30.0
+value = 30.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/Panel/HBoxContainer"]
+margin_left = 804.0
+margin_right = 1604.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 800, 0 )
+
+[node name="LabelCredist" type="Label" parent="Popup/Panel/HBoxContainer/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 82.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Credits"
+
+[node name="LabelTytul" type="Label" parent="Popup/Panel/HBoxContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 800.0
+margin_bottom = 138.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "Tytuł:"
+
+[node name="LabelTekst" type="Label" parent="Popup/Panel/HBoxContainer/VBoxContainer"]
+margin_top = 142.0
+margin_right = 800.0
+margin_bottom = 184.0
+theme = ExtResource( 2 )
+text = "teść"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Panel/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Panel/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonGH" to="." method="_on_ButtonGH_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ButtonDSC" to="." method="_on_ButtonDSC_pressed"]
