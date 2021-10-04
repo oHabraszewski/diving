@@ -1,6 +1,5 @@
 package tk.chaber.sfn2021rest;
 
-import jdk.jfr.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +38,7 @@ public class RegistrationController {
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(appUrl, registered));
         }catch(UserAlreadyExistsException ex){
+            System.out.println("USER EXISTS");
             return new FailedResponse(EventsEnum.REGISTER_USER, Error.USER_ALREADY_EXISTS);
         }
         return new SuccessResponse(EventsEnum.REGISTER_USER);

@@ -36,7 +36,7 @@ public class DeletingHandler extends WorldHandler{
             if(potentialOwners.size() == 1){
                 User owner = potentialOwners.get(0);
 
-                if (owner.checkToken(uniqueKey)) {
+                //if (owner.checkToken(uniqueKey)) { FIXME: you know what to do
 
                     if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
                         List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
@@ -52,9 +52,9 @@ public class DeletingHandler extends WorldHandler{
                     } else {
                         error = Error.WORLD_DOES_NOT_EXIST;
                     }
-                } else {
-                    error = Error.AUTH_FAIL;
-                }
+                //} else {
+                    //error = Error.AUTH_FAIL;
+                //}
             }else {
                 error = Error.MULTIPLE_USERS_EXIST;
             }

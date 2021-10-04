@@ -13,9 +13,9 @@ import javax.validation.Valid;
 
 @RestController
 public class LoginController {
-    @PostMapping(path = "user/login", consumes = "application/json", produces = "application/json")
-    public @ResponseBody
-    EventResponding loginUser(@RequestBody @Valid UserDto userDto, HttpServletRequest request){
-
-    }
+//    @PostMapping(path = "user/login", consumes = "application/json", produces = "application/json")
+//    public @ResponseBody
+//    EventResponding loginUser(@RequestBody @Valid UserDto userDto, HttpServletRequest request){
+//
+//    }
 }

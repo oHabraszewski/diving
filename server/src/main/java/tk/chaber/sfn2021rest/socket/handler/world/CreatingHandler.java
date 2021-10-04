@@ -56,7 +56,7 @@ public class CreatingHandler extends WorldHandler{
             if(potentialOwners.size() == 1){
                 User owner = potentialOwners.get(0);
 
-                if (owner.checkToken(uniqueKey)) {
+                // (owner.checkToken(uniqueKey)) {
                     Long ownerId = owner.getId();
                     List<World> ownersWorlds = worldRepository.findByOwnerId(ownerId);
 
@@ -74,14 +74,14 @@ public class CreatingHandler extends WorldHandler{
 
                             return new WorldResponse(this.event, world);
                         } else {
-                            error = Error.WORLD_EXISTS;
+                            error = Error.WORLD_ALREADY_EXISTS;
                         }
                     }else {
                         error = Error.WORLD_NUMBER_LIMIT;
                     }
-                } else {
-                    error = Error.AUTH_FAIL;
-                }
+                //} else {
+                   // error = Error.AUTH_FAIL;
+                //}
             }else {
                 error = Error.MULTIPLE_USERS_EXIST;
             }

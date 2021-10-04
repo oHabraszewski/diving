@@ -10,7 +10,7 @@ public interface UserRepo extends CrudRepository<User, Long> {
 
     List<User> findByUsername(String username);
 
-    List<User> findByEmail(String email);
+    User findByEmail(String email);
 
-    List<User> findByToken(byte[] token);
+    //List<User> findByToken(byte[] token);
 }

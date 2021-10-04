@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import tk.chaber.sfn2021rest.db.UserService;
 import tk.chaber.sfn2021rest.db.entities.User;
+import tk.chaber.sfn2021rest.utils.ConfigVars;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -32,7 +33,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
         String recipientEmail = user.getEmail();
         String subject = "Confirm your registration to the Diving game";
-        String confirmationUrl = event.getAppUrl() + "/registrationConfirm?token=" + token;
+        String confirmationUrl = ConfigVars.HOSTNAME + "/registrationConfirm?token=" + token;
         String message = "Someone provided this email address to confirm their account creation. If that was you, click on the link below. Otherwise, ignore this message.";
 
         SimpleMailMessage email = new SimpleMailMessage();
