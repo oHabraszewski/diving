@@ -8,7 +8,10 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	if OS.get_name() == "HTML5":
+		# kod do komunkacji z serverem tu
+		
+		pass
 	pass
 #	OS.has_feature()
 #	print(JavaScript.eval("console.log(document.cookie)"))
