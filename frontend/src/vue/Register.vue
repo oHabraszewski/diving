@@ -50,7 +50,7 @@
                 this.sendData()
             },
             async sendData(){
-                const response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/register",{ 
+                const response = await connect(ConfigVars.HOSTNAME + "user/register",{ 
                     username: this.username,
                     password: this.password,
                     email: this.email

@@ -1,11 +1,11 @@
 package tk.chaber.sfn2021rest.socket.handler.world;
 
 import org.springframework.stereotype.Service;
-import tk.chaber.sfn2021rest.db.entities.User;
-import tk.chaber.sfn2021rest.db.entities.World;
-import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.persistence.entity.User;
+import tk.chaber.sfn2021rest.persistence.entity.World;
+import tk.chaber.sfn2021rest.socket.Event;
 import tk.chaber.sfn2021rest.response.Error;
-import tk.chaber.sfn2021rest.response.EventResponding;
+import tk.chaber.sfn2021rest.response.EventResponse;
 import tk.chaber.sfn2021rest.response.FailedResponse;
 import tk.chaber.sfn2021rest.response.SuccessResponse;
 
@@ -15,11 +15,11 @@ import java.util.List;
 @Service
 public class DeletingHandler extends WorldHandler{
     public DeletingHandler() {
-        super(EventsEnum.DELETE_WORLD);
+        super(Event.DELETE_WORLD);
     }
 
     @Override
-    public EventResponding handle(HashMap<String, Object> data){
+    public EventResponse handle(HashMap<String, Object> data){
         String username = (String) data.get("username");
         String uniqueKey = (String) data.get("unique_key");
 

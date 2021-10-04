@@ -1,15 +1,15 @@
 package tk.chaber.sfn2021rest.response;
 
-import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.socket.Event;
 
 import java.util.HashMap;
 
-public class SuccessResponse implements EventResponding {
+public class SuccessResponse implements EventResponse {
 
-    private final EventsEnum requestEvent;
+    private final Event requestEvent;
     HashMap<String, Object> payloadObjects = new HashMap<>();
 
-    public SuccessResponse(EventsEnum responseToEvent) {
+    public SuccessResponse(Event responseToEvent) {
         this.requestEvent = responseToEvent;
 
         payloadObjects.put("success", true);

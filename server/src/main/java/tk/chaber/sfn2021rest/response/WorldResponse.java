@@ -1,12 +1,12 @@
 package tk.chaber.sfn2021rest.response;
 
-import tk.chaber.sfn2021rest.db.entities.World;
-import tk.chaber.sfn2021rest.socket.EventsEnum;
+import tk.chaber.sfn2021rest.persistence.entity.World;
+import tk.chaber.sfn2021rest.socket.Event;
 
 import java.util.HashMap;
 
 public class WorldResponse extends SuccessResponse{
-    public WorldResponse(EventsEnum responseToEvent, World world) {
+    public WorldResponse(Event responseToEvent, World world) {
         super(responseToEvent);
 
         HashMap<String, Object> worldJSON = new HashMap<>();

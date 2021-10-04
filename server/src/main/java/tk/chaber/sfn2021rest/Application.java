@@ -1,9 +1,6 @@
 package tk.chaber.sfn2021rest;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.chaber.sfn2021rest.utils.ConfigVars;
+import tk.chaber.sfn2021rest.util.ConfigVars;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
