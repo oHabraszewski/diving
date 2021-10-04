@@ -1,5 +1,6 @@
 package tk.chaber.sfn2021rest.web.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import tk.chaber.sfn2021rest.socket.Event;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 public class UserController {
@@ -26,9 +28,11 @@ public class UserController {
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
+    ObjectMapper mapper = new ObjectMapper();
+
     @PostMapping(path = "/user/register", consumes = "application/json", produces = "application/json")
     public @ResponseBody
-    EventResponse registerUserAccount(@RequestBody @Valid RegisterUserDto userDto, HttpServletRequest request){
+    HashMap<String, Object> registerUserAccount(@RequestBody @Valid RegisterUserDto userDto, HttpServletRequest request){
         try{
             User registered = service.registerNewUserAccount(userDto);
 
@@ -36,24 +40,31 @@ public class UserController {
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(appUrl, registered));
         }catch(UserAlreadyExistsException uaeEx){
             System.out.println(uaeEx.getMessage());
-            return new FailedResponse(Event.REGISTER_USER, Error.USER_ALREADY_EXISTS);
+            EventResponse response = new FailedResponse(Event.REGISTER_USER, Error.USER_ALREADY_EXISTS);
+            return response.getRawJSONResponse();
         }
-        return new SuccessResponse(Event.REGISTER_USER);
+        EventResponse response = new SuccessResponse(Event.REGISTER_USER);
+        return response.getRawJSONResponse();
     }
 
     @PostMapping(path = "/user/login", consumes = "application/json", produces = "application/json")
     public @ResponseBody
-    EventResponse loginUserAccount(@RequestBody @Valid UserDto userDto){
+    HashMap<String, Object> loginUserAccount(@RequestBody @Valid UserDto userDto){
         try{
             User logged = service.loginUserAccount(userDto);
 
-            return new UserResponse(Event.LOGIN_USER, logged);
+            EventResponse response = new UserResponse(Event.LOGIN_USER, logged);
+            return response.getRawJSONResponse();
         }catch(UserDoesNotExistException udneEx){
             System.out.println(udneEx.getMessage());
-            return new FailedResponse(Event.LOGIN_USER, Error.USER_DOES_NOT_EXIST);
+
+            EventResponse response = new FailedResponse(Event.LOGIN_USER, Error.USER_DOES_NOT_EXIST);
+            return response.getRawJSONResponse();
         }catch (AuthenticationFailedException afEx){
             System.out.println(afEx.getMessage());
-            return new FailedResponse(Event.LOGIN_USER, Error.AUTH_FAIL);
+
+            EventResponse response = new FailedResponse(Event.LOGIN_USER, Error.AUTH_FAIL);
+            return response.getRawJSONResponse();
         }
     }
 }
