@@ -15,6 +15,7 @@ import tk.chaber.sfn2021rest.web.controller.registration.OnRegistrationCompleteE
 import tk.chaber.sfn2021rest.response.*;
 import tk.chaber.sfn2021rest.response.Error;
 import tk.chaber.sfn2021rest.socket.Event;
+import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -60,6 +61,11 @@ public class UserController {
 
             EventResponse response = new FailedResponse(Event.LOGIN_USER, Error.USER_DOES_NOT_EXIST);
             return response.getRawJSONResponse();
+        }catch(UserNotVerifiedException unvEx){
+            System.out.println(unvEx.getMessage());
+
+            EventResponse response = new FailedResponse(Event.LOGIN_USER, Error.USER_NOT_VERIFIED);
+            return  response.getRawJSONResponse();
         }catch (AuthenticationFailedException afEx){
             System.out.println(afEx.getMessage());
 

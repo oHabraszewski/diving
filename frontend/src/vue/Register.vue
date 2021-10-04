@@ -63,8 +63,8 @@
                     this.error = payload.error //TODO: translate errors
 
                     console.warn("Register data validation has not been completed successfully! Read description below for details")
-                    console.warn(response) //FIXME: DEV
-                    //console.warn(payload.error) // PROD
+                    console.warn(payload.error) 
+                    //console.debug(response)
                 }
             }
         }

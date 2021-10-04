@@ -13,6 +13,7 @@ import tk.chaber.sfn2021rest.web.error.UserAlreadyExistsException;
 import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
 import tk.chaber.sfn2021rest.persistence.repository.UserRepo;
 import tk.chaber.sfn2021rest.persistence.repository.VerificationTokenRepo;
+import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import java.util.UUID;
 
@@ -28,18 +29,25 @@ public class UserService {
     @Autowired
     private PasswordEncoder passEncoder;
 
-    public User loginUserAccount(UserDto userDto) throws UserDoesNotExistException, AuthenticationFailedException {
+    public User loginUserAccount(UserDto userDto) throws
+            UserDoesNotExistException,
+            UserNotVerifiedException,
+            AuthenticationFailedException {
         if(!userRepository.existsByUsername(userDto.getUsername())){
             throw new UserDoesNotExistException("There is no user with such a username: " + userDto.getUsername());
         }
 
         User user = userRepository.findByUsername(userDto.getUsername());
 
+        if(!user.isEnabled()){
+            throw new UserNotVerifiedException("User has not verified their email address.");
+        }
+
         if(!passEncoder.matches(userDto.getPassword(), user.getPassword())){
             throw new AuthenticationFailedException("Authentication failed");
         }
 
-        user.setSecret(createSecret());
+        user.setSecret(UUID.randomUUID().toString());
 
         return userRepository.save(user);
     }
@@ -54,7 +62,6 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.setSecret(createSecret());
 
         return userRepository.save(user);
     }
@@ -67,11 +74,6 @@ public class UserService {
         return tokenRepository.findByToken(verificationToken).getUser();
     }
 
-    private boolean emailExists(String email){
-        System.out.println(userRepository.findByEmail(email));
-        return userRepository.findByEmail(email) != null;
-    }
-
     public void createVerificationToken(User user, String token){
         VerificationToken verificationToken = new VerificationToken(token, user);
         tokenRepository.save(verificationToken);
@@ -79,11 +81,5 @@ public class UserService {
 
     public VerificationToken getVerificationToken(String token){
         return tokenRepository.findByToken(token);
-    }
-
-
-
-    private String createSecret(){
-        return UUID.randomUUID().toString();
     }
 }

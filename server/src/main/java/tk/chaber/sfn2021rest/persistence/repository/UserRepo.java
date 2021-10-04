@@ -11,6 +11,4 @@ public interface UserRepo extends CrudRepository<User, Long> {
     User findByUsername(String username);
 
     User findByEmail(String email);
-
-    //List<User> findByToken(byte[] token);
 }

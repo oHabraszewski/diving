@@ -109,7 +109,7 @@
                                 this.clearLocalStorage();
                             }
 
-                            console.debug("Username: " + sessionStorage.getItem("username"))
+                            console.debug("Username: " + sessionStorage.getItem("username")) //FIXME: Delete on Strict Prod
                             console.debug("Key: " + sessionStorage.getItem("unique_key"))
 
                             this.changeDirectory("/game")
@@ -117,8 +117,8 @@
                         this.error = payload.error
 
                         console.warn("Login data validation has not been completed successfully! Read description below for details")
-                        console.warn(response) //FIXME: DEV
-                        //console.warn(payload.error)//PROD
+                        console.warn(payload.error)
+                        //console.debug(response) 
                     }
                 }
             }
