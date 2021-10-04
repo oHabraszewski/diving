@@ -242,3 +242,10 @@ func _on_CheckButton_toggled(button_pressed):
 	sound_setting.store_var(music)
 	sound_setting.close()
 	pass # Replace with function body.
+func upadte_scoreboard(scoreboard_data: Array):
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label2.text = scoreboard_data[0]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label3.text = scoreboard_data[1]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label4.text = scoreboard_data[2]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label5.text = scoreboard_data[3]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = scoreboard_data[4]
+	pass
