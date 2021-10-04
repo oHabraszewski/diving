@@ -485,8 +485,9 @@ texture = ExtResource( 20 )
 
 [node name="CheckButton" type="CheckButton" parent="Interface/Control/HBoxContainer"]
 margin_left = 54.0
-margin_right = 130.0
+margin_right = 124.0
 margin_bottom = 50.0
+theme = ExtResource( 8 )
 pressed = true
 __meta__ = {
 "_edit_use_anchors_": false

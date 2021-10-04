@@ -59,10 +59,8 @@ func _ready():
 #			savegame.store_64(points)
 #			savegame.close()
 	if sound_setting.file_exists("user://sound.save"):
-		print("ADSAD")
 		sound_setting.open("user://sound.save", File.READ)
 		music = sound_setting.get_var()
-		print(music)
 		fx = music
 		sound_setting.close()
 		if music:
