@@ -32,36 +32,30 @@ public class WritingHandler extends WorldHandler{
         Error error;
 
         if(userRepository.existsByUsername(username)) {
-            List<User> potentialOwners = userRepository.findByUsername(username);
+            User owner = userRepository.findByUsername(username);
 
-            if(potentialOwners.size() == 1){
-                User owner = potentialOwners.get(0);
+            //if (owner.checkToken(uniqueKey)) {
 
-                //if (owner.checkToken(uniqueKey)) {
+                if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                    List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
 
-                    if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-                        List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
+                    if(potentialWorlds.size() == 1){
+                        World world = potentialWorlds.get(0);
 
-                        if(potentialWorlds.size() == 1){
-                            World world = potentialWorlds.get(0);
+                        world.setWorldData(worldData);
 
-                            world.setWorldData(worldData);
+                        worldRepository.save(world);
 
-                            worldRepository.save(world);
-
-                            return new SuccessResponse(this.event);
-                        }else{
-                            error = Error.MULTIPLE_WORLDS_EXIST;
-                        }
-//                    } else {
-//                        error = Error.WORLD_DOES_NOT_EXIST;
-//                    }
+                        return new SuccessResponse(this.event);
+                    }else{
+                        error = Error.MULTIPLE_WORLDS_EXIST;
+                    }
                 } else {
-                    error = Error.AUTH_FAIL;
+                    error = Error.WORLD_DOES_NOT_EXIST;
                 }
-            }else {
-                error = Error.MULTIPLE_USERS_EXIST;
-            }
+//            } else {
+//                error = Error.AUTH_FAIL;
+//            }
         }else {
             error = Error.USER_DOES_NOT_EXIST;
         }

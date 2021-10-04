@@ -51,40 +51,34 @@ public class CreatingHandler extends WorldHandler{
         }
 
         if(userRepository.existsByUsername(username)) {
-            List<User> potentialOwners = userRepository.findByUsername(username);
+            User owner = userRepository.findByUsername(username);
 
-            if(potentialOwners.size() == 1){
-                User owner = potentialOwners.get(0);
+            // (owner.checkToken(uniqueKey)) {
+                Long ownerId = owner.getId();
+                List<World> ownersWorlds = worldRepository.findByOwnerId(ownerId);
 
-                // (owner.checkToken(uniqueKey)) {
-                    Long ownerId = owner.getId();
-                    List<World> ownersWorlds = worldRepository.findByOwnerId(ownerId);
+                if(ownersWorlds.size() < 10) {
 
-                    if(ownersWorlds.size() < 10) {
+                    if (!worldRepository.existsByOwnerIdAndWorldName(ownerId, worldName)) {
+                        World world = new World();
 
-                        if (!worldRepository.existsByOwnerIdAndWorldName(ownerId, worldName)) {
-                            World world = new World();
+                        world.setOwnerId(owner.getId());
+                        world.setWorldName(worldName);
+                        world.setSeed(worldSeed);
+                        world.setWorldData(worldData);
 
-                            world.setOwnerId(owner.getId());
-                            world.setWorldName(worldName);
-                            world.setSeed(worldSeed);
-                            world.setWorldData(worldData);
+                        worldRepository.save(world);
 
-                            worldRepository.save(world);
-
-                            return new WorldResponse(this.event, world);
-                        } else {
-                            error = Error.WORLD_ALREADY_EXISTS;
-                        }
-                    }else {
-                        error = Error.WORLD_NUMBER_LIMIT;
+                        return new WorldResponse(this.event, world);
+                    } else {
+                        error = Error.WORLD_ALREADY_EXISTS;
                     }
-                //} else {
-                   // error = Error.AUTH_FAIL;
-                //}
-            }else {
-                error = Error.MULTIPLE_USERS_EXIST;
-            }
+                }else {
+                    error = Error.WORLD_NUMBER_LIMIT;
+                }
+            //} else {
+               // error = Error.AUTH_FAIL;
+            //}
         }else {
             error = Error.USER_DOES_NOT_EXIST;
         }

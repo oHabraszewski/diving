@@ -31,31 +31,25 @@ public class ReadingHandler extends WorldHandler{
         Error error;
 
         if(userRepository.existsByUsername(username)) {
-            List<User> potentialOwners = userRepository.findByUsername(username);
+            User owner = userRepository.findByUsername(username);
 
-            if(potentialOwners.size() == 1){
-                User owner = potentialOwners.get(0);
+            //if (owner.checkToken(uniqueKey)) {
 
-                //if (owner.checkToken(uniqueKey)) {
+                if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
+                    List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
 
-                    if (worldRepository.existsByOwnerIdAndWorldName(owner.getId(), worldName)) {
-                        List<World> potentialWorlds = worldRepository.findByOwnerIdAndWorldName(owner.getId(), worldName);
-
-                        if(potentialWorlds.size() == 1){
-                            World world = potentialWorlds.get(0);
-                            return new WorldResponse(this.event, world);
-                        }else{
-                            error = Error.MULTIPLE_WORLDS_EXIST;
-                        }
-                    } else {
-                        error = Error.WORLD_DOES_NOT_EXIST;
+                    if(potentialWorlds.size() == 1){
+                        World world = potentialWorlds.get(0);
+                        return new WorldResponse(this.event, world);
+                    }else{
+                        error = Error.MULTIPLE_WORLDS_EXIST;
                     }
-                //} else {
-                   // error = Error.AUTH_FAIL;
-                //}
-            }else {
-                error = Error.MULTIPLE_USERS_EXIST;
-            }
+                } else {
+                    error = Error.WORLD_DOES_NOT_EXIST;
+                }
+            //} else {
+               // error = Error.AUTH_FAIL;
+            //}
         }else {
             error = Error.USER_DOES_NOT_EXIST;
         }
