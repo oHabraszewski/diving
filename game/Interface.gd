@@ -54,10 +54,6 @@ func _ready():
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
 		
-#	print("asd")
-#	savegame.open_encrypted_with_pass("user://savegame.save", File.WRITE, "sfn2021asd")
-#			savegame.store_64(points)
-#			savegame.close()
 	if sound_setting.file_exists("user://sound.save"):
 		sound_setting.open("user://sound.save", File.READ)
 		music = sound_setting.get_var()
