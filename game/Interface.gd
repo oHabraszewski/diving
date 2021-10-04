@@ -248,4 +248,5 @@ func upadte_scoreboard(scoreboard_data: Array):
 	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label4.text = scoreboard_data[2]
 	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label5.text = scoreboard_data[3]
 	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = scoreboard_data[4]
+	$Control5.show()
 	pass
