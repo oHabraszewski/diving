@@ -34,25 +34,25 @@ public class UserController {
 
             String appUrl = request.getContextPath();
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(appUrl, registered));
-        }catch(UserAlreadyExistsException ex){
-            System.out.println("USER EXISTS");
+        }catch(UserAlreadyExistsException uaeEx){
+            System.out.println(uaeEx.getMessage());
             return new FailedResponse(Event.REGISTER_USER, Error.USER_ALREADY_EXISTS);
         }
         return new SuccessResponse(Event.REGISTER_USER);
     }
 
-    @PostMapping(path = "user/login", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/login", consumes = "application/json", produces = "application/json")
     public @ResponseBody
-    EventResponse loginUserAccount(@RequestBody @Valid UserDto userDto, HttpServletRequest request){
+    EventResponse loginUserAccount(@RequestBody @Valid UserDto userDto){
         try{
             User logged = service.loginUserAccount(userDto);
 
             return new UserResponse(Event.LOGIN_USER, logged);
-        }catch(UserDoesNotExistException ex){
-            System.out.println("USER DOES NOT EXIST");
+        }catch(UserDoesNotExistException udneEx){
+            System.out.println(udneEx.getMessage());
             return new FailedResponse(Event.LOGIN_USER, Error.USER_DOES_NOT_EXIST);
-        }catch (AuthenticationFailedException ex){
-            System.out.println("AUTHENTICATION FAILED");
+        }catch (AuthenticationFailedException afEx){
+            System.out.println(afEx.getMessage());
             return new FailedResponse(Event.LOGIN_USER, Error.AUTH_FAIL);
         }
     }

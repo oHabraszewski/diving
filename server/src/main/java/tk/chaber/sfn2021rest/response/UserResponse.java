@@ -9,11 +9,11 @@ public class UserResponse extends SuccessResponse{
     public UserResponse(Event responseToEvent, User user) {
         super(responseToEvent);
 
-        HashMap<String, Object> worldJSON = new HashMap<>();
+        HashMap<String, Object> userMap= new HashMap<>();
 
-        worldJSON.put("username", user.getUsername());
-        worldJSON.put("secret", user.getSecret());
+        userMap.put("username", user.getUsername());
+        userMap.put("secret", user.getSecret());
 
-        payloadObjects.put("world", worldJSON);
+        payloadObjects.put("user", userMap);
     }
 }

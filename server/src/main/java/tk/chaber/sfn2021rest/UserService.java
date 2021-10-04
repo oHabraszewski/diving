@@ -34,10 +34,14 @@ public class UserService {
         }
 
         User user = userRepository.findByUsername(userDto.getUsername());
+
         if(!passEncoder.matches(userDto.getPassword(), user.getPassword())){
             throw new AuthenticationFailedException("Authentication failed");
         }
-        return user;
+
+        user.setSecret(createSecret());
+
+        return userRepository.save(user);
     }
 
     public User registerNewUserAccount(RegisterUserDto userDto) throws UserAlreadyExistsException {
@@ -45,13 +49,12 @@ public class UserService {
         if(userRepository.existsByEmail(userDto.getEmail())){
             throw new UserAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
         }
-        String secretString = UUID.randomUUID().toString();
 
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(passEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-        user.setSecret(secretString);
+        user.setSecret(createSecret());
 
         return userRepository.save(user);
     }
@@ -76,5 +79,11 @@ public class UserService {
 
     public VerificationToken getVerificationToken(String token){
         return tokenRepository.findByToken(token);
+    }
+
+
+
+    private String createSecret(){
+        return UUID.randomUUID().toString();
     }
 }

@@ -9,12 +9,12 @@ public class WorldResponse extends SuccessResponse{
     public WorldResponse(Event responseToEvent, World world) {
         super(responseToEvent);
 
-        HashMap<String, Object> worldJSON = new HashMap<>();
+        HashMap<String, Object> worldMap = new HashMap<>();
 
-        worldJSON.put("name", world.getWorldName());
-        worldJSON.put("seed", world.getSeed());
-        worldJSON.put("data", world.getWorldData());
+        worldMap.put("name", world.getWorldName());
+        worldMap.put("seed", world.getSeed());
+        worldMap.put("data", world.getWorldData());
 
-        payloadObjects.put("world", worldJSON);
+        payloadObjects.put("world", worldMap);
     }
 }
