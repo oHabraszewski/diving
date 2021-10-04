@@ -169,11 +169,6 @@ let miniCssExtractPluginOptions = {};
 let definePluginOptions = {
   __IS_DEV__: isDev,
 };
-{
-  if (isDev) { // WTF is this??? Are you drunk?
-  } else {
-  }
-}
 
 const plugins = [
  // new CleanWebpackPlugin(),
@@ -185,7 +180,7 @@ const plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[2]),  
   new HtmlWebpackPlugin(htmlWebpackPluginsOptions[3]), 
   new MiniCssExtractPlugin(miniCssExtractPluginOptions),
-  new FaviconsWebpackPlugin(path.resolve(assetsPath, 'img/favicon.png')) //TODO: new icon -> change path
+  new FaviconsWebpackPlugin(path.resolve(assetsPath, 'img/favicon.png'))
 ];
 {
   if (isDev) {
@@ -237,26 +232,6 @@ let optimization = {};
     };
   }
 }
-
-// =========================================================================
-// dev server
-// =========================================================================
-// const devServer = {
-//   contentBase: path.join(context),
-//   open: true,
-//   openPage: 'http://localhost:8080',
-//   publicPath: '/',
-//   port: 8081,
-//   index: './index.html',
-//   hot: true,
-//   writeToDisk: true,
-//   clientLogLevel: 'error',
-//   overlay: {
-//     warnings: false,
-//     errors: true,
-//   },
-//   historyApiFallback: true,
-// };
 
 module.exports = {
   mode: isDev ? 'development' : 'production',

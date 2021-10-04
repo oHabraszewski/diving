@@ -1,5 +1,5 @@
 const ConfigVars = {
-    HOSTNAME: "http://localhost:8080/",
+    HOSTNAME: "https://the-diving.herokuapp.com/",
     API_PREFIX: "api"
 }
 export default ConfigVars

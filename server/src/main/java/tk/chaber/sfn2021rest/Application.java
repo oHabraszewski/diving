@@ -22,7 +22,7 @@ public class Application {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {  //CORS configuration TODO: change links on production
+			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/register").allowedOrigins(ConfigVars.HOSTNAME);
 				registry.addMapping("/").allowedOrigins(ConfigVars.HOSTNAME);
 			}

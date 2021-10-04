@@ -39,7 +39,7 @@ public class CreatingHandler extends WorldHandler{
             String rawData = (String) worldPayload.get("data");
 
             int random = Randomizer.randomInt();
-            System.out.println(random); //DELETEME: on prod
+            
             //Data validation and generation if needed.
             worldName = rawName;
             worldSeed = rawSeed == null ? random : rawSeed;

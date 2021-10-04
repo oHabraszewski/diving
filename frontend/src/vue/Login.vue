@@ -13,7 +13,6 @@
                 <check-vue @valueChange="setRemember" id="remember" :value="remember">{{lang.remember_me}}</check-vue>
             </form>
             <p v-if="!success">{{error}}</p>
-            <button-vue destination="/game">Play without login</button-vue> <!--TODO: remove on production-->
             <link-vue destination="/register">{{lang.register}}</link-vue>
         </div>
         <div class="bottom">

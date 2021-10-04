@@ -65,8 +65,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Event type: " + event);
         System.out.println("Headers: " + headers.toString());
         System.out.println("Payload: " + payload.toString());
-
-        System.out.println("Handlers: " + eventHandlers.toString()); //DELETEME: on production
+        System.out.println("----------------------------------------------------------------------");
 
         EventHandling handler = eventHandlers.get(event);
         EventResponding response = handler.handle(payload);
