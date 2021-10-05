@@ -1,7 +1,7 @@
 [
     {
         "name": "Game",
-        "content": "Some nerdy stuff about game development. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis diam, suscipit ut nulla eu, bibendum dignissim purus. Curabitur vulputate eget leo id elementum. Nulla leo sem, accumsan et sem sed, feugiat pretium lacus. Nam iaculis id arcu vitae molestie. Donec sollicitudin efficitur tellus, a scelerisque justo lobortis in. Cras a sodales lacus. Sed efficitur neque eu efficitur ornare. Morbi leo arcu, varius vitae aliquet feugiat, laoreet id felis. Aenean sed velit vestibulum, pulvinar arcu quis, pellentesque erat. Phasellus ut lorem purus. Ut hendrerit ipsum at suscipit cursus. Quisque orci risus, ullamcorper sit amet tellus in, hendrerit aliquet leo. Aenean."
+        "content": "The game itself... so about that. When you try to create a game you need to choose technologies that you want to use. We decided to choose Godot Game Engine because it is very versatile, has good support for running games in the browser and most importantly, is Open Source and free to use. Game assets were all hand-drawn (except for a few icons) in Krita which is also a great Open Source tool for digital art. Game logic is written in GDScript, language that was inspired by Python but it is specific for game-making workflow. Many aspects of this game are procedurally generated which means that they are generated based on some starting numbers, but not preprogrammed. The first idea for a game was for it to be an RPG-like game with the element of upgrading equipment, fighting etc. (of course all underwater). The game evolved to the state it is in right now - it is a blend of arcade and exploration game."
     },
     {
         "name": "Client",
