@@ -50,19 +50,21 @@
                 this.sendData()
             },
             async sendData(){
-                const response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/register",{ 
+                const response = await connect(ConfigVars.HOSTNAME + "/user/register",{ 
                     username: this.username,
                     password: this.password,
                     email: this.email
                 })
 
-                this.success = response.data.success;
+                const payload = response.data.payload;
+                this.success = payload.success;
 
                 if(!this.success){
-                        this.error = response.data.error
+                    this.error = payload.error //TODO: translate errors
 
-                        console.warn("Register data validation has not been completed successfully! Read description below for details")
-                        console.warn(response)
+                    console.warn("Register data validation has not been completed successfully! Read description below for details")
+                    console.warn(payload.error) 
+                    //console.debug(response)
                 }
             }
         }

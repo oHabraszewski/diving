@@ -22,7 +22,7 @@
         "email_tip": "Type your email",
         "sign_up": "Sign up",
         "success_1": "Thank you for signing up to the Diving game!",
-        "success_2": "Now you can login and dive into the game.",
+        "success_2": "Now check your email to verify your account.",
         "return": "Return to login"
     }
 }

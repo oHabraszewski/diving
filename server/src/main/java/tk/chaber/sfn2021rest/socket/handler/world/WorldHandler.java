@@ -1,26 +1,26 @@
 package tk.chaber.sfn2021rest.socket.handler.world;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.chaber.sfn2021rest.db.UsersRepo;
-import tk.chaber.sfn2021rest.db.WorldsRepo;
-import tk.chaber.sfn2021rest.socket.EventsEnum;
-import tk.chaber.sfn2021rest.socket.handler.EventHandling;
+import tk.chaber.sfn2021rest.persistence.repository.UserRepo;
+import tk.chaber.sfn2021rest.persistence.repository.WorldRepo;
+import tk.chaber.sfn2021rest.socket.Event;
+import tk.chaber.sfn2021rest.socket.handler.EventHandler;
 
-public abstract class WorldHandler implements EventHandling {
+public abstract class WorldHandler implements EventHandler {
     @Autowired
-    protected WorldsRepo worldsRepository;
+    protected WorldRepo worldRepository;
 
     @Autowired
-    protected UsersRepo usersRepository;
+    protected UserRepo userRepository;
 
-    protected final EventsEnum event;
+    protected final Event event;
 
-    public WorldHandler(EventsEnum event){
+    public WorldHandler(Event event){
         this.event = event;
     }
 
     @Override
-    public EventsEnum getEvent() {
+    public Event getEvent() {
         return event;
     }
 }

@@ -1,9 +1,6 @@
 package tk.chaber.sfn2021rest;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tk.chaber.sfn2021rest.utils.ConfigVars;
+import tk.chaber.sfn2021rest.util.ConfigVars;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +19,7 @@ public class Application {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void addCorsMappings(CorsRegistry registry) {  //CORS configuration TODO: change links on production
+			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/register").allowedOrigins(ConfigVars.HOSTNAME);
 				registry.addMapping("/").allowedOrigins(ConfigVars.HOSTNAME);
 			}
