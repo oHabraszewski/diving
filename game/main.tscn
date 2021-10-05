@@ -46,29 +46,28 @@ gradient = SubResource( 4 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 117.228, 22 )
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 1, 0, 0, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.65098, 0, 0, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
-border_blend = true
 corner_radius_top_right = 400
 corner_radius_bottom_right = 400
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=8]
 size = 48
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=9]
 size = 64
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control2/Panel/ProgressBar:modulate")
 tracks/0/interp = 1
@@ -82,21 +81,21 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.768627, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0.776471, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=11]
 size = 38
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=12]
 size = 100
 outline_size = 1
 outline_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 extra_spacing_char = 2
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=17]
+[sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0.14902, 0.380392, 0.337255, 0.6 )
 border_width_left = 3
 border_width_top = 3
@@ -109,18 +108,18 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxLine" id=18]
+[sub_resource type="StyleBoxLine" id=14]
 color = Color( 0.0745098, 0.219608, 0.227451, 1 )
 thickness = 3
 
-[sub_resource type="Gradient" id=14]
+[sub_resource type="Gradient" id=15]
 offsets = PoolRealArray( 0, 0.413284, 1 )
 colors = PoolColorArray( 0.976471, 1, 0.74902, 1, 0.779671, 0.931373, 0.810582, 1, 0.211765, 0.733333, 0.988235, 1 )
 
-[sub_resource type="GradientTexture" id=15]
-gradient = SubResource( 14 )
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
 tracks/0/interp = 1
@@ -244,7 +243,7 @@ margin_left = 936.881
 margin_top = 41.5595
 margin_right = 1556.88
 margin_bottom = 188.56
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -255,7 +254,7 @@ margin_top = 37.0
 margin_right = 1577.0
 margin_bottom = 107.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "O2"
 __meta__ = {
@@ -276,10 +275,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="Interface/Control2/Panel"]
-margin_left = 616.443
-margin_top = 19.6447
-margin_right = 744.443
-margin_bottom = 319.645
+margin_left = 616.63
+margin_top = 21.143
+margin_right = 744.63
+margin_bottom = 321.143
 rect_scale = Vector2( 0.340021, 0.340021 )
 texture = ExtResource( 9 )
 __meta__ = {
@@ -315,7 +314,7 @@ margin_top = 9.0
 margin_right = 300.0
 margin_bottom = 91.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "0 coins"
 __meta__ = {
@@ -327,7 +326,7 @@ wait_time = 0.431
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
-"anims/progress bar tint" = SubResource( 11 )
+"anims/progress bar tint" = SubResource( 10 )
 
 [node name="Control4" type="Control" parent="Interface"]
 margin_left = 216.0
@@ -342,7 +341,6 @@ __meta__ = {
 visible = false
 
 [node name="Popup" type="Popup" parent="Interface"]
-visible = true
 margin_right = 1613.0
 margin_bottom = 918.0
 theme = ExtResource( 8 )
@@ -367,7 +365,7 @@ margin_top = 786.0
 margin_right = 1600.0
 margin_bottom = 868.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 9 )
 text = "TIP: to get oxygen swim to the top"
 align = 1
 __meta__ = {
@@ -380,7 +378,7 @@ margin_top = 23.3494
 margin_right = 1583.79
 margin_bottom = 190.349
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "YOUR SCORE:
 YOUR HIGHSCORE: "
@@ -395,7 +393,7 @@ margin_top = 10.7503
 margin_right = 923.597
 margin_bottom = 177.75
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "Playtime: 1:10"
 __meta__ = {
@@ -424,7 +422,7 @@ __meta__ = {
 margin_right = 428.0
 margin_bottom = 129.0
 theme = ExtResource( 8 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 custom_colors/font_color_shadow = Color( 0.211765, 0.443137, 0.411765, 1 )
 custom_constants/shadow_offset_x = 3
@@ -512,7 +510,7 @@ margin_right = 14.0
 margin_bottom = 14.0
 grow_horizontal = 0
 theme = ExtResource( 8 )
-custom_styles/panel = SubResource( 17 )
+custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -541,7 +539,7 @@ margin_top = 46.0
 margin_right = 173.0
 margin_bottom = 91.0
 theme = ExtResource( 8 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 14 )
 text = "asdad : 123"
 
 [node name="Label3" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -549,7 +547,7 @@ margin_top = 95.0
 margin_right = 173.0
 margin_bottom = 140.0
 theme = ExtResource( 8 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 14 )
 text = "asdad : 123"
 
 [node name="Label4" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -557,7 +555,7 @@ margin_top = 144.0
 margin_right = 173.0
 margin_bottom = 189.0
 theme = ExtResource( 8 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 14 )
 text = "asdad : 123"
 
 [node name="Label5" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -565,7 +563,7 @@ margin_top = 193.0
 margin_right = 173.0
 margin_bottom = 238.0
 theme = ExtResource( 8 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 14 )
 text = "asdad : 123"
 
 [node name="Label6" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -573,7 +571,7 @@ margin_top = 242.0
 margin_right = 173.0
 margin_bottom = 287.0
 theme = ExtResource( 8 )
-custom_styles/normal = SubResource( 18 )
+custom_styles/normal = SubResource( 14 )
 text = "asdad : 123"
 
 [node name="NetworkNode" type="Node" parent="."]
@@ -602,10 +600,10 @@ texture = ExtResource( 6 )
 modulate = Color( 1, 1, 1, 0.00706724 )
 position = Vector2( 417.415, -766.83 )
 scale = Vector2( 3, 1571.87 )
-texture = SubResource( 15 )
+texture = SubResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/change_bck_to_air = SubResource( 16 )
+anims/change_bck_to_air = SubResource( 17 )
 
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
