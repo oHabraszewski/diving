@@ -47,17 +47,17 @@ func _process(delta):
 	$nurek.rotation = $CollisionShape2D.rotation
 	$Area2D.rotation = $CollisionShape2D.rotation
 	
-#	if self.linear_velocity.y < 10:
-#		self.linear_velocity.y += 1
-#
-#	if self.linear_velocity.y > 10:
-#		self.linear_velocity.y -= 1
-#
-#	if self.linear_velocity.x < 0:
-#		self.linear_velocity.x += 5
+	if self.linear_velocity.y < 10:
+		self.linear_velocity.y += 1
+
+	if self.linear_velocity.y > 10:
+		self.linear_velocity.y -= 1
+
+	if self.linear_velocity.x < 0:
+		self.linear_velocity.x += 5
 #	##by zmniejszać prędkość imitując opór wody
-#	if self.linear_velocity.x > 0:
-#		self.linear_velocity.x -= 5
+	if self.linear_velocity.x > 0:
+		self.linear_velocity.x -= 5
 #	##by zmniejszać prędkość imitując opór wody
 #	## Po co te if'y?????
 pass

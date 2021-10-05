@@ -4,6 +4,8 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export(bool) var fx = true
+export(bool) var music = true
 var play_time = 0
 var lang = "PL"
 var strings_eng = {
@@ -35,6 +37,7 @@ var strings_pl = {
 export(int) var oxygen_level = 100 
 var points = 0
 var savegame = File.new()
+var sound_setting = File.new()
 var hiscore = 0
 var strings
 # Called when the node enters the scene tree for the first time.
@@ -51,7 +54,21 @@ func _ready():
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
 		
-#	print("asd")
+	if sound_setting.file_exists("user://sound.save"):
+		sound_setting.open("user://sound.save", File.READ)
+		music = sound_setting.get_var()
+		fx = music
+		sound_setting.close()
+		if music:
+			$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-loud.png")
+			$AudioStreamPlayer.stream =  preload("res://assets/music/background.wav")
+			$AudioStreamPlayer.play()
+			$Control/HBoxContainer/CheckButton.pressed = true
+		else:
+			$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-quiet.png")
+			$AudioStreamPlayer.stream =  null
+			$Control/HBoxContainer/CheckButton.pressed = false
+		
 	if savegame.file_exists("user://savegame.save"):
 		savegame.open_encrypted_with_pass("user://savegame.save", File.READ, "sfn2021asd")
 		hiscore = savegame.get_64()
@@ -59,12 +76,20 @@ func _ready():
 	$Popup/Panel/CenterContainer/VBoxContainer/Label.text = strings["przegrales"]
 	$Popup/Panel/CenterContainer/VBoxContainer/Button.text = strings["zagraj_jeszcze_raz"]
 	$Control3/HBoxContainer/Label.text = "0 " + strings["monet"]
+	if music:
+		$AudioStreamPlayer.play()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Control2/Panel/ProgressBar.value = oxygen_level
-	if oxygen_level < 0:
+	if oxygen_level < 0 and not $Popup.visible:
+		$AudioStreamPlayer.stream = null
+		$AudioStreamPlayer2.stream = null
+		$AudioStreamPlayer3.stream = null
+		$AudioStreamPlayer4.stream = null
+		if music:
+			$AudioStreamPlayer5.play()
 		$Timer.stop()
 		if OS.get_name() == "Android":
 			var font = DynamicFont.new()
@@ -90,13 +115,14 @@ func _process(delta):
 
 
 func _on_OxygenTimer_timeout():
-	
 	if $"../Game/Air".player_is_in_water:
 		oxygen_level -= 1
 	else:
 		oxygen_level += 10
 	if oxygen_level < 15:
 		$AnimationPlayer.play("progress bar tint")
+		if fx:
+			$AudioStreamPlayer3.play()
 	if oxygen_level < 30:
 		$Control2/Panel/ProgressBar.self_modulate = Color(0.8,0,0)
 	else:
@@ -107,6 +133,8 @@ func _on_OxygenTimer_timeout():
 
 
 func _on_Player_bumped_into_rocks():
+	if fx:
+		$AudioStreamPlayer4.play()
 	if oxygen_level > 15:
 		oxygen_level -= 15
 	else:
@@ -117,6 +145,8 @@ func _on_Player_bumped_into_rocks():
 
 func _on_Terrain_chest_opened(id):
 	points += 1
+	if fx:
+		$AudioStreamPlayer2.play()
 	if lang == "EN":
 		if points == 1:
 			$Control3/HBoxContainer/Label.text = String(points) + strings["moneta"]
@@ -182,3 +212,41 @@ func _on_Joystick_released():
 	Input.action_release("move_left")
 	Input.action_release("move_right")
 	pass # Replace with function body.
+
+
+func _on_AudioStreamPlayer_finished():
+	$AudioStreamPlayer.play()
+	pass # Replace with function body.
+
+
+func _on_AudioStreamPlayer3_finished():
+	if oxygen_level < 15:
+		$AudioStreamPlayer3.play()
+	pass # Replace with function body.
+
+
+func _on_CheckButton_toggled(button_pressed):
+#	print(button_pressed)
+	if button_pressed:
+		$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-loud.png")
+		$AudioStreamPlayer.stream =  preload("res://assets/music/background.wav")
+		$AudioStreamPlayer.play()
+		music = true
+		fx = true
+	else:
+		$Control/HBoxContainer/TextureRect.texture = preload("res://assets/speaker-quiet.png")
+		$AudioStreamPlayer.stream =  null
+		music = false
+		fx = false
+	sound_setting.open("user://sound.save", File.WRITE)
+	sound_setting.store_var(music)
+	sound_setting.close()
+	pass # Replace with function body.
+func upadte_scoreboard(scoreboard_data: Array):
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label2.text = scoreboard_data[0]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label3.text = scoreboard_data[1]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label4.text = scoreboard_data[2]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label5.text = scoreboard_data[3]
+	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = scoreboard_data[4]
+	$Control5.show()
+	pass
