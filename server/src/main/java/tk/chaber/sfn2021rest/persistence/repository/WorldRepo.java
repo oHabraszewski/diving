@@ -1,12 +1,11 @@
-package tk.chaber.sfn2021rest.db;
+package tk.chaber.sfn2021rest.persistence.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import tk.chaber.sfn2021rest.db.entities.User;
-import tk.chaber.sfn2021rest.db.entities.World;
+import tk.chaber.sfn2021rest.persistence.entity.World;
 
 import java.util.List;
 
-public interface WorldsRepo extends CrudRepository<World, Integer> {
+public interface WorldRepo extends CrudRepository<World, Long> {
     boolean existsByOwnerIdAndWorldName(Long ownerId, String worldName);
 
     List<World> findByOwnerIdAndWorldName(Long ownerId, String worldName);

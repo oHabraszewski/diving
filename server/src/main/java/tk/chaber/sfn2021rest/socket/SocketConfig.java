@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-import tk.chaber.sfn2021rest.utils.ConfigVars;
+import tk.chaber.sfn2021rest.util.ConfigVars;
 
 @Service
 @Configurable

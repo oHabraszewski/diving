@@ -1,7 +1,6 @@
-package tk.chaber.sfn2021rest.db.entities;
+package tk.chaber.sfn2021rest.persistence.entity;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity(name = "worlds")
 public class World {

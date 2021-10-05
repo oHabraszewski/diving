@@ -47,9 +47,9 @@
             const username = localStorage.getItem("username")
             const key = localStorage.getItem("unique_key")
             if(username && key){
-                setUsername(username)
-                setPassword("password")
-                setRemember(true);
+                this.setUsername(username)
+                this.setPassword("password")
+                this.setRemember(true);
             }
         },
         methods: {
@@ -89,33 +89,35 @@
                 }else{
                     console.debug("There is no key, connecting with server...")
 
-                    let response = await connect(ConfigVars.HOSTNAME + ConfigVars.API_PREFIX + "/rls/login", {
+                    let response = await connect(ConfigVars.HOSTNAME + "/user/login", {
                         username: this.username,
                         password: this.password
                     })
 
-                    this.success = response.data.success
+                    const payload = response.data.payload;
+                    this.success = payload.success;
 
                     if(this.success){
-                            sessionStorage.setItem("username", this.username)
-                            sessionStorage.setItem("unique_key", response.data.token)
+                            sessionStorage.setItem("username", payload.user.username)
+                            sessionStorage.setItem("unique_key", payload.user.secret)
 
                             if(this.remember){
-                                localStorage.setItem("username", this.username)
-                                localStorage.setItem("unique_key", response.data.token)
+                                localStorage.setItem("username", payload.user.username)
+                                localStorage.setItem("unique_key", payload.user.secret)
                             }else{
                                 this.clearLocalStorage();
                             }
 
-                            console.debug("Username: " + sessionStorage.getItem("username"))
+                            console.debug("Username: " + sessionStorage.getItem("username")) //FIXME: Delete on Strict Prod
                             console.debug("Key: " + sessionStorage.getItem("unique_key"))
 
                             this.changeDirectory("/game")
                     }else{
-                        this.error = response.data.error
+                        this.error = payload.error
 
                         console.warn("Login data validation has not been completed successfully! Read description below for details")
-                        console.warn(response)
+                        console.warn(payload.error)
+                        //console.debug(response) 
                     }
                 }
             }

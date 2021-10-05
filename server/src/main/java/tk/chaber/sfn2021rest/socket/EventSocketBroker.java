@@ -8,8 +8,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import tk.chaber.sfn2021rest.socket.handler.EventHandling;
-import tk.chaber.sfn2021rest.socket.response.EventResponding;
+import tk.chaber.sfn2021rest.socket.handler.EventHandler;
+import tk.chaber.sfn2021rest.response.EventResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class EventSocketBroker extends TextWebSocketHandler {
 
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    HashMap<EventsEnum, EventHandling> eventHandlers = new HashMap<>();
+    HashMap<Event, EventHandler> eventHandlers = new HashMap<>();
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    private void putHandler(List<EventHandling> handlersList){
-        handlersList.forEach((EventHandling handler) -> {
+    private void putHandler(List<EventHandler> handlersList){
+        handlersList.forEach((EventHandler handler) -> {
             System.out.println("Handler added to the broker.");
             eventHandlers.put(handler.getEvent(), handler);
         });
@@ -57,7 +57,7 @@ public class EventSocketBroker extends TextWebSocketHandler {
         //JSON to HashMap conversion, and assigning to variables
 
         @SuppressWarnings("unchecked") HashMap<String, Object> messageMap = mapper.readValue(message.getPayload(), HashMap.class);
-        EventsEnum  event = EventsEnum.valueOf(((String) messageMap.get("event")).toUpperCase());
+        Event event = Event.valueOf(((String) messageMap.get("event")).toUpperCase());
         @SuppressWarnings("unchecked") HashMap<String, Object> headers = (HashMap<String, Object>) messageMap.get("headers");
         @SuppressWarnings("unchecked") HashMap<String, Object> payload = (HashMap<String, Object>) messageMap.get("payload");
 
@@ -67,8 +67,8 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("Payload: " + payload.toString());
         System.out.println("----------------------------------------------------------------------");
 
-        EventHandling handler = eventHandlers.get(event);
-        EventResponding response = handler.handle(payload);
+        EventHandler handler = eventHandlers.get(event);
+        EventResponse response = handler.handle(payload);
 
         this.emitTextMessage(session, response.getRawJSONResponse());
     }
