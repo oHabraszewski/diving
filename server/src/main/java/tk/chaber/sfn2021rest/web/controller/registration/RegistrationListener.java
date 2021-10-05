@@ -44,7 +44,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
             email.setSubject(subject);
             email.setText(HTML, true);
         }catch (Exception ex){
-            System.out.println("Oh no...");
+            System.out.println(ex.getMessage());
         }
         mailSender.send(mimeMessage);
     }
