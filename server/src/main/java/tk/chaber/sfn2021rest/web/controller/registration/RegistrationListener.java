@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import tk.chaber.sfn2021rest.UserService;
 import tk.chaber.sfn2021rest.persistence.entity.User;
 import tk.chaber.sfn2021rest.util.ConfigVars;
 
+import javax.mail.internet.MimeMessage;
 import java.util.UUID;
 
 @Component
@@ -32,12 +35,17 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String recipientEmail = user.getEmail();
         String subject = "Confirm your registration to the Diving game";
         String confirmationUrl = ConfigVars.HOSTNAME + "/registrationConfirm?token=" + token;
-        String message = "Someone provided this email address to confirm their account creation. If that was you, click on the link below. Otherwise, ignore this message.";
+        String HTML = "<center><h1 style=\"font-size:64px\">Diving</h1></center> <br> <p style=\"font-size: 20px\">Thank you for your registration to the Diving game! But wait a minute... Ah yes, you have to do one more thing before diving into the deep underwater world. Please click the button below in order to verify this email as an address linked to your Diving account.</p> <br> <center><a href=\"" + confirmationUrl + "\"><button style=\"width: 600px; height: 64px; background-color: #13a967; border-radius: 8px; font-size: 24px\">Verify!</button></a></center><br><br><p>If you think this message is not intended for you, ignore it.</p>";
 
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientEmail);
-        email.setSubject(subject);
-        email.setText(message + "\r\n" + confirmationUrl);
-        mailSender.send(email);
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper email = new MimeMessageHelper(mimeMessage, "UTF-8");
+        try {
+            email.setTo(recipientEmail);
+            email.setSubject(subject);
+            email.setText(HTML, true);
+        }catch (Exception ex){
+            System.out.println("Oh no...");
+        }
+        mailSender.send(mimeMessage);
     }
 }
