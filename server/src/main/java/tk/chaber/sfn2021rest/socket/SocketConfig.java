@@ -20,6 +20,6 @@ public class SocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         //Adding new entries for WebSocket and linking them with handlers
         registry.addHandler(broker, ConfigVars.API_PREFIX + "/websocket/broker") //TODO: change CORS after WebSocket testing
-                .setAllowedOrigins(ConfigVars.HOSTNAME);
+                .setAllowedOrigins("*"/*ConfigVars.HOSTNAME*/);
     }
 }

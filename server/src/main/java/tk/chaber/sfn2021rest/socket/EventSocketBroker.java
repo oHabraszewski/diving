@@ -25,7 +25,6 @@ public class EventSocketBroker extends TextWebSocketHandler {
     @Autowired
     private void putHandler(List<EventHandler> handlersList){
         handlersList.forEach((EventHandler handler) -> {
-            System.out.println("Handler added to the broker.");
             eventHandlers.put(handler.getEvent(), handler);
         });
     }
