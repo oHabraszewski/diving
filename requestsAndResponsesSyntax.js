@@ -78,10 +78,7 @@ const READ_RECORD_REQUEST = { //To read scoreboard's record or entire scoreboard
 }
 
 const READ_ALL_RECORDS_REQUEST = {
-    "event": "read_all_records",
-    "payload": {
-        "username": username,
-    }
+    "event": "read_all_records"
 }
 
 // ---------------------------------------------------------------------------------------
