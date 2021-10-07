@@ -1,6 +1,7 @@
 package tk.chaber.sfn2021rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import tk.chaber.sfn2021rest.persistence.repository.UserRepo;
 import tk.chaber.sfn2021rest.persistence.repository.VerificationTokenRepo;
 import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -125,5 +127,9 @@ public class UserService {
         //TODO: throw new exception if user does not have any record saved
 
         return boardRepository.findByUser(user);
+    }
+
+    public List<BoardRecord> readBoard() {
+        return boardRepository.findAll(Sort.by("score").descending().and(Sort.by("time").ascending()));
     }
 }
