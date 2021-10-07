@@ -7,6 +7,8 @@
 const username = localStorage.getItem("username") //Both username and unique_key are saved in localStorage.
 const key = localStorage.getItem("unique_key")
 
+//                                World Requests
+
 const CREATE_EVENT_REQUEST = {
     "event":"create_world",
     "payload":{
@@ -54,6 +56,34 @@ const DELETE_EVENT_REQUEST = {
     }
 }
 
+//                                Scoreboard requests
+
+const WRITE_RECORD_REQUEST = {
+    "event": "write_record",
+    "payload": {
+        "username": username,
+        "unique_key": key,
+        "record": {
+            "time": "MM:SS", //Time is sent in String formatted like "MM:SS" MM - minutes, SS - seconds
+            "score": 43, //Score is sent in numerical type
+        }
+    }
+}
+
+const READ_RECORD_REQUEST = { //To read scoreboard's record or entire scoreboard unique_key is not redundant - board is public, so we don't have to authenticate
+    "event": "read_record",
+    "payload": {
+        "username": username
+    }
+}
+
+const READ_ALL_RECORDS_REQUEST = {
+    "event": "read_all_records",
+    "payload": {
+        "username": username,
+    }
+}
+
 // ---------------------------------------------------------------------------------------
 
 //                                   RESPONSES SYNTAX
@@ -78,7 +108,10 @@ const ERROR_CODES = [
 
     "91", //There was problem during casting data. It might mean, that numerical data was sent as a string or there was another issue with incompatible data types.
 ]
-const CREATE_EVENT_RESPONSES = {
+
+//                                World Responses
+
+const CREATE_EVENT_RESPONSE = {
     if_success: { //Response given if operation has been executed successfully.
         "event":"create_world",
         "payload":{
@@ -101,7 +134,7 @@ const CREATE_EVENT_RESPONSES = {
  
 }
 
-const READ_EVENT_RESPONSES = {
+const READ_EVENT_RESPONSE = {
     if_success: { //Response given if operation has been executed successfully.
         "event":"read_world",
         "payload":{
@@ -123,7 +156,7 @@ const READ_EVENT_RESPONSES = {
     }
 }
 
-const WRITE_EVENT_RESPONSES = {
+const WRITE_EVENT_RESPONSE = {
     if_success: { //Response given if operation has been executed successfully.
         "event":"write_world",
         "payload":{
@@ -140,7 +173,7 @@ const WRITE_EVENT_RESPONSES = {
     }
 }
 
-const DELETE_EVENT_REQUEST = {
+const DELETE_EVENT_RESPONSE = {
     if_success: { //Response given if operation has been executed successfully.
         "event":"delete_world",
         "payload":{
@@ -156,3 +189,31 @@ const DELETE_EVENT_REQUEST = {
         }
     }
 }
+
+//                                Scoreboard responses
+
+// const WRITE_RECORD_RESPONSE = {
+//     "event": "write_record",
+//     "payload": {
+//         "username": username,
+//         "unique_key": key,
+//         "record": {
+//             "time": "MM:SS", //Time is sent in String formatted like "MM:SS" MM - minutes, SS - seconds
+//             "score": 43, //Score is sent in numerical type
+//         }
+//     }
+// }
+
+// const READ_RECORD_RESPONSE = {
+//     "event": "read_record",
+//     "payload": {
+//         "username": username 
+//     }
+// }
+
+// const READ_ALL_RECORDS_RESPONSE = {
+//     "event": "read_all_records",
+//     "payload": {
+//         "username": username,
+//     }
+// }
