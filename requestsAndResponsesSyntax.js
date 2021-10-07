@@ -77,7 +77,7 @@ const READ_RECORD_REQUEST = { //To read scoreboard's record or entire scoreboard
     }
 }
 
-const READ_ALL_RECORDS_REQUEST = {
+const READ_BOARD_REQUEST = {
     "event": "read_board"
 }
 
@@ -189,28 +189,72 @@ const DELETE_EVENT_RESPONSE = {
 
 //                                Scoreboard responses
 
-// const WRITE_RECORD_RESPONSE = {
-//     "event": "write_record",
-//     "payload": {
-//         "username": username,
-//         "unique_key": key,
-//         "record": {
-//             "time": "MM:SS", //Time is sent in String formatted like "MM:SS" MM - minutes, SS - seconds
-//             "score": 43, //Score is sent in numerical type
-//         }
-//     }
-// }
+const WRITE_RECORD_RESPONSE = {
+    if_success: { //Response given if operation has been executed successfully.
+        "event":"write_record",
+        "payload":{
+            "success": true,
+        }
+    },
+    if_failure: { //Response given if operation has not been executed successfully and there was some problem.
+        "event":"write_record",
+        "payload":{
+            "success": false,
+            "ecode": "01", //For more details, see Error Codes.
+            "error": "There was some problem" //Text error message, useful e.g. for printing in console.err().
+        }
+    }
+}
 
-// const READ_RECORD_RESPONSE = {
-//     "event": "read_record",
-//     "payload": {
-//         "username": username 
-//     }
-// }
+const READ_RECORD_RESPONSE = {
+    if_success: { //Response given if operation has been executed successfully.
+        "event":"read_record",
+        "payload":{
+            "success": true,
+            "record":{
+                "username": "username",
+                "time": "22:18",
+                "score": 21,
+            }
+        }
+    },
+    if_failure: { //Response given if operation has not been executed successfully and there was some problem.
+        "event":"read_record",
+        "payload":{
+            "success": false,
+            "ecode": "01", //For more details, see Error Codes.
+            "error": "There was some problem" //Text error message, useful e.g. for printing in console.err().
+        }
+    }
+}
 
-// const READ_ALL_RECORDS_RESPONSE = {
-//     "event": "read_all_records",
-//     "payload": {
-//         "username": username,
-//     }
-// }
+const READ_BOARD_RESPONSE = {
+    if_success: { //Response given if operation has been executed successfully.
+        "event":"read_board",
+        "payload":{
+            "success": true,
+            "board":[
+                {
+                    "username": "username",
+                    "time": "21:18",
+                    "score": 34,
+                },
+                {
+                    "username": "username2",
+                    "time": "22:18",
+                    "score": 21,
+                },
+
+                //...
+            ]
+        }
+    },
+    if_failure: { //Response given if operation has not been executed successfully and there was some problem.
+        "event":"read_board",
+        "payload":{
+            "success": false,
+            "ecode": "01", //For more details, see Error Codes.
+            "error": "There was some problem" //Text error message, useful e.g. for printing in console.err().
+        }
+    }
+}
