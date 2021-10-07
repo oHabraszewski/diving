@@ -28,7 +28,7 @@ public class WriteRecord extends BoardHandler{
         String uniqueKey = (String) data.get("unique_key");
 
         @SuppressWarnings("unchecked")
-        HashMap<String,Object> boardPayload = (HashMap<String, Object>) data.get("world");
+        HashMap<String,Object> boardPayload = (HashMap<String, Object>) data.get("record");
 
         BoardRecordDto recordDto = new BoardRecordDto(username,uniqueKey, (String) boardPayload.get("time"), Long.parseLong(String.valueOf(boardPayload.get("score"))));
 

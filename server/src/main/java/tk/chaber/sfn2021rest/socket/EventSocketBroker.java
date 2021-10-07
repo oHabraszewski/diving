@@ -67,7 +67,6 @@ public class EventSocketBroker extends TextWebSocketHandler {
 
         System.out.println("------------------- New message received by broker -------------------");
         System.out.println("Event type: " + event);
-        System.out.println("Headers: " + headers.toString());
         System.out.println("Payload: " + payload.toString());
         System.out.println("----------------------------------------------------------------------");
 
