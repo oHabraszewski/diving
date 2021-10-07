@@ -100,7 +100,7 @@ public class UserService {
             throw new UserDoesNotExistException("There is no user with such a username: " + recordDto.getUsername());
         }
 
-        User user = this.getUser(recordDto.getUsername());
+        User user = getUser(recordDto.getUsername());
 
         if(!user.isEnabled()){
             throw new UserNotVerifiedException("User has not verified their email address.");
@@ -113,5 +113,17 @@ public class UserService {
         BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
 
         boardRepository.save(record);
+    }
+
+    public BoardRecord readBoardRecord(String username) throws UserDoesNotExistException {
+        if(!userRepository.existsByUsername(username)){
+            throw new UserDoesNotExistException("There is no user with such a username: " + username);
+        }
+
+        User user = getUser(username);
+
+        //TODO: throw new exception if user does not have any record saved
+
+        return boardRepository.findByUser(user);
     }
 }
