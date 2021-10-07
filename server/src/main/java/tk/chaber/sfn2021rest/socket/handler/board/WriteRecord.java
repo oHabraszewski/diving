@@ -1,6 +1,7 @@
 package tk.chaber.sfn2021rest.socket.handler.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tk.chaber.sfn2021rest.response.EventResponse;
 import tk.chaber.sfn2021rest.response.FailedResponse;
 import tk.chaber.sfn2021rest.response.SuccessResponse;
@@ -12,6 +13,7 @@ import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import java.util.HashMap;
 
+@Service
 public class WriteRecord extends BoardHandler{
     public WriteRecord() {
         super(Event.WRITE_RECORD);
@@ -28,7 +30,7 @@ public class WriteRecord extends BoardHandler{
         @SuppressWarnings("unchecked")
         HashMap<String,Object> boardPayload = (HashMap<String, Object>) data.get("world");
 
-        BoardRecordDto recordDto = new BoardRecordDto(username,uniqueKey, (String) boardPayload.get("time"), (Long) boardPayload.get("score"));
+        BoardRecordDto recordDto = new BoardRecordDto(username,uniqueKey, (String) boardPayload.get("time"), Long.parseLong(String.valueOf(boardPayload.get("score"))));
 
         service.saveBoardRecord(recordDto);
 

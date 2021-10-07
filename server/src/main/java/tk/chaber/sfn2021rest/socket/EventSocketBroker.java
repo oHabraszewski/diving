@@ -8,8 +8,13 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import tk.chaber.sfn2021rest.response.Error;
+import tk.chaber.sfn2021rest.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.handler.EventHandler;
 import tk.chaber.sfn2021rest.response.EventResponse;
+import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
+import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
+import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +72,20 @@ public class EventSocketBroker extends TextWebSocketHandler {
         System.out.println("----------------------------------------------------------------------");
 
         EventHandler handler = eventHandlers.get(event);
-        EventResponse response = handler.handle(payload);
+        System.out.println(eventHandlers.toString());
+        EventResponse response;
+        try {
+            response = handler.handle(payload);
+        }catch(UserDoesNotExistException udneEx){
+            System.out.println(udneEx.getMessage());
+            response = new FailedResponse(event, Error.USER_DOES_NOT_EXIST);
+        }catch(UserNotVerifiedException unvEx){
+            System.out.println(unvEx.getMessage());
+            response = new FailedResponse(event, Error.USER_NOT_VERIFIED);
+        }catch(AuthenticationFailedException afEx){
+            System.out.println(afEx.getMessage());
+            response = new FailedResponse(event, Error.AUTH_FAIL);
+        }
 
         this.emitTextMessage(session, response.getRawJSONResponse());
     }
