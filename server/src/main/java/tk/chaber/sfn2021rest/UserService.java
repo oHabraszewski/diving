@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.chaber.sfn2021rest.persistence.entity.User;
 import tk.chaber.sfn2021rest.persistence.entity.VerificationToken;
+import tk.chaber.sfn2021rest.persistence.repository.BoardRepo;
 import tk.chaber.sfn2021rest.web.dto.RegisterUserDto;
 import tk.chaber.sfn2021rest.web.dto.UserDto;
 import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
@@ -25,6 +26,9 @@ public class UserService {
 
     @Autowired
     private VerificationTokenRepo tokenRepository;
+
+    @Autowired
+    private BoardRepo boardRepository;
 
     @Autowired
     private PasswordEncoder passEncoder;
@@ -74,6 +78,8 @@ public class UserService {
         return tokenRepository.findByToken(verificationToken).getUser();
     }
 
+
+
     public void createVerificationToken(User user, String token){
         VerificationToken verificationToken = new VerificationToken(token, user);
         tokenRepository.save(verificationToken);
@@ -81,5 +87,10 @@ public class UserService {
 
     public VerificationToken getVerificationToken(String token){
         return tokenRepository.findByToken(token);
+    }
+
+
+    public void saveBoardRecord(){
+
     }
 }
