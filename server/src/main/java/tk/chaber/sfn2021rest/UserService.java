@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.chaber.sfn2021rest.persistence.entity.BoardRecord;
 import tk.chaber.sfn2021rest.persistence.entity.User;
 import tk.chaber.sfn2021rest.persistence.entity.VerificationToken;
 import tk.chaber.sfn2021rest.persistence.repository.BoardRepo;
+import tk.chaber.sfn2021rest.web.dto.BoardRecordDto;
 import tk.chaber.sfn2021rest.web.dto.RegisterUserDto;
 import tk.chaber.sfn2021rest.web.dto.UserDto;
 import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
@@ -74,8 +76,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getUser(String verificationToken){
-        return tokenRepository.findByToken(verificationToken).getUser();
+    private User getUser(String username){
+        return userRepository.findByUsername(username);
     }
 
 
@@ -90,7 +92,26 @@ public class UserService {
     }
 
 
-    public void saveBoardRecord(){
+    public void saveBoardRecord(BoardRecordDto recordDto) throws
+            UserDoesNotExistException,
+            UserNotVerifiedException,
+            AuthenticationFailedException{
+        if(!userRepository.existsByUsername(recordDto.getUsername())){
+            throw new UserDoesNotExistException("There is no user with such a username: " + recordDto.getUsername());
+        }
 
+        User user = this.getUser(recordDto.getUsername());
+
+        if(!user.isEnabled()){
+            throw new UserNotVerifiedException("User has not verified their email address.");
+        }
+
+        if(!user.validSecret(recordDto.getSecret())){
+            throw new AuthenticationFailedException("Authentication failed");
+        }
+
+        BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
+
+        boardRepository.save(record);
     }
 }

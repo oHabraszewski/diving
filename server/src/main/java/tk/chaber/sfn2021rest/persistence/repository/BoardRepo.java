@@ -10,5 +10,7 @@ import java.util.List;
 public interface BoardRepo extends CrudRepository<BoardRecord, Long> {
     List<BoardRecord> findAll(Sort sort);
 
+    boolean existsByUser(User user);
+
     BoardRecord findByUser(User user);
 }

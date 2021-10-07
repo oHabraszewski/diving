@@ -71,4 +71,8 @@ public class User {
     public void setSecret(String secret) {
         this.secret = secret;
     }
+
+    public boolean validSecret(String secretToCheck){
+        return secretToCheck.equals(this.getSecret());
+    }
 }
