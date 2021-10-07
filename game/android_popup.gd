@@ -38,13 +38,13 @@ func _on_Button2_pressed():
 	if lang == "EN":
 		lang = "PL"
 		strings = strings_pl
-		$Panel/Button2.icon = preload("res://assets/great_britan.png")
-		$Panel/Button2.text = "EN"
+		$Panel/Button2.icon = preload("res://assets/poland.png")
+		$Panel/Button2.text = "PL"
 	else:
 		lang = "EN"
 		strings = strings_eng
-		$Panel/Button2.icon = preload("res://assets/poland.png")
-		$Panel/Button2.text = "PL"
+		$Panel/Button2.icon = preload("res://assets/great_britan.png")
+		$Panel/Button2.text = "EN"
 	$Panel/CenterContainer/VBoxContainer/Label2.hide()
 	$Panel/CenterContainer/VBoxContainer/Button.text = strings["graj"]
 	$Popup/Panel/HBoxContainer/HBoxContainer/Label.text = strings["qu"]

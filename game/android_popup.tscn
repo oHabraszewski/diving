@@ -166,6 +166,7 @@ __meta__ = {
 }
 
 [node name="Button3" type="Button" parent="Panel"]
+visible = false
 margin_left = 1450.0
 margin_top = 750.0
 margin_right = 1550.0
@@ -212,7 +213,6 @@ __meta__ = {
 }
 
 [node name="Popup" type="Popup" parent="."]
-visible = true
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 1600, 900 )

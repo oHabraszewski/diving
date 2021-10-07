@@ -6,8 +6,10 @@ extends CanvasLayer
 # var b = "text"
 export(bool) var fx = true
 export(bool) var music = true
+export(bool) var int_scoreboard = false
 var play_time = 0
 var lang = "PL"
+export(String) var nick = "a"
 var strings_eng = {
  "twoj_wynik": "YOUR SCORE: ",
  "najlepszy_wynik": " HIGHSCORE: ",
@@ -19,7 +21,8 @@ var strings_eng = {
  "monety":" coins",
  "moneta":" coin",
  "monet":" coins",
- "czas_gry": "Playtime: "
+ "czas_gry": "Playtime: ",
+ "sc": "SCOREBOARD:"
  }
 var strings_pl = {
  "twoj_wynik": "Twój wynik: ",
@@ -32,7 +35,8 @@ var strings_pl = {
  "monety":" monety",
  "moneta":" moneta",
  "monet":" monet",
- "czas_gry": "Czas gry: "
+ "czas_gry": "Czas gry: ",
+ "sc": "TABELA WYNIKÓW:"
  }
 export(int) var oxygen_level = 100 
 var points = 0
@@ -40,6 +44,28 @@ var savegame = File.new()
 var sound_setting = File.new()
 var hiscore = 0
 var strings
+
+
+
+func _request_compleated_get_scoreboard(result, response_code, headers, body):
+#	print(parse_json(body.get_string_from_utf8()).size())
+	var rekord = parse_json(body.get_string_from_utf8())
+#	print(int(String(rekord[0]).substr(0, 10))) # SCORE
+#	print(String(rekord[0]).substr(10, 5))
+#	print(String(rekord[0]).substr(15))
+	if not int(String(rekord[4]).substr(0, 10)) == 0:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label2.text = "#1  " + String(rekord[4]).substr(15) + " : "+ String(int(String(rekord[4]).substr(0, 10))) + " (" + String(99 - int(String(rekord[4]).substr(10, 2))) + ":" + String(99 - int(String(rekord[4]).substr(13, 2))) + "s)"
+	if not int(String(rekord[3]).substr(0, 10)) == 0:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label3.text = "#2  " + String(rekord[3]).substr(15) + " : "+ String(int(String(rekord[3]).substr(0, 10))) + " (" + String(99 - int(String(rekord[3]).substr(10, 2))) + ":" + String(99 - int(String(rekord[3]).substr(13, 2))) + "s)"
+	if not int(String(rekord[2]).substr(0, 10)) == 0:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label4.text = "#3  " + String(rekord[2]).substr(15) + " : "+ String(int(String(rekord[2]).substr(0, 10))) + " (" + String(99 - int(String(rekord[2]).substr(10, 2))) + ":" + String(99 - int(String(rekord[2]).substr(13, 2))) + "s)"
+	if not int(String(rekord[1]).substr(0, 10)) == 0:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label5.text = "#4  " + String(rekord[1]).substr(15) + " : "+ String(int(String(rekord[1]).substr(0, 10))) + " (" + String(99 - int(String(rekord[1]).substr(10, 2))) + ":" + String(99 - int(String(rekord[1]).substr(13, 2))) + "s)"
+	if not int(String(rekord[0]).substr(0, 10)) == 0:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = "#5  " + String(rekord[0]).substr(15) + " : "+ String(int(String(rekord[0]).substr(0, 10))) + " (" + String(99 - int(String(rekord[0]).substr(10, 2))) + ":" + String(99 - int(String(rekord[0]).substr(13, 2))) + "s)"
+	$Control5.show()
+	pass
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if OS.get_name() == "HTML5":
@@ -53,6 +79,14 @@ func _ready():
 		strings = strings_eng
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
+		nick = $"../..".username
+		int_scoreboard = true
+	if int_scoreboard:
+		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label.text = strings["sc"]
+		var request = HTTPRequest.new()
+		add_child(request)
+		request.connect("request_completed", self, "_request_compleated_get_scoreboard")
+		request.request("http://akr0nys.ddns.net/scoreboard.json")
 		
 	if sound_setting.file_exists("user://sound.save"):
 		sound_setting.open("user://sound.save", File.READ)
@@ -84,6 +118,7 @@ func _ready():
 func _process(delta):
 	$Control2/Panel/ProgressBar.value = oxygen_level
 	if oxygen_level < 0 and not $Popup.visible:
+#		print("dead")
 		$AudioStreamPlayer.stream = null
 		$AudioStreamPlayer2.stream = null
 		$AudioStreamPlayer3.stream = null
@@ -110,6 +145,11 @@ func _process(delta):
 			$Popup/Panel/Label3.add_color_override("font_color_shadow", Color(0.6, 0.1, 0.1))
 		else:
 			$Popup/Panel/Label3.text = strings["twoj_wynik"] + String(points) + "\n" + strings["najlepszy_wynik"] + String(hiscore)
+		if int_scoreboard:
+			var sc_update_request = HTTPRequest.new()
+			add_child(sc_update_request)
+			sc_update_request.request("http://akr0nys.ddns.net/api.php?name="+ nick+"&score="+String(points)+"&time="+ String("%02d" %(99-floor(play_time / 60))) + ":" + String("%02d" % (99-floor(play_time % 60))))
+#			print("http://akr0nys.ddns.net/api.php?name="+ String(nick)+"&score="+String(points)+"&time="+ String("%02d" %(99-floor(play_time / 60))) + ":" + String("%02d" % (99-floor(play_time % 60))))
 		$Popup.popup()
 	pass
 

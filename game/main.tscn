@@ -230,6 +230,7 @@ segment_count_y = 20
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 script = ExtResource( 10 )
+int_scoreboard = true
 
 [node name="Control2" type="Control" parent="Interface"]
 margin_right = 1658.0
@@ -519,19 +520,20 @@ __meta__ = {
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 176.0
-margin_bottom = 290.0
+margin_bottom = 332.0
 grow_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control5/PanelContainer/CenterContainer"]
+margin_top = 21.0
 margin_right = 173.0
-margin_bottom = 287.0
+margin_bottom = 308.0
 grow_horizontal = 0
 
 [node name="Label" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
 margin_right = 173.0
 margin_bottom = 42.0
 theme = ExtResource( 8 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "SCOREBOARD:"
 
 [node name="Label2" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -540,7 +542,7 @@ margin_right = 173.0
 margin_bottom = 91.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
-text = "asdad : 123"
+custom_colors/font_color = Color( 0.72549, 0.74902, 0, 1 )
 
 [node name="Label3" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
 margin_top = 95.0
@@ -548,7 +550,7 @@ margin_right = 173.0
 margin_bottom = 140.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
-text = "asdad : 123"
+custom_colors/font_color = Color( 0.34902, 0.301961, 0.301961, 1 )
 
 [node name="Label4" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
 margin_top = 144.0
@@ -556,7 +558,7 @@ margin_right = 173.0
 margin_bottom = 189.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
-text = "asdad : 123"
+custom_colors/font_color = Color( 0.505882, 0.286275, 0.054902, 1 )
 
 [node name="Label5" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
 margin_top = 193.0
@@ -564,7 +566,6 @@ margin_right = 173.0
 margin_bottom = 238.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
-text = "asdad : 123"
 
 [node name="Label6" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
 margin_top = 242.0
@@ -572,7 +573,6 @@ margin_right = 173.0
 margin_bottom = 287.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
-text = "asdad : 123"
 
 [node name="NetworkNode" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -592,7 +592,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground"]
-position = Vector2( 0, 400 )
+position = Vector2( 0, 399.603 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 6 )
 
