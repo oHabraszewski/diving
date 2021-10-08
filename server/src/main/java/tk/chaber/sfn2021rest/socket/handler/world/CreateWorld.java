@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class CreatingHandler extends WorldHandler{
-    public CreatingHandler() {
+public class CreateWorld extends WorldHandler{
+    public CreateWorld() {
         super(Event.CREATE_WORLD);
     }
 

@@ -8,9 +8,11 @@ public enum Error{
     //MULTIPLE_USERS_EXIST    ("09", "Somehow there are 2 or more users with exactly the same usernames."),
 
     WORLD_DOES_NOT_EXIST    ("11", "There is no world with such a name."),
-    WORLD_ALREADY_EXISTS     ("12", "There is already a world with such a name."),
+    WORLD_ALREADY_EXISTS    ("12", "There is already a world with such a name."),
     WORLD_NUMBER_LIMIT      ("15", "This user has achieved limit of stored worlds (10 worlds per user)"),
     MULTIPLE_WORLDS_EXIST   ("19", "Somehow there are 2 or more worlds with exactly the same names."),
+
+    NO_USER_RECORD          ("21", "This user does not have a record saved"),
 
     CASTING_IMPOSSIBLE      ("91", "There was problem casting data.");
 

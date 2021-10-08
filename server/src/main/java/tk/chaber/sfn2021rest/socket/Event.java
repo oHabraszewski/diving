@@ -7,5 +7,8 @@ public enum Event {
     DELETE_WORLD,
     REGISTER_USER,
     LOGIN_USER,
+    WRITE_RECORD,
+    READ_RECORD,
+    READ_BOARD,
     DEFAULT
 }

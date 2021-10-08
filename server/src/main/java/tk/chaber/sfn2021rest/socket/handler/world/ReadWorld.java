@@ -7,15 +7,15 @@ import tk.chaber.sfn2021rest.socket.Event;
 import tk.chaber.sfn2021rest.response.Error;
 import tk.chaber.sfn2021rest.response.EventResponse;
 import tk.chaber.sfn2021rest.response.FailedResponse;
-import tk.chaber.sfn2021rest.response.SuccessResponse;
+import tk.chaber.sfn2021rest.response.WorldResponse;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class WritingHandler extends WorldHandler{
-    public WritingHandler() {
-        super(Event.WRITE_WORLD);
+public class ReadWorld extends WorldHandler{
+    public ReadWorld() {
+        super(Event.READ_WORLD);
     }
 
     @Override
@@ -27,7 +27,6 @@ public class WritingHandler extends WorldHandler{
         HashMap<String,Object> worldPayload = (HashMap<String, Object>) data.get("world");
 
         String worldName = (String) worldPayload.get("name");
-        String worldData = (String) worldPayload.get("data");
 
         Error error;
 
@@ -41,21 +40,16 @@ public class WritingHandler extends WorldHandler{
 
                     if(potentialWorlds.size() == 1){
                         World world = potentialWorlds.get(0);
-
-                        world.setWorldData(worldData);
-
-                        worldRepository.save(world);
-
-                        return new SuccessResponse(this.event);
+                        return new WorldResponse(this.event, world);
                     }else{
                         error = Error.MULTIPLE_WORLDS_EXIST;
                     }
                 } else {
                     error = Error.WORLD_DOES_NOT_EXIST;
                 }
-//            } else {
-//                error = Error.AUTH_FAIL;
-//            }
+            //} else {
+               // error = Error.AUTH_FAIL;
+            //}
         }else {
             error = Error.USER_DOES_NOT_EXIST;
         }
@@ -63,4 +57,3 @@ public class WritingHandler extends WorldHandler{
         return new FailedResponse(this.event, error);
     }
 }
-

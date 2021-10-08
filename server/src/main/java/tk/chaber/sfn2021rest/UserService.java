@@ -1,20 +1,23 @@
 package tk.chaber.sfn2021rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.chaber.sfn2021rest.persistence.entity.BoardRecord;
 import tk.chaber.sfn2021rest.persistence.entity.User;
 import tk.chaber.sfn2021rest.persistence.entity.VerificationToken;
+import tk.chaber.sfn2021rest.persistence.repository.BoardRepo;
+import tk.chaber.sfn2021rest.web.dto.BoardRecordDto;
 import tk.chaber.sfn2021rest.web.dto.RegisterUserDto;
 import tk.chaber.sfn2021rest.web.dto.UserDto;
-import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
-import tk.chaber.sfn2021rest.web.error.UserAlreadyExistsException;
-import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
+import tk.chaber.sfn2021rest.web.error.*;
 import tk.chaber.sfn2021rest.persistence.repository.UserRepo;
 import tk.chaber.sfn2021rest.persistence.repository.VerificationTokenRepo;
-import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,6 +28,9 @@ public class UserService {
 
     @Autowired
     private VerificationTokenRepo tokenRepository;
+
+    @Autowired
+    private BoardRepo boardRepository;
 
     @Autowired
     private PasswordEncoder passEncoder;
@@ -70,9 +76,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getUser(String verificationToken){
-        return tokenRepository.findByToken(verificationToken).getUser();
+    private User getUser(String username){
+        return userRepository.findByUsername(username);
     }
+
+
 
     public void createVerificationToken(User user, String token){
         VerificationToken verificationToken = new VerificationToken(token, user);
@@ -81,5 +89,61 @@ public class UserService {
 
     public VerificationToken getVerificationToken(String token){
         return tokenRepository.findByToken(token);
+    }
+
+
+    public void saveBoardRecord(BoardRecordDto recordDto) throws
+            UserDoesNotExistException,
+            UserNotVerifiedException,
+            AuthenticationFailedException{
+        if(!userRepository.existsByUsername(recordDto.getUsername())){
+            throw new UserDoesNotExistException("There is no user with such a username: " + recordDto.getUsername());
+        }
+
+        User user = getUser(recordDto.getUsername());
+
+        if(!user.isEnabled()){
+            throw new UserNotVerifiedException("User has not verified their email address.");
+        }
+
+        if(!user.validSecret(recordDto.getSecret())){
+            throw new AuthenticationFailedException("Authentication failed");
+        }
+
+        if(boardRepository.existsByUser(user)){
+            BoardRecord record = boardRepository.findByUser(user);
+            record.setScore(recordDto.getScore());
+            record.setTimeFromString(recordDto.getTime());
+
+            boardRepository.save(record);
+        }else {
+            BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
+
+            boardRepository.save(record);
+        }
+    }
+
+    public BoardRecord readBoardRecord(String username) throws
+            UserDoesNotExistException,
+            NoUserRecordException {
+        if(!userRepository.existsByUsername(username)){
+            throw new UserDoesNotExistException("There is no user with such a username: " + username);
+        }
+
+        User user = getUser(username);
+
+        if(!boardRepository.existsByUser(user)){
+            throw new NoUserRecordException("This user does not have a record saved.");
+        }
+
+        return boardRepository.findByUser(user);
+    }
+
+    public List<BoardRecord> readBoard() {
+        return boardRepository.findAll();
+    }
+
+    public List<BoardRecord> readTopBoard() {
+        return boardRepository.findAll(PageRequest.of(0, 20, Sort.by("score").descending().and(Sort.by("time").ascending())));
     }
 }
