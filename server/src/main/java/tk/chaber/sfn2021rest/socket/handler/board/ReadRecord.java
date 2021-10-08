@@ -5,6 +5,7 @@ import tk.chaber.sfn2021rest.persistence.entity.BoardRecord;
 import tk.chaber.sfn2021rest.response.EventResponse;
 import tk.chaber.sfn2021rest.response.RecordResponse;
 import tk.chaber.sfn2021rest.socket.Event;
+import tk.chaber.sfn2021rest.web.error.NoUserRecordException;
 import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
 
 import java.util.HashMap;
@@ -17,7 +18,9 @@ public class ReadRecord extends BoardHandler{
     }
 
     @Override
-    public RecordResponse handle(HashMap<String, Object> data) throws UserDoesNotExistException {
+    public RecordResponse handle(HashMap<String, Object> data) throws
+            UserDoesNotExistException,
+            NoUserRecordException {
         String username = (String) data.get("username");
 
         List<BoardRecord> records = service.readBoard();
@@ -30,10 +33,11 @@ public class ReadRecord extends BoardHandler{
             if(iRecord.getUser().getUsername().equals(username)){
                 record = iRecord;
                 position = i;
+                break;
             }
         }
         if(record == null){
-            throw new UserDoesNotExistException("User does not exist.");
+            throw new NoUserRecordException("This user does not have a record saved.");
         }
 
         return new RecordResponse(this.event, record, position);

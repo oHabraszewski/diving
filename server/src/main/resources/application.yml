@@ -22,6 +22,6 @@ spring:
     properties:
       hibernate:
         hbm2ddl:
-          auto: create
+          auto: none
         temp:
           use_jdbc_metadata_defaults: false

@@ -12,12 +12,9 @@ import tk.chaber.sfn2021rest.persistence.repository.BoardRepo;
 import tk.chaber.sfn2021rest.web.dto.BoardRecordDto;
 import tk.chaber.sfn2021rest.web.dto.RegisterUserDto;
 import tk.chaber.sfn2021rest.web.dto.UserDto;
-import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
-import tk.chaber.sfn2021rest.web.error.UserAlreadyExistsException;
-import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
+import tk.chaber.sfn2021rest.web.error.*;
 import tk.chaber.sfn2021rest.persistence.repository.UserRepo;
 import tk.chaber.sfn2021rest.persistence.repository.VerificationTokenRepo;
-import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import java.util.List;
 import java.util.UUID;
@@ -112,19 +109,29 @@ public class UserService {
             throw new AuthenticationFailedException("Authentication failed");
         }
 
+//        if(boardRepository.existsByUser(user)){ TODO: Complete after testing
+//            BoardRecord record = boardRepository.findByUser(user);
+//            record.setScore(recordDto.getScore());
+//            record.setTime();
+//        }
+
         BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
 
         boardRepository.save(record);
     }
 
-    public BoardRecord readBoardRecord(String username) throws UserDoesNotExistException {
+    public BoardRecord readBoardRecord(String username) throws
+            UserDoesNotExistException,
+            NoUserRecordException {
         if(!userRepository.existsByUsername(username)){
             throw new UserDoesNotExistException("There is no user with such a username: " + username);
         }
 
         User user = getUser(username);
 
-        //TODO: throw new exception if user does not have any record saved
+        if(!boardRepository.existsByUser(user)){
+            throw new NoUserRecordException("This user does not have a record saved.");
+        }
 
         return boardRepository.findByUser(user);
     }

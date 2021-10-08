@@ -13,6 +13,7 @@ import tk.chaber.sfn2021rest.response.FailedResponse;
 import tk.chaber.sfn2021rest.socket.handler.EventHandler;
 import tk.chaber.sfn2021rest.response.EventResponse;
 import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
+import tk.chaber.sfn2021rest.web.error.NoUserRecordException;
 import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
 import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
@@ -84,6 +85,9 @@ public class EventSocketBroker extends TextWebSocketHandler {
         }catch(AuthenticationFailedException afEx){
             System.out.println(afEx.getMessage());
             response = new FailedResponse(event, Error.AUTH_FAIL);
+        }catch(NoUserRecordException nurEx){
+            System.out.println(nurEx.getMessage());
+            response = new FailedResponse(event, Error.NO_USER_RECORD);
         }
 
         this.emitTextMessage(session, response.getRawJSONResponse());
