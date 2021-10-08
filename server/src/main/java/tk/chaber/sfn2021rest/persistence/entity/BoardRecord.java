@@ -48,6 +48,10 @@ public class BoardRecord {
         this.time = time;
     }
 
+    public void setTimeFromString(String timeString) {
+        this.time = calculateTime(timeString);
+    }
+
     public Long getScore() {
         return score;
     }
