@@ -7,6 +7,7 @@ extends CanvasLayer
 export(bool) var fx = true
 export(bool) var music = true
 export(bool) var int_scoreboard = false
+export(bool) var ext_scoreboard = false
 var play_time = 0
 var lang = "PL"
 export(String) var nick = "a"
@@ -68,6 +69,9 @@ func _request_compleated_get_scoreboard(result, response_code, headers, body):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.get_name() == "HTML5":
+		ext_scoreboard = true
+		$"../NetworkNode".send_message({"event":"read_board", "payload":{}})
 	if OS.get_name() == "HTML5":
 #		print(JavaScript.eval("localStorage['lang']"))
 		lang = JavaScript.eval("localStorage['lang']")
@@ -290,3 +294,17 @@ func upadte_scoreboard(scoreboard_data: Array):
 	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = scoreboard_data[4]
 	$Control5.show()
 	pass
+
+
+func _on_NetworkNode_data_received(data):
+#	print(data["event"])
+	if data["event"] == "READ_BOARD":
+		print("asd")
+#		ustawianie scorebarda
+	if data["event"] == "READ_RECORD_REQUEST":
+		pass
+#		sprawdzanie "rankingu" gracza
+	
+	pass # Replace with function body.
+
+

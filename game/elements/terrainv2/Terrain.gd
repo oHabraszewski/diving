@@ -176,7 +176,7 @@ func _on_Bounds_colision_right():
 	pass # Replace with function body.
 func signal_resolver(id):
 	emit_signal("chest_opened", id)
-	print(id)
+#	print(id)
 	pass
 func bb_exit():
 	emit_signal("bubbles_exited")

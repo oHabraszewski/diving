@@ -172,6 +172,12 @@ tracks/3/keys = {
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="NetworkNode" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="NetworkNode"]
+wait_time = 0.5
+
 [node name="Game" type="CanvasLayer" parent="."]
 layer = 2
 follow_viewport_enable = true
@@ -230,7 +236,6 @@ segment_count_y = 20
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 3
 script = ExtResource( 10 )
-int_scoreboard = true
 
 [node name="Control2" type="Control" parent="Interface"]
 margin_right = 1658.0
@@ -574,9 +579,6 @@ margin_bottom = 287.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
 
-[node name="NetworkNode" type="Node" parent="."]
-script = ExtResource( 13 )
-
 [node name="ParallaxBackground" type="CanvasLayer" parent="."]
 follow_viewport_enable = true
 script = ExtResource( 12 )
@@ -605,6 +607,7 @@ texture = SubResource( 16 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
 anims/change_bck_to_air = SubResource( 17 )
 
+[connection signal="data_received" from="NetworkNode" to="Interface" method="_on_NetworkNode_data_received"]
 [connection signal="area_entered" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Game/Air/Area2D2" to="Game/Air" method="_on_Area2D2_area_exited"]
 [connection signal="bumped_into_rocks" from="Game/Player" to="Interface" method="_on_Player_bumped_into_rocks"]
