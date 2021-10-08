@@ -47,8 +47,11 @@ public class AdminSocketBroker extends TextWebSocketHandler {
         sessions.add(session);
     }
 
-    public void emitTextMessage(WebSocketSession session, HashMap<String, Object> data){
+    public void emitTextMessage(WebSocketSession session, boolean success){
         try {
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("success", success);
+
             String stringResponse = mapper.writeValueAsString(data);
 
             System.out.println("Raw response: " + stringResponse);
@@ -64,7 +67,7 @@ public class AdminSocketBroker extends TextWebSocketHandler {
         //JSON to HashMap conversion, and assigning to variables
 
         @SuppressWarnings("unchecked") HashMap<String, Object> messageMap = mapper.readValue(message.getPayload(), HashMap.class);
-        Event event = Event.valueOf(((String) messageMap.get("event")).toUpperCase());
+        AdminEvent event = AdminEvent.valueOf(((String) messageMap.get("event")).toUpperCase());
         @SuppressWarnings("unchecked") HashMap<String, Object> credentials = (HashMap<String, Object>) messageMap.get("credentials");
         @SuppressWarnings("unchecked") HashMap<String, Object> payload = (HashMap<String, Object>) messageMap.get("payload");
 
@@ -73,26 +76,18 @@ public class AdminSocketBroker extends TextWebSocketHandler {
         System.out.println("Payload: " + payload.toString());
         System.out.println("----------------------------------------------------------------------");
 
-        AdminHandler handler = adminHandlers.get(event);
-        System.out.println(adminHandlers.toString());
-        EventResponse response;
-        try {
-            //response = handler.handle(payload);
-        }catch(UserDoesNotExistException udneEx){
-            System.out.println(udneEx.getMessage());
-            response = new FailedResponse(event, Error.USER_DOES_NOT_EXIST);
-        }catch(UserNotVerifiedException unvEx){
-            System.out.println(unvEx.getMessage());
-            response = new FailedResponse(event, Error.USER_NOT_VERIFIED);
-        }catch(AuthenticationFailedException afEx){
-            System.out.println(afEx.getMessage());
-            response = new FailedResponse(event, Error.AUTH_FAIL);
-        }catch(NoUserRecordException nurEx){
-            System.out.println(nurEx.getMessage());
-            response = new FailedResponse(event, Error.NO_USER_RECORD);
+        boolean success = false;
+        if(verifyAdmin((String) credentials.get("username"), (String) credentials.get("password"))){
+            AdminHandler handler = adminHandlers.get(event);
+            System.out.println(adminHandlers.toString());
+
+            success = handler.handle(payload);
+
+            this.emitTextMessage(session, success);
+        }else{
+            this.emitTextMessage(session, success);
         }
 
-        this.emitTextMessage(session, response.getRawJSONResponse());
     }
 
     @Override
@@ -100,14 +95,10 @@ public class AdminSocketBroker extends TextWebSocketHandler {
         sessions.remove(session);
     }
 
-    private boolean verivyAdmin(String username, String password){
+    private boolean verifyAdmin(String username, String password){
         String pUsername = System.getenv("A_USERNAME");
         String pPass = System.getenv("A_PASSWORD");
 
-        if(username.equals(pUsername) && password.equals(pPass)){
-            return true;
-        }else{
-            return false;
-        }
+        return username.equals(pUsername) && password.equals(pPass);
     }
 }
