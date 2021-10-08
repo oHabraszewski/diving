@@ -8,6 +8,7 @@ import tk.chaber.sfn2021rest.socket.Event;
 import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ReadRecord extends BoardHandler{
@@ -19,8 +20,22 @@ public class ReadRecord extends BoardHandler{
     public RecordResponse handle(HashMap<String, Object> data) throws UserDoesNotExistException {
         String username = (String) data.get("username");
 
-        BoardRecord record = service.readBoardRecord(username);
+        List<BoardRecord> records = service.readBoard();
 
-        return new RecordResponse(this.event, record);
+        BoardRecord record = null;
+        Integer position = 0;
+
+        for(int i = 0; i < records.size(); i++){
+            BoardRecord iRecord = records.get(i);
+            if(iRecord.getUser().getUsername().equals(username)){
+                record = iRecord;
+                position = i;
+            }
+        }
+        if(record == null){
+            throw new UserDoesNotExistException("User does not exist.");
+        }
+
+        return new RecordResponse(this.event, record, position);
     }
 }
