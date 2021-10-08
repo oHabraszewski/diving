@@ -64,6 +64,10 @@ public class UserService {
             throw new UserAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
         }
 
+        if(userRepository.existsByUsername(userDto.getUsername())){
+            throw new UserAlreadyExistsException("There is a user with such a username: " +userDto.getUsername());
+        }
+
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(passEncoder.encode(userDto.getPassword()));
