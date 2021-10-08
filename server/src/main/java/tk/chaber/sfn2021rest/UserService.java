@@ -1,6 +1,7 @@
 package tk.chaber.sfn2021rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -139,6 +140,10 @@ public class UserService {
     }
 
     public List<BoardRecord> readBoard() {
-        return boardRepository.findAll(Sort.by("score").descending().and(Sort.by("time").ascending()));
+        return boardRepository.findAll();
+    }
+
+    public List<BoardRecord> readTopBoard() {
+        return boardRepository.findAll(PageRequest.of(0, 20, Sort.by("score").descending().and(Sort.by("time").ascending())));
     }
 }
