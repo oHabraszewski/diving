@@ -16,7 +16,7 @@ const CREATE_EVENT_REQUEST = {
         "unique_key": key,
         "world": {
             "name": "name",
-            "seed": "213921391203921", //Seed is not required, if missing, randomly generated
+            "seed": 213921391203921, //Seed is not required, if missing, randomly generated
             "data": "{}" //If needed, some world data can be injected during world creation
         }
     }
@@ -58,7 +58,7 @@ const DELETE_EVENT_REQUEST = {
 
 //                                Scoreboard requests
 
-const WRITE_RECORD_REQUEST = {
+const WRITE_RECORD_REQUEST = { //WRITE_RECORD event is used for both creating first-time record and updating record as well.
     "event": "write_record",
     "payload": {
         "username": username,
@@ -102,6 +102,8 @@ const ERROR_CODES = [
     "12", //There is already a world with such a name.
     "15", //This user has achieved limit of worlds (10 worlds per user).
     "19", //Somehow there are 2 or more worlds with exactly the same name.
+
+    "21", //This user does not have a record saved.
 
     "91", //There was problem during casting data. It might mean, that numerical data was sent as a string or there was another issue with incompatible data types.
 ]
@@ -215,6 +217,7 @@ const READ_RECORD_RESPONSE = {
                 "username": "username",
                 "time": "22:18",
                 "score": 21,
+                "position": 0, //Position is direct read from array lenght -> in order to get proper "position" it has to be incremented once.
             }
         }
     },
@@ -242,7 +245,12 @@ const READ_BOARD_RESPONSE = {
                 {
                     "username": "username2",
                     "time": "22:18",
-                    "score": 21,
+                    "score": 34,
+                },
+                {
+                    "username": "username2",
+                    "time": "5:18",
+                    "score": 15,
                 },
 
                 //...
