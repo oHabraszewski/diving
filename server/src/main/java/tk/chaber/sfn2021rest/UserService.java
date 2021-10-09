@@ -144,6 +144,6 @@ public class UserService {
     }
 
     public List<BoardRecord> readTopBoard() {
-        return boardRepository.findAll(PageRequest.of(0, 20, Sort.by("score").descending().and(Sort.by("time").ascending())));
+        return boardRepository.findAll(PageRequest.of(0, 5, Sort.by("score").descending().and(Sort.by("time").ascending())));
     }
 }
