@@ -32,7 +32,7 @@ var strings_pl = {
  "tip_miny":"Wskazówka: nie uderzaj w miny wodne :P",
  "tip_ox": "Wskazówka: aby uzyskać tlen wypłyń na powierzchnię",
  "zagraj_jeszcze_raz":"Zagraj ponownie",
- "przegrales":"Przegarłeś :(",
+ "przegrales":"Przegrałeś :(",
  "monety":" monety",
  "moneta":" moneta",
  "monet":" monet",
