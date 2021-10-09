@@ -5,8 +5,8 @@
             <input-vue @valueChange="setUsername" :title="lang.username_tip" :placeholder="lang.username" maxim="24"></input-vue>
             <input-vue @valueChange="setPassword" type="password" :title="lang.password_tip" :placeholder="lang.password" minim="8" maxim="32"></input-vue>
             <input-vue @valueChange="setEmail" type="email" :title="lang.email_tip" :placeholder="lang.email" maxim="256"></input-vue>
-            <p v-if="!success">{{error}}</p>
             <button-vue>{{lang.sign_up}}</button-vue>
+            <p class="error" v-if="!success">{{error}}</p>
         </form>
         <div class="registered" v-if="success">{{lang.success_1}}<br>{{lang.success_2}}<button-vue destination="./">{{lang.return}}</button-vue>
         </div>

@@ -12,8 +12,8 @@
                 <button-vue>{{lang.play}}</button-vue>
                 <check-vue @valueChange="setRemember" id="remember" :value="remember">{{lang.remember_me}}</check-vue>
             </form>
-            <p v-if="!success">{{error}}</p>
             <link-vue destination="/register">{{lang.register}}</link-vue>
+            <p class="error" v-if="!success">{{error}}</p>
         </div>
         <div class="bottom">
             <link-vue destination="/credits">{{lang.credits}}</link-vue>
