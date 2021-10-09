@@ -18,8 +18,8 @@ public class AddRecordHandler implements AdminHandler{
 
     protected final AdminEvent event;
 
-    public AddRecordHandler(AdminEvent event){
-        this.event = event;
+    public AddRecordHandler(){
+        this.event = AdminEvent.ADD_RECORD;
     }
 
     @Override

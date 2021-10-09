@@ -66,7 +66,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(userDto.getUsername());
-        user.setPassword(passEncoder.encode(userDto.getPassword()));
+        user.setPassword(encodePass(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
 
         return userRepository.save(user);
@@ -78,6 +78,10 @@ public class UserService {
 
     public User getUser(String username){
         return userRepository.findByUsername(username);
+    }
+
+    public String encodePass(String password){
+        return passEncoder.encode(password);
     }
 
 

@@ -17,8 +17,8 @@ public class CreateUserHandler implements AdminHandler{
 
     protected final AdminEvent event;
 
-    public CreateUserHandler(AdminEvent event){
-        this.event = event;
+    public CreateUserHandler(){
+        this.event = AdminEvent.CREATE_USER;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CreateUserHandler implements AdminHandler{
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(service.encodePass(password));
         user.setSecret(secret);
         user.setEmail(email);
         user.setEnabled(true);
