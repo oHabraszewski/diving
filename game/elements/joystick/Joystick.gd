@@ -9,6 +9,7 @@ signal released()
 signal moved(direction) #Returns normalized vector with direction of movemnt
 signal moved_raw(direction) # Return raw position of "stick" 
 
+export(float) var size = 1.0
 export(Color) var stick_color = Color(0.0, 0.25, 0.6)
 export(Color) var background_color = Color(0.3, 0.3, 0.3, 0.4)
 export(Color) var stick_color_pressed = Color(0.0, 0.15, 0.4)
@@ -21,7 +22,13 @@ func _ready():
 	offset_pos = $Galka.global_position
 	pass # Replace with function body.
 
-
+func set_size(new_size : float):
+	$Galka.size = new_size * 50
+	$Tlo.size = new_size * 150
+	size = new_size
+	$Galka.update()
+	$Tlo.update()
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -42,14 +49,14 @@ func _input(event):
 			emit_signal("moved", $Galka.position.normalized())
 			emit_signal("moved_raw", $Galka.position)
 			var new_pos = event.position - offset_pos
-			if new_pos.x > 100:
-				new_pos.x = 100
-			if new_pos.x < -100:
-				new_pos.x = -100
-			if new_pos.y > 100:
-				new_pos.y = 100
-			if new_pos.y < -100:
-				new_pos.y = -100
+			if new_pos.x > 100*size:
+				new_pos.x = 100*size
+			if new_pos.x < -100*size:
+				new_pos.x = -100*size
+			if new_pos.y > 100*size:
+				new_pos.y = 100*size
+			if new_pos.y < -100*size:
+				new_pos.y = -100*size
 			$Galka.position = new_pos
 		
 	pass

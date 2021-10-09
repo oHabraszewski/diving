@@ -11,7 +11,7 @@ var queue = []
 signal data_received(data)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not OS.get_name() == "HTML5":
+	if OS.get_name() == "HTML5":
 		# kod do komunkacji z serverem tu
 		web_socket.connect("connection_established", self, "_connect_esth_web_socket")
 		web_socket.connect("connection_error", self, "_error_web_socket")
@@ -36,7 +36,7 @@ func _data_received_web_socket():
 	pass
 func send_message(message : Dictionary):
 #	print(to_json(message))
-	if web_socket.get_peer(1).is_connected_to_host():
+	if _connected:
 		print(web_socket.get_peer(1).put_packet(PoolByteArray(to_json(message).to_utf8())))
 	else:
 		$Timer.start()
@@ -44,14 +44,16 @@ func send_message(message : Dictionary):
 		queue.push_back(message)
 	pass
 func _queue_send():
-	print("sending:", web_socket.get_peer(1).put_packet(PoolByteArray(to_json(queue.pop_front()).to_utf8())))
+	if _connected:
+		print(web_socket.get_peer(1).put_packet(PoolByteArray(to_json(queue.pop_front()).to_utf8())))
+	else:
+		print("not_connected")
 #	print("awitaing")
 	if queue.size() == 0:
 		$Timer.stop()
 	pass
 func _connect_esth_web_socket(protocol):
 	_connected = true
-	print("ASd")
 	print("WebSocket: Conn-ETH", protocol)
 	web_socket.get_peer(1).set_write_mode(WebSocketPeer.WRITE_MODE_TEXT)
 #	print(web_socket.get_peer(1).get_packet().get_string_from_utf8())

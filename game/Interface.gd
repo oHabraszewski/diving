@@ -46,7 +46,17 @@ var sound_setting = File.new()
 var hiscore = 0
 var strings
 
-
+#const WRITE_RECORD_REQUEST = { //WRITE_RECORD event is used for both creating first-time record and updating record as well.
+#    "event": "write_record",
+#    "payload": {
+#        "username": username,
+#        "unique_key": key,
+#        "record": {
+#            "time": "MM:SS", //Time is sent in String formatted like "MM:SS" MM - minutes, SS - seconds
+#            "score": 43, //Score is sent in numerical type
+#        }
+#    }
+#}
 
 func _request_compleated_get_scoreboard(result, response_code, headers, body):
 #	print(parse_json(body.get_string_from_utf8()).size())
@@ -99,10 +109,11 @@ func _ready():
 		strings = strings_pl
 	elif lang == "EN":
 		strings = strings_eng
-	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
+	if not OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
-		nick = $"../..".username
+#		nick = $"../..".username
 		int_scoreboard = true
+		$Control4/Joystick.set_size(1.2)
 #	if not OS.get_name() == "HTML5" and not JavaScript.eval("localStorage['username']") == "":
 #		nick = JavaScript.eval("localStorage['username']")
 #		int_scoreboard = true
@@ -170,6 +181,20 @@ func _process(delta):
 			$Popup/Panel/Label3.add_color_override("font_color_shadow", Color(0.6, 0.1, 0.1))
 		else:
 			$Popup/Panel/Label3.text = strings["twoj_wynik"] + String(points) + "\n" + strings["najlepszy_wynik"] + String(hiscore)
+		if ext_scoreboard:
+			var write_request = {
+			"event": "write_record",
+				 "payload": {
+					"username": JavaScript.eval("sessionStorage['username']"),
+					"unique_key": JavaScript.eval("sessionStorage['unique_key']"),
+					"record": {
+						"time": String(floor(play_time / 60)) + ":" + String("%02d" % floor(play_time % 60)),
+						"score": points, 
+					}
+				}
+			}
+			$"../NetworkNode".send_message(write_request)
+			print(write_request)
 		if int_scoreboard:
 			var sc_update_request = HTTPRequest.new()
 			add_child(sc_update_request)
@@ -267,7 +292,9 @@ func _on_Joystick_moved_raw(direction):
 		Input.action_press("move_up")
 		
 	$"../Game/Player".side_force_multiplier = abs(direction.x / 100)
-	$"../Game/Player".vertical_force_multiplier = abs(direction.y / 100)
+	$"../Game/Player".vertical_force_multiplier = abs(direction.y / 300)
+#	print($"../Game/Player".side_force_multiplier)
+#	print($"../Game/Player".vertical_force_multiplier)
 	pass # Replace with function body.
 
 
