@@ -64,6 +64,10 @@ public class UserService {
             throw new UserAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
         }
 
+        if(userRepository.existsByUsername(userDto.getUsername())){
+            throw new UserAlreadyExistsException("There is a user with such a username: " +userDto.getUsername());
+        }
+
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(passEncoder.encode(userDto.getPassword()));
@@ -110,17 +114,17 @@ public class UserService {
             throw new AuthenticationFailedException("Authentication failed");
         }
 
-        if(boardRepository.existsByUser(user)){
-            BoardRecord record = boardRepository.findByUser(user);
-            record.setScore(recordDto.getScore());
-            record.setTimeFromString(recordDto.getTime());
-
-            boardRepository.save(record);
-        }else {
+//        if(boardRepository.existsByUser(user)){ TODO: uncomment after testing
+//            BoardRecord record = boardRepository.findByUser(user);
+//            record.setScore(recordDto.getScore());
+//            record.setTimeFromString(recordDto.getTime());
+//
+//            boardRepository.save(record);
+//        }else {
             BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
 
             boardRepository.save(record);
-        }
+//        }
     }
 
     public BoardRecord readBoardRecord(String username) throws

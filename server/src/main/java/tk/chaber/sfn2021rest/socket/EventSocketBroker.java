@@ -63,7 +63,6 @@ public class EventSocketBroker extends TextWebSocketHandler {
 
         @SuppressWarnings("unchecked") HashMap<String, Object> messageMap = mapper.readValue(message.getPayload(), HashMap.class);
         Event event = Event.valueOf(((String) messageMap.get("event")).toUpperCase());
-        @SuppressWarnings("unchecked") HashMap<String, Object> headers = (HashMap<String, Object>) messageMap.get("headers");
         @SuppressWarnings("unchecked") HashMap<String, Object> payload = (HashMap<String, Object>) messageMap.get("payload");
 
         System.out.println("------------------- New message received by broker -------------------");

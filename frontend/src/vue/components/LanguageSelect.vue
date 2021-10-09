@@ -1,6 +1,6 @@
 <template>
-    <div class="input-container">
-        <select name="language" v-model="value">
+    <div class="select-container">
+        <select class="input select" name="language" v-model="value">
             <option value="EN">English</option>
             <option value="PL">Polski</option>
         </select>
@@ -22,6 +22,7 @@
     }
 </script>
 <style lang="scss" scoped>
+    @import '../../scss/main';
     @import '../../scss/variables';
     
     @keyframes focusy {
@@ -29,26 +30,16 @@
         50% { border-radius: 24px; }
         100% { border-radius: $border-rad;} 
     }
-    .input {
-        background: rgba($color: $dark-back, $alpha: 0.6);
-        margin: 2px;
-        border-radius: $border-rad;
-        border: solid $accent 3px;
-        width: 350px;
-        height: 56px;
-        padding: 0 10px 0 10px;
-    }
-    .input:focus{
-        animation: focusy 1.25s ease-in-out;
-        animation-iteration-count: infinite;
-    }
-    .input::placeholder {
-        color: $tip;
-        @-moz-document url-prefix() {
-            opacity: 1;
+
+    .select {
+        width: 160px;
+        height: 52px;
+
+        *{
+            background-color: #4a7c92;
         }
-        
     }
+
     .input:-moz-ui-invalid {
         box-shadow: none;
     }
