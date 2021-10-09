@@ -16,8 +16,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$"../Air".player_moved(self)
+	
 	if Input.is_action_pressed("move_up") and self.linear_velocity.y > -speed*1.2:
 		self.linear_velocity.y -= 10 * vertical_force_multiplier
+	
+	
 	if $"../Air".player_is_in_water:
 		if Input.is_action_pressed("move_down") and self.linear_velocity.y < speed:
 			self.linear_velocity.y += 20 * vertical_force_multiplier

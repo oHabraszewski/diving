@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 0.0745098, 0.219608, 0.227451, 1 )
+thickness = 3
+
+[node name="Label2" type="Label"]
+margin_top = 46.0
+margin_right = 173.0
+margin_bottom = 91.0
+theme = ExtResource( 1 )
+custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

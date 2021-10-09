@@ -82,6 +82,15 @@ func _on_NetworkNode_data_received(data):
 	print(data["event"])
 	if data["event"] == "READ_BOARD":
 		print(data["payload"]["board"])
+		var label = preload("res://elements/scoreboard_entry/ScoreBoardEntry.tscn")
+		var _ccounter = 1
+		for entry in data["payload"]["board"]:
+			var this_scbe = label.instance()
+			this_scbe.text = "#" + String(_ccounter) + "  " + entry["score"] + " : "+ entry["username"] + " (" + entry["time"] + "s)"
+			$Control7/CenterContainer/PanelContainer/ScrollContainer/VBoxContainer.add_child(this_scbe)
+			$Control7.show()
+			_ccounter += 1
+			print(entry["score"], "czas:", entry["time"], "usr:", entry["username"])
 #		ustawianie scorebarda
 	if data["event"] == "READ_RECORD_REQUEST":
 		pass
@@ -109,7 +118,7 @@ func _ready():
 		strings = strings_pl
 	elif lang == "EN":
 		strings = strings_eng
-	if not OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
+	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
 #		nick = $"../..".username
 		int_scoreboard = true

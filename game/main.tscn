@@ -579,6 +579,61 @@ margin_bottom = 287.0
 theme = ExtResource( 8 )
 custom_styles/normal = SubResource( 14 )
 
+[node name="Control7" type="Control" parent="Interface"]
+visible = false
+margin_left = 1499.31
+margin_top = 234.345
+margin_right = 1539.31
+margin_bottom = 274.345
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Interface/Control7"]
+margin_left = -168.0
+margin_top = 3.0
+margin_right = 11.0
+margin_bottom = 336.0
+grow_horizontal = 0
+rect_min_size = Vector2( 0, 500 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/Control7/CenterContainer"]
+margin_left = 86.0
+margin_top = 100.0
+margin_right = 92.0
+margin_bottom = 400.0
+grow_horizontal = 0
+rect_min_size = Vector2( 0, 300 )
+theme = ExtResource( 8 )
+custom_styles/panel = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Interface/Control7/CenterContainer/PanelContainer"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 176.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 10, 100 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control7/CenterContainer/PanelContainer/ScrollContainer"]
+margin_right = 173.0
+margin_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Interface/Control7/CenterContainer/PanelContainer/ScrollContainer/VBoxContainer"]
+margin_right = 173.0
+margin_bottom = 42.0
+theme = ExtResource( 8 )
+custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
+text = "SCOREBOARD:"
+
 [node name="ParallaxBackground" type="CanvasLayer" parent="."]
 follow_viewport_enable = true
 script = ExtResource( 12 )
