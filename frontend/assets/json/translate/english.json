@@ -10,7 +10,8 @@
         "credits": "We made this game!",
         "technical": "See how we made this game",
         "github_tip": "Check how EXACTLY we made this game",
-        "discord_tip": "Join Pałac Młodzieży's group on Discord!" 
+        "discord_tip": "Join Pałac Młodzieży's group on Discord!",
+        "android_tip": "Download the game for Android mobile devices" 
     },
     "register": {
         "register": "Register",

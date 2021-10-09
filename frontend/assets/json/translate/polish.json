@@ -10,7 +10,8 @@
         "credits": "To my stworzyliśmy tę grę!",
         "technical": "Zobacz jak stworzyliśmy tę grę",
         "github_tip": "Sprawdź jak DOKŁADNIE stworzyliśmy tę grę",
-        "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!" 
+        "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!",
+        "android_tip": "Pobierz grę w wersji na urządzenia Android" 
     },
     "register": {
         "register": "Rejestracja",
@@ -80,7 +81,7 @@
                 "name": "Specjalne podziękowania",
                 "list": [
                     "Dominika Dąbrowska",
-                    "Jan Surmacz - za przygotowanie środowiska prezentacyjnego na stanowisku ŚFN 2021"
+                    "Jan Surmacz - za przygotowanie środowiska prezentacyjnego na stanowisku na ŚFN 2021"
                 ]
             }
         ]
