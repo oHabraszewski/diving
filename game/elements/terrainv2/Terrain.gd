@@ -131,7 +131,7 @@ func _ready():
 	
 #	[-2][-1][0][1][2][3]
 #	[  ][  ][200][ ][ ][ ]
-
+	generation_seed = hash(OS.get_datetime())
 
 
 
