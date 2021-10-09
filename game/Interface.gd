@@ -86,6 +86,9 @@ func _ready():
 		$Control4/Joystick.show()
 		nick = $"../..".username
 		int_scoreboard = true
+#	if not OS.get_name() == "HTML5" and not JavaScript.eval("localStorage['username']") == "":
+#		nick = JavaScript.eval("localStorage['username']")
+#		int_scoreboard = true
 	if int_scoreboard:
 		$Control5/PanelContainer/CenterContainer/VBoxContainer/Label.text = strings["sc"]
 		var request = HTTPRequest.new()
