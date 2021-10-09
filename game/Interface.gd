@@ -86,7 +86,9 @@ func _on_NetworkNode_data_received(data):
 		var _ccounter = 1
 		for entry in data["payload"]["board"]:
 			var this_scbe = label.instance()
-			this_scbe.text = "#" + String(_ccounter) + "  " + entry["score"] + " : "+ entry["username"] + " (" + entry["time"] + "s)"
+			this_scbe.text = "#" + String(_ccounter) + "  " + String(entry["score"]) + " : "+ entry["username"] + " (" + entry["time"] + "s)"
+			if _ccounter == 1:
+				this_scbe.add_color_override("font_color", Color(0.74902, 0.752941, 0.113725))
 			$Control7/CenterContainer/PanelContainer/ScrollContainer/VBoxContainer.add_child(this_scbe)
 			$Control7.show()
 			_ccounter += 1
