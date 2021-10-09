@@ -1,6 +1,6 @@
 <template>
     <div class="credits center horizontal" >
-        <h1>Credits</h1>
+        <h1>{{header}}</h1>
         <article-vue :key="credit.name" v-for="credit in credits">
             <h2>{{credit.name}}</h2>
             <list-vue :items="credit.list"></list-vue>
@@ -12,13 +12,13 @@
     import ElementVue from './components/Element.vue'
     import ArticleVue from './components/Article.vue'
 
-    import content from '../../assets/json/credits.json'
     import createLang from "../js/translate/createLang.js"
 
     export default {
         data() {
             return {
-                credits: createLang("credits")
+                header: createLang("credits").header,
+                credits: createLang("credits").texts
             }
         },
         components: {
