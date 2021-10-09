@@ -25,13 +25,13 @@
     @keyframes squeeze {
         0% { 
             border-radius: $border-rad;
-            width: 400px;
+            width: 360px;
         } 
         50% { border-radius: 4px;
-            width: 360px; 
+            width: 320px; 
         }
         100% { border-radius: $border-rad;
-            width: 400px;
+            width: 360px;
         } 
     } 
     .button-container{
