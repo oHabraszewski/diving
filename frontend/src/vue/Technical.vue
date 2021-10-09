@@ -13,8 +13,7 @@
     export default {
         data() {
             return {
-                lang: createLang("technical"),
-                texts: content
+                texts: createLang("technical")
             }
         },
         components: {

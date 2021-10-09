@@ -18,8 +18,7 @@
     export default {
         data() {
             return {
-                lang: createLang("credits"),
-                credits: content
+                credits: createLang("credits")
             }
         },
         components: {

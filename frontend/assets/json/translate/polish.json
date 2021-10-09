@@ -30,5 +30,52 @@
         "02": "Użytkownik o takiej nazwie już istnieje.",
         "06": "Nazwa użytkownika lub hasło są nieprawidłowe.",
         "09": "Adres email nie został potwierdzony."
-    }
+    },
+    "technical": [
+        {
+            "name": "Gra",
+            "content": "The game itself... so about that. When you try to create a game you need to choose technologies that you want to use. We decided to choose Godot Game Engine because it is very versatile, has good support for running games in the browser and most importantly, is Open Source and free to use. Game assets were all hand-drawn (except for a few icons) in Krita which is also a great Open Source tool for digital art. Game logic is written in GDScript, language that was inspired by Python but it is specific for game-making workflow. Many aspects of this game are procedurally generated which means that they are generated based on some starting numbers, but not preprogrammed. The first idea for a game was for it to be an RPG-like game with the element of upgrading equipment, fighting etc. (of course all underwater). The game evolved to the state it is in right now - it is a blend of arcade and exploration game."
+        },
+        {
+            "name": "Witryna internetowa",
+            "content": "Tworzenie witryny internetowej dla celów gry nie jest łatwym zadaniem, w szczególności jeśli ma ona łączyć się z siecią bazy danych, aby niezawdonie inicjalizować i zarządzać kontami użytkowników. Aby sprostać temu wyzwaniu użyliśmy jednego z najlepszych w swojej klasie frameworków - VueJS. Infrastruktura MVVM zapewniła łatwy sposób operowania dużą ilością danych, a możliwości Single File Components pozwoliły na 300% usprawnienie procesu projektowania względem dotychczasowych sposobów. W celu uczynienia pracy projektowej jeszcze bardziej doskonałej, zainstalowaliśmy SCSS, preprocesor CSS, pozwalający nam tworzyć najbardziej zaawansowany wygląd strony internetowej jakiego nikt wcześniej nie był w stanie zobaczyć. Bundler modułów Webpack zapewnia nam doskonałą kompresję wszystkich tych bibliotek, dzięki czemu połączenie internetowe użytkowników jest 10x mniej obciążone niż poprzez poprzednią generację IRC."
+        },
+        {
+            "name": "Serwer",
+            "content": "When it comes to develop such a complex system as backend service for an online game, you have no other choice, but to use a framework. For Java server-side programs Spring is the best framework of its kind. It provides integrated runtime environment - Spring boot and has a wide range of plug-ins for various different applications. Okay, but why Java? There are a few reasons. First of all, Java is the most widely used language for backend purposes. Also, Java code is compiled to bytecode, resulting in a much faster commands execution comparing to interpreted languages like Python, PHP or JS. It's especially important when you are processing a lot of massive requests such as from a game. We are also using Maven for package management and PostgreSQL as a database server."
+        }
+    ],
+    "credits": [
+        {
+            "name": "Zarządzanie projektem",
+            "list": [
+                "Oskar Habraszewski"
+            ]
+        },
+        {
+            "name": "Gra",
+            "list": [
+                "Kamil Warczek"
+            ]
+        },
+        {
+            "name": "Witryna internetowa",
+            "list": [
+                "Oskar Habraszewski"
+            ]
+        },
+        {
+            "name": "Serwer i baza danych",
+            "list": [
+                "Oskar Habraszewski"
+            ]
+        },
+        {
+            "name": "Specjalne podziękowania",
+            "list": [
+                "Dominika Dąbrowska",
+                "Jan Surmacz - za przygotowanie środowiska prezentacyjnego na stanowisku ŚFN 2021"
+            ]
+        }
+    ]
 }
