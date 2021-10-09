@@ -4,7 +4,7 @@ extends Node
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var _host = "ws://localhost:8080/api/websocket/broker"
+var _host = "ws://the-diving.herokuapp.com/api/websocket/broker"
 var _connected = false
 var web_socket = WebSocketClient.new()
 var queue = []
