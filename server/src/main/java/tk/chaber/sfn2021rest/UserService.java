@@ -70,7 +70,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(userDto.getUsername());
-        user.setPassword(passEncoder.encode(userDto.getPassword()));
+        user.setPassword(encodePass(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
 
         return userRepository.save(user);
@@ -80,8 +80,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private User getUser(String username){
+    public User getUser(String username){
         return userRepository.findByUsername(username);
+    }
+
+    public String encodePass(String password){
+        return passEncoder.encode(password);
     }
 
 
@@ -127,6 +131,10 @@ public class UserService {
 //        }
     }
 
+    public void saveCreatedRecord(BoardRecord record){
+        boardRepository.save(record);
+    }
+
     public BoardRecord readBoardRecord(String username) throws
             UserDoesNotExistException,
             NoUserRecordException {
@@ -148,6 +156,6 @@ public class UserService {
     }
 
     public List<BoardRecord> readTopBoard() {
-        return boardRepository.findAll(PageRequest.of(0, 20, Sort.by("score").descending().and(Sort.by("time").ascending())));
+        return boardRepository.findAll(PageRequest.of(0, 5, Sort.by("score").descending().and(Sort.by("time").ascending())));
     }
 }
