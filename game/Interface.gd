@@ -70,8 +70,9 @@ func _request_compleated_get_scoreboard(result, response_code, headers, body):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if OS.get_name() == "HTML5":
-		ext_scoreboard = true
-		$"../NetworkNode".send_message({"event":"read_board", "payload":{}})
+		if not JavaScript.eval("localStorage['username']") == "":
+			ext_scoreboard = true
+			$"../NetworkNode".send_message({"event":"read_board", "payload":{}})
 	if OS.get_name() == "HTML5":
 #		print(JavaScript.eval("localStorage['lang']"))
 		lang = JavaScript.eval("localStorage['lang']")
@@ -299,7 +300,7 @@ func upadte_scoreboard(scoreboard_data: Array):
 func _on_NetworkNode_data_received(data):
 #	print(data["event"])
 	if data["event"] == "READ_BOARD":
-		print("asd")
+		print(data["payload"]["board"])
 #		ustawianie scorebarda
 	if data["event"] == "READ_RECORD_REQUEST":
 		pass
