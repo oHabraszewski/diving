@@ -32,6 +32,7 @@ func _data_received_web_socket():
 #	print_debug(JSON.parse(web_socket.get_peer(1).get_packet().get_string_from_utf8()).result["payload"])
 	var res = JSON.parse(web_socket.get_peer(1).get_packet().get_string_from_utf8())
 	emit_signal("data_received", res.result)
+#	print("datda received")
 	pass
 func send_message(message : Dictionary):
 #	print(to_json(message))
@@ -43,13 +44,14 @@ func send_message(message : Dictionary):
 		queue.push_back(message)
 	pass
 func _queue_send():
-	if web_socket.get_peer(1).is_connected_to_host():
-		print(web_socket.get_peer(1).put_packet(PoolByteArray(to_json(queue.pop_front()).to_utf8())))
+	print("sending:", web_socket.get_peer(1).put_packet(PoolByteArray(to_json(queue.pop_front()).to_utf8())))
+#	print("awitaing")
 	if queue.size() == 0:
 		$Timer.stop()
 	pass
 func _connect_esth_web_socket(protocol):
 	_connected = true
+	print("ASd")
 	print("WebSocket: Conn-ETH", protocol)
 	web_socket.get_peer(1).set_write_mode(WebSocketPeer.WRITE_MODE_TEXT)
 #	print(web_socket.get_peer(1).get_packet().get_string_from_utf8())

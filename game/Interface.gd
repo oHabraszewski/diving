@@ -67,12 +67,29 @@ func _request_compleated_get_scoreboard(result, response_code, headers, body):
 	$Control5.show()
 	pass
 	
+
+func _on_NetworkNode_data_received(data):
+	print(data["event"])
+	if data["event"] == "READ_BOARD":
+		print(data["payload"]["board"])
+#		ustawianie scorebarda
+	if data["event"] == "READ_RECORD_REQUEST":
+		pass
+#		sprawdzanie "rankingu" gracza
+	
+	pass # Replace with function body.
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if OS.get_name() == "HTML5":
-		if not JavaScript.eval("localStorage['username']") == "":
+#		print("username: ",JavaScript.eval("sessionStorage['username']") == null)
+#		print("username: ",JavaScript.eval("localStorage['username']") == null)
+		if not JavaScript.eval("sessionStorage['username']") == null:
 			ext_scoreboard = true
 			$"../NetworkNode".send_message({"event":"read_board", "payload":{}})
+		else:
+			print("User not logged in!!!")
 	if OS.get_name() == "HTML5":
 #		print(JavaScript.eval("localStorage['lang']"))
 		lang = JavaScript.eval("localStorage['lang']")
@@ -300,15 +317,6 @@ func upadte_scoreboard(scoreboard_data: Array):
 	pass
 
 
-func _on_NetworkNode_data_received(data):
-#	print(data["event"])
-	if data["event"] == "READ_BOARD":
-		print(data["payload"]["board"])
-#		ustawianie scorebarda
-	if data["event"] == "READ_RECORD_REQUEST":
-		pass
-#		sprawdzanie "rankingu" gracza
-	
-	pass # Replace with function body.
+
 
 
