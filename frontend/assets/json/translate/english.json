@@ -28,6 +28,7 @@
     "error": {
         "01": "User with such a username does not exist.",
         "02": "User with that username already exists.",
+        "03": "User using that email already exists.",
         "06": "Username or password is incorrect.",
         "09": "You have not verified your email address."
     },

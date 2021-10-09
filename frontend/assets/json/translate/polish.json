@@ -28,6 +28,7 @@
     "error": {
         "01": "Użytkownik o takiej nazwie nie istnieje.",
         "02": "Użytkownik o takiej nazwie już istnieje.",
+        "03": "Użytkownik korzystający z tego adresu email już istnieje.",
         "06": "Nazwa użytkownika lub hasło są nieprawidłowe.",
         "09": "Adres email nie został potwierdzony."
     },

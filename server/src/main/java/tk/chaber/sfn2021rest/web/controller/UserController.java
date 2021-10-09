@@ -5,17 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 import tk.chaber.sfn2021rest.web.dto.RegisterUserDto;
-import tk.chaber.sfn2021rest.web.error.AuthenticationFailedException;
-import tk.chaber.sfn2021rest.web.error.UserAlreadyExistsException;
+import tk.chaber.sfn2021rest.web.error.*;
 import tk.chaber.sfn2021rest.web.dto.UserDto;
 import tk.chaber.sfn2021rest.UserService;
 import tk.chaber.sfn2021rest.persistence.entity.User;
-import tk.chaber.sfn2021rest.web.error.UserDoesNotExistException;
 import tk.chaber.sfn2021rest.web.controller.registration.OnRegistrationCompleteEvent;
 import tk.chaber.sfn2021rest.response.*;
 import tk.chaber.sfn2021rest.response.Error;
 import tk.chaber.sfn2021rest.socket.Event;
-import tk.chaber.sfn2021rest.web.error.UserNotVerifiedException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -42,6 +39,10 @@ public class UserController {
         }catch(UserAlreadyExistsException uaeEx){
             System.out.println(uaeEx.getMessage());
             EventResponse response = new FailedResponse(Event.REGISTER_USER, Error.USER_ALREADY_EXISTS);
+            return response.getRawJSONResponse();
+        }catch (EmailAlreadyExistsException eaeEx){
+            System.out.println(eaeEx.getMessage());
+            EventResponse response = new FailedResponse(Event.REGISTER_USER, Error.EMAIL_ALREADY_EXISTS);
             return response.getRawJSONResponse();
         }
         EventResponse response = new SuccessResponse(Event.REGISTER_USER);
