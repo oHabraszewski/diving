@@ -2,7 +2,7 @@
     <div>
         <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
         <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord_new.png"></a>
-        <lang-select-vue @valueChange="updateLang" id="lang-select"></lang-select-vue>
+        <lang-select-vue @valueChange="updateLang" :value="lang_selected" id="lang-select"></lang-select-vue>
 
         <div class="login center horizontal-vertical" >
             <h1>Diving</h1>
@@ -35,6 +35,7 @@
     export default {
         data() {
             return {
+                lang_selected: "EN",
                 lang: createLang("index"),
                 errors: createLang("error"),
                 username: "",
@@ -45,6 +46,7 @@
             }
         },
         mounted(){
+            this.lang_selected = localStorage.getItem("lang")
             const username = localStorage.getItem("username")
             const key = localStorage.getItem("unique_key")
             if(username && key){

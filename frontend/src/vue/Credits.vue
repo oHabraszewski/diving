@@ -30,7 +30,7 @@
 </script>
 <style lang="scss" scoped>
     .credits {
-        width: 60vw;
+        width: 70vw;
         top: 5%;
     }
 </style>

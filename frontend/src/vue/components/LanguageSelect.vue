@@ -15,10 +15,10 @@
                 this.$emit("valueChange", this.value)
             }
         },
-        mounted(){
-            const lang = localStorage.getItem("lang")
-            this.value = lang;
-        }
+        // mounted(){
+        //     const lang = localStorage.getItem("lang")
+        //     this.props.value = lang;
+        // }
     }
 </script>
 <style lang="scss" scoped>
