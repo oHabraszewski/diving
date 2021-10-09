@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://elements/terrainv2/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -111,6 +111,38 @@ corner_radius_bottom_left = 12
 [sub_resource type="StyleBoxLine" id=14]
 color = Color( 0.0745098, 0.219608, 0.227451, 1 )
 thickness = 3
+
+[sub_resource type="Animation" id=18]
+resource_name = "slide_left"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control7:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1500, 234.345 ), Vector2( 1700, 234.345 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "slide_right"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control7:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1500, 234.345 ), Vector2( 1700, 234.345 ) ]
+}
 
 [sub_resource type="Gradient" id=15]
 offsets = PoolRealArray( 0, 0.413284, 1 )
@@ -507,9 +539,6 @@ margin_left = 1499.31
 margin_top = 234.345
 margin_right = 1539.31
 margin_bottom = 274.345
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PanelContainer" type="PanelContainer" parent="Interface/Control5"]
 margin_right = 14.0
@@ -525,13 +554,12 @@ __meta__ = {
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 176.0
-margin_bottom = 332.0
+margin_bottom = 290.0
 grow_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/Control5/PanelContainer/CenterContainer"]
-margin_top = 21.0
 margin_right = 173.0
-margin_bottom = 308.0
+margin_bottom = 287.0
 grow_horizontal = 0
 
 [node name="Label" type="Label" parent="Interface/Control5/PanelContainer/CenterContainer/VBoxContainer"]
@@ -581,9 +609,9 @@ custom_styles/normal = SubResource( 14 )
 
 [node name="Control7" type="Control" parent="Interface"]
 visible = false
-margin_left = 1499.31
+margin_left = 1500.0
 margin_top = 234.345
-margin_right = 1539.31
+margin_right = 1540.0
 margin_bottom = 274.345
 __meta__ = {
 "_edit_use_anchors_": false
@@ -633,6 +661,10 @@ margin_bottom = 42.0
 theme = ExtResource( 8 )
 custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "SCOREBOARD:"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Interface"]
+anims/slide_left = SubResource( 18 )
+anims/slide_right = SubResource( 19 )
 
 [node name="ParallaxBackground" type="CanvasLayer" parent="."]
 follow_viewport_enable = true

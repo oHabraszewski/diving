@@ -101,8 +101,21 @@ func _on_NetworkNode_data_received(data):
 	pass # Replace with function body.
 
 
+var sc_right = false
+func _input(event):
+	if event is InputEventMouseMotion:
+		if event.position.x > 1200:
+			if not sc_right:
+				$AnimationPlayer2.play_backwards("slide_right")
+			sc_right = true
+		else:
+			if sc_right:
+				$AnimationPlayer2.play("slide_right")
+			sc_right = false
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AnimationPlayer2.play("slide_right")
 	if OS.get_name() == "HTML5":
 #		print("username: ",JavaScript.eval("sessionStorage['username']") == null)
 #		print("username: ",JavaScript.eval("localStorage['username']") == null)
@@ -353,8 +366,3 @@ func upadte_scoreboard(scoreboard_data: Array):
 	$Control5/PanelContainer/CenterContainer/VBoxContainer/Label6.text = scoreboard_data[4]
 	$Control5.show()
 	pass
-
-
-
-
-
