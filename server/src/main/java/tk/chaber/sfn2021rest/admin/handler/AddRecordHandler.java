@@ -26,7 +26,7 @@ public class AddRecordHandler implements AdminHandler{
     public boolean handle(HashMap<String, Object> data) {
         String username = (String) data.get("username");
         String time = (String) data.get("time");
-        Long score = Long.valueOf((String) data.get("score"));
+        Long score = Long.valueOf(String.valueOf(data.get("score")));
 
         User user = service.getUser(username);
 
