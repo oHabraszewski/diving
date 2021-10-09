@@ -10,7 +10,8 @@
         "credits": "To my stworzyliśmy tę grę!",
         "technical": "Zobacz jak stworzyliśmy tę grę",
         "github_tip": "Sprawdź jak DOKŁADNIE stworzyliśmy tę grę",
-        "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!" 
+        "discord_tip": "Dołącz do grupy Pałacu Młodzieży na Discordzie!",
+        "android_tip": "Pobierz grę w wersji na urządzenia Android" 
     },
     "register": {
         "register": "Rejestracja",
@@ -24,5 +25,65 @@
         "success_1": "Dziękujemy za rejestrację w grze Diving!",
         "success_2": "Teraz sprawdź swoją skrzynkę mailową, aby zweryfikować swoje konto.",
         "return": "Powróć do logowania"
+    },
+    "error": {
+        "01": "Użytkownik o takiej nazwie nie istnieje.",
+        "02": "Użytkownik o takiej nazwie już istnieje.",
+        "03": "Użytkownik korzystający z tego adresu email już istnieje.",
+        "06": "Nazwa użytkownika lub hasło są nieprawidłowe.",
+        "09": "Adres email nie został potwierdzony."
+    },
+    "technical":{
+        "header": "Ciekawostki techniczne",
+        "texts": [
+            {
+                "name": "Gra",
+                "content": "Jeśli chodzi o samą grę... Gdy chcesz stworzyć grę, musisz zdecydować z jakich technologii będziesz korzystać. My zdecydowaliśmy stworzyć naszą grę w Godot Game Engine, ponieważ jest on wszechstronny, ma dobre wsparcie dla tworzenia gier na przeglądarki i co najważniejsze jest Open Source (jego kod źródłowy jest dostępny publicznie) i darmowy. Zasoby gry zostały narysowane ręcznie w programie Krita, który jest świetny do tworzenia grafiki, a dodatkowo jest Open Source. Logika gry została napisana w GDScript, który jest językiem programowania przypominającym Pythona, ale dostosowany na potrzeby tworzenia gier. Wiele elementów gry jest generowanych w trakcie gry, na podstawie kilku losowych wartości początkowych. Gra w swoim początkowym stadium miała być RPG'em z ekwipunkiem, zbieraniem przedmiotów, systemem walki itp. (oczywiście wszystko pod wodą). Z czasem gra ewoluowała do obecnego stanu połączenia gry zręcznościowej i eksploracyjnej."
+            },
+            {
+                "name": "Witryna internetowa",
+                "content": "Tworzenie witryny internetowej dla celów gry nie jest łatwym zadaniem, w szczególności jeśli ma ona łączyć się z siecią bazy danych, aby niezawdonie inicjalizować i zarządzać kontami użytkowników. Aby sprostać temu wyzwaniu użyliśmy jednego z najlepszych w swojej klasie frameworków - VueJS. Infrastruktura MVVM zapewniła łatwy sposób operowania dużą ilością danych, a możliwości Single File Components pozwoliły na 300% usprawnienie procesu projektowania względem dotychczasowych sposobów. W celu uczynienia pracy projektowej jeszcze bardziej doskonałej, zainstalowaliśmy SCSS, preprocesor CSS, pozwalający nam tworzyć najbardziej zaawansowany wygląd strony internetowej jakiego nikt wcześniej nie był w stanie zobaczyć. Bundler modułów Webpack zapewnia nam doskonałą kompresję wszystkich tych bibliotek, dzięki czemu połączenie internetowe użytkowników jest 10x mniej obciążone niż poprzez poprzednią generację IRC."
+            },
+            {
+                "name": "Serwer",
+                "content": "Gdy przychodzi stworzyć tak kompleksowy system jak serwis backendowy dla gry online, nie masz innego wyjścia niż użyć jakiegoś frameworku. Dla serwerowych aplikacji pisanych w Java'ie, Spring jest najlepszym możliwym frameworkiem. Zapewnia zintegrowane środowisko uruchomieniowe - Spring Boot oraz posiada szeroki wybór rozszerzeń dla wielu różnych zastosowań. No dobra, ale dlaczego Java? Stoi za tym kilka powodów. Przede wszystkim, Java jest najczęściej używanym językiem programowania na potrzeby tworzenia systemów backendowych. Ważne jest również, że kod źródłowy Java'y jest kompilowany do bytecode'u, co sprawia, że algorytm jest wykonywany o wiele szybciej niż w przypadku różnych języków interpretowanych takich jak Python, PHP czy JS. Jest to szczególnie ważne kiedy przetwarza się dużą liczbę ciężkich zapytań takich jakie są wysyłane z gry. Jeśli chodzi o package managera, korzystamy z Mavena, natomiast jako serwera bazy danych używamy PostgreSQL."
+            }
+        ]
+    },
+    "credits":{
+        "header": "Twórcy",
+        "texts": [
+            {
+                "name": "Zarządzanie projektem",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Gra",
+                "list": [
+                    "Kamil Warczek"
+                ]
+            },
+            {
+                "name": "Witryna internetowa",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Serwer i baza danych",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Specjalne podziękowania",
+                "list": [
+                    "Dominika Dąbrowska",
+                    "Jan Surmacz - za przygotowanie środowiska prezentacyjnego na stanowisku na ŚFN 2021"
+                ]
+            }
+        ]
     }
 }

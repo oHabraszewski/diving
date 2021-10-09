@@ -10,7 +10,8 @@
         "credits": "We made this game!",
         "technical": "See how we made this game",
         "github_tip": "Check how EXACTLY we made this game",
-        "discord_tip": "Join Pałac Młodzieży's group on Discord!" 
+        "discord_tip": "Join Pałac Młodzieży's group on Discord!",
+        "android_tip": "Download the game for Android mobile devices" 
     },
     "register": {
         "register": "Register",
@@ -24,5 +25,65 @@
         "success_1": "Thank you for signing up to the Diving game!",
         "success_2": "Now check your email to verify your account.",
         "return": "Return to login"
+    },
+    "error": {
+        "01": "User with such a username does not exist.",
+        "02": "User with that username already exists.",
+        "03": "User using that email already exists.",
+        "06": "Username or password is incorrect.",
+        "09": "You have not verified your email address."
+    },
+    "technical":{ 
+        "header": "Technical facts",
+        "texts": [
+            {
+                "name": "Game",
+                "content": "The game itself... so about that. When you try to create a game you need to choose technologies that you want to use. We decided to choose Godot Game Engine because it is very versatile, has good support for running games in the browser and most importantly, is Open Source and free to use. Game assets were all hand-drawn (except for a few icons) in Krita which is also a great Open Source tool for digital art. Game logic is written in GDScript, language that was inspired by Python but it is specific for game-making workflow. Many aspects of this game are procedurally generated which means that they are generated based on some starting numbers, but not preprogrammed. The first idea for a game was for it to be an RPG-like game with the element of upgrading equipment, fighting etc. (of course all underwater). The game evolved to the state it is in right now - it is a blend of arcade and exploration game."
+            },
+            {
+                "name": "Client",
+                "content": "Developing website for a game is not an easy job especially if it has to connect with database network to reliably initialize and maintain users' accounts. We used one of the best in-class framework for this difficult task - VueJS. Its MVVM infrastructure ensured easy way to operate with a lot of data and Single File Components capability provided 300% improvement in layout designing process than regular procedures. To make designing job even more flawless, we installed SCSS, CSS preprocessor, that allows us to create leading-edge look for website that has never yet been seen before. Module bundler Webpack ensured all these heavy packages were packed up tightly, resulting in 10x less load on users' connection than previous generation of IRC."
+            },
+            {
+                "name": "Server",
+                "content": "When it comes to develop such a complex system as backend service for an online game, you have no other choice, but to use a framework. For Java server-side programs Spring is the best framework of its kind. It provides integrated runtime environment - Spring boot and has a wide range of plug-ins for various different applications. Okay, but why Java? There are a few reasons. First of all, Java is the most widely used language for backend purposes. Also, Java code is compiled to bytecode, resulting in a much faster algorithm execution comparing to interpreted languages like Python, PHP or JS. It's especially important when you are processing a lot of massive requests such as from a game. We are also using Maven for package management and PostgreSQL as a database server."
+            }
+        ]
+    },
+    "credits": {
+        "header": "Credits",
+        "texts": [
+            {
+                "name": "Project Management",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Game",
+                "list": [
+                    "Kamil Warczek"
+                ]
+            },
+            {
+                "name": "Website",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Server and Database",
+                "list": [
+                    "Oskar Habraszewski"
+                ]
+            },
+            {
+                "name": "Special thanks",
+                "list": [
+                    "Dominika Dąbrowska",
+                    "Jan Surmacz - for preparing presentation environment at the stand at ŚFN 2021"
+                ]
+            }
+        ]
     }
 }

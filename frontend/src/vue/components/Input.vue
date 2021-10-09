@@ -26,7 +26,7 @@
         margin: 2px;
         border-radius: $border-rad;
         border: solid $accent 3px;
-        width: 350px;
+        width: 360px;
         height: 56px;
         padding: 0 10px 0 10px;
     }

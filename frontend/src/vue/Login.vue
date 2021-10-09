@@ -1,19 +1,20 @@
 <template>
     <div>
         <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
-        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord_new.png"></a>
-        <lang-select-vue @valueChange="updateLang" id="lang-select"></lang-select-vue>
+        <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord.png"></a>
+        <!--<a id="android" class="social" href="/game.apk" :title="lang.android_tip" target="_blank"><img src="../../assets/img/android.png"></a>-->
+        <lang-select-vue @valueChange="updateLang" :value="lang_selected" id="lang-select"></lang-select-vue>
 
         <div class="login center horizontal-vertical" >
-            <h1>Diving</h1>
+            <h1 id="diving">Diving</h1>
             <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
                 <input-vue @valueChange="setUsername" :title="lang.username_tip" :placeholder="lang.username" maxim="24" :value="username"></input-vue>
                 <input-vue @valueChange="setPassword" :title="lang.password_tip" :placeholder="lang.password" type="password" maxim="32" :value="password"></input-vue>
                 <button-vue>{{lang.play}}</button-vue>
                 <check-vue @valueChange="setRemember" id="remember" :value="remember">{{lang.remember_me}}</check-vue>
             </form>
-            <p v-if="!success">{{error}}</p>
             <link-vue destination="/register">{{lang.register}}</link-vue>
+            <p class="error" v-if="!success">{{error}}</p>
         </div>
         <div class="bottom">
             <link-vue destination="/credits">{{lang.credits}}</link-vue>
@@ -35,7 +36,9 @@
     export default {
         data() {
             return {
+                lang_selected: "EN",
                 lang: createLang("index"),
+                errors: createLang("error"),
                 username: "",
                 password: "",
                 remember: false,
@@ -44,6 +47,7 @@
             }
         },
         mounted(){
+            this.lang_selected = localStorage.getItem("lang")
             const username = localStorage.getItem("username")
             const key = localStorage.getItem("unique_key")
             if(username && key){
@@ -63,7 +67,8 @@
                  this.remember = value;
             },
             updateLang(value){
-                this.lang = createLang("index")
+                this.lang = createLang("index");
+                this.errors = createLang("error");
             },
             changeDirectory(dir){
                 location.href = dir;
@@ -113,7 +118,8 @@
 
                             this.changeDirectory("/game")
                     }else{
-                        this.error = payload.error
+                        const ecode = payload.ecode;
+                        this.error = this.errors[ecode];
 
                         console.warn("Login data validation has not been completed successfully! Read description below for details")
                         console.warn(payload.error)
@@ -142,11 +148,17 @@
             height: 80px;
         }
    }
+   #diving {
+       font-size: 96px;
+   }
    #github{
        top: 8px;
    }
    #discord{
        top: 104px;
+   }
+   #android {
+       top: 200px;
    }
    #lang-select{
        position:absolute;

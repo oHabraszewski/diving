@@ -5,8 +5,8 @@
             <input-vue @valueChange="setUsername" :title="lang.username_tip" :placeholder="lang.username" maxim="24"></input-vue>
             <input-vue @valueChange="setPassword" type="password" :title="lang.password_tip" :placeholder="lang.password" minim="8" maxim="32"></input-vue>
             <input-vue @valueChange="setEmail" type="email" :title="lang.email_tip" :placeholder="lang.email" maxim="256"></input-vue>
-            <p v-if="!success">{{error}}</p>
             <button-vue>{{lang.sign_up}}</button-vue>
+            <p class="error" v-if="!success">{{error}}</p>
         </form>
         <div class="registered" v-if="success">{{lang.success_1}}<br>{{lang.success_2}}<button-vue destination="./">{{lang.return}}</button-vue>
         </div>
@@ -29,6 +29,7 @@
         data(){
             return {
                 lang: createLang("register"),
+                errors: createLang("error"),
                 username: "",
                 password: "",
                 email: "",
@@ -60,7 +61,8 @@
                 this.success = payload.success;
 
                 if(!this.success){
-                    this.error = payload.error //TODO: translate errors
+                    const ecode = payload.ecode
+                    this.error = this.errors[ecode]
 
                     console.warn("Register data validation has not been completed successfully! Read description below for details")
                     console.warn(payload.error) 

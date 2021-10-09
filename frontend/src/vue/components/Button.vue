@@ -25,29 +25,29 @@
     @keyframes squeeze {
         0% { 
             border-radius: $border-rad;
-            width: 350px;
+            width: 400px;
         } 
         50% { border-radius: 4px;
-            width: 310px; 
+            width: 360px; 
         }
         100% { border-radius: $border-rad;
-            width: 350px;
+            width: 400px;
         } 
     } 
     .button-container{
-        width: 350px;
-        height: 56px;
+        width: 360px;
+        height: 60px;
     }
     .button {
         position: absolute;
-        left: 175px;
+        left: 180px;
         transform: translate(-50%, 0%);
         background: rgba($color: $light-back, $alpha: 0.6);
         margin: 2px;
         border-radius: $border-rad;
         border: solid $accent 3px;
-        width: 350px;
-        height: 56px;
+        width: 360px;
+        height: 60px;
         padding: 0 3px 0 3px;
     }
     .button:hover {

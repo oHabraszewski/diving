@@ -61,7 +61,7 @@ public class UserService {
     public User registerNewUserAccount(RegisterUserDto userDto) throws UserAlreadyExistsException {
         System.out.println(userDto.getEmail());
         if(userRepository.existsByEmail(userDto.getEmail())){
-            throw new UserAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
+            throw new EmailAlreadyExistsException("There is an account with such an email address: " + userDto.getEmail());
         }
 
         if(userRepository.existsByUsername(userDto.getUsername())){
