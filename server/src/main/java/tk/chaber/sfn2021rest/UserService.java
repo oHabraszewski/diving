@@ -76,7 +76,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private User getUser(String username){
+    public User getUser(String username){
         return userRepository.findByUsername(username);
     }
 
@@ -121,6 +121,10 @@ public class UserService {
 
             boardRepository.save(record);
         }
+    }
+
+    public void saveCreatedRecord(BoardRecord record){
+        boardRepository.save(record);
     }
 
     public BoardRecord readBoardRecord(String username) throws
