@@ -36,6 +36,7 @@
         data() {
             return {
                 lang: createLang("index"),
+                errors: createLang("error"),
                 username: "",
                 password: "",
                 remember: false,
@@ -63,7 +64,8 @@
                  this.remember = value;
             },
             updateLang(value){
-                this.lang = createLang("index")
+                this.lang = createLang("index");
+                this.errors = createLang("error");
             },
             changeDirectory(dir){
                 location.href = dir;
@@ -113,7 +115,8 @@
 
                             this.changeDirectory("/game")
                     }else{
-                        this.error = payload.error
+                        const ecode = payload.ecode;
+                        this.error = this.errors[ecode];
 
                         console.warn("Login data validation has not been completed successfully! Read description below for details")
                         console.warn(payload.error)

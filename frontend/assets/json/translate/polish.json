@@ -24,5 +24,11 @@
         "success_1": "Dziękujemy za rejestrację w grze Diving!",
         "success_2": "Teraz sprawdź swoją skrzynkę mailową, aby zweryfikować swoje konto.",
         "return": "Powróć do logowania"
+    },
+    "error": {
+        "01": "Użytkownik o takiej nazwie nie istnieje.",
+        "02": "Użytkownik o takiej nazwie już istnieje.",
+        "06": "Nazwa użytkownika lub hasło są nieprawidłowe.",
+        "09": "Adres email nie został potwierdzony."
     }
 }

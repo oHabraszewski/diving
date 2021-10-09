@@ -24,5 +24,11 @@
         "success_1": "Thank you for signing up to the Diving game!",
         "success_2": "Now check your email to verify your account.",
         "return": "Return to login"
+    },
+    "error": {
+        "01": "User with such a username does not exist.",
+        "02": "User with that username already exists.",
+        "06": "Username or password is incorrect.",
+        "09": "You have not verified your email address."
     }
 }

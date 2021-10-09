@@ -29,6 +29,7 @@
         data(){
             return {
                 lang: createLang("register"),
+                errors: createLang("error"),
                 username: "",
                 password: "",
                 email: "",
@@ -60,7 +61,8 @@
                 this.success = payload.success;
 
                 if(!this.success){
-                    this.error = payload.error //TODO: translate errors
+                    const ecode = payload.ecode
+                    this.error = this.errors[ecode]
 
                     console.warn("Register data validation has not been completed successfully! Read description below for details")
                     console.warn(payload.error) 
