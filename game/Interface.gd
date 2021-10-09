@@ -122,9 +122,9 @@ func _ready():
 		strings = strings_eng
 	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
 		$Control4/Joystick.show()
-#		nick = $"../..".username
+		nick = $"../..".username
 		int_scoreboard = true
-		$Control4/Joystick.set_size(1.2)
+		$Control4/Joystick.set_size(1.4)
 #	if not OS.get_name() == "HTML5" and not JavaScript.eval("localStorage['username']") == "":
 #		nick = JavaScript.eval("localStorage['username']")
 #		int_scoreboard = true
@@ -287,7 +287,7 @@ func _on_Timer_timeout():
 	play_time += 1
 	pass # Replace with function body.
 
-var dead_zone = 15
+var dead_zone = 3
 func _on_Joystick_moved_raw(direction):
 	Input.action_release("move_down")
 	Input.action_release("move_up")

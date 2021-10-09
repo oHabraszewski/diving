@@ -11,6 +11,8 @@ export var vertical_force_multiplier = 1.0
 export(int) var speed = 380
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if OS.get_name() == "Android":
+		speed = 290
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,11 +28,11 @@ func _process(delta):
 			self.linear_velocity.y += 20 * vertical_force_multiplier
 			
 		if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right") and self.linear_velocity.x > -speed:
-			self.linear_velocity.x -= 15 * side_force_multiplier
+			self.linear_velocity.x -= 22 * side_force_multiplier
 			self.get_child(0).flip_h = true
 			
 		if Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and self.linear_velocity.x < speed:
-			self.linear_velocity.x += 15 * side_force_multiplier
+			self.linear_velocity.x += 22 * side_force_multiplier
 			self.get_child(0).flip_h = false
 			
 		
