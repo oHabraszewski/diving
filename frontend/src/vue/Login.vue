@@ -6,7 +6,7 @@
         <lang-select-vue @valueChange="updateLang" :value="lang_selected" id="lang-select"></lang-select-vue>
 
         <div class="login center horizontal-vertical" >
-            <h1>Diving</h1>
+            <h1 id="diving">Diving</h1>
             <form @submit="sendData" action="javascript:void(0);" autocomplete="off">
                 <input-vue @valueChange="setUsername" :title="lang.username_tip" :placeholder="lang.username" maxim="24" :value="username"></input-vue>
                 <input-vue @valueChange="setPassword" :title="lang.password_tip" :placeholder="lang.password" type="password" maxim="32" :value="password"></input-vue>
@@ -147,6 +147,9 @@
             width: 80px;
             height: 80px;
         }
+   }
+   #diving {
+       font-size: 96px;
    }
    #github{
        top: 8px;
