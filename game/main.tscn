@@ -112,7 +112,7 @@ corner_radius_bottom_left = 12
 color = Color( 0.0745098, 0.219608, 0.227451, 1 )
 thickness = 3
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=15]
 resource_name = "slide_left"
 length = 0.5
 tracks/0/type = "value"
@@ -128,7 +128,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1500, 234.345 ), Vector2( 1700, 234.345 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=16]
 resource_name = "slide_right"
 length = 0.5
 tracks/0/type = "value"
@@ -144,14 +144,14 @@ tracks/0/keys = {
 "values": [ Vector2( 1500, 234.345 ), Vector2( 1700, 234.345 ) ]
 }
 
-[sub_resource type="Gradient" id=15]
+[sub_resource type="Gradient" id=17]
 offsets = PoolRealArray( 0, 0.413284, 1 )
 colors = PoolColorArray( 0.976471, 1, 0.74902, 1, 0.779671, 0.931373, 0.810582, 1, 0.211765, 0.733333, 0.988235, 1 )
 
-[sub_resource type="GradientTexture" id=16]
-gradient = SubResource( 15 )
+[sub_resource type="GradientTexture" id=18]
+gradient = SubResource( 17 )
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=19]
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Game/Air/Polygon2DWater_if_in_air:modulate")
 tracks/0/interp = 1
@@ -790,8 +790,8 @@ custom_colors/font_color = Color( 0.0627451, 0.192157, 0.192157, 1 )
 text = "SCOREBOARD:"
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="Interface"]
-anims/slide_left = SubResource( 18 )
-anims/slide_right = SubResource( 19 )
+anims/slide_left = SubResource( 15 )
+anims/slide_right = SubResource( 16 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Interface"]
 color = Color( 0, 0, 0, 1 )
@@ -819,10 +819,10 @@ texture = ExtResource( 6 )
 modulate = Color( 1, 1, 1, 0.00706724 )
 position = Vector2( 417.415, -766.83 )
 scale = Vector2( 3, 1571.87 )
-texture = SubResource( 16 )
+texture = SubResource( 18 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground"]
-anims/change_bck_to_air = SubResource( 17 )
+anims/change_bck_to_air = SubResource( 19 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
 color = Color( 0, 0, 0, 1 )
