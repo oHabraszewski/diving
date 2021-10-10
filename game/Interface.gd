@@ -133,7 +133,7 @@ func _ready():
 		strings = strings_pl
 	elif lang == "EN":
 		strings = strings_eng
-	if OS.get_name() == "Android" or JavaScript.eval("(('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));") == true:
+	if OS.get_name() == "Android":
 		$Control4/Joystick.show()
 		nick = $"../..".username
 		int_scoreboard = true
