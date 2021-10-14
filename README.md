@@ -1,36 +1,10 @@
 # Diving game
 
-## Project operating
+**Game created in Pałac Młodzieży for 5. Silesian Science Festival. It's simple game about diving in ocean and collecting treasures. It introduces scoreboard system for best five players and registration system with email verification algorithm, all managed by server and its database.**
 
-### Starting project (development mode)
+**You can play the Diving here:**
 
-- Open CMD/Terminal/PowerShell at root directory of the project
-- Type: ./run
-- Press enter
-
-#### OR
-- In 3 different terminals run:
-  - yarn serve
-  - mvnw spring-boot:run
-  - *path to godot.exe* --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html
-  (For exporting in godot you need to download godot's export templates)
-
-### Starting project (production mode)
-
-- Open CMD/Terminal/PowerShell at root directory of the project
-- Type: ./run build
-- Press enter
-
-### Logging in for testing
-
-You can use preregistered account for testing in logged in mode (will be deleted on production)
-
-Username: admin
-Password: adminadmin
-
-### Stopping project
-
-- Press ctrl+c
+[![Diving](https://the-diving.herokuapp.com/assets/favicon-48x48.png)](https://the-diving.herokuapp.com/)
 
 ## Languages
 - Java
@@ -55,3 +29,28 @@ Password: adminadmin
 - Git
 - Yarn
 
+## Project operating
+If you want to experiment with the code on your own.
+
+### Run project (development mode)
+
+- Open CMD/Terminal/PowerShell at root directory of the project
+- Type: ./run
+- Press enter
+
+#### OR
+- In 3 different terminals run:
+  - yarn serve (at /frontend)
+  - mvnw spring-boot:run (at /server)
+  - *path to godot.exe* --no-window -w --path ./project.godot --export HTML5 ../server/public/game.html (at /game)
+  (For exporting in godot you need to download godot's export templates)
+
+### Build project (production mode)
+
+- Open CMD/Terminal/PowerShell at root directory of the project
+- Type: ./run build
+- Press enter
+
+### Stop project
+
+- Press ctrl+c
