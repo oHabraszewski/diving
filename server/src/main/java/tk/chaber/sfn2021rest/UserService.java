@@ -118,17 +118,28 @@ public class UserService {
             throw new AuthenticationFailedException("Authentication failed");
         }
 
-//        if(boardRepository.existsByUser(user)){ TODO: uncomment after testing
-//            BoardRecord record = boardRepository.findByUser(user);
-//            record.setScore(recordDto.getScore());
-//            record.setTimeFromString(recordDto.getTime());
-//
-//            boardRepository.save(record);
-//        }else {
+        if(boardRepository.existsByUser(user)){
+            BoardRecord oldRecord = boardRepository.findByUser(user);
+            long oldTime = oldRecord.getTime();
+            long oldScore = oldRecord.getScore();
+
+            String[] times = recordDto.getTime().split(":");
+            long minutes = Integer.parseInt(times[0]);
+            long seconds = Integer.parseInt(times[1]);
+
+            long newTime = (60 * minutes + seconds);
+
+            if(recordDto.getScore() > oldScore || (recordDto.getScore() == oldScore && newTime < oldTime)){
+                oldRecord.setTime(newTime);
+                oldRecord.setScore(recordDto.getScore());
+
+                boardRepository.save(oldRecord);
+            }
+        }else {
             BoardRecord record = new BoardRecord(user, recordDto.getScore(), recordDto.getTime());
 
             boardRepository.save(record);
-//        }
+        }
     }
 
     public void saveCreatedRecord(BoardRecord record){

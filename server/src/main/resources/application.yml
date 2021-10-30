@@ -2,7 +2,7 @@ spring:
   datasource:
     platform: postgres
     driverClassName: org.postgresql.Driver
-    url: ${JDBC_DATABASE_URL} #jdbc:postgresql://192.168.0.134:5432/postgres_check  backup DB
+    url: ${JDBC_DATABASE_URL} #jdbc:postgresql://localhost:5432/diving_dev
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
     continueOnError: true
