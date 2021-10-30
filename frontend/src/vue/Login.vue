@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p id="motd">Psst... leaderboard now works correctly</p>
         <a id="github" class="social" href="https://github.com/oHabraszewski/sfn2021" :title="lang.github_tip" target="_blank"><img src="../../assets/img/github.png"></a>
         <a id="discord" class="social" href="https://discord.gg/B7V3cJrrd3" :title="lang.discord_tip" target="_blank"><img src="../../assets/img/discord.png"></a>
         <!--<a id="android" class="social" href="/game.apk" :title="lang.android_tip" target="_blank"><img src="../../assets/img/android.png"></a>-->
@@ -164,6 +165,15 @@
        position:absolute;
        top: 8px;
        right: 8px;
+   }
+   #motd{
+       position: absolute;
+       bottom: 0px;
+       right: 0px;
+       height: 30px;
+       width: 350px;
+       font-size: 22px;
+       color: #832;
    }
    .bottom {
         position: absolute;
